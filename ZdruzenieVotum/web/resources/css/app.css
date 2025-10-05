@@ -1,0 +1,28 @@
+/* resources/css/app.css */
+@import 'tailwindcss';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+
+/* small design tokens */
+:root{
+    --accent: #A7D8F0;     /* light blue */
+    --accent-2: #F6E1F6;   /* pastel pink */
+    --muted: #6B7280;
+    --bg: #F8FAFC;
+}
+
+body {
+    background-color: var(--bg);
+    color: #0f172a;
+    -webkit-font-smoothing:antialiased;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* accessible focus */
+:focus {
+    outline: 3px solid #2563EB; /* strong focus color */
+    outline-offset: 2px;
+}
