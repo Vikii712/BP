@@ -1,5 +1,5 @@
 <header class="bg-blue-50 shadow-sm sticky top-0 z-40">
-    <div class="mx-auto flex items-center justify-between py-3 px-4">
+    <div class="flex items-center justify-between px-4">
         <!-- Logo + Title -->
         <div class="flex items-center gap-3">
             <img src="{{ asset('images/logo.png') }}" alt="VOTUM logo" class="w-12 h-12" />
@@ -15,7 +15,7 @@
                         class="text-blue-700 hover:text-blue-900 font-bold text-lg px-2">
                     –
                 </button>
-                <span class="text-sm text-blue-800">Font</span>
+                <span class="text-sm text-blue-800">aA</span>
                 <button id="increase-font" type="button"
                         class="text-blue-700 hover:text-blue-900 font-bold text-lg px-2">
                     +
@@ -25,12 +25,6 @@
             <!-- Language switch -->
             <form action="{{ route('set-locale') }}" method="post" class="flex items-center gap-2 bg-blue-100 rounded-full px-3 py-1 shadow-sm">
                 @csrf
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-700" fill="none" viewBox="0 0 24 24"
-                     stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M12 4a8 8 0 100 16 8 8 0 000-16zm0 0v16m0-16C9.33 6 7.5 9.33 7.5 12S9.33 18 12 20M12 4c2.67 2 4.5 5.33 4.5 8s-1.83 6-4.5 8"/>
-                </svg>
-
                 <button type="submit" name="locale" value="sk"
                         class="flex items-center gap-1 text-sm font-medium rounded-full px-2 py-1 transition
                                {{ session('locale','sk')==='sk' ? 'bg-blue-200 text-blue-900' : 'text-blue-700 hover:text-blue-900' }}">SK
