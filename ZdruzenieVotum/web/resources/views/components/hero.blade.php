@@ -9,6 +9,6 @@
         </div>
     </div>
     <div>
-        <img src="{{ $team['image'] ?? '/images/group-photo-placeholder.jpg' }}" alt="Group of young people smiling" class="rounded-lg shadow">
+        <img src="{{ asset('images/group.jpg')}}" alt="Group of young people smiling" class="rounded-lg shadow">
     </div>
 </section>
