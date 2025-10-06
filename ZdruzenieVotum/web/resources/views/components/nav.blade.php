@@ -3,48 +3,48 @@
 
     <!-- Desktop nav -->
     <!-- Desktop nav -->
-    <ul class="hidden md:flex justify-evenly text-blue-700">
+    <ul class="hidden md:flex justify-evenly text-[var(--cream)]">
         <li>
             <a href="{{ route('home') }}"
-               class="flex flex-col items-center px-3 py-1 hover:text-blue-900 transition-colors {{ request()->routeIs('home') ? 'text-blue-900 font-semibold' : '' }}">
-                <img src="{{ asset('images/domov.png') }}" alt="ikona domov" class="w-7 h-7 mb-1 object-contain">
-                <span class="text-sm md:text-base font-bold">Home</span>
+               class="flex flex-col items-center px-3 py-1 hover:text-blue-900 ">
+                <img src="{{ asset('images/domov.svg') }}" alt="ikona domov" class="w-7 h-7 mb-1 object-contain">
+                <span class="text-sm md:text-base font-bold ">Home</span>
             </a>
         </li>
         <li>
-            <a href="#about" class="flex flex-col items-center px-3 py-1 hover:text-blue-900 transition-colors">
-                <img src="{{ asset('images/Onas.png') }}" alt="ikona o nás" class="w-7 h-7 mb-1 object-contain">
-                <span class="text-sm md:text-base font-bold">About us</span>
+            <a href="#about" class="flex flex-col items-center px-3 py-1 hover:text-blue-900 ">
+                <img src="{{ asset('images/Onas.svg') }}" alt="ikona o nás" class="w-7 h-7 mb-1 object-contain">
+                <span class="text-sm md:text-base font-bold ">About us</span>
             </a>
         </li>
         <li>
-            <a href="#events" class="flex flex-col items-center px-3 py-1 hover:text-blue-900 transition-colors">
-                <img src="{{ asset('images/udalosti.png') }}" alt="ikona udalosti" class="w-7 h-7 mb-1 object-contain">
-                <span class="text-sm md:text-base font-bold">Events</span>
+            <a href="#events" class="flex flex-col items-center px-3 py-1 hover:text-blue-900 ">
+                <img src="{{ asset('images/udalosti.svg') }}" alt="ikona udalosti" class="w-7 h-7 mb-1 object-contain">
+                <span class="text-sm md:text-base font-bold ">Events</span>
             </a>
         </li>
         <li>
-            <a href="#history" class="flex flex-col items-center px-3 py-1 hover:text-blue-900 transition-colors">
-                <img src="{{ asset('images/historia.png') }}" alt="ikona historie" class="w-7 h-7 mb-1 object-contain">
-                <span class="text-sm md:text-base font-bold">History</span>
+            <a href="#history" class="flex flex-col items-center px-3 py-1 hover:text-blue-900 ">
+                <img src="{{ asset('images/historia.svg') }}" alt="ikona historie" class="w-7 h-7 mb-1 object-contain">
+                <span class="text-sm md:text-base font-bold ">History</span>
             </a>
         </li>
         <li>
-            <a href="#support" class="flex flex-col items-center px-3 py-1 hover:text-blue-900 transition-colors">
-                <img src="{{ asset('images/podpora.png') }}" alt="ikona podpory" class="w-7 h-7 mb-1 object-contain">
-                <span class="text-sm md:text-base font-bold">Support</span>
+            <a href="#support" class="flex flex-col items-center px-3 py-1 hover:text-blue-900 ">
+                <img src="{{ asset('images/podpora.svg') }}" alt="ikona podpory" class="w-7 h-7 mb-1 object-contain">
+                <span class="text-sm md:text-base font-bold ">Support</span>
             </a>
         </li>
         <li>
-            <a href="#contacts" class="flex flex-col items-center px-3 py-1 hover:text-blue-900 transition-colors">
-                <img src="{{ asset('images/kontakty.png') }}" alt="ikona kontaktov" class="w-7 h-7 mb-1 object-contain">
-                <span class="text-sm md:text-base font-bold">Contacts</span>
+            <a href="#contacts" class="flex flex-col items-center px-3 py-1 hover:text-blue-900 ">
+                <img src="{{ asset('images/kontakty.svg') }}" alt="ikona kontaktov" class="w-7 h-7 mb-1 object-contain">
+                <span class="text-sm md:text-base font-bold ">Contacts</span>
             </a>
         </li>
         <li>
-            <a href="#documents" class="flex flex-col items-center px-3 py-1 hover:text-blue-900 transition-colors">
-                <img src="{{ asset('images/dokumenty.png') }}" alt="ikona dokumentov" class="w-7 h-7 mb-1 object-contain">
-                <span class="text-sm md:text-base font-bold">Documents</span>
+            <a href="#documents" class="flex flex-col items-center px-3 py-1 hover:text-blue-900 ">
+                <img src="{{ asset('images/dokumenty.svg') }}" alt="ikona dokumentov" class="w-7 h-7 mb-1 object-contain">
+                <span class="text-sm md:text-base font-bold ">Documents</span>
             </a>
         </li>
     </ul>
@@ -68,43 +68,43 @@
          style="bottom: 0;">
         <ul class="flex flex-col gap-6 p-6 text-lg text-blue-800">
             <li>
-                <a href="{{ route('home') }}" class="flex items-center gap-3 hover:text-blue-900 transition-colors">
+                <a href="{{ route('home') }}" class="flex items-center gap-3 hover:text-blue-900 hover:bg-[var(--cream)]">
                     <img src="{{ asset('images/domov.png') }}" alt="ikona domov" class="w-8 h-8 object-contain">
                     <span>Home</span>
                 </a>
             </li>
             <li>
-                <a href="#about" class="flex items-center gap-3 hover:text-blue-900 transition-colors">
+                <a href="#about" class="flex items-center gap-3 hover:text-blue-900 hover:bg-[var(--cream)]">
                     <img src="{{ asset('images/Onas.png') }}" alt="ikona o nás" class="w-8 h-8 object-contain">
                     <span>About us</span>
                 </a>
             </li>
             <li>
-                <a href="#events" class="flex items-center gap-3 hover:text-blue-900 transition-colors">
+                <a href="#events" class="flex items-center gap-3 hover:text-blue-900 hover:bg-[var(--cream)]">
                     <img src="{{ asset('images/udalosti.png') }}" alt="ikona udalosti" class="w-8 h-8 object-contain">
                     <span>Events</span>
                 </a>
             </li>
             <li>
-                <a href="#history" class="flex items-center gap-3 hover:text-blue-900 transition-colors">
+                <a href="#history" class="flex items-center gap-3 hover:text-blue-900 hover:bg-[var(--cream)]">
                     <img src="{{ asset('images/historia.png') }}" alt="ikona historie" class="w-8 h-8 object-contain">
                     <span>History</span>
                 </a>
             </li>
             <li>
-                <a href="#support" class="flex items-center gap-3 hover:text-blue-900 transition-colors">
+                <a href="#support" class="flex items-center gap-3 hover:text-blue-900 hover:bg-[var(--cream)]">
                     <img src="{{ asset('images/podpora.png') }}" alt="ikona podpory" class="w-8 h-8 object-contain">
                     <span>Support</span>
                 </a>
             </li>
             <li>
-                <a href="#contacts" class="flex items-center gap-3 hover:text-blue-900 transition-colors">
+                <a href="#contacts" class="flex items-center gap-3 hover:text-blue-900 hover:bg-[var(--cream)]">
                     <img src="{{ asset('images/kontakty.png') }}" alt="ikona kontaktov" class="w-8 h-8 object-contain">
                     <span>Contacts</span>
                 </a>
             </li>
             <li>
-                <a href="#documents" class="flex items-center gap-3 hover:text-blue-900 transition-colors">
+                <a href="#documents" class="flex items-center gap-3 hover:text-blue-900 hover:bg-[var(--cream)]">
                     <img src="{{ asset('images/dokumenty.png') }}" alt="ikona dokumentov" class="w-8 h-8 object-contain">
                     <span>Documents</span>
                 </a>
@@ -125,16 +125,26 @@
                 mobileMenu.style.top = headerHeight + "px";
             }
 
+            // Set menu top correctly when resizing or loading
             adjustMenuPosition();
             window.addEventListener("resize", adjustMenuPosition);
 
+            // Adjust on font size or style changes
             const observer = new MutationObserver(adjustMenuPosition);
             observer.observe(document.documentElement, { attributes: true, attributeFilter: ["style"] });
 
+            // Toggle menu visibility
             toggleBtn.addEventListener("click", () => {
-                mobileMenu.classList.toggle("hidden");
-                adjustMenuPosition();
+                const isHidden = mobileMenu.classList.contains("hidden");
+                if (isHidden) {
+                    mobileMenu.classList.remove("hidden");
+                    mobileMenu.classList.add("flex", "flex-col", "bg-[var(--cream)]", "shadow-lg");
+                } else {
+                    mobileMenu.classList.add("hidden");
+                    mobileMenu.classList.remove("flex");
+                }
             });
         });
     </script>
 @endpush
+
