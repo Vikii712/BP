@@ -1,11 +1,59 @@
-<nav aria-label="Primary" class="bg-white border-t">
-    <ul class="flex justify-between gap-2 md:gap-6 py-2">
-        <li><a href="{{ route('home') }}" class="flex flex-col items-center text-sm"><span>🏠</span> Home</a></li>
-        <li><a href="#about" class="flex flex-col items-center text-sm"><span>👥</span> About us</a></li>
-        <li><a href="#events" class="flex flex-col items-center text-sm"><span>📅</span> Events</a></li>
-        <li><a href="#history" class="flex flex-col items-center text-sm"><span>⏳</span> History</a></li>
-        <li><a href="#support" class="flex flex-col items-center text-sm"><span>❤️</span> Support</a></li>
-        <li><a href="#contacts" class="flex flex-col items-center text-sm"><span>☎️</span> Contacts</a></li>
-        <li><a href="#documents" class="flex flex-col items-center text-sm"><span>📂</span> Documents</a></li>
+<nav aria-label="Primary navigation" class="bg-white border-t shadow-sm">
+    <ul class="flex justify-evenly py-2 text-slate-600">
+        <li>
+            <a href="{{ route('home') }}"
+               class="flex flex-col items-center px-2 py-1 hover:text-blue-600 transition-colors {{ request()->routeIs('home') ? 'text-blue-600 font-medium' : '' }}">
+                <img src="{{ asset('images/domov.png') }}" alt="ikona domov" class="w-7 h-7 mb-1 object-contain">
+                <span class="text-xs">Home</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="#about"
+               class="flex flex-col items-center px-2 py-1 hover:text-blue-600 transition-colors">
+                <img src="{{ asset('images/Onas.png') }}" alt="ikona o nás" class="w-7 h-7 mb-1 object-contain">
+                <span class="text-xs">About us</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="#events"
+               class="flex flex-col items-center px-2 py-1 hover:text-blue-600 transition-colors">
+                <img src="{{ asset('images/udalosti.png') }}" alt="ikona udalosti" class="w-7 h-7 mb-1 object-contain">
+                <span class="text-xs">Events</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="#history"
+               class="flex flex-col items-center px-2 py-1 hover:text-blue-600 transition-colors">
+                <img src="{{ asset('images/historia.png') }}" alt="ikona historie" class="w-7 h-7 mb-1 object-contain">
+                <span class="text-xs">History</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="#support"
+               class="flex flex-col items-center px-2 py-1 hover:text-blue-600 transition-colors">
+                <img src="{{ asset('images/podpora.png') }}" alt="ikona podpory" class="w-7 h-7 mb-1 object-contain">
+                <span class="text-xs">Support</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="#contacts"
+               class="flex flex-col items-center px-2 py-1 hover:text-blue-600 transition-colors">
+                <img src="{{ asset('images/kontakty.png') }}" alt="ikona kontaktov" class="w-7 h-7 mb-1 object-contain">
+                <span class="text-xs">Contacts</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="#documents"
+               class="flex flex-col items-center px-2 py-1 hover:text-blue-600 transition-colors">
+                <img src="{{ asset('images/dokumenty.png') }}" alt="ikona dokumentov" class="w-7 h-7 mb-1 object-contain">
+                <span class="text-xs">Documents</span>
+            </a>
+        </li>
     </ul>
 </nav>
