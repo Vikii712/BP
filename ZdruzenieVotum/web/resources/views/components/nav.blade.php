@@ -1,57 +1,59 @@
 <nav aria-label="Primary navigation" id="main-nav"
-     class="bg-gradient-to-r from-blue-50 to-blue-100 border-t shadow-sm relative z-40">
+     class="relative z-40 ">
 
     <!-- Desktop nav -->
-    <ul class="hidden md:flex justify-evenly py-2 text-blue-700">
+    <!-- Desktop nav -->
+    <ul class="hidden md:flex justify-evenly text-blue-700">
         <li>
             <a href="{{ route('home') }}"
-               class="flex flex-col items-center px-2 py-1 hover:text-blue-900 transition-colors {{ request()->routeIs('home') ? 'text-blue-900 font-semibold' : '' }}">
+               class="flex flex-col items-center px-3 py-1 hover:text-blue-900 transition-colors {{ request()->routeIs('home') ? 'text-blue-900 font-semibold' : '' }}">
                 <img src="{{ asset('images/domov.png') }}" alt="ikona domov" class="w-7 h-7 mb-1 object-contain">
-                <span class="text-xs">Home</span>
+                <span class="text-sm md:text-base font-bold">Home</span>
             </a>
         </li>
         <li>
-            <a href="#about" class="flex flex-col items-center px-2 py-1 hover:text-blue-900 transition-colors">
+            <a href="#about" class="flex flex-col items-center px-3 py-1 hover:text-blue-900 transition-colors">
                 <img src="{{ asset('images/Onas.png') }}" alt="ikona o nás" class="w-7 h-7 mb-1 object-contain">
-                <span class="text-xs">About us</span>
+                <span class="text-sm md:text-base font-bold">About us</span>
             </a>
         </li>
         <li>
-            <a href="#events" class="flex flex-col items-center px-2 py-1 hover:text-blue-900 transition-colors">
+            <a href="#events" class="flex flex-col items-center px-3 py-1 hover:text-blue-900 transition-colors">
                 <img src="{{ asset('images/udalosti.png') }}" alt="ikona udalosti" class="w-7 h-7 mb-1 object-contain">
-                <span class="text-xs">Events</span>
+                <span class="text-sm md:text-base font-bold">Events</span>
             </a>
         </li>
         <li>
-            <a href="#history" class="flex flex-col items-center px-2 py-1 hover:text-blue-900 transition-colors">
+            <a href="#history" class="flex flex-col items-center px-3 py-1 hover:text-blue-900 transition-colors">
                 <img src="{{ asset('images/historia.png') }}" alt="ikona historie" class="w-7 h-7 mb-1 object-contain">
-                <span class="text-xs">History</span>
+                <span class="text-sm md:text-base font-bold">History</span>
             </a>
         </li>
         <li>
-            <a href="#support" class="flex flex-col items-center px-2 py-1 hover:text-blue-900 transition-colors">
+            <a href="#support" class="flex flex-col items-center px-3 py-1 hover:text-blue-900 transition-colors">
                 <img src="{{ asset('images/podpora.png') }}" alt="ikona podpory" class="w-7 h-7 mb-1 object-contain">
-                <span class="text-xs">Support</span>
+                <span class="text-sm md:text-base font-bold">Support</span>
             </a>
         </li>
         <li>
-            <a href="#contacts" class="flex flex-col items-center px-2 py-1 hover:text-blue-900 transition-colors">
+            <a href="#contacts" class="flex flex-col items-center px-3 py-1 hover:text-blue-900 transition-colors">
                 <img src="{{ asset('images/kontakty.png') }}" alt="ikona kontaktov" class="w-7 h-7 mb-1 object-contain">
-                <span class="text-xs">Contacts</span>
+                <span class="text-sm md:text-base font-bold">Contacts</span>
             </a>
         </li>
         <li>
-            <a href="#documents" class="flex flex-col items-center px-2 py-1 hover:text-blue-900 transition-colors">
+            <a href="#documents" class="flex flex-col items-center px-3 py-1 hover:text-blue-900 transition-colors">
                 <img src="{{ asset('images/dokumenty.png') }}" alt="ikona dokumentov" class="w-7 h-7 mb-1 object-contain">
-                <span class="text-xs">Documents</span>
+                <span class="text-sm md:text-base font-bold">Documents</span>
             </a>
         </li>
     </ul>
 
+
     <!-- Mobile toggle button -->
-    <div class="md:hidden flex justify-end px-4 py-2 bg-blue-50 shadow-sm">
+    <div class="md:hidden flex justify-end px-4 py-2 rounded-full">
         <button id="menu-toggle" aria-label="Toggle menu"
-                class="p-2 rounded-md border border-blue-300 hover:bg-blue-100 text-blue-700">
+                class="p-2 rounded-full text-blue-700 hover:bg-blue-200">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                  viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -62,7 +64,7 @@
 
     <!-- Mobile full-screen menu -->
     <div id="mobile-menu"
-         class="hidden md:hidden fixed inset-x-0 bg-gradient-to-b from-blue-50 to-blue-100 z-30 overflow-y-auto"
+         class="hidden md:hidden fixed inset-x-0 bg-transparent z-30 overflow-y-auto"
          style="bottom: 0;">
         <ul class="flex flex-col gap-6 p-6 text-lg text-blue-800">
             <li>

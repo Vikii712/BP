@@ -1,5 +1,5 @@
-<section class="w-full bg-gradient-to-r from-blue-900 to-blue-950 text-white">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center px-6 md:px-12 pt-20 pb-12">
+<section id="hero" class="w-full bg-gradient-to-r from-blue-900 to-blue-950 text-white pt-[var(--header-height)]">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center px-6 md:px-12 pb-12">
 
         <!-- Text -->
         <div class="max-w-lg">
@@ -41,3 +41,23 @@
         </div>
     </div>
 </section>
+
+@push('scripts')
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const header = document.querySelector("header");
+            const hero = document.getElementById("hero");
+
+            function adjustHeroMargin() {
+                hero.style.paddingTop = header.offsetHeight + 50 + "px";
+            }
+
+            adjustHeroMargin();
+            window.addEventListener("resize", adjustHeroMargin);
+
+            // Also recalc if font size changes
+            const observer = new MutationObserver(adjustHeroMargin);
+            observer.observe(document.documentElement, { attributes: true, attributeFilter: ["style"] });
+        });
+    </script>
+@endpush
