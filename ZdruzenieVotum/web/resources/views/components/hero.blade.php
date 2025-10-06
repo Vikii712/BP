@@ -3,8 +3,8 @@
 
         <!-- Text -->
         <div class="max-w-lg">
-            <h2 class="text-4xl md:text-5xl font-extrabold leading-tight">
-                Spolu je život <span class="text-blue-600">veselší</span>
+            <h2 class="text-4xl md:text-5xl font-extrabold leading-tight text-blue-950">
+                Spolu je život <span class="text-blue-800">veselší</span>
             </h2>
             <p class="mt-6 text-lg text-gray-700">
                 We support people with disabilities with joy and inclusion.
