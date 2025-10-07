@@ -7,7 +7,8 @@
 
         <div class="flex items-center gap-4">
             <!-- Font controls -->
-            <div class="flex items-center gap-2 bg-blue-900 rounded-full px-3 py-1">
+            <!-- Font controls -->
+            <div class="hidden md:flex items-center gap-2 bg-blue-900 rounded-full px-3 py-1">
                 <button id="decrease-font" type="button" class="text-[var(--cream)] hover:text-blue-950 font-bold text-lg px-1">–</button>
                 <span class="text-sm text-[var(--cream)]">aA</span>
                 <button id="increase-font" type="button" class="text-[var(--cream)] hover:text-blue-950 font-bold text-lg px-1">+</button>
@@ -15,19 +16,20 @@
 
             <!-- Language switch -->
             <form action="{{ route('set-locale') }}" method="post"
-                  class="flex items-center gap-1 bg-blue-900 rounded-full px-3 py-1">
+                  class="hidden md:flex items-center gap-1 bg-blue-900 rounded-full px-3 py-1">
                 @csrf
                 <button type="submit" name="locale" value="sk"
                         class="flex items-center gap-1 text-sm font-medium rounded-full px-2 py-1 transition
-                               {{ session('locale','sk')==='sk' ? 'bg-blue-300 text-blue-900' : 'text-[var(--cream)]' }}">
+                   {{ session('locale','sk')==='sk' ? 'bg-blue-300 text-blue-900' : 'text-[var(--cream)]' }}">
                     SK
                 </button>
                 <button type="submit" name="locale" value="en"
                         class="flex items-center gap-1 text-sm font-medium rounded-full px-2 py-1 transition
-                               {{ session('locale')==='en' ? 'bg-blue-300 text-blue-900' : 'text-[var(--cream)]' }}">
+                   {{ session('locale')==='en' ? 'bg-blue-300 text-blue-900' : 'text-[var(--cream)]' }}">
                     EN
                 </button>
             </form>
+
 
             <!-- Mobile toggle -->
             <button id="menu-toggle" aria-label="Toggle menu"
@@ -67,6 +69,31 @@
             <li><a href="#documents" class="flex justify-center items-center gap-3 hover:text-blue-300">
                     <img src="{{ asset('images/dokumenty.svg') }}" class="w-10 h-10" alt=""> Documents</a></li>
         </ul>
+
+        <!-- Font + Language controls inside mobile menu -->
+        <div class="flex flex-col items-center gap-4 mb-8 md:hidden">
+            <div class="flex items-center gap-2 bg-blue-900 rounded-full px-3 py-1">
+                <button id="decrease-font-mobile" type="button" class="text-[var(--cream)] hover:text-blue-950 font-bold text-lg px-1">–</button>
+                <span class="text-sm text-[var(--cream)]">aA</span>
+                <button id="increase-font-mobile" type="button" class="text-[var(--cream)] hover:text-blue-950 font-bold text-lg px-1">+</button>
+            </div>
+
+            <form action="{{ route('set-locale') }}" method="post"
+                  class="flex items-center gap-1 bg-blue-900 rounded-full px-3 py-1">
+                @csrf
+                <button type="submit" name="locale" value="sk"
+                        class="flex items-center gap-1 text-sm font-medium rounded-full px-2 py-1 transition
+                       {{ session('locale','sk')==='sk' ? 'bg-blue-300 text-blue-900' : 'text-[var(--cream)]' }}">
+                    SK
+                </button>
+                <button type="submit" name="locale" value="en"
+                        class="flex items-center gap-1 text-sm font-medium rounded-full px-2 py-1 transition
+                       {{ session('locale')==='en' ? 'bg-blue-300 text-blue-900' : 'text-[var(--cream)]' }}">
+                    EN
+                </button>
+            </form>
+        </div>
+
     </div>
 </div>
 
@@ -78,6 +105,14 @@
             const html = document.documentElement;
             const inc = document.getElementById('increase-font');
             const dec = document.getElementById('decrease-font');
+
+            const incMobile = document.getElementById('increase-font-mobile');
+            const decMobile = document.getElementById('decrease-font-mobile');
+            if (incMobile && decMobile) {
+                incMobile.addEventListener('click', () => inc.click());
+                decMobile.addEventListener('click', () => dec.click());
+            }
+
 
             function getSize() { return parseFloat(localStorage.getItem('font') || 1); }
             function apply() { html.style.fontSize = getSize() + 'rem'; }
