@@ -21,12 +21,12 @@ class HomeController extends Controller
 
         // featured & team placeholders
         $featured = [
-            ['title' => 'Tábor 2024',    'image' => '/images/tabor-placeholder.jpg',    'excerpt' => 'A summer camp full of fun and learning.'],
-            ['title' => 'Koncert 2023',  'image' => '/images/koncert-placeholder.jpg',  'excerpt' => 'A memorable concert with local bands.'],
+            ['title' => 'Tábor 2024',    'image' => 'images/activity1.jpg',    'excerpt' => 'A summer camp full of fun and learning.'],
+            ['title' => 'Koncert 2023',  'image' => 'images/activity2.jpg',  'excerpt' => 'A memorable concert with local bands.'],
         ];
 
         $team = [
-            'image' => '/images/team-placeholder.jpg',
+            'image' => '/images/team.jpg',
             'alt'   => 'VOTUM team group photo'
         ];
 

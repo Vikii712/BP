@@ -17,12 +17,7 @@
     @yield('content')
 </main>
 
-<footer class="bg-white border-t mt-8 py-6">
-    <div class="text-sm text-slate-600 flex flex-col md:flex-row md:justify-between">
-        <div>© {{ date('Y') }} VOTUM. All rights reserved.</div>
-        <div>Accessible, WCAG friendly</div>
-    </div>
-</footer>
+<x-footer />
 
 @stack('scripts')
 </body>

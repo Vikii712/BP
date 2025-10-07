@@ -1,5 +1,5 @@
 <div class="bg-white rounded-2xl shadow-md overflow-hidden flex flex-col h-full border border-blue-100">
-    <img src="{{ $image }}" alt="{{ $title }}" class="w-full h-56 object-cover">
+    <img src="{{ asset($image) }}" alt="{{ $title }}" class="w-full h-56 object-cover">
     <div class="p-6 flex flex-col justify-between flex-grow text-left">
         <div>
             <h4 class="font-semibold text-xl text-blue-950 mb-2">{{ $title }}</h4>

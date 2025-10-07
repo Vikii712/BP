@@ -1,4 +1,4 @@
-<section id="team" class="relative mt-16 mb-20 px-6 bg-[var(--cream)]">
+<section id="team" class="relative mt-16 px-10  pb-24 bg-[var(--cream)]">
     <!-- Bubble container -->
     <div class="relative bg-blue-950 text-[var(--cream)] rounded-[2rem] shadow-lg overflow-hidden max-w-6xl mx-auto">
         <!-- Decorative overlay like in hero -->
@@ -10,7 +10,7 @@
 
             <!-- Team image -->
             <div class="w-full max-w-4xl mb-8">
-                <img src="{{ $image }}" alt="{{ $alt }}"
+                <img src="{{ asset($image) }}" alt="{{ $alt }}"
                      class="w-full h-64 md:h-96 object-cover rounded-2xl shadow-md border border-blue-800/50">
             </div>
 
