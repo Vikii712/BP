@@ -13,7 +13,7 @@
 <body class="bg-[var(--bg)]">
 <x-header />
 
-<main role="main" class="">
+<main role="main" class="bg-[var(--cream)]">
     @yield('content')
 </main>
 
