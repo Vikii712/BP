@@ -50,7 +50,7 @@
             const hero = document.getElementById("hero");
 
             function adjustHeroMargin() {
-                hero.style.paddingTop = header.offsetHeight + 100 + "px";
+                hero.style.paddingTop = header.offsetHeight + 50 + "px";
             }
 
             adjustHeroMargin();
