@@ -29,30 +29,9 @@
                 <img src="{{ asset('images/dokumenty.svg') }}" alt="ikona dokumentov" class="w-7 h-7 mb-1 object-contain">
                 <span class="text-sm md:text-base font-bold">Documents</span></a></li>
     </ul>
-
-    <!-- Full-screen offcanvas mobile menu -->
-    <div id="mobile-menu"
-         class="fixed left-0 w-full bg-blue-950 text-[var(--cream)] hidden z-[100] overflow-y-auto">
-
-            <ul class="flex flex-col gap-6 text-center font-medium w-full">
-                <li><a href="{{ route('home') }}" class="flex justify-center items-center gap-3 hover:text-blue-300">
-                        <img src="{{ asset('images/domov.svg') }}" class="w-10 h-10" alt=""> Home</a></li>
-                <li><a href="#about" class="flex justify-center items-center gap-3 hover:text-blue-300">
-                        <img src="{{ asset('images/Onas.svg') }}" class="w-10 h-10" alt=""> About us</a></li>
-                <li><a href="#events" class="flex justify-center items-center gap-3 hover:text-blue-300">
-                        <img src="{{ asset('images/udalosti.svg') }}" class="w-10 h-10" alt=""> Events</a></li>
-                <li><a href="#history" class="flex justify-center items-center gap-3 hover:text-blue-300">
-                        <img src="{{ asset('images/historia.svg') }}" class="w-10 h-10" alt=""> History</a></li>
-                <li><a href="#support" class="flex justify-center items-center gap-3 hover:text-blue-300">
-                        <img src="{{ asset('images/podpora.svg') }}" class="w-10 h-10" alt=""> Support</a></li>
-                <li><a href="#contacts" class="flex justify-center items-center gap-3 hover:text-blue-300">
-                        <img src="{{ asset('images/kontakty.svg') }}" class="w-10 h-10" alt=""> Contacts</a></li>
-                <li><a href="#documents" class="flex justify-center items-center gap-3 hover:text-blue-300">
-                        <img src="{{ asset('images/dokumenty.svg') }}" class="w-10 h-10" alt=""> Documents</a></li>
-            </ul>
-        </div>
-    </div>
 </nav>
+
+
 @push('scripts')
     <script>
         document.addEventListener("DOMContentLoaded", () => {
