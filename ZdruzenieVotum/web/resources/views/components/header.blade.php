@@ -1,9 +1,9 @@
-<header class="fixed top-0 left-0 right-0 z-50 bg-blue-950 backdrop-blur-md px-6 pt-3 pb-2">
-    <div class="flex items-center justify-between">
+<header class="fixed top-0 left-0 right-0 z-50 bg-blue-950 backdrop-blur-md pb-2">
+    <div class="px-6 flex w-full items-center justify-between bg-[var(--blackblue)]">
         <!-- Logo -->
         <div class="flex items-center gap-3">
             <img alt="logo" src="{{ asset('images/logo.png') }}" width="80">
-            <h1 class="text-xl md:text-2xl font-semibold text-[var(--cream)]">VOTUM</h1>
+            <h1 class="text-xl md:text-4xl font-semibold text-[var(--cream)] caveat">Združenie VOTUM</h1>
         </div>
 
         <!-- Right controls -->

@@ -1,31 +1,31 @@
 <nav aria-label="Primary navigation" id="main-nav" class="relative z-40 bg-blue-950">
     <!-- Desktop nav -->
     <ul class="hidden md:flex justify-evenly text-[var(--cream)]">
-        <li><a href="{{ route('home') }}" class="flex flex-col items-center px-3 py-1 hover:text-blue-300">
+        <li><a href="{{ route('home') }}" class="flex flex-col items-center px-3 hover:text-blue-300">
                 <img src="{{ asset('images/domov.svg') }}" alt="ikona domov" class="w-7 h-7 mb-1 object-contain">
                 <span class="text-sm md:text-base font-bold">Home</span></a></li>
 
-        <li><a href="#about" class="flex flex-col items-center px-3 py-1 hover:text-blue-300">
+        <li><a href="#about" class="flex flex-col items-center px-3 hover:text-blue-300">
                 <img src="{{ asset('images/Onas.svg') }}" alt="ikona o nás" class="w-7 h-7 mb-1 object-contain">
                 <span class="text-sm md:text-base font-bold">About us</span></a></li>
 
-        <li><a href="#events" class="flex flex-col items-center px-3 py-1 hover:text-blue-300">
+        <li><a href="#events" class="flex flex-col items-center px-3 hover:text-blue-300">
                 <img src="{{ asset('images/udalosti.svg') }}" alt="ikona udalosti" class="w-7 h-7 mb-1 object-contain">
                 <span class="text-sm md:text-base font-bold">Events</span></a></li>
 
-        <li><a href="#history" class="flex flex-col items-center px-3 py-1 hover:text-blue-300">
+        <li><a href="#history" class="flex flex-col items-center px-3 hover:text-blue-300">
                 <img src="{{ asset('images/historia.svg') }}" alt="ikona historie" class="w-7 h-7 mb-1 object-contain">
                 <span class="text-sm md:text-base font-bold">History</span></a></li>
 
-        <li><a href="#support" class="flex flex-col items-center px-3 py-1 hover:text-blue-300">
+        <li><a href="#support" class="flex flex-col items-center px-3 hover:text-blue-300">
                 <img src="{{ asset('images/podpora.svg') }}" alt="ikona podpory" class="w-7 h-7 mb-1 object-contain">
                 <span class="text-sm md:text-base font-bold">Support</span></a></li>
 
-        <li><a href="#contacts" class="flex flex-col items-center px-3 py-1 hover:text-blue-300">
+        <li><a href="#contacts" class="flex flex-col items-center px-3 hover:text-blue-300">
                 <img src="{{ asset('images/kontakty.svg') }}" alt="ikona kontaktov" class="w-7 h-7 mb-1 object-contain">
                 <span class="text-sm md:text-base font-bold">Contacts</span></a></li>
 
-        <li><a href="#documents" class="flex flex-col items-center px-3 py-1 hover:text-blue-300">
+        <li><a href="#documents" class="flex flex-col items-center px-3 hover:text-blue-300">
                 <img src="{{ asset('images/dokumenty.svg') }}" alt="ikona dokumentov" class="w-7 h-7 mb-1 object-contain">
                 <span class="text-sm md:text-base font-bold">Documents</span></a></li>
     </ul>
