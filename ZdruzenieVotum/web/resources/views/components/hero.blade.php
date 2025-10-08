@@ -1,8 +1,8 @@
 <section id="hero" class="w-full bg-[#f1ebe3] text-gray-900 pt-[var(--header-height)] relative overflow-hidden">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center px-6 md:px-12 pb-16 relative z-10">
+    <div class="flex flex-col md:grid md:grid-cols-2 gap-10 items-center px-6 md:px-12 pb-16 relative z-10">
 
-        <!-- Text -->
-        <div class="max-w-lg order-2 md:order-1 relative z-20">
+        <!-- Text (appears first on all screens) -->
+        <div class="max-w-lg order-1 relative z-20">
             <h2 class="text-4xl md:text-5xl font-extrabold leading-tight text-blue-950">
                 Life is more joyful <span class="text-blue-800">together</span>
             </h2>
@@ -16,10 +16,9 @@
                     More about us
                 </a>
 
-                <!-- Social icons only -->
+                <!-- Social icons -->
                 <div class="flex gap-3">
-                    <a href="https://facebook.com"
-                       aria-label="Facebook"
+                    <a href="https://facebook.com" aria-label="Facebook"
                        class="p-3 border border-blue-500 text-blue-700 hover:bg-blue-100 rounded-full transition">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current"
                              viewBox="0 0 24 24">
@@ -28,8 +27,7 @@
                         </svg>
                     </a>
 
-                    <a href="https://youtube.com"
-                       aria-label="YouTube"
+                    <a href="https://youtube.com" aria-label="YouTube"
                        class="p-3 border border-blue-500 text-blue-700 hover:bg-blue-100 rounded-full transition">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current"
                              viewBox="0 0 24 24">
@@ -41,17 +39,17 @@
             </div>
         </div>
 
-        <!-- Main photo -->
-        <div class="flex justify-center md:justify-end order-1 md:order-2 relative z-10">
+        <!-- Image -->
+        <div class="order-2 flex justify-center md:justify-end relative z-10 mt-8 md:mt-0">
             <img src="{{ asset('images/group.jpg') }}"
                  alt="Group of young people smiling"
                  class="rounded-xl shadow-2xl w-full max-w-md md:max-w-lg relative z-10">
         </div>
 
-        <!-- Illustration between text and photo -->
+        <!-- Illustration (floats between text & photo, adjusts on screen size) -->
         <img src="{{ asset('images/logo.png') }}"
              alt="Illustration of two figures"
-             class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/3 w-48 md:w-72 opacity-95 z-0 pointer-events-none select-none">
+             class="absolute top-[55%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 sm:w-52 md:w-64 lg:w-72 opacity-95 z-0 pointer-events-none select-none transition-all duration-300">
     </div>
 </section>
 
