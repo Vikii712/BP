@@ -4,14 +4,14 @@ Systém na digitálny obsah prístupný pre ľudí so zdravotným znevýhodnení
 
 ## PHP + Laravel + Tailwind
 
-# Prerequisites 
+### Prerequisites 
 - [PHP](https://www.php.net/)
 - [Composer](https://getcomposer.org/)
 - [Node.js + npm](https://nodejs.org/)
 - [PostgreSQL](https://www.postgresql.org/download/)
 
 
-# Installation
+### Installation
 
 ```bash
 composer create-project laravel/laravel web
@@ -25,7 +25,7 @@ npm install
 npm install tailwindcss @tailwindcss/vite
 ```
 
-# Database setup in .env
+### Database setup in .env
 
 ```bash
 DB_CONNECTION=pgsql
@@ -35,7 +35,7 @@ DB_DATABASE=...
 DB_USERNAME=...
 DB_PASSWORD=...
 ```
-# Start
+### Start
 
 ```bash
 npm run dev
