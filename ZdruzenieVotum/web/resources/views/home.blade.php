@@ -7,7 +7,7 @@
 
     <!-- in resources/views/home.blade.php -->
     <section id="events" class="mb-10 " aria-labelledby="upcoming-heading">
-        <h3 id="upcoming-heading" class="text-2xl font-semibold mb-4">Čo nás čaká? / Upcoming</h3>
+        <h3 id="upcoming-heading" class="text-2xl font-semibold mb-4 pt-5 text-center">Upcoming</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
             <!-- Calendar (left) -->
             <x-calendar :calendar="$calendar" :monthLabel="$monthLabel" />
