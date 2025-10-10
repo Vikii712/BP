@@ -16,12 +16,12 @@
         <li>
             <a
                 href="{{ $item['href'] }}"
-                class="flex {{ $isMobile ? 'items-center space-x-4 p-3 rounded-lg hover:bg-blue-50' : 'flex-col items-center space-y-2' }} text-gray-700 hover:text-blue-600 transition-colors group"
+                class="flex {{ $isMobile ? 'items-center space-x-4 p-3 rounded-lg hover:bg-blue-900' : 'flex-col items-center space-y-2' }} text-white hover:text-votum-accent-light transition-colors group"
                 onclick="{{ $isMobile ? 'toggleMobileMenu()' : '' }}">
                 <img
                     src="{{ asset('images/' . $item['icon']) }}"
                     alt=""
-                    class="w-7 h-7 object-contain {{ $isMobile ? '' : 'mb-1' }}">
+                    class="w-7 h-7 object-contain {{ $isMobile ? '' : 'mb-1' }} filter brightness-0 invert group-hover:brightness-100 transition-all">
                 <span class="text-sm font-medium">{{ $item['label'] }}</span>
             </a>
         </li>

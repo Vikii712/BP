@@ -2,25 +2,21 @@
     // Mobile menu toggle
     function toggleMobileMenu() {
         const menu = document.getElementById('mobile-menu');
-        const overlay = document.getElementById('mobile-menu-overlay');
         const button = document.getElementById('mobile-menu-button');
+        const icon = button.querySelector('i');
 
-        const isHidden = menu.classList.contains('hidden');
+        const isShowing = menu.classList.contains('show');
 
-        if (isHidden) {
-            menu.classList.remove('hidden');
-            overlay.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-            button.setAttribute('aria-expanded', 'true');
-            setTimeout(() => menu.classList.add('show'), 10);
-        } else {
+        if (isShowing) {
             menu.classList.remove('show');
-            setTimeout(() => {
-                menu.classList.add('hidden');
-                overlay.classList.add('hidden');
-                document.body.style.overflow = '';
-                button.setAttribute('aria-expanded', 'false');
-            }, 300);
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+            button.setAttribute('aria-expanded', 'false');
+        } else {
+            menu.classList.add('show');
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+            button.setAttribute('aria-expanded', 'true');
         }
     }
 
@@ -56,6 +52,12 @@
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
+                // Close mobile menu if open
+                const menu = document.getElementById('mobile-menu');
+                if (menu && menu.classList.contains('show')) {
+                    toggleMobileMenu();
+                }
+
                 target.scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
@@ -68,7 +70,7 @@
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             const menu = document.getElementById('mobile-menu');
-            if (!menu.classList.contains('hidden')) {
+            if (menu && menu.classList.contains('show')) {
                 toggleMobileMenu();
             }
         }

@@ -6,6 +6,20 @@
     <title>VOTUM - {{ __('Supporting People with Disabilities') }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'votum-blue': '#051647',
+                        'votum-cream': '#f1ebe3',
+                        'votum-accent': '#ff6b6b',
+                        'votum-accent-light': '#ffd93d',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
         :root {
             --font-size-base: 16px;
@@ -28,7 +42,7 @@
         }
 
         *:focus-visible {
-            outline: 3px solid #60a5fa;
+            outline: 3px solid #ffd93d;
             outline-offset: 2px;
         }
 
@@ -36,7 +50,7 @@
             position: absolute;
             top: -40px;
             left: 0;
-            background: #1e40af;
+            background: #051647;
             color: white;
             padding: 8px;
             z-index: 100;
@@ -48,21 +62,19 @@
 
         /* Mobile menu animation */
         .mobile-menu {
-            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-        }
-
-        .mobile-menu.hidden {
-            transform: translateX(100%);
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 0;
             opacity: 0;
+            overflow: hidden;
         }
 
         .mobile-menu.show {
-            transform: translateX(0);
+            max-height: calc(100vh - 80px);
             opacity: 1;
         }
     </style>
 </head>
-<body class="bg-gradient-to-b from-blue-50 to-white">
+<body class="bg-votum-cream">
 <a href="#main-content" class="skip-link">{{ __('Skip to main content') }}</a>
 
 @include('components.header')
