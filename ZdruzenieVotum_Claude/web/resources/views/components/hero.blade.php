@@ -26,7 +26,7 @@
             </div>
 
             <!-- Large Logo Background - Desktop Only -->
-            <div class="hidden lg:block absolute -right-32 top-1/3 -translate-y-1/2 w-64 h-64 opacity-5 pointer-events-none z-0">
+            <div class="hidden lg:block absolute -right-32 top-1/2 -translate-y-1/2 w-64 h-64 opacity-10 pointer-events-none z-0">
                 <img
                     src="{{ asset('images/logo.png') }}"
                     alt=""

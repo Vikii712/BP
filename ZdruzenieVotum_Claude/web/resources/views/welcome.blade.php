@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="UTF-8">
@@ -12,9 +12,10 @@
                 extend: {
                     colors: {
                         'votum-blue': '#051647',
+                        'blue2':'#3C6F9F',
                         'votum-cream': '#f1ebe3',
                         'votum-accent': '#ff6b6b',
-                        'votum-accent-light': '#ffd93d',
+                        'votum-accent-light': '#93bfdc',
                     }
                 }
             }
