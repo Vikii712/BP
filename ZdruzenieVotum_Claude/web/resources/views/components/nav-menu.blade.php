@@ -21,7 +21,7 @@
                 <img
                     src="{{ asset('images/' . $item['icon']) }}"
                     alt=""
-                    class="w-7 h-7 object-contain {{ $isMobile ? '' : 'mb-1' }} filter brightness-0 invert group-hover:brightness-100 transition-all">
+                    class="w-7 h-7 object-contain {{ $isMobile ? '' : 'mb-1' }} transition-all">
                 <span class="text-sm font-medium">{{ $item['label'] }}</span>
             </a>
         </li>

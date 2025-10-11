@@ -1,4 +1,4 @@
-<section class="bg-white py-8 md:py-16">
+<section class="bg-gradient-to-br from-yellow-50 via-votum-cream to-orange-50 py-8 md:py-16">
     <div class="container mx-auto px-4">
         <h2 class="text-2xl md:text-3xl font-bold text-center text-votum-blue mb-8 md:mb-12">{{ __('Our Team') }}</h2>
 

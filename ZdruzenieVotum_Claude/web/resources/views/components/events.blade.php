@@ -1,4 +1,4 @@
-<section class="bg-white py-8 md:py-16" id="events">
+<section class="bg-gradient-to-br from-blue-100 via-purple-50 to-pink-50 py-8 md:py-16" id="events">
     <div class="container mx-auto px-4">
         <h2 class="text-2xl md:text-3xl font-bold text-center text-votum-blue mb-8 md:mb-12">{{ __('What Awaits Us?') }}</h2>
 
