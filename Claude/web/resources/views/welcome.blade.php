@@ -26,10 +26,10 @@
         .mobile-menu {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease-in-out;
+            transition: max-height 0.4s ease-in-out;
         }
         .mobile-menu.active {
-            max-height: 100vh;
+            max-height: 600px;
         }
 
         /* Modern Button Styles */
@@ -452,6 +452,26 @@
 </footer>
 
 <script>
+    // Mobile Menu Toggle
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobileMenu');
+        const button = document.getElementById('menuButton');
+        const icon = button.querySelector('i');
+
+        menu.classList.toggle('active');
+        const isExpanded = menu.classList.contains('active');
+        button.setAttribute('aria-expanded', isExpanded);
+
+        // Toggle icon between bars and times
+        if (isExpanded) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+        } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
+    }
+
     // Font Size Control
     let fontSize = 16;
     function increaseFontSize() {
@@ -469,6 +489,12 @@
 
     // Language Toggle
     function changeLanguage(lang) {
+        // Toggle active state on buttons
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        event.target.closest('.lang-btn').classList.add('active');
+
         console.log('Language changed to:', lang);
         // In Laravel, this would redirect to a route with locale parameter
         // window.location.href = '/locale/' + lang;
@@ -483,6 +509,18 @@
                 target.scrollIntoView({ behavior: 'smooth' });
             }
         });
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(event) {
+        const menu = document.getElementById('mobileMenu');
+        const button = document.getElementById('menuButton');
+
+        if (menu.classList.contains('active') &&
+            !menu.contains(event.target) &&
+            !button.contains(event.target)) {
+            toggleMobileMenu();
+        }
     });
 </script>
 </body>
