@@ -14,12 +14,47 @@
             font-size: var(--font-size-base);
         }
         .bg-votum-blue { background-color: #051647; }
+        .bg-votum-blue-light { background-color: #0a2558; }
         .text-votum-blue { color: #051647; }
         .bg-votum-cream { background-color: #f1ebe3; }
         .hover-scale { transition: transform 0.2s; }
         .hover-scale:hover { transform: scale(1.05); }
         .calendar-day { aspect-ratio: 1; }
         .event-day { background-color: #fbbf24; font-weight: bold; }
+
+        /* Mobile Menu Styles */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out;
+        }
+        .mobile-menu.active {
+            max-height: 100vh;
+        }
+
+        /* Modern Button Styles */
+        .font-control-btn {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.2s;
+        }
+        .font-control-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.2s;
+        }
+        .lang-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .lang-btn.active {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
     </style>
 </head>
 <body class="bg-votum-cream">
@@ -29,38 +64,43 @@
     <div class="container mx-auto px-4 py-4">
         <div class="flex justify-between items-center">
             <!-- Logo and Name -->
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-3">
                 <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center">
                     <i class="fas fa-hands-helping text-votum-blue text-2xl"></i>
                 </div>
                 <h1 class="text-2xl font-bold">VOTUM</h1>
             </div>
 
-            <!-- Accessibility Controls -->
-            <div class="flex items-center gap-4">
+            <!-- Desktop: Accessibility Controls -->
+            <div class="hidden md:flex items-center gap-4">
                 <div class="flex items-center gap-2" role="group" aria-label="Veľkosť písma">
-                    <span class="text-sm">Písmo</span>
-                    <button onclick="decreaseFontSize()" class="bg-white text-votum-blue px-3 py-1 rounded hover:bg-gray-200" aria-label="Zmenšiť písmo">
-                        <i class="fas fa-minus"></i>
+                    <span class="text-sm font-medium">Písmo</span>
+                    <button onclick="decreaseFontSize()" class="font-control-btn text-white px-3 py-2 rounded-lg" aria-label="Zmenšiť písmo">
+                        <i class="fas fa-minus text-sm"></i>
                     </button>
-                    <button onclick="increaseFontSize()" class="bg-white text-votum-blue px-3 py-1 rounded hover:bg-gray-200" aria-label="Zväčšiť písmo">
-                        <i class="fas fa-plus"></i>
+                    <button onclick="increaseFontSize()" class="font-control-btn text-white px-3 py-2 rounded-lg" aria-label="Zväčšiť písmo">
+                        <i class="fas fa-plus text-sm"></i>
                     </button>
                 </div>
                 <div class="flex gap-2">
-                    <button onclick="changeLanguage('sk')" class="px-3 py-1 bg-white text-votum-blue rounded hover:bg-gray-200" aria-label="Slovenčina">
-                        <span class="flag-icon">🇸🇰</span> SK
+                    <button onclick="changeLanguage('sk')" class="lang-btn active text-white px-4 py-2 rounded-lg font-medium" aria-label="Slovenčina">
+                        🇸🇰 SK
                     </button>
-                    <button onclick="changeLanguage('en')" class="px-3 py-1 border border-white rounded hover:bg-white hover:text-votum-blue" aria-label="English">
-                        <span class="flag-icon">🇬🇧</span> EN
+                    <button onclick="changeLanguage('en')" class="lang-btn text-white px-4 py-2 rounded-lg font-medium" aria-label="English">
+                        🇬🇧 EN
                     </button>
                 </div>
             </div>
+
+            <!-- Mobile: Hamburger Menu Button -->
+            <button onclick="toggleMobileMenu()" class="md:hidden text-white p-2" aria-label="Menu" aria-expanded="false" id="menuButton">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
         </div>
     </div>
 
-    <!-- Navigation -->
-    <nav class="border-t border-blue-400">
+    <!-- Desktop Navigation -->
+    <nav class="bg-votum-blue-light border-t border-blue-400 hidden md:block">
         <div class="container mx-auto px-4">
             <ul class="flex justify-around py-4" role="menubar">
                 <li role="none">
@@ -108,6 +148,80 @@
             </ul>
         </div>
     </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu bg-votum-blue-light md:hidden">
+        <div class="container mx-auto px-4 py-4">
+            <!-- Font Size and Language Controls -->
+            <div class="flex justify-between items-center mb-6 pb-4 border-b border-blue-400">
+                <div class="flex items-center gap-2">
+                    <span class="text-sm font-medium">Písmo</span>
+                    <button onclick="decreaseFontSize()" class="font-control-btn text-white px-3 py-2 rounded-lg" aria-label="Zmenšiť písmo">
+                        <i class="fas fa-minus text-sm"></i>
+                    </button>
+                    <button onclick="increaseFontSize()" class="font-control-btn text-white px-3 py-2 rounded-lg" aria-label="Zväčšiť písmo">
+                        <i class="fas fa-plus text-sm"></i>
+                    </button>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="changeLanguage('sk')" class="lang-btn active text-white px-4 py-2 rounded-lg font-medium text-sm" aria-label="Slovenčina">
+                        🇸🇰 SK
+                    </button>
+                    <button onclick="changeLanguage('en')" class="lang-btn text-white px-4 py-2 rounded-lg font-medium text-sm" aria-label="English">
+                        🇬🇧 EN
+                    </button>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav>
+                <ul class="space-y-2">
+                    <li>
+                        <a href="#home" class="flex items-center gap-4 py-3 px-4 hover:bg-white hover:bg-opacity-10 rounded-lg transition" onclick="toggleMobileMenu()">
+                            <i class="fas fa-home text-xl w-6" aria-hidden="true"></i>
+                            <span class="text-base">Domov</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#about" class="flex items-center gap-4 py-3 px-4 hover:bg-white hover:bg-opacity-10 rounded-lg transition" onclick="toggleMobileMenu()">
+                            <i class="fas fa-users text-xl w-6" aria-hidden="true"></i>
+                            <span class="text-base">O nás</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#events" class="flex items-center gap-4 py-3 px-4 hover:bg-white hover:bg-opacity-10 rounded-lg transition" onclick="toggleMobileMenu()">
+                            <i class="fas fa-calendar-alt text-xl w-6" aria-hidden="true"></i>
+                            <span class="text-base">Udalosti</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#history" class="flex items-center gap-4 py-3 px-4 hover:bg-white hover:bg-opacity-10 rounded-lg transition" onclick="toggleMobileMenu()">
+                            <i class="fas fa-clock text-xl w-6" aria-hidden="true"></i>
+                            <span class="text-base">História</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#support" class="flex items-center gap-4 py-3 px-4 hover:bg-white hover:bg-opacity-10 rounded-lg transition" onclick="toggleMobileMenu()">
+                            <i class="fas fa-hand-holding-heart text-xl w-6" aria-hidden="true"></i>
+                            <span class="text-base">Podpora</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#contact" class="flex items-center gap-4 py-3 px-4 hover:bg-white hover:bg-opacity-10 rounded-lg transition" onclick="toggleMobileMenu()">
+                            <i class="fas fa-envelope text-xl w-6" aria-hidden="true"></i>
+                            <span class="text-base">Kontakty</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#documents" class="flex items-center gap-4 py-3 px-4 hover:bg-white hover:bg-opacity-10 rounded-lg transition" onclick="toggleMobileMenu()">
+                            <i class="fas fa-file-alt text-xl w-6" aria-hidden="true"></i>
+                            <span class="text-base">Dokumenty</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
 </header>
 
 <!-- Hero Section -->
