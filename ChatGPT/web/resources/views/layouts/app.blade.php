@@ -41,7 +41,7 @@
 <body class="min-h-screen flex flex-col">
 <a class="sr-only sr-only-focusable" href="#main">Skip to content</a>
 
-<header class="w-full text-white" x-data="{ mobileOpen: false }">
+<header class="w-full text-white">
     @php
         // safe fallbacks if translations/lang not provided
         $lang = $lang ?? request()->query('lang', 'sk');
@@ -51,7 +51,7 @@
             'support'=>'Support','contacts'=>'Contacts','documents'=>'Documents'
         ];
 
-        // define menu with inline SVGs to avoid undefined variable issues
+        // define menu with inline SVGs
         $menu = [
             ['key'=>'home','label'=>$t['home'],'icon_svg' => '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9.5L12 3l9 6.5M9 22V12h6v10"/></svg>'],
             ['key'=>'about','label'=>$t['about'],'icon_svg' => '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20v-2a4 4 0 00-4-4H9a4 4 0 00-4 4v2"/></svg>'],
@@ -81,21 +81,22 @@
 
             <!-- Desktop Buttons -->
             <div class="hidden md:flex items-center gap-2">
-                <div class="flex bg-[#0b2470] rounded-lg overflow-hidden">
+                <div class="flex bg-[#0b2470] rounded-lg overflow-hidden" role="group" aria-label="Font size">
                     <button onclick="changeRootFontSize(1)" aria-label="{{ $t['font_inc'] }}" class="px-3 py-1 hover:bg-[#112d8b] transition focus-ring">A+</button>
                     <button onclick="changeRootFontSize(-1)" aria-label="{{ $t['font_dec'] }}" class="px-3 py-1 hover:bg-[#112d8b] transition focus-ring">A-</button>
                 </div>
 
-                <div class="flex bg-[#0b2470] rounded-lg overflow-hidden">
+                <div class="flex bg-[#0b2470] rounded-lg overflow-hidden" role="navigation" aria-label="Language">
                     <a href="{{ url()->current() . '?' . http_build_query($querySk) }}" class="px-3 py-1 hover:bg-[#112d8b] transition focus-ring {{ $lang === 'sk' ? 'bg-[#112d8b]' : '' }}">SK</a>
                     <a href="{{ url()->current() . '?' . http_build_query($queryEn) }}" class="px-3 py-1 hover:bg-[#112d8b] transition focus-ring {{ $lang === 'en' ? 'bg-[#112d8b]' : '' }}">EN</a>
                 </div>
             </div>
 
             <!-- Mobile Menu Button -->
-            <button @click="mobileOpen = !mobileOpen" class="md:hidden p-2 rounded focus-ring hover:bg-[#0b2470]" aria-label="Menu" :aria-expanded="mobileOpen">
-                <svg x-show="!mobileOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
-                <svg x-show="mobileOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+            <button id="mobile-menu-toggle" aria-controls="mobile-menu" aria-expanded="false"
+                    class="md:hidden p-2 rounded focus-ring hover:bg-[#0b2470]" aria-label="Open menu">
+                <svg id="mobile-menu-open-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                <svg id="mobile-menu-close-icon" xmlns="http://www.w3.org/2000/svg" class="hidden h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
             </button>
         </div>
     </div>
@@ -112,15 +113,15 @@
         </div>
     </nav>
 
-    <!-- Mobile Dropdown Menu -->
-    <div x-show="mobileOpen" x-transition class="bg-[#0b2470] md:hidden text-white" @click.away="mobileOpen = false">
-        <div class="px-4 py-3 flex justify-between items-center border-b border-[#132b6d]">
+    <!-- Mobile Dropdown Menu (hidden by default) -->
+    <div id="mobile-menu" class="hidden bg-[#0b2470] md:hidden text-white" aria-hidden="true">
+        <div class="px-4 py-3 border-b border-[#132b6d]">
             <div class="flex items-center gap-3">
-                <div class="flex bg-[#112d8b] rounded-lg overflow-hidden">
-                    <button onclick="changeRootFontSize(1)" class="px-3 py-1 focus-ring">A+</button>
-                    <button onclick="changeRootFontSize(-1)" class="px-3 py-1 focus-ring">A-</button>
+                <div class="flex bg-[#112d8b] rounded-lg overflow-hidden" role="group" aria-label="Font size mobile">
+                    <button onclick="changeRootFontSize(1)" class="px-3 py-1 focus-ring" aria-label="{{ $t['font_inc'] }}">A+</button>
+                    <button onclick="changeRootFontSize(-1)" class="px-3 py-1 focus-ring" aria-label="{{ $t['font_dec'] }}">A-</button>
                 </div>
-                <div class="flex bg-[#112d8b] rounded-lg overflow-hidden">
+                <div class="flex bg-[#112d8b] rounded-lg overflow-hidden" role="navigation" aria-label="Language mobile">
                     <a href="{{ url()->current() . '?' . http_build_query($querySk) }}" class="px-3 py-1 focus-ring {{ $lang === 'sk' ? 'bg-[#0b2470]' : '' }}">SK</a>
                     <a href="{{ url()->current() . '?' . http_build_query($queryEn) }}" class="px-3 py-1 focus-ring {{ $lang === 'en' ? 'bg-[#0b2470]' : '' }}">EN</a>
                 </div>
@@ -129,14 +130,80 @@
 
         <div class="flex flex-col divide-y divide-[#132b6d]">
             @foreach($menu as $item)
-                <a href="#{{ $item['key'] }}" class="flex items-center gap-3 px-4 py-3 hover:bg-[#112d8b] focus-ring">
+                <a href="#{{ $item['key'] }}" class="flex items-center gap-3 px-4 py-3 hover:bg-[#112d8b] focus-ring" role="menuitem">
                     {!! $item['icon_svg'] !!}
                     <span>{{ $item['label'] }}</span>
                 </a>
             @endforeach
         </div>
     </div>
+
+    {{-- Mobile menu toggle script (plain JS) --}}
+    <script>
+        (function(){
+            const toggle = document.getElementById('mobile-menu-toggle');
+            if(!toggle) return;
+            const menu = document.getElementById('mobile-menu');
+            const openIcon = document.getElementById('mobile-menu-open-icon');
+            const closeIcon = document.getElementById('mobile-menu-close-icon');
+
+            // ensure menu starts hidden
+            menu.classList.add('hidden');
+            menu.setAttribute('aria-hidden', 'true');
+            toggle.setAttribute('aria-expanded', 'false');
+
+            toggle.addEventListener('click', function(e){
+                const expanded = toggle.getAttribute('aria-expanded') === 'true';
+                if(expanded){
+                    // close
+                    menu.classList.add('hidden');
+                    menu.setAttribute('aria-hidden', 'true');
+                    toggle.setAttribute('aria-expanded', 'false');
+                    openIcon.classList.remove('hidden');
+                    closeIcon.classList.add('hidden');
+                } else {
+                    // open
+                    menu.classList.remove('hidden');
+                    menu.setAttribute('aria-hidden', 'false');
+                    toggle.setAttribute('aria-expanded', 'true');
+                    openIcon.classList.add('hidden');
+                    closeIcon.classList.remove('hidden');
+
+                    // move focus to first interactive element inside menu for accessibility
+                    const first = menu.querySelector('button, a, [tabindex]:not([tabindex="-1"])');
+                    if(first) first.focus();
+                }
+            });
+
+            // close when clicking outside (for safety)
+            document.addEventListener('click', function(ev){
+                if(!menu.classList.contains('hidden')){
+                    const isClickInside = menu.contains(ev.target) || toggle.contains(ev.target);
+                    if(!isClickInside){
+                        menu.classList.add('hidden');
+                        menu.setAttribute('aria-hidden', 'true');
+                        toggle.setAttribute('aria-expanded', 'false');
+                        openIcon.classList.remove('hidden');
+                        closeIcon.classList.add('hidden');
+                    }
+                }
+            });
+
+            // close on Escape
+            document.addEventListener('keydown', function(ev){
+                if(ev.key === 'Escape' && !menu.classList.contains('hidden')){
+                    menu.classList.add('hidden');
+                    menu.setAttribute('aria-hidden', 'true');
+                    toggle.setAttribute('aria-expanded', 'false');
+                    openIcon.classList.remove('hidden');
+                    closeIcon.classList.add('hidden');
+                    toggle.focus();
+                }
+            });
+        })();
+    </script>
 </header>
+
 
 
 <main id="main" class="flex-1">
