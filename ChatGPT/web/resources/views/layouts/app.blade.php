@@ -210,18 +210,78 @@
     @yield('content')
 </main>
 
-<footer class="mt-8 text-white">
-    <div class="max-w-7xl mx-auto px-4 py-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-        <div>
-            <h3 class="text-lg font-bold">VOTUM</h3>
-            <p class="text-sm max-w-md">We support people with disabilities. Inclusive activities, events, and community support.</p>
+<footer class="bg-[var(--votum-dark)] text-white mt-12">
+    <div class="max-w-7xl mx-auto px-4 py-10 space-y-8">
+
+        <!-- Top section: name + social -->
+        <div class="text-center space-y-2">
+            <h2 class="text-xl font-semibold tracking-wide">Združenie <span class="font-bold">VOTUM</span></h2>
+
+            <div class="flex justify-center gap-4">
+                <!-- Facebook -->
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"
+                   class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 transition"
+                   aria-label="Facebook">
+                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M22 12a10 10 0 10-11.6 9.9v-7H8v-3h2.4V9.3c0-2.4 1.4-3.7 3.5-3.7 1 0 2 .07 2 .07v2.2h-1.12c-1.1 0-1.44.68-1.44 1.38V12H19l-.5 3h-2.4v7A10 10 0 0022 12z"/>
+                    </svg>
+                </a>
+
+                <!-- YouTube -->
+                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer"
+                   class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 transition"
+                   aria-label="YouTube">
+                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M10 15l5.2-3L10 9v6z"/>
+                        <path d="M21.6 7.2s-.2-1.6-.8-2.3C19.8 4 16.3 4 16.3 4h-8.6S4.8 4 3.2 4.9C2.6 5.6 2.4 7.2 2.4 7.2S2 9 2 10.9v2.2C2 16.9 3.1 18 3.1 18s1.1 1 2.5 1.2c1.7.2 8.4.2 8.4.2s3.5 0 4.5-.8c.7-.5.9-1.6.9-2.6V10.9c0-1.9-.4-3.7-.8-3.7z"/>
+                    </svg>
+                </a>
+            </div>
         </div>
 
-        <div class="text-sm">
-            <p>Contact: info@votum.example</p>
-            <p>© {{ date('Y') }} VOTUM</p>
+        <!-- Divider -->
+        <div class="border-t border-white/20"></div>
+
+        <!-- Bottom section -->
+        <div class="grid md:grid-cols-2 gap-8 text-sm">
+
+            <!-- Left: Navigation links -->
+            <div class="grid grid-cols-2 gap-4">
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:underline">Domov</a></li>
+                    <li><a href="#" class="hover:underline">O nás</a></li>
+                    <li><a href="#" class="hover:underline">Udalosti</a></li>
+                    <li><a href="#" class="hover:underline">História</a></li>
+                </ul>
+
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:underline">Podpora</a></li>
+                    <li><a href="#" class="hover:underline">Kontakty</a></li>
+                    <li><a href="#" class="hover:underline">Dokumenty</a></li>
+                </ul>
+            </div>
+
+            <!-- Right: Admin + Accessibility -->
+            <div class="flex flex-col justify-center md:items-end text-center md:text-right space-y-2">
+                <p>Našli ste chybu?</p>
+                <p>
+                    <a href="mailto:admin@zdruzenievotum.sk" class="font-medium hover:underline">
+                        admin@zdruzenievotum.sk
+                    </a>
+                </p>
+                <a href="#" class="hover:underline">
+                    Vyhlásenie o prístupnosti
+                </a>
+            </div>
         </div>
+
+    </div>
+
+    <!-- Bottom note -->
+    <div class="bg-[var(--votum-darker,#0a2233)] text-xs text-center py-3">
+        © {{ date('Y') }} Združenie VOTUM. Všetky práva vyhradené.
     </div>
 </footer>
+
 </body>
 </html>
