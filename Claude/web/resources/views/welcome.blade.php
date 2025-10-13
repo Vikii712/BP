@@ -248,12 +248,9 @@
             </div>
         </div>
 
-        <!-- Right: Image Placeholder -->
-        <div class="bg-gray-300 rounded-lg aspect-video flex items-center justify-center">
-            <div class="text-center text-gray-600">
-                <i class="fas fa-users text-6xl mb-4"></i>
-                <p class="text-xl">Fotka skupiny mladých ľudí</p>
-            </div>
+        <!-- Right: Hero Image -->
+        <div class="rounded-lg overflow-hidden shadow-lg">
+            <img src="{{asset('images/group.jpg')}}" alt="Skupina mladých ľudí" class="w-full h-full object-cover">
         </div>
     </div>
 </section>
@@ -365,8 +362,8 @@
         <div class="grid md:grid-cols-2 gap-8 mb-8">
             <!-- Activity Card 1 -->
             <div class="bg-white rounded-lg overflow-hidden shadow-lg hover-scale">
-                <div class="bg-gray-300 h-64 flex items-center justify-center">
-                    <i class="fas fa-campground text-6xl text-gray-500"></i>
+                <div class="h-64 overflow-hidden">
+                    <img src="{{asset('images/activity1.jpg')}}" alt="Tábor 2024" class="w-full h-full object-cover">
                 </div>
                 <div class="p-6">
                     <h3 class="text-2xl font-bold text-votum-blue mb-2">Tábor 2024</h3>
@@ -379,8 +376,8 @@
 
             <!-- Activity Card 2 -->
             <div class="bg-white rounded-lg overflow-hidden shadow-lg hover-scale">
-                <div class="bg-gray-300 h-64 flex items-center justify-center">
-                    <i class="fas fa-music text-6xl text-gray-500"></i>
+                <div class="h-64 overflow-hidden">
+                    <img src="{{asset('images/activity2.jpg')}}" alt="Koncert 2025" class="w-full h-full object-cover">
                 </div>
                 <div class="p-6">
                     <h3 class="text-2xl font-bold text-votum-blue mb-2">Koncert 2025</h3>
@@ -406,11 +403,8 @@
         <h2 class="text-3xl font-bold text-votum-blue mb-8 text-center">Náš tím</h2>
 
         <div class="max-w-4xl mx-auto">
-            <div class="bg-gray-300 rounded-lg h-96 flex items-center justify-center mb-8">
-                <div class="text-center text-gray-600">
-                    <i class="fas fa-user-friends text-8xl mb-4"></i>
-                    <p class="text-2xl">Fotka nášho tímu</p>
-                </div>
+            <div class="rounded-lg overflow-hidden shadow-lg mb-8">
+                <img src="{{asset('images/team.jpg')}}" alt="Náš tím" class="w-full h-auto object-cover">
             </div>
 
             <div class="text-center">

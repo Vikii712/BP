@@ -25,7 +25,7 @@
             </div>
 
             <div class="flex justify-center">
-                <img src="/images/landing2.png" alt="Group of young people smiling" class="rounded shadow-md w-full object-cover max-h-64" />
+                <img alt="" src="{{asset('images/group.jpg')}}">
             </div>
         </section>
 
@@ -100,9 +100,9 @@
             <h3 id="featured" class="font-semibold text-xl mb-4">{{ $t['featured'] }}</h3>
 
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                @foreach([['title'=>'Tábor 2024','img'=>'/images/landing2.png'], ['title'=>'Koncert 2023','img'=>'/images/landing2.png']] as $card)
+                @foreach([['title'=>'Tábor 2024','img'=>'/images/activity1.jpg'], ['title'=>'Koncert 2023','img'=>'/images/activity2.jpg']] as $card)
                     <article class="border rounded overflow-hidden bg-white" role="article">
-                        <img src="{{ $card['img'] }}" alt="{{ $card['title'] }} image" class="w-full h-40 object-cover" />
+                        <img src="{{ asset($card['img']) }}" alt="{{ $card['title'] }} image" class="w-full h-40 object-cover" />
                         <div class="p-4">
                             <h4 class="font-semibold text-lg">{{ $card['title'] }}</h4>
                             <p class="mt-2 text-sm">Short description about the activity that is friendly and inclusive.</p>
@@ -120,7 +120,7 @@
             <h3 id="team" class="font-semibold text-xl mb-4">{{ $t['team'] }}</h3>
 
             <div class="flex flex-col md:flex-row items-center gap-6">
-                <img src="/images/landing2.png" alt="Our team photo" class="w-full md:w-1/2 h-48 object-cover rounded" />
+                <img src="{{asset('images/team.jpg')}}" alt="Our team photo" class="w-full md:w-1/2 h-48 object-cover rounded" />
                 <div>
                     <p class="mb-4">We are a small, passionate team of volunteers and professionals working to make our community more inclusive.</p>
                     <a href="#about" class="inline-block px-4 py-2 bg-[var(--votum-dark)] text-white rounded focus-ring">{{ $t['learn_team'] }}</a>
