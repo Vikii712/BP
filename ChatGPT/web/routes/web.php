@@ -7,3 +7,6 @@ use App\Http\Controllers\PageController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/calendar/ical', [CalendarController::class, 'download'])->name('calendar.ical');
 Route::get('/history', [PageController::class, 'history'])->name('history');
+Route::get('/contacts', function () {
+    return view('contacts');
+})->name('contacts');
