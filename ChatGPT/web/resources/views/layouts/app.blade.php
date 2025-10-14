@@ -248,10 +248,10 @@
             <!-- Left: Navigation links -->
             <div class="grid grid-cols-2 gap-4">
                 <ul class="space-y-2">
-                    <li><a href="#" class="hover:underline">Domov</a></li>
+                    <li><a href="{{route('home')}}" class="hover:underline">Domov</a></li>
                     <li><a href="#" class="hover:underline">O nás</a></li>
                     <li><a href="#" class="hover:underline">Udalosti</a></li>
-                    <li><a href="#" class="hover:underline">História</a></li>
+                    <li><a href="{{route('history')}}" class="hover:underline">História</a></li>
                 </ul>
 
                 <ul class="space-y-2">
