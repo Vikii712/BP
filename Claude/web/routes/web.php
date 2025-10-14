@@ -9,3 +9,7 @@ Route::get('/', function () {
 Route::get('/history', function () {
     return view('history');
 });
+Route::get('/contacts', function () {
+    return view('contacts');
+});
+
