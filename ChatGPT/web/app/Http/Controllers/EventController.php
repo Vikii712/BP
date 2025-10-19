@@ -44,4 +44,9 @@ class EventController
             'pagination' => $pagination,
         ]);
     }
+    public function show()
+    {
+        return view('event');
+    }
+
 }

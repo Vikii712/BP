@@ -12,4 +12,6 @@ class PageController extends Controller
         // You can pass data here later if needed
         return view('history');
     }
+
+
 }
