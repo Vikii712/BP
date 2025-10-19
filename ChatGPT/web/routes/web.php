@@ -10,3 +10,7 @@ Route::get('/history', [PageController::class, 'history'])->name('history');
 Route::get('/contacts', function () {
     return view('contacts');
 })->name('contacts');
+
+Route::get('/about', function () {
+    return view('aboutus');
+})->name('about');
