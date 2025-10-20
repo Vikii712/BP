@@ -28,3 +28,7 @@ Route::get('/event', function () {
 Route::get('/support', function () {
     return view('support');
 });
+
+Route::get('/documents', function () {
+    return view('documents');
+});
