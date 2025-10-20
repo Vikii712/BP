@@ -19,3 +19,8 @@ Route::get('/about', function () {
 Route::get('/event', [EventController::class, 'show'])->name('event');
 
 Route::get('/events', [EventController::class, 'events'])->name('events');
+
+Route::get('/support', function () {
+    return view('support');
+})->name('support');
+
