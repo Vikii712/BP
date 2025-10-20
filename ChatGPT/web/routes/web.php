@@ -24,3 +24,7 @@ Route::get('/support', function () {
     return view('support');
 })->name('support');
 
+Route::get('/documents', function () {
+    return view('documents');
+})->name('documents');
+
