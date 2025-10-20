@@ -21,4 +21,7 @@ Route::get('/events', function () {
     return view('events');
 });
 
+Route::get('/event', function () {
+    return view('event');
+});
 
