@@ -32,3 +32,8 @@ Route::get('/support', function () {
 Route::get('/documents', function () {
     return view('documents');
 });
+
+Route::get('/financial', function () {
+    return view('financial');
+});
+
