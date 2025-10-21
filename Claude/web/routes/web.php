@@ -37,3 +37,7 @@ Route::get('/financial', function () {
     return view('financial');
 });
 
+Route::get('/two_percent', function () {
+    return view('two_percent');
+});
+
