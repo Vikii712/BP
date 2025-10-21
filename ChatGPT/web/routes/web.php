@@ -35,3 +35,7 @@ Route::get('/financial', function () {
 Route::get('/two_percent', function () {
     return view('two_percent');
 })->name('two_percent');
+
+Route::get('/other_support', function () {
+    return view('other_support');
+})->name('other_support');
