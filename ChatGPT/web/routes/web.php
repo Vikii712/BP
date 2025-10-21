@@ -28,3 +28,6 @@ Route::get('/documents', function () {
     return view('documents');
 })->name('documents');
 
+Route::get('/financial', function () {
+    return view('financial');
+})->name('financial');
