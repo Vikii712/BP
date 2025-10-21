@@ -41,3 +41,7 @@ Route::get('/two_percent', function () {
     return view('two_percent');
 });
 
+Route::get('/other_support', function () {
+    return view('other_support');
+});
+
