@@ -40,7 +40,6 @@
 </head>
 <body class="min-h-screen flex flex-col">
 <a class="sr-only sr-only-focusable" href="#main">Skip to content</a>
-
 <header class="w-full text-white">
     @php
         // safe fallbacks if translations/lang not provided
@@ -51,15 +50,15 @@
             'support'=>'Support','contacts'=>'Contacts','documents'=>'Documents'
         ];
 
-        // define menu with inline SVGs
+        // define menu with correct route names
         $menu = [
-            ['key'=>'home','label'=>$t['home'],'icon_svg' => '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9.5L12 3l9 6.5M9 22V12h6v10"/></svg>'],
-            ['key'=>'about','label'=>$t['about'],'icon_svg' => '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20v-2a4 4 0 00-4-4H9a4 4 0 00-4 4v2"/></svg>'],
-            ['key'=>'events','label'=>$t['events'],'icon_svg' => '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4"/></svg>'],
-            ['key'=>'history','label'=>$t['history'],'icon_svg' => '<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>'],
-            ['key'=>'support','label'=>$t['support'],'icon_svg' => '<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 00-7.8 0L12 5.6l-1-1a5.5 5.5 0 00-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 000-7.8z"/></svg>'],
-            ['key'=>'contacts','label'=>$t['contacts'],'icon_svg' => '<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M22 16.92V21a1 1 0 01-1.11 1A19 19 0 013 5.11 1 1 0 014 4h4.09a1 1 0 011 .75c.12.58.3 1.14.54 1.67a1 1 0 01-.23 1L8.6 9.9c1.8 3.71 5.1 7 8.8 8.8l.48-1.8a1 1 0 011-.23c.53.24 1.09.42 1.67.54a1 1 0 01.75 1V22z"/></svg>'],
-            ['key'=>'documents','label'=>$t['documents'],'icon_svg' => '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="14"/></svg>'],
+            ['key'=>'home','label'=>$t['home'],'route'=>route('home'),'icon_svg' => '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9.5L12 3l9 6.5M9 22V12h6v10"/></svg>'],
+            ['key'=>'about','label'=>$t['about'],'route'=>route('about'),'icon_svg' => '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20v-2a4 4 0 00-4-4H9a4 4 0 00-4 4v2"/></svg>'],
+            ['key'=>'events','label'=>$t['events'],'route'=>route('events'),'icon_svg' => '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4"/></svg>'],
+            ['key'=>'history','label'=>$t['history'],'route'=>route('history'),'icon_svg' => '<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>'],
+            ['key'=>'support','label'=>$t['support'],'route'=>route('support'),'icon_svg' => '<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 00-7.8 0L12 5.6l-1-1a5.5 5.5 0 00-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 000-7.8z"/></svg>'],
+            ['key'=>'contacts','label'=>$t['contacts'],'route'=>route('contacts'),'icon_svg' => '<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M22 16.92V21a1 1 0 01-1.11 1A19 19 0 013 5.11 1 1 0 014 4h4.09a1 1 0 011 .75c.12.58.3 1.14.54 1.67a1 1 0 01-.23 1L8.6 9.9c1.8 3.71 5.1 7 8.8 8.8l.48-1.8a1 1 0 011-.23c.53.24 1.09.42 1.67.54a1 1 0 01.75 1V22z"/></svg>'],
+            ['key'=>'documents','label'=>$t['documents'],'route'=>route('documents'),'icon_svg' => '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="14"/></svg>'],
         ];
 
         // query links for language toggles
@@ -105,7 +104,7 @@
     <nav class="bg-[#0b2470] hidden md:block" role="navigation" aria-label="Primary">
         <div class="max-w-7xl mx-auto px-4 py-3 flex justify-around sm:justify-start sm:gap-6">
             @foreach($menu as $item)
-                <a href="#{{ $item['key'] }}" class="flex-1 max-w-[110px] text-center p-2 rounded hover:bg-[#112d8b] focus-ring transition" aria-label="{{ $item['label'] }}">
+                <a href="{{ $item['route'] }}" class="flex-1 max-w-[110px] text-center p-2 rounded hover:bg-[#112d8b] focus-ring transition" aria-label="{{ $item['label'] }}">
                     {!! $item['icon_svg'] !!}
                     <div class="text-xs">{{ $item['label'] }}</div>
                 </a>
@@ -113,7 +112,7 @@
         </div>
     </nav>
 
-    <!-- Mobile Dropdown Menu (hidden by default) -->
+    <!-- Mobile Dropdown Menu -->
     <div id="mobile-menu" class="hidden bg-[#0b2470] md:hidden text-white" aria-hidden="true">
         <div class="px-4 py-3 border-b border-[#132b6d]">
             <div class="flex items-center gap-3">
@@ -130,7 +129,7 @@
 
         <div class="flex flex-col divide-y divide-[#132b6d]">
             @foreach($menu as $item)
-                <a href="#{{ $item['key'] }}" class="flex items-center gap-3 px-4 py-3 hover:bg-[#112d8b] focus-ring" role="menuitem">
+                <a href="{{ $item['route'] }}" class="flex items-center gap-3 px-4 py-3 hover:bg-[#112d8b] focus-ring" role="menuitem">
                     {!! $item['icon_svg'] !!}
                     <span>{{ $item['label'] }}</span>
                 </a>
@@ -138,7 +137,7 @@
         </div>
     </div>
 
-    {{-- Mobile menu toggle script (plain JS) --}}
+    {{-- Mobile menu toggle script --}}
     <script>
         (function(){
             const toggle = document.getElementById('mobile-menu-toggle');
@@ -147,49 +146,29 @@
             const openIcon = document.getElementById('mobile-menu-open-icon');
             const closeIcon = document.getElementById('mobile-menu-close-icon');
 
-            // ensure menu starts hidden
             menu.classList.add('hidden');
             menu.setAttribute('aria-hidden', 'true');
             toggle.setAttribute('aria-expanded', 'false');
 
-            toggle.addEventListener('click', function(e){
+            toggle.addEventListener('click', function(){
                 const expanded = toggle.getAttribute('aria-expanded') === 'true';
-                if(expanded){
-                    // close
+                menu.classList.toggle('hidden');
+                menu.setAttribute('aria-hidden', expanded ? 'true' : 'false');
+                toggle.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+                openIcon.classList.toggle('hidden');
+                closeIcon.classList.toggle('hidden');
+            });
+
+            document.addEventListener('click', function(ev){
+                if(!menu.classList.contains('hidden') && !menu.contains(ev.target) && !toggle.contains(ev.target)){
                     menu.classList.add('hidden');
                     menu.setAttribute('aria-hidden', 'true');
                     toggle.setAttribute('aria-expanded', 'false');
                     openIcon.classList.remove('hidden');
                     closeIcon.classList.add('hidden');
-                } else {
-                    // open
-                    menu.classList.remove('hidden');
-                    menu.setAttribute('aria-hidden', 'false');
-                    toggle.setAttribute('aria-expanded', 'true');
-                    openIcon.classList.add('hidden');
-                    closeIcon.classList.remove('hidden');
-
-                    // move focus to first interactive element inside menu for accessibility
-                    const first = menu.querySelector('button, a, [tabindex]:not([tabindex="-1"])');
-                    if(first) first.focus();
                 }
             });
 
-            // close when clicking outside (for safety)
-            document.addEventListener('click', function(ev){
-                if(!menu.classList.contains('hidden')){
-                    const isClickInside = menu.contains(ev.target) || toggle.contains(ev.target);
-                    if(!isClickInside){
-                        menu.classList.add('hidden');
-                        menu.setAttribute('aria-hidden', 'true');
-                        toggle.setAttribute('aria-expanded', 'false');
-                        openIcon.classList.remove('hidden');
-                        closeIcon.classList.add('hidden');
-                    }
-                }
-            });
-
-            // close on Escape
             document.addEventListener('keydown', function(ev){
                 if(ev.key === 'Escape' && !menu.classList.contains('hidden')){
                     menu.classList.add('hidden');
@@ -203,6 +182,7 @@
         })();
     </script>
 </header>
+
 
 
 
