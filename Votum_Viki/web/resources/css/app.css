@@ -30,3 +30,14 @@ body {
     font-optical-sizing: auto;
     font-style: normal;
 }
+
+.bg-votum-blue { background-color: #051647; }
+.bg-votum-blue-light { background-color: #0a2558; }
+.text-votum-blue { color: #051647; }
+.bg-votum-cream { background-color: #f1ebe3; }
+.hover-scale { transition: transform 0.2s; }
+.hover-scale:hover { transform: scale(1.05); }
+.calendar-day { aspect-ratio: 1; }
+.event-day { background-color: #fbbf24; font-weight: bold; }
+
+
