@@ -18,11 +18,14 @@ composer create-project laravel/laravel web
 
 cd web
 
+composer install
+
 php artisan key:generate
 
 npm install
 
 npm install tailwindcss @tailwindcss/vite
+
 ```
 
 ### Database setup in .env
