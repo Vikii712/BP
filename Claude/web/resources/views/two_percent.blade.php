@@ -75,14 +75,18 @@
 <body class="bg-votum-cream">
 <!-- Header (same as other pages) -->
 <header class="bg-votum-blue text-white">
+    <!-- Top Bar -->
     <div class="container mx-auto px-4 py-4">
         <div class="flex justify-between items-center">
+            <!-- Logo and Name -->
             <div class="flex items-center gap-3">
                 <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center">
                     <i class="fas fa-hands-helping text-votum-blue text-2xl"></i>
                 </div>
                 <h1 class="text-2xl font-bold">VOTUM</h1>
             </div>
+
+            <!-- Desktop: Accessibility Controls -->
             <div class="hidden md:flex items-center gap-4">
                 <div class="flex items-center gap-2" role="group" aria-label="Veľkosť písma">
                     <span class="text-sm font-medium">Písmo</span>
@@ -94,28 +98,143 @@
                     </button>
                 </div>
                 <div class="flex gap-2">
-                    <button onclick="changeLanguage('sk')" class="lang-btn active text-white px-4 py-2 rounded-lg font-medium">🇸🇰 SK</button>
-                    <button onclick="changeLanguage('en')" class="lang-btn text-white px-4 py-2 rounded-lg font-medium">🇬🇧 EN</button>
+                    <button onclick="changeLanguage('sk')" class="lang-btn active text-white px-4 py-2 rounded-lg font-medium" aria-label="Slovenčina">
+                        🇸🇰 SK
+                    </button>
+                    <button onclick="changeLanguage('en')" class="lang-btn text-white px-4 py-2 rounded-lg font-medium" aria-label="English">
+                        🇬🇧 EN
+                    </button>
                 </div>
             </div>
-            <button onclick="toggleMobileMenu()" class="md:hidden text-white p-2" id="menuButton">
+
+            <!-- Mobile: Hamburger Menu Button -->
+            <button onclick="toggleMobileMenu()" class="md:hidden text-white p-2" aria-label="Menu" aria-expanded="false" id="menuButton">
                 <i class="fas fa-bars text-2xl"></i>
             </button>
         </div>
     </div>
+
+    <!-- Desktop Navigation -->
+    <!-- Desktop Navigation -->
     <nav class="bg-votum-blue-light border-t border-blue-400 hidden md:block">
         <div class="container mx-auto px-4">
-            <ul class="flex justify-around py-4">
-                <li><a href="index.html" class="flex flex-col items-center gap-2 hover:opacity-80 transition"><i class="fas fa-home text-2xl"></i><span class="text-sm">Domov</span></a></li>
-                <li><a href="about.html" class="flex flex-col items-center gap-2 hover:opacity-80 transition"><i class="fas fa-users text-2xl"></i><span class="text-sm">O nás</span></a></li>
-                <li><a href="events.html" class="flex flex-col items-center gap-2 hover:opacity-80 transition"><i class="fas fa-calendar-alt text-2xl"></i><span class="text-sm">Udalosti</span></a></li>
-                <li><a href="history.html" class="flex flex-col items-center gap-2 hover:opacity-80 transition"><i class="fas fa-clock text-2xl"></i><span class="text-sm">História</span></a></li>
-                <li><a href="support.html" class="flex flex-col items-center gap-2 hover:opacity-80 transition opacity-100 bg-white bg-opacity-10 px-4 py-2 rounded-lg"><i class="fas fa-hand-holding-heart text-2xl"></i><span class="text-sm">Podpora</span></a></li>
-                <li><a href="contact.html" class="flex flex-col items-center gap-2 hover:opacity-80 transition"><i class="fas fa-envelope text-2xl"></i><span class="text-sm">Kontakty</span></a></li>
-                <li><a href="documents.html" class="flex flex-col items-center gap-2 hover:opacity-80 transition"><i class="fas fa-file-alt text-2xl"></i><span class="text-sm">Dokumenty</span></a></li>
+            <ul class="flex justify-around py-4" role="menubar">
+                <li role="none">
+                    <a href="{{ url('/') }}" class="flex flex-col items-center gap-2 hover:opacity-80 transition" role="menuitem">
+                        <i class="fas fa-home text-2xl" aria-hidden="true"></i>
+                        <span class="text-sm">Domov</span>
+                    </a>
+                </li>
+                <li role="none">
+                    <a href="{{ url('/about') }}" class="flex flex-col items-center gap-2 hover:opacity-80 transition" role="menuitem">
+                        <i class="fas fa-users text-2xl" aria-hidden="true"></i>
+                        <span class="text-sm">O nás</span>
+                    </a>
+                </li>
+                <li role="none">
+                    <a href="{{ url('/events') }}" class="flex flex-col items-center gap-2 hover:opacity-80 transition" role="menuitem">
+                        <i class="fas fa-calendar-alt text-2xl" aria-hidden="true"></i>
+                        <span class="text-sm">Udalosti</span>
+                    </a>
+                </li>
+                <li role="none">
+                    <a href="{{ url('/history') }}" class="flex flex-col items-center gap-2 hover:opacity-80 transition" role="menuitem">
+                        <i class="fas fa-clock text-2xl" aria-hidden="true"></i>
+                        <span class="text-sm">História</span>
+                    </a>
+                </li>
+                <li role="none">
+                    <a href="{{ url('/support') }}" class="flex flex-col items-center gap-2 hover:opacity-80 transition" role="menuitem">
+                        <i class="fas fa-hand-holding-heart text-2xl" aria-hidden="true"></i>
+                        <span class="text-sm">Podpora</span>
+                    </a>
+                </li>
+                <li role="none">
+                    <a href="{{ url('/contacts') }}" class="flex flex-col items-center gap-2 hover:opacity-80 transition" role="menuitem">
+                        <i class="fas fa-envelope text-2xl" aria-hidden="true"></i>
+                        <span class="text-sm">Kontakty</span>
+                    </a>
+                </li>
+                <li role="none">
+                    <a href="{{ url('/documents') }}" class="flex flex-col items-center gap-2 hover:opacity-80 transition" role="menuitem">
+                        <i class="fas fa-file-alt text-2xl" aria-hidden="true"></i>
+                        <span class="text-sm">Dokumenty</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu bg-votum-blue-light md:hidden">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center mb-6 pb-4 border-b border-blue-400">
+                <div class="flex items-center gap-2">
+                    <span class="text-sm font-medium">Písmo</span>
+                    <button onclick="decreaseFontSize()" class="font-control-btn text-white px-3 py-2 rounded-lg" aria-label="Zmenšiť písmo">
+                        <i class="fas fa-minus text-sm"></i>
+                    </button>
+                    <button onclick="increaseFontSize()" class="font-control-btn text-white px-3 py-2 rounded-lg" aria-label="Zväčšiť písmo">
+                        <i class="fas fa-plus text-sm"></i>
+                    </button>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="changeLanguage('sk')" class="lang-btn active text-white px-4 py-2 rounded-lg font-medium text-sm" aria-label="Slovenčina">
+                        🇸🇰 SK
+                    </button>
+                    <button onclick="changeLanguage('en')" class="lang-btn text-white px-4 py-2 rounded-lg font-medium text-sm" aria-label="English">
+                        🇬🇧 EN
+                    </button>
+                </div>
+            </div>
+            <nav>
+                <ul class="space-y-2">
+                    <li>
+                        <a href="{{ url('/') }}" class="flex items-center gap-4 py-3 px-4 hover:bg-white hover:bg-opacity-10 rounded-lg transition" onclick="toggleMobileMenu()">
+                            <i class="fas fa-home text-xl w-6" aria-hidden="true"></i>
+                            <span class="text-base">Domov</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('/about') }}" class="flex items-center gap-4 py-3 px-4 hover:bg-white hover:bg-opacity-10 rounded-lg transition" onclick="toggleMobileMenu()">
+                            <i class="fas fa-users text-xl w-6" aria-hidden="true"></i>
+                            <span class="text-base">O nás</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('/events') }}" class="flex items-center gap-4 py-3 px-4 hover:bg-white hover:bg-opacity-10 rounded-lg transition" onclick="toggleMobileMenu()">
+                            <i class="fas fa-calendar-alt text-xl w-6" aria-hidden="true"></i>
+                            <span class="text-base">Udalosti</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('/history') }}" class="flex items-center gap-4 py-3 px-4 hover:bg-white hover:bg-opacity-10 rounded-lg transition" onclick="toggleMobileMenu()">
+                            <i class="fas fa-clock text-xl w-6" aria-hidden="true"></i>
+                            <span class="text-base">História</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('/support') }}" class="flex items-center gap-4 py-3 px-4 hover:bg-white hover:bg-opacity-10 rounded-lg transition" onclick="toggleMobileMenu()">
+                            <i class="fas fa-hand-holding-heart text-xl w-6" aria-hidden="true"></i>
+                            <span class="text-base">Podpora</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('/contacts') }}" class="flex items-center gap-4 py-3 px-4 hover:bg-white hover:bg-opacity-10 rounded-lg transition" onclick="toggleMobileMenu()">
+                            <i class="fas fa-envelope text-xl w-6" aria-hidden="true"></i>
+                            <span class="text-base">Kontakty</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('/documents') }}" class="flex items-center gap-4 py-3 px-4 hover:bg-white hover:bg-opacity-10 rounded-lg transition" onclick="toggleMobileMenu()">
+                            <i class="fas fa-file-alt text-xl w-6" aria-hidden="true"></i>
+                            <span class="text-base">Dokumenty</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
 </header>
 
 <!-- Main Content -->
