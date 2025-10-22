@@ -33,7 +33,7 @@
                                 <div class="flex-1">
                                     <h3 class="text-xl font-semibold mb-1">{{ $event['title'] }}</h3>
                                     <p class="text-sm mb-3">{{ $event['description'] }}</p>
-                                    <a href="#" class="inline-block px-4 py-2 border border-[#051647] rounded-lg hover:bg-[#051647] hover:text-white transition">Viac</a>
+                                    <a href="{{route('event')}}" class="inline-block px-4 py-2 border border-[#051647] rounded-lg hover:bg-[#051647] hover:text-white transition">Viac</a>
                                 </div>
                             </article>
                         @endforeach

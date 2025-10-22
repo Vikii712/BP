@@ -277,9 +277,11 @@
                             <i class="fas fa-calendar mr-2"></i>15. december 2025
                         </p>
                         <p class="text-gray-700 text-sm">Vianočný koncert s našimi talentovanými členmi na hlavnom námestí.</p>
-                        <button class="mt-2 text-votum-blue font-semibold hover:underline text-sm">
-                            Viac <i class="fas fa-arrow-right ml-1"></i>
-                        </button>
+                        <a href="{{ url('/event') }}">
+                            <button class="mt-2 text-votum-blue font-semibold hover:underline text-sm">
+                                Viac <i class="fas fa-arrow-right ml-1"></i>
+                            </button>
+                        </a>
                     </div>
                 </div>
             </div>

@@ -11,7 +11,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center">
 
                 {{-- Option 1: Venovať 2% --}}
-                <a href="#"
+                <a href="{{route('two_percent')}}"
                    class="group w-64 h-64 bg-white rounded-2xl shadow-lg flex flex-col items-center justify-center p-6 hover:bg-[#051647] hover:text-white transition duration-300">
                     <div class="text-6xl mb-4">💰</div>
                     <h2 class="text-2xl font-semibold mb-2 group-hover:text-[#f1ebe3]">Venovať 2 %</h2>
@@ -21,7 +21,7 @@
                 </a>
 
                 {{-- Option 2: Finančná podpora --}}
-                <a href="#"
+                <a href="{{route('financial')}}"
                    class="group w-64 h-64 bg-white rounded-2xl shadow-lg flex flex-col items-center justify-center p-6 hover:bg-[#051647] hover:text-white transition duration-300">
                     <div class="text-6xl mb-4">💵</div>
                     <h2 class="text-2xl font-semibold mb-2 group-hover:text-[#f1ebe3]">Finančná podpora</h2>
@@ -31,7 +31,7 @@
                 </a>
 
                 {{-- Option 3: Iné formy pomoci --}}
-                <a href="#"
+                <a href="{{route('other_support')}}"
                    class="group w-64 h-64 bg-white rounded-2xl shadow-lg flex flex-col items-center justify-center p-6 md:col-span-2 hover:bg-[#051647] hover:text-white transition duration-300">
                     <div class="text-6xl mb-4">🎁</div>
                     <h2 class="text-2xl font-semibold mb-2 group-hover:text-[#f1ebe3]">Iné formy pomoci</h2>

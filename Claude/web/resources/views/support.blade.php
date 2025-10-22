@@ -278,7 +278,7 @@
             <p class="text-gray-700 mb-6 leading-relaxed">
                 Venujte nám 2% z vašich daní. Je to jednoduché a nič vás to nestojí. Pomôžete nám pokračovať v našej činnosti.
             </p>
-            <a href="#" class="inline-block bg-votum-blue text-white px-8 py-4 rounded-full font-bold text-lg hover-scale shadow-lg">
+            <a href="{{ url('/two_percent') }}" class="inline-block bg-votum-blue text-white px-8 py-4 rounded-full font-bold text-lg hover-scale shadow-lg">
                 Viac informácií
                 <i class="fas fa-arrow-right ml-2"></i>
             </a>
@@ -295,7 +295,7 @@
             <p class="text-gray-700 mb-6 leading-relaxed">
                 Prispejte ľubovoľnou sumou priamo na náš účet. Každý príspevok sa počítá a pomáha nám realizovať naše projekty.
             </p>
-            <a href="#" class="inline-block bg-green-600 text-white px-8 py-4 rounded-full font-bold text-lg hover-scale shadow-lg">
+            <a href="{{ url('/financial') }}" class="inline-block bg-green-600 text-white px-8 py-4 rounded-full font-bold text-lg hover-scale shadow-lg">
                 Prispieť teraz
                 <i class="fas fa-heart ml-2"></i>
             </a>
@@ -312,7 +312,7 @@
             <p class="text-gray-700 mb-6 leading-relaxed">
                 Staňte sa dobrovoľníkom, venujte nám materiál alebo svoj čas. Existuje mnoho spôsobov, ako nám môžete pomôcť.
             </p>
-            <a href="contact.html" class="inline-block bg-purple-600 text-white px-8 py-4 rounded-full font-bold text-lg hover-scale shadow-lg">
+            <a href="{{ url('/other_support') }}" class="inline-block bg-purple-600 text-white px-8 py-4 rounded-full font-bold text-lg hover-scale shadow-lg">
                 Kontaktujte nás
                 <i class="fas fa-envelope ml-2"></i>
             </a>
