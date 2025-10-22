@@ -14,11 +14,11 @@ Systém na digitálny obsah prístupný pre ľudí so zdravotným znevýhodnení
 ### Installation
 
 ```bash
+composer install
+
 composer create-project laravel/laravel web
 
 cd web
-
-composer install
 
 php artisan key:generate
 
