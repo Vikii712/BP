@@ -2,8 +2,8 @@
     <div class="px-6 flex w-full items-center justify-between bg-[var(--blackblue)]">
         <!-- Logo -->
         <div class="flex items-center gap-3">
-            <img alt="logo" src="{{ asset('images/logo.png') }}" width="80">
-            <h1 class="text-xl md:text-4xl font-semibold text-[var(--cream)] caveat">Združenie VOTUM</h1>
+            <img class="p-2" alt="logo" src="{{ asset('images/logo.svg') }}" width="70">
+            <h1 class="text-3xl font-semibold text-[var(--cream)] caveat">Združenie VOTUM</h1>
         </div>
 
         <!-- Right controls -->
@@ -73,12 +73,12 @@
         <!-- Links -->
         <ul class="flex flex-col gap-6 text-center font-medium w-full">
             <li><a href="#" class="flex justify-center items-center gap-3 hover:text-blue-300"><img src="{{ asset('images/domov.svg') }}" class="w-10 h-10" alt=""> Home</a></li>
-            <li><a href="#about" class="flex justify-center items-center gap-3 hover:text-blue-300"><img src="{{ asset('images/Onas.svg') }}" class="w-10 h-10" alt=""> About us</a></li>
-            <li><a href="#events" class="flex justify-center items-center gap-3 hover:text-blue-300"><img src="{{ asset('images/udalosti.svg') }}" class="w-10 h-10" alt=""> Events</a></li>
-            <li><a href="#history" class="flex justify-center items-center gap-3 hover:text-blue-300"><img src="{{ asset('images/historia.svg') }}" class="w-10 h-10" alt=""> History</a></li>
-            <li><a href="#support" class="flex justify-center items-center gap-3 hover:text-blue-300"><img src="{{ asset('images/podpora.svg') }}" class="w-10 h-10" alt=""> Support</a></li>
-            <li><a href="#contacts" class="flex justify-center items-center gap-3 hover:text-blue-300"><img src="{{ asset('images/kontakty.svg') }}" class="w-10 h-10" alt=""> Contacts</a></li>
-            <li><a href="#documents" class="flex justify-center items-center gap-3 hover:text-blue-300"><img src="{{ asset('images/dokumenty.svg') }}" class="w-10 h-10" alt=""> Documents</a></li>
+            <li><a href="#" class="flex justify-center items-center gap-3 hover:text-blue-300"><img src="{{ asset('images/Onas.svg') }}" class="w-10 h-10" alt=""> About us</a></li>
+            <li><a href="#" class="flex justify-center items-center gap-3 hover:text-blue-300"><img src="{{ asset('images/udalosti.svg') }}" class="w-10 h-10" alt=""> Events</a></li>
+            <li><a href="#" class="flex justify-center items-center gap-3 hover:text-blue-300"><img src="{{ asset('images/historia.svg') }}" class="w-10 h-10" alt=""> History</a></li>
+            <li><a href="#" class="flex justify-center items-center gap-3 hover:text-blue-300"><img src="{{ asset('images/podpora.svg') }}" class="w-10 h-10" alt=""> Support</a></li>
+            <li><a href="#" class="flex justify-center items-center gap-3 hover:text-blue-300"><img src="{{ asset('images/kontakty.svg') }}" class="w-10 h-10" alt=""> Contacts</a></li>
+            <li><a href="#" class="flex justify-center items-center gap-3 hover:text-blue-300"><img src="{{ asset('images/dokumenty.svg') }}" class="w-10 h-10" alt=""> Documents</a></li>
         </ul>
     </div>
 </div>
