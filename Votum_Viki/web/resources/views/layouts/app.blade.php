@@ -14,7 +14,7 @@
 
 <x-header />
 
-<main role="main" class="bg-[var(--cream)]">
+<main id="site-main" role="main" class="bg-[var(--cream)]">
     @yield('content')
 </main>
 

@@ -98,8 +98,7 @@
                 newSize = Math.min(Math.max(newSize, MIN), MAX);
                 localStorage.setItem(STORAGE_KEY, String(newSize));
                 applySize();
-                // ensure menu position updates after font change
-                adjustMenuPosition();
+                adjustLayout();
             }
             applySize();
 
@@ -109,38 +108,42 @@
             const incM = document.getElementById('increase-font-mobile');
             const decM = document.getElementById('decrease-font-mobile');
 
-            [inc, incM].forEach(btn => {
-                if (btn) btn.addEventListener('click', (e) => { e.preventDefault(); setSize(getSize() + STEP); });
-            });
-            [dec, decM].forEach(btn => {
-                if (btn) btn.addEventListener('click', (e) => { e.preventDefault(); setSize(getSize() - STEP); });
-            });
+            [inc, incM].forEach(btn => btn?.addEventListener('click', e => { e.preventDefault(); setSize(getSize() + STEP); }));
+            [dec, decM].forEach(btn => btn?.addEventListener('click', e => { e.preventDefault(); setSize(getSize() - STEP); }));
 
             // Mobile menu toggle + position adjustment
             const toggle = document.getElementById('menu-toggle');
             const menu = document.getElementById('mobile-menu');
             const header = document.querySelector('header');
+            const main = document.getElementById('site-main');
             let open = false;
 
             // Make sure menu is attached to body (avoids z-index/transform problems)
             if (menu && menu.parentElement !== document.body) document.body.appendChild(menu);
 
-            function adjustMenuPosition() {
-                if (!menu) return;
+            function adjustLayout() {
                 const headerHeight = header ? header.offsetHeight : 0;
-                menu.style.top = headerHeight + 'px';
-                menu.style.height = `calc(100vh - ${headerHeight}px)`;
+
+                // move main down
+                if (main) main.style.marginTop = headerHeight + 'px';
+
+                // position mobile menu
+                if (menu) {
+                    menu.style.top = headerHeight + 'px';
+                    menu.style.height = `calc(100vh - ${headerHeight}px)`;
+                }
             }
-            adjustMenuPosition();
-            window.addEventListener('resize', adjustMenuPosition);
+
+            adjustLayout();
+            window.addEventListener('resize', adjustLayout);
 
             if (toggle && menu) {
-                toggle.addEventListener('click', (e) => {
+                toggle.addEventListener('click', e => {
                     e.stopPropagation();
                     open = !open;
                     menu.classList.toggle('hidden', !open);
                     document.body.style.overflow = open ? 'hidden' : '';
-                    if (open) adjustMenuPosition();
+                    if (open) adjustLayout();
                 });
 
                 // close when clicking outside
