@@ -71,7 +71,7 @@
                             <p class="text-sm text-gray-600">Letný hudobný večer</p>
                         </div>
                         <button class="bg-white px-4 py-2 rounded hover-scale text-votum-blue font-semibold">
-                            Ísť ďalej
+                            Viac<i class="pl-2 fas fa-arrow-right"></i>
                         </button>
                     </div>
                     <div class="bg-votum-cream p-4 rounded-lg flex justify-between items-center">
@@ -80,7 +80,7 @@
                             <p class="text-sm text-gray-600">Turistika v Malej Fatre</p>
                         </div>
                         <button class="bg-white px-4 py-2 rounded hover-scale text-votum-blue font-semibold">
-                            Ísť ďalej
+                            Viac<i class="pl-2 fas fa-arrow-right"></i>
                         </button>
                     </div>
                     <div class="bg-votum-cream p-4 rounded-lg flex justify-between items-center">
@@ -89,7 +89,7 @@
                             <p class="text-sm text-gray-600">Letný detský tábor</p>
                         </div>
                         <button class="bg-white px-4 py-2 rounded hover-scale text-votum-blue font-semibold">
-                            Ísť ďalej
+                            Viac<i class="pl-2 fas fa-arrow-right"></i>
                         </button>
                     </div>
                 </div>

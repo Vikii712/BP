@@ -7,18 +7,17 @@
                 Spolu je život veselší!
             </h2>
             <p class="text-lg text-gray-700 mb-8">
-                Podporujeme ľudí so zdravotným znevýhodnením v ich každodennom živote a pomáhame im dosiahnuť ich ciele.
-            </p>
+                VOTUM je komunita mladých ľudí so zdravotným znevýhodnením. Pomáhame si napĺňať sny, rozvíjať sa a žiť zmysluplný život. Podporujeme samostatnosť a dávame priestor na sebarealizáciu.            </p>
             <div class="flex flex-wrap gap-4 mb-8">
-                <button class="bg-votum-blue text-white px-6 py-3 rounded-lg hover-scale font-semibold">
-                    <i class="fas fa-info-circle mr-2"></i>Viac o nás
-                </button>
-                <button class="bg-blue-600 text-white px-6 py-3 rounded-lg hover-scale font-semibold">
-                    <i class="fab fa-facebook-f mr-2"></i>Facebook
-                </button>
-                <button class="bg-red-600 text-white px-6 py-3 rounded-lg hover-scale font-semibold">
-                    <i class="fab fa-youtube mr-2"></i>YouTube
-                </button>
+                <a href="{{route('main')}}" class="flex items-center justify-center bg-votum-blue text-white px-6 py-3 rounded-lg hover-scale font-semibold">
+                    <i class="fas fa-user-group mr-2 text-xl"></i>Viac o nás
+                </a>
+                <a href="https://www.facebook.com/100064455204496" target="_blank" class="flex items-center justify-center bg-blue-600 text-white px-6 py-3 rounded-lg hover-scale font-semibold">
+                    <i class="fab fa-facebook mr-2 text-2xl"></i>Facebook
+                </a>
+                <a href="https://www.youtube.com/@zdruzenievotum641" target="_blank" class="flex items-center justify-center bg-red-600 text-white px-6 py-3 rounded-lg hover-scale font-semibold">
+                    <i class="fab fa-youtube mr-2 text-2xl"></i>YouTube
+                </a>
             </div>
         </div>
 

@@ -14,7 +14,7 @@
                     <h3 class="text-2xl font-bold text-votum-blue mb-2">Tábor 2024</h3>
                     <p class="text-gray-700 mb-4">Nezabudnuteľné leto plné zábavy, priateľstva a dobrodružstva.</p>
                     <button class="bg-votum-blue text-white px-6 py-2 rounded hover-scale">
-                        Viac
+                        Viac<i class="pl-2 fas fa-arrow-right"></i>
                     </button>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                     <h3 class="text-2xl font-bold text-votum-blue mb-2">Koncert 2025</h3>
                     <p class="text-gray-700 mb-4">Hudobný večer s našimi talentovanými členmi a priateľmi.</p>
                     <button class="bg-votum-blue text-white px-6 py-2 rounded hover-scale">
-                        Viac
+                        Viac<i class="pl-2 fas fa-arrow-right"></i>
                     </button>
                 </div>
             </div>
