@@ -3,31 +3,31 @@
     <ul class="hidden md:flex justify-evenly text-[var(--cream)]">
         <li><a href="#" class="flex flex-col items-center px-3 hover:text-blue-300">
                 <img src="{{ asset('images/domov.svg') }}" alt="ikona domov" class="w-7 h-7 mb-1 object-contain">
-                <span class="text-sm md:text-base font-bold">Home</span></a></li>
+                <span class="text-sm md:text-base font-bold">{{ __('nav.home')}}</span></a></li>
 
         <li><a href="#" class="flex flex-col items-center px-3 hover:text-blue-300">
                 <img src="{{ asset('images/Onas.svg') }}" alt="ikona o nás" class="w-7 h-7 mb-1 object-contain">
-                <span class="text-sm md:text-base font-bold">About us</span></a></li>
+                <span class="text-sm md:text-base font-bold">{{ __('nav.about')}}</span></a></li>
 
         <li><a href="#" class="flex flex-col items-center px-3 hover:text-blue-300">
                 <img src="{{ asset('images/udalosti.svg') }}" alt="ikona udalosti" class="w-7 h-7 mb-1 object-contain">
-                <span class="text-sm md:text-base font-bold">Events</span></a></li>
+                <span class="text-sm md:text-base font-bold">{{ __('nav.events')}}</span></a></li>
 
         <li><a href="#"  class="flex flex-col items-center px-3 hover:text-blue-300">
                 <img src="{{ asset('images/historia.svg') }}" alt="ikona historie" class="w-7 h-7 mb-1 object-contain">
-                <span class="text-sm md:text-base font-bold">History</span></a></li>
+                <span class="text-sm md:text-base font-bold">{{ __('nav.history')}}</span></a></li>
 
         <li><a href="#"  class="flex flex-col items-center px-3 hover:text-blue-300">
                 <img src="{{ asset('images/podpora.svg') }}" alt="ikona podpory" class="w-7 h-7 mb-1 object-contain">
-                <span class="text-sm md:text-base font-bold">Support</span></a></li>
+                <span class="text-sm md:text-base font-bold">{{ __('nav.support')}}</span></a></li>
 
         <li><a href="#" class="flex flex-col items-center px-3 hover:text-blue-300">
                 <img src="{{ asset('images/kontakty.svg') }}" alt="ikona kontaktov" class="w-7 h-7 mb-1 object-contain">
-                <span class="text-sm md:text-base font-bold">Contacts</span></a></li>
+                <span class="text-sm md:text-base font-bold">{{ __('nav.contacts')}}</span></a></li>
 
         <li><a href="#" class="flex flex-col items-center px-3 hover:text-blue-300">
                 <img src="{{ asset('images/dokumenty.svg') }}" alt="ikona dokumentov" class="w-7 h-7 mb-1 object-contain">
-                <span class="text-sm md:text-base font-bold">Documents</span></a></li>
+                <span class="text-sm md:text-base font-bold">{{ __('nav.documents')}}</span></a></li>
     </ul>
 </nav>
 

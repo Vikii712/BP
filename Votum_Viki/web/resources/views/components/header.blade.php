@@ -16,19 +16,20 @@
             </div>
 
             <!-- Language switch (desktop only) -->
-            <form action="" method="post" class="hidden md:flex items-center gap-1 bg-blue-900 rounded-full px-3 py-1">
+            <form action="{{ route('setLocale') }}" method="post" class="hidden md:flex items-center gap-1 bg-blue-900 rounded-full px-3 py-1">
                 @csrf
                 <button type="submit" name="locale" value="sk"
                         class="flex items-center gap-1 text-sm font-medium rounded-full px-2 py-1 transition
-                {{ session('locale','sk')==='sk' ? 'bg-blue-300 text-blue-900' : 'text-[var(--cream)]' }}">
+            {{ session('locale','sk')==='sk' ? 'bg-blue-300 text-blue-900' : 'text-[var(--cream)]' }}">
                     SK
                 </button>
                 <button type="submit" name="locale" value="en"
                         class="flex items-center gap-1 text-sm font-medium rounded-full px-2 py-1 transition
-                {{ session('locale')==='en' ? 'bg-blue-300 text-blue-900' : 'text-[var(--cream)]' }}">
+            {{ session('locale')==='en' ? 'bg-blue-300 text-blue-900' : 'text-[var(--cream)]' }}">
                     EN
                 </button>
             </form>
+
 
             <!-- Mobile toggle -->
             <button id="menu-toggle" aria-label="Toggle menu" class="md:hidden p-2 rounded-full text-[var(--cream)] hover:bg-blue-800 transition z-[60] relative">
