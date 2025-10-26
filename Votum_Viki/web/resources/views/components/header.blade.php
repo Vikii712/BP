@@ -16,20 +16,9 @@
             </div>
 
             <!-- Language switch (desktop only) -->
-            <form action="{{ route('setLocale') }}" method="post" class="hidden md:flex items-center gap-1 bg-blue-900 rounded-full px-3 py-1">
-                @csrf
-                <button type="submit" name="locale" value="sk"
-                        class="flex items-center gap-1 text-sm font-medium rounded-full px-2 py-1 transition
-            {{ session('locale','sk')==='sk' ? 'bg-blue-300 text-blue-900' : 'text-[var(--cream)]' }}">
-                    SK
-                </button>
-                <button type="submit" name="locale" value="en"
-                        class="flex items-center gap-1 text-sm font-medium rounded-full px-2 py-1 transition
-            {{ session('locale')==='en' ? 'bg-blue-300 text-blue-900' : 'text-[var(--cream)]' }}">
-                    EN
-                </button>
-            </form>
-
+            <div class="hidden md:block">
+                <x-locale-switch />
+            </div>
 
             <!-- Mobile toggle -->
             <button id="menu-toggle" aria-label="Toggle menu" class="md:hidden p-2 rounded-full text-[var(--cream)] hover:bg-blue-800 transition z-[60] relative">
@@ -58,17 +47,7 @@
                 <button id="increase-font-mobile" type="button" class="text-[var(--cream)] hover:text-blue-300 font-bold text-lg px-1">+</button>
             </div>
 
-            <form action="" method="post" class="flex items-center gap-1 bg-blue-900 rounded-full px-3 py-1">
-                @csrf
-                <button type="submit" name="locale" value="sk" class="flex items-center gap-1 text-sm font-medium rounded-full px-2 py-1 transition
-                {{ session('locale','sk')==='sk' ? 'bg-blue-300 text-blue-900' : 'text-[var(--cream)]' }}">
-                    SK
-                </button>
-                <button type="submit" name="locale" value="en" class="flex items-center gap-1 text-sm font-medium rounded-full px-2 py-1 transition
-                {{ session('locale')==='en' ? 'bg-blue-300 text-blue-900' : 'text-[var(--cream)]' }}">
-                    EN
-                </button>
-            </form>
+            <x-locale-switch mobile />
         </div>
 
         <!-- Links -->
@@ -164,6 +143,32 @@
                         document.body.style.overflow = '';
                     }
                 });
+            }
+
+            // ========== LOCALE SWITCHING FIX ==========
+            // Use event delegation on document to catch form submits from mobile menu
+            document.addEventListener('submit', (e) => {
+                console.log('Form submitted:', e.target);
+                console.log('Form ID:', e.target?.id);
+                console.log('Is mobile form?', e.target?.id === 'locale-form-mobile');
+
+                // Check if submitted form is the mobile locale form
+                if (e.target && e.target.id === 'locale-form-mobile') {
+                    console.log('Saving mobile menu state!');
+                    // Remember that menu was open
+                    sessionStorage.setItem('votum:mobile-menu-open', 'true');
+                }
+            });
+
+            // Restore mobile menu state after page reload
+            if (sessionStorage.getItem('votum:mobile-menu-open') === 'true') {
+                sessionStorage.removeItem('votum:mobile-menu-open');
+                if (toggle && menu) {
+                    open = true;
+                    menu.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                    adjustLayout();
+                }
             }
         });
     </script>
