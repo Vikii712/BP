@@ -3,7 +3,7 @@
     <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold text-votum-blue mb-8 text-center">Náš tím</h2>
 
-        <div class="max-w-4xl mx-auto">
+        <div class="max-w-3xl mx-auto">
             <div class="rounded-lg overflow-hidden shadow-lg mb-8">
                 <img src="{{asset('images/team.jpg')}}" alt="Náš tím" class="w-full h-auto object-cover">
             </div>

@@ -48,7 +48,6 @@
     // Events data
     const events = [
         { date: '2025-08-09', title: 'Koncert', description: 'Letný hudobný večer' },
-        { date: '2025-08-20', title: 'Výšľapenie', description: 'Turistika v Malej Fatre' },
         { date: '2025-08-29', title: 'Tábor', description: 'Letný detský tábor' },
         { date: '2025-09-15', title: 'Konferencia', description: 'Mladí lídri 2025' },
         { date: '2025-10-05', title: 'Workshop', description: 'Osobnostný rozvoj' }
@@ -61,7 +60,6 @@
         'Júl', 'August', 'September', 'Október', 'November', 'December'
     ];
 
-    // Function to generate calendar
     function generateCalendar(year, month) {
         const firstDay = new Date(year, month, 1);
         const lastDay = new Date(year, month + 1, 0);
@@ -84,7 +82,7 @@
         // Add days of month
         for (let day = 1; day <= daysInMonth; day++) {
             const dayCell = document.createElement('div');
-            dayCell.className = 'calendar-day text-center p-2 bg-white rounded';
+            dayCell.className = 'calendar-day text-center p-1 bg-white rounded';
             dayCell.textContent = day;
 
             // Check if this day has an event
@@ -111,31 +109,25 @@
         const currentMonth = currentDate.getMonth();
         const currentYear = currentDate.getFullYear();
 
-        const filteredEvents = events.filter(event => {
-            const eventDate = new Date(event.date);
-            return eventDate >= new Date(currentYear, currentMonth, 1);
-        }).sort((a, b) => new Date(a.date) - new Date(b.date));
-
         // Display up to 5 upcoming events
-        filteredEvents.slice(0, 5).forEach(event => {
+        const sortedEvents = events.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+        sortedEvents.forEach(event => {
             const eventDate = new Date(event.date);
             const eventDiv = document.createElement('div');
             eventDiv.className = 'bg-votum-cream p-4 rounded-lg flex justify-between items-center';
             eventDiv.innerHTML = `
-                    <div>
-                        <h4 class="font-bold text-votum-blue">${eventDate.getDate()}.${eventDate.getMonth() + 1}. ${event.title}</h4>
-                        <p class="text-sm text-gray-600">${event.description}</p>
-                    </div>
-                    <button class="bg-white px-4 py-2 rounded hover-scale text-votum-blue font-semibold">
-                        Viac<i class="pl-2 fas fa-arrow-right"></i>
-                    </button>
-                `;
+                <div>
+                    <h4 class="font-bold text-votum-blue">${eventDate.getDate()}.${eventDate.getMonth() + 1}. ${event.title}</h4>
+                    <p class="text-sm text-gray-600">${event.description}</p>
+                </div>
+                <button class="bg-white px-4 py-2 rounded hover-scale text-votum-blue font-semibold">
+                    Viac<i class="pl-2 fas fa-arrow-right"></i>
+                </button>
+            `;
             eventsList.appendChild(eventDiv);
         });
 
-        if (filteredEvents.length === 0) {
-            eventsList.innerHTML = '<p class="text-gray-600 text-center py-4">Žiadne nadchádzajúce udalosti</p>';
-        }
     }
 
     // Event listeners for month navigation

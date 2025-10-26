@@ -1,15 +1,15 @@
 <!-- Footer -->
-<footer class="bg-votum-blue text-white py-10">
-    <div class="container mx-auto px-4">
+<footer class="bg-votum-blue text-white pt-5 pb-10">
+    <div class="container mx-auto ">
         <!-- Top Section: Organization Name and Social Media -->
-        <div class="text-center mb-8 pb-8 border-b border-blue-400">
+        <div class="text-center mb-8 pb-8 pt-5 bg-blue-950">
             <h3 class="text-3xl font-bold mb-4">VOTUM</h3>
             <div class="flex justify-center gap-6">
-                <a href="#" class="flex items-center gap-2 hover:opacity-80 transition" aria-label="Facebook">
-                    <i class="fab fa-facebook text-3xl"></i>
+                <a href="#" class="flex text-blue-300 items-center gap-2 hover:opacity-80 transition" aria-label="Facebook">
+                    <i class="fab fa-facebook text-3xl "></i>
                     <span class="text-lg">Facebook</span>
                 </a>
-                <a href="#" class="flex items-center gap-2 hover:opacity-80 transition" aria-label="YouTube">
+                <a href="#" class="flex items-center gap-2 hover:opacity-80 transition text-red-300" aria-label="YouTube">
                     <i class="fab fa-youtube text-3xl"></i>
                     <span class="text-lg">YouTube</span>
                 </a>
@@ -17,10 +17,10 @@
         </div>
 
         <!-- Bottom Section: Navigation Links and Contact Info -->
-        <div class="grid md:grid-cols-2 gap-8 mb-8">
+        <div class="grid md:grid-cols-2 gap-8 ">
             <!-- Left Half: Navigation Links in Two Columns -->
             <div>
-                <h4 class="text-xl font-bold mb-4">Navigácia</h4>
+                <h4 class="text-xl font-bold mb-4 text-blue-300">Navigácia</h4>
                 <div class="grid grid-cols-2 gap-4">
                     <!-- Left Column -->
                     <div class="space-y-2">
@@ -53,13 +53,13 @@
             </div>
 
             <!-- Right Half: Contact and Accessibility -->
-            <div>
-                <h4 class="text-xl font-bold mb-4">Našli ste chybu?</h4>
+            <div class="md:text-right ">
+                <h4 class="text-xl font-bold mb-4 text-blue-300">Našli ste chybu?</h4>
                 <div class="space-y-3">
                     <p class="text-sm">
                         <i class="fas fa-envelope mr-2"></i>
                         <a href="mailto:admin@zdravieznevyhodnenie.sk" class="hover:opacity-80 transition underline">
-                            admin@zdravieznevyhodnenie.sk
+                            admin@zdruzenievotum.sk
                         </a>
                     </p>
                     <div class="mt-4">
@@ -70,11 +70,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Copyright -->
-        <div class="border-t border-blue-400 pt-6 text-center text-sm">
-            <p>&copy; 2025 VOTUM. Všetky práva vyhradené.</p>
         </div>
     </div>
 </footer>
