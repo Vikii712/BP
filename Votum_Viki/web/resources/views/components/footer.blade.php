@@ -1,6 +1,6 @@
 <!-- Footer -->
 <footer class="bg-votum-blue text-white pt-5 pb-10">
-    <div class="container mx-auto ">
+    <div class="px-4 md:px-7">
         <!-- Top Section: Organization Name and Social Media -->
         <div class="text-center mb-8 pb-8 pt-5 bg-blue-950">
             <h3 class="text-3xl font-bold mb-4">VOTUM</h3>

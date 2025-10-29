@@ -1,11 +1,11 @@
 <nav aria-label="Primary navigation" id="main-nav" class="relative z-40 bg-blue-950">
     <!-- Desktop nav -->
     <ul class="hidden md:flex justify-evenly text-[var(--cream)]">
-        <li><a href="#" class="flex flex-col items-center px-3 hover:text-blue-300">
+        <li><a href="{{route('main')}}" class="flex flex-col items-center px-3 hover:text-blue-300">
                 <img src="{{ asset('images/domov.svg') }}" alt="ikona domov" class="w-7 h-7 mb-1 object-contain">
                 <span class="text-sm md:text-base font-bold">{{ __('nav.home')}}</span></a></li>
 
-        <li><a href="#" class="flex flex-col items-center px-3 hover:text-blue-300">
+        <li><a href="{{route('about')}}" class="flex flex-col items-center px-3 hover:text-blue-300">
                 <img src="{{ asset('images/Onas.svg') }}" alt="ikona o nás" class="w-7 h-7 mb-1 object-contain">
                 <span class="text-sm md:text-base font-bold">{{ __('nav.about')}}</span></a></li>
 

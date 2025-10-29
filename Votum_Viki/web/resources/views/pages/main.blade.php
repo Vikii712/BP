@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <x-hero />
-    <x-calendar />
-    <x-activities />
-    <x-team />
+    <x-home.hero />
+    <x-home.calendar />
+    <x-home.activities />
+    <x-home.team />
 @endsection
 
