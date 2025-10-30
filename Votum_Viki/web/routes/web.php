@@ -18,3 +18,7 @@ Route::post('/set-locale', function (Illuminate\Http\Request $request) {
 Route::get('/about', function () {
     return view('pages.aboutus');
 })->name('about');
+
+Route::get('/history', function () {
+    return view('pages.history');
+})->name('history');

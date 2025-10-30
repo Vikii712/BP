@@ -13,7 +13,7 @@
                 <img src="{{ asset('images/udalosti.svg') }}" alt="ikona udalosti" class="w-7 h-7 mb-1 object-contain">
                 <span class="text-sm md:text-base font-bold">{{ __('nav.events')}}</span></a></li>
 
-        <li><a href="#"  class="flex flex-col items-center px-3 hover:text-blue-300">
+        <li><a href="{{route('history')}}"  class="flex flex-col items-center px-3 hover:text-blue-300">
                 <img src="{{ asset('images/historia.svg') }}" alt="ikona historie" class="w-7 h-7 mb-1 object-contain">
                 <span class="text-sm md:text-base font-bold">{{ __('nav.history')}}</span></a></li>
 
