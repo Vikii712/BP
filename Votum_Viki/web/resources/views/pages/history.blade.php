@@ -79,3 +79,89 @@
 </div>
 @endsection
 
+<style>
+    /* Timeline Styles */
+    .timeline-item {
+        position: relative;
+        padding-left: 60px;
+        padding-bottom: 60px;
+    }
+    .timeline-item:last-child {
+        padding-bottom: 0;
+    }
+    .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: 20px;
+        top: 0;
+        bottom: -60px;
+        width: 3px;
+        background: linear-gradient(to bottom, #051647, #0a2558);
+    }
+    .timeline-item:last-child::before {
+        bottom: 0;
+    }
+    .timeline-dot {
+        position: absolute;
+        left: 10px;
+        top: 5px;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: #051647;
+        border: 4px solid #f1ebe3;
+        z-index: 1;
+    }
+    .timeline-year {
+        position: absolute;
+        left: -50px;
+        top: 0;
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: #051647;
+    }
+
+    /* --- RESPONSIVE ÚPRAVA PRE MOBIL --- */
+    @media (max-width: 640px) {
+        .timeline-item {
+            padding-left: 0;
+            padding-top: 2.5rem;
+            margin-left: 1.5rem;
+        }
+
+        .timeline-item::before {
+            left: 12px;
+            top: 1.5rem;
+            bottom: 0;
+        }
+
+        .timeline-dot {
+            left: 0;
+            top: 1.5rem;
+        }
+
+        /* Rok napravo od bodky */
+        .timeline-year {
+            position: absolute;
+            left: 40px; /* posunie rok doprava od bodky */
+            top: 1.25rem;
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #051647;
+            background: #f1ebe3;
+            padding: 0.1rem 0.6rem;
+            border-radius: 0.4rem;
+            display: inline-block;
+        }
+
+        .timeline-item .p-6 {
+            padding: 0;
+            margin-left: 1.75rem; /* text zarovnaný pod rokom */
+            margin-top: 1.5rem;
+        }
+
+        .timeline-item h3 {
+            margin-top: 0.25rem;
+        }
+    }
+</style>
