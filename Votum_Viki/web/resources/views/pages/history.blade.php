@@ -54,22 +54,22 @@
         <!-- Timeline -->
         <div class="relative max-w-3xl mx-auto">
             <!-- Vertikálna čiara -->
-            <div class="absolute left-2 top-0 bottom-0 w-[2px] bg-votum-blue"></div>
+            <div class="absolute left-2 top-3 bottom-0 w-[2px] bg-votum-blue"></div>
 
             @foreach($timeline as $entry)
                 <div class="relative mb-12 last:mb-0">
                     <!-- Bodka -->
-                    <div class="absolute left-[1px] top-2 w-4 h-4 rounded-full bg-votum-blue border-4 border-white shadow"></div>
+                    <div class="absolute left-[1px] top-3 w-4 h-4 rounded-full bg-white border-4 border-votum-blue shadow"></div>
 
                     <!-- Rok -->
-                    <div class="ml-8 text-votum-blue font-bold text-lg sm:text-xl mb-2">
+                    <div class="ml-8 inline-block bg-votum-blue text-white px-4 py-1.5 rounded-full shadow-md text-lg sm:text-xl font-semibold">
                         {{ $entry['year'] }}
                     </div>
 
                     <!-- Obsah -->
-                    <div class="ml-8 bg-white shadow-md rounded-xl p-5 md:p-6">
-                        <h3 class="text-2xl font-bold text-votum-blue mb-2">{{ $entry['name'] }}</h3>
-                        <p class="text-gray-700 leading-relaxed">{{ $entry['text'] }}</p>
+                    <div class="ml-8  p-5 md:p-6">
+                        <h3 class="text-3xl font-bold text-votum-blue mb-2">{{ $entry['name'] }}</h3>
+                        <p class="text-gray-700 leading-relaxed text-xl">{{ $entry['text'] }}</p>
                     </div>
                 </div>
             @endforeach
@@ -80,7 +80,7 @@
             <a href="{{ url('/') }}"
                class="inline-flex items-center gap-3 bg-votum-blue text-white px-8 py-4 rounded-lg hover:scale-105 transition transform font-semibold text-lg shadow-lg">
                 <i class="fas fa-home text-2xl"></i>
-                <span>Späť na hlavnú stránku</span>
+                <span>Domov</span>
             </a>
         </div>
     </div>
