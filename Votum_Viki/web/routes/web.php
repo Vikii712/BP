@@ -22,3 +22,11 @@ Route::get('/about', function () {
 Route::get('/history', function () {
     return view('pages.history');
 })->name('history');
+
+Route::get('/events', function () {
+    return view('pages.events');
+})->name('events');
+
+Route::get('/event', function () {
+    return view('pages.event');
+})->name('event');
