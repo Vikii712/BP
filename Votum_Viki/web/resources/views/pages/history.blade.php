@@ -52,9 +52,8 @@
         </div>
 
         <!-- Timeline -->
-        <div class="relative max-w-3xl mx-auto">
-            <!-- Vertikálna čiara -->
-            <div class="absolute left-2 top-3 bottom-0 w-[2px] bg-votum-blue"></div>
+        <div class="relative max-w-4xl mx-auto md:pl-20">            <!-- Vertikálna čiara -->
+            <div class="absolute md:ml-20 left-2 top-3 bottom-0 w-[2px] bg-votum-blue"></div>
 
             @foreach($timeline as $entry)
                 <div class="relative mb-12 last:mb-0">
@@ -62,7 +61,9 @@
                     <div class="absolute left-[1px] top-3 w-4 h-4 rounded-full bg-white border-4 border-votum-blue shadow"></div>
 
                     <!-- Rok -->
-                    <div class="ml-8 inline-block bg-votum-blue text-white px-4 py-1.5 rounded-full shadow-md text-lg sm:text-xl font-semibold">
+                    <div
+                        class="ml-8 inline-block bg-votum-blue text-white px-4 py-1.5 rounded-full text-lg sm:text-xl font-semibold
+                                md:absolute md:right-[calc(100%+1rem)] md:ml-0">
                         {{ $entry['year'] }}
                     </div>
 
@@ -71,6 +72,14 @@
                         <h3 class="text-3xl font-bold text-votum-blue mb-2">{{ $entry['name'] }}</h3>
                         <p class="text-gray-700 leading-relaxed text-xl">{{ $entry['text'] }}</p>
                     </div>
+
+                    @if($loop->index % 3 == 0)
+                        <div class="ml-8 mt-6 flex justify-center">
+                            <img src="{{ asset('images/team.jpg') }}"
+                                 alt="Votum"
+                                 class="w-full max-w-sm  sm:max-w-md md:max-w-xl" />
+                        </div>
+                    @endif
                 </div>
             @endforeach
         </div>

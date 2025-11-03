@@ -1,6 +1,6 @@
 <!-- Footer -->
 <footer class="bg-votum-blue text-white pt-5 pb-10">
-    <div class="px-4 md:px-7">
+    <div class="">
         <!-- Top Section: Organization Name and Social Media -->
         <div class="text-center mb-8 pb-8 pt-5 bg-blue-950">
             <h3 class="text-3xl font-bold mb-4">VOTUM</h3>
@@ -17,7 +17,7 @@
         </div>
 
         <!-- Bottom Section: Navigation Links and Contact Info -->
-        <div class="grid md:grid-cols-2 gap-8 ">
+        <div class="grid md:grid-cols-2 gap-8 px-4 md:px-7">
             <!-- Left Half: Navigation Links in Two Columns -->
             <div>
                 <h4 class="text-xl font-bold mb-4 text-blue-300">Navigácia</h4>
