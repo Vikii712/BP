@@ -37,7 +37,10 @@ body {
 .bg-votum-blue { background-color: #051647; }
 .bg-votum-blue-light { background-color: #0a2558; }
 .text-votum-blue { color: #051647; }
-.bg-votum-cream { background-color: #f1ebe3; }
+.text-votum-cream{ color: #f1ebe3; }
+.bg-votum-cream { background-color: #f1ebe3;}
+.text-other-cream{ color: #e4cebc; }
+.bg-other-cream { background-color: #e4cebc;}
 .hover-scale { transition: transform 0.2s; }
 .hover-scale:hover { transform: scale(1.05); }
 .calendar-day { aspect-ratio: 1; }
