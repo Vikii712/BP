@@ -30,3 +30,7 @@ Route::get('/events', function () {
 Route::get('/event', function () {
     return view('pages.event');
 })->name('event');
+
+Route::get('/documents', function () {
+    return view('pages.documents');
+})->name('documents');

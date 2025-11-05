@@ -25,7 +25,7 @@
                 <img src="{{ asset('images/kontakty.svg') }}" alt="ikona kontaktov" class="w-7 h-7 mb-1 object-contain">
                 <span class="text-sm md:text-base font-bold">{{ __('nav.contacts')}}</span></a></li>
 
-        <li><a href="#" class="flex flex-col items-center px-3 hover:text-blue-300">
+        <li><a href="{{asset('documents')}}" class="flex flex-col items-center px-3 hover:text-blue-300">
                 <img src="{{ asset('images/dokumenty.svg') }}" alt="ikona dokumentov" class="w-7 h-7 mb-1 object-contain">
                 <span class="text-sm md:text-base font-bold">{{ __('nav.documents')}}</span></a></li>
     </ul>

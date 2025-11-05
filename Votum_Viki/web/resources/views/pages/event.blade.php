@@ -48,12 +48,9 @@
         <section class="max-w-5xl mx-auto mb-12">
             <div class="">
                 <h2 class="text-3xl font-bold text-votum-blue mb-6">O udalosti</h2>
-                <div class=" text-2xl prose max-w-none  space-y-4">
+                <div class=" text-xl prose max-w-none  space-y-4">
                     <p>
                         V júni 2024 sme sa vydali na nezabudnuteľnú turistiku k pamätníku Slavín v Bratislave. Táto akcia bola skvelou príležitosťou na spoločné trávenie času v prírode a spoznávanie historických pamiatok nášho hlavného města.
-                    </p>
-                    <p>
-                        Začali sme ráno stretnutím pri Prezidentskom paláci, odkiaľ sme sa pomaly vybrali cestou cez Horský park smerom k pamätníku. Počasie nám prialo a atmosféra bola plná optimizmu a dobrej nálady. Počas cesty sme sa zastavovali na viacerých miestach, kde sme obdivovali výhľady na mesto a vzájomne sa podporovali pri stúpaní.
                     </p>
                     <p>
                         Na Slavíne sme strávili príjemné chvíle, fotili sa, oddychovali a vychutnávali si výhľad na celú Bratislavu. Niektorí účastníci navštívili aj samotný pamätník a dozvedeli sa viac o jeho histórii a význame. Po spoločnom obede sme sa vydali späť do centra, unavení, ale šťastní zo spoločne stráveného dňa.
@@ -68,7 +65,7 @@
         <!-- Photos Section -->
         <section class="max-w-5xl mx-auto mb-12">
             <div class="">
-                <h2 class="text-3xl font-bold text-votum-blue mb-6">Fotky z udalosti</h2>
+                <h2 class="text-3xl font-bold text-votum-blue mb-6">Fotky</h2>
 
                 <script src="https://cdn.jsdelivr.net/npm/publicalbum@latest/embed-ui.min.js" async></script>
                 <div class="pa-gallery-player-widget" style="width:100%; height:480px; display:none;"
@@ -101,42 +98,10 @@
             <div class=" p-8 bg-other-cream rounded-lg">
                 <h2 class="text-2xl font-bold text-votum-blue mb-6">Dokumenty na stiahnutie</h2>
 
-                <div class="space-y-3">
-                    <!-- Document 1 -->
-                    <div class="flex items-center justify-between bg-votum-cream p-4 rounded-lg hover:shadow-md transition">
-                        <div class="flex items-center gap-3">
-                            <i class="fas fa-file-pdf text-red-600 text-2xl"></i>
-                            <span class="font-semibold text-votum-blue">Program turistiky - Slavín 2024.pdf</span>
-                        </div>
-                        <a href="#" download class="bg-votum-blue text-white px-4 py-2 rounded hover-scale flex items-center gap-2">
-                            <i class="fas fa-download"></i>
-                            <span>Stiahnuť</span>
-                        </a>
-                    </div>
-
-                    <!-- Document 2 -->
-                    <div class="flex items-center justify-between bg-votum-cream p-4 rounded-lg hover:shadow-md transition">
-                        <div class="flex items-center gap-3">
-                            <i class="fas fa-file-pdf text-red-600 text-2xl"></i>
-                            <span class="font-semibold text-votum-blue">Zoznam účastníkov.pdf</span>
-                        </div>
-                        <a href="#" download class="bg-votum-blue text-white px-4 py-2 rounded hover-scale flex items-center gap-2">
-                            <i class="fas fa-download"></i>
-                            <span>Stiahnuť</span>
-                        </a>
-                    </div>
-
-                    <!-- Document 3 -->
-                    <div class="flex items-center justify-between bg-votum-cream p-4 rounded-lg hover:shadow-md transition">
-                        <div class="flex items-center gap-3">
-                            <i class="fas fa-file-image text-blue-600 text-2xl"></i>
-                            <span class="font-semibold text-votum-blue">Fotogaléria - všetky fotky.zip</span>
-                        </div>
-                        <a href="#" download class="bg-votum-blue text-white px-4 py-2 rounded hover-scale flex items-center gap-2">
-                            <i class="fas fa-download"></i>
-                            <span>Stiahnuť</span>
-                        </a>
-                    </div>
+                <div class="space-y-5">
+                    <x-documents.document color="true"/>
+                    <x-documents.document color="true"/>
+                    <x-documents.document color="true"/>
                 </div>
             </div>
         </section>
