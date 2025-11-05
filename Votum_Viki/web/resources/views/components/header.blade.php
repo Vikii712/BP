@@ -56,8 +56,8 @@
             <li><a href="{{route('about')}}" class="flex justify-center items-center gap-3 hover:text-blue-300"><img src="{{ asset('images/Onas.svg') }}" class="w-10 h-10" alt=""> {{ __('nav.about')}}</a></li>
             <li><a href="{{route('events')}}"  class="flex justify-center items-center gap-3 hover:text-blue-300"><img src="{{ asset('images/udalosti.svg') }}" class="w-10 h-10" alt="">{{ __('nav.events')}}</a></li>
             <li><a href="{{route('history')}}" class="flex justify-center items-center gap-3 hover:text-blue-300"><img src="{{ asset('images/historia.svg') }}" class="w-10 h-10" alt="">{{ __('nav.history')}}</a></li>
-            <li><a href="#" class="flex justify-center items-center gap-3 hover:text-blue-300"><img src="{{ asset('images/podpora.svg') }}" class="w-10 h-10" alt="">{{ __('nav.support')}}</a></li>
-            <li><a href="#" class="flex justify-center items-center gap-3 hover:text-blue-300"><img src="{{ asset('images/kontakty.svg') }}" class="w-10 h-10" alt="">{{ __('nav.contacts')}}</a></li>
+            <li><a href="{{route('support')}}" class="flex justify-center items-center gap-3 hover:text-blue-300"><img src="{{ asset('images/podpora.svg') }}" class="w-10 h-10" alt="">{{ __('nav.support')}}</a></li>
+            <li><a href="{{route('contacts')}}" class="flex justify-center items-center gap-3 hover:text-blue-300"><img src="{{ asset('images/kontakty.svg') }}" class="w-10 h-10" alt="">{{ __('nav.contacts')}}</a></li>
             <li><a href="{{asset('documents')}}" class="flex justify-center items-center gap-3 hover:text-blue-300"><img src="{{ asset('images/dokumenty.svg') }}" class="w-10 h-10" alt="">{{ __('nav.documents')}}</a></li>
         </ul>
     </div>

@@ -17,11 +17,11 @@
                 <img src="{{ asset('images/historia.svg') }}" alt="ikona historie" class="w-7 h-7 mb-1 object-contain">
                 <span class="text-sm md:text-base font-bold">{{ __('nav.history')}}</span></a></li>
 
-        <li><a href="#"  class="flex flex-col items-center px-3 hover:text-blue-300">
+        <li><a href="{{route('support')}}"  class="flex flex-col items-center px-3 hover:text-blue-300">
                 <img src="{{ asset('images/podpora.svg') }}" alt="ikona podpory" class="w-7 h-7 mb-1 object-contain">
                 <span class="text-sm md:text-base font-bold">{{ __('nav.support')}}</span></a></li>
 
-        <li><a href="#" class="flex flex-col items-center px-3 hover:text-blue-300">
+        <li><a href="{{route('contacts')}}" class="flex flex-col items-center px-3 hover:text-blue-300">
                 <img src="{{ asset('images/kontakty.svg') }}" alt="ikona kontaktov" class="w-7 h-7 mb-1 object-contain">
                 <span class="text-sm md:text-base font-bold">{{ __('nav.contacts')}}</span></a></li>
 

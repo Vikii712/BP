@@ -40,12 +40,6 @@
             @endforeach
         </section>
 
-        <!-- Domov -->
-        <div class="text-center mt-20">
-            <a href="{{ url('/') }}" class="inline-flex items-center gap-3 bg-votum-blue text-white px-8 py-4 rounded-lg font-semibold text-lg hover:opacity-90 transition">
-                <i class="fas fa-home text-2xl"></i>
-                <span>Domov</span>
-            </a>
-        </div>
+        <x-home />
     </main>
 @endsection

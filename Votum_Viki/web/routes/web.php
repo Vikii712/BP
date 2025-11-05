@@ -34,3 +34,11 @@ Route::get('/event', function () {
 Route::get('/documents', function () {
     return view('pages.documents');
 })->name('documents');
+
+Route::get('/contacts', function () {
+    return view('pages.contacts');
+})->name('contacts');
+
+Route::get('/support', function () {
+    return view('pages.support');
+})->name('support');
