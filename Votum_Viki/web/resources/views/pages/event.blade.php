@@ -5,6 +5,12 @@
 
         <!-- Event Header -->
         <div class="max-w-5xl mx-auto mb-8">
+
+            <h1 class="text-center md:text-start text-5xl font-bold text-votum-blue mb-4">
+                Turistika Slavín
+            </h1>
+
+
             <!-- Date and Action Buttons -->
             <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
                 <div class="text-2xl font-bold text-votum-blue">
@@ -22,31 +28,27 @@
                     </button>
                 </div>
             </div>
-
-            <!-- Event Title -->
-            <h1 class="text-4xl md:text-5xl font-bold text-votum-blue mb-4">
-                Turistika Slavín
-            </h1>
-
             <!-- Sponsors/Partners -->
-            <div class="bg-white p-4 rounded-lg shadow-md mb-8">
+            <div class="p-4">
                 <div class="flex items-center gap-4 flex-wrap">
-                    <span class="text-gray-600 font-semibold">Sponzori:</span>
-                    <div class="flex items-center gap-4">
-                        <span class="text-votum-blue font-bold text-lg">SPP</span>
-                        <div class="w-16 h-16 bg-gray-200 rounded flex items-center justify-center">
-                            <img src="{{asset('images/logo-partner.png')}}" alt="Partner logo" class="max-w-full max-h-full object-contain">
+                    <span class="w-full text-gray-600 font-semibold">Sponzori:</span>
+                    @for($i = 0; $i < 2; $i++)
+                        <div class="p-3 flex items-center gap-4 bg-other-cream rounded-lg">
+                            <span class="text-votum-blue font-bold text-lg">Bratislavský samosprávny kraj</span>
+                            <div class="h-16 bg-gray-200 rounded flex items-center justify-center">
+                                <img src="{{asset('images/logo_bk.png')}}" alt="Partner logo" class="max-w-full max-h-full object-contain">
+                            </div>
                         </div>
-                    </div>
+                    @endfor
                 </div>
             </div>
         </div>
 
         <!-- Event Description Section -->
         <section class="max-w-5xl mx-auto mb-12">
-            <div class="bg-white p-8 rounded-lg shadow-lg">
-                <h2 class="text-2xl font-bold text-votum-blue mb-6">O udalosti</h2>
-                <div class="prose max-w-none text-gray-700 leading-relaxed space-y-4">
+            <div class="">
+                <h2 class="text-3xl font-bold text-votum-blue mb-6">O udalosti</h2>
+                <div class=" text-2xl prose max-w-none  space-y-4">
                     <p>
                         V júni 2024 sme sa vydali na nezabudnuteľnú turistiku k pamätníku Slavín v Bratislave. Táto akcia bola skvelou príležitosťou na spoločné trávenie času v prírode a spoznávanie historických pamiatok nášho hlavného města.
                     </p>
@@ -65,59 +67,38 @@
 
         <!-- Photos Section -->
         <section class="max-w-5xl mx-auto mb-12">
-            <div class="bg-white p-8 rounded-lg shadow-lg">
-                <h2 class="text-2xl font-bold text-votum-blue mb-6">Fotky z udalosti</h2>
+            <div class="">
+                <h2 class="text-3xl font-bold text-votum-blue mb-6">Fotky z udalosti</h2>
 
-                <!-- Image Gallery with Navigation -->
-                <div class="relative">
-                    <div class="overflow-hidden rounded-lg mb-4">
-                        <img id="mainImage" src="{{asset('images/event-slavin1.jpg')}}" alt="Turistika Slavín - Hlavná fotka" class="w-full h-96 object-cover">
-                    </div>
-
-                    <!-- Navigation Arrows -->
-                    <button onclick="previousImage()" class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 text-votum-blue p-3 rounded-full shadow-lg hover-scale">
-                        <i class="fas fa-chevron-left text-xl"></i>
-                    </button>
-                    <button onclick="nextImage()" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 text-votum-blue p-3 rounded-full shadow-lg hover-scale">
-                        <i class="fas fa-chevron-right text-xl"></i>
-                    </button>
-
-                    <!-- Thumbnail Gallery -->
-                    <div class="grid grid-cols-4 gap-3 mt-4 image-gallery">
-                        <img onclick="changeImage(0)" src="{{asset('images/event-slavin1.jpg')}}" alt="Foto 1" class="w-full h-24 object-cover rounded border-2 border-votum-blue cursor-pointer">
-                        <img onclick="changeImage(1)" src="{{asset('images/event-slavin2.jpg')}}" alt="Foto 2" class="w-full h-24 object-cover rounded border-2 border-transparent cursor-pointer">
-                        <img onclick="changeImage(2)" src="{{asset('images/event-slavin3.jpg')}}" alt="Foto 3" class="w-full h-24 object-cover rounded border-2 border-transparent cursor-pointer">
-                        <img onclick="changeImage(3)" src="{{asset('images/event-slavin4.jpg')}}" alt="Foto 4" class="w-full h-24 object-cover rounded border-2 border-transparent cursor-pointer">
-                    </div>
+                <script src="https://cdn.jsdelivr.net/npm/publicalbum@latest/embed-ui.min.js" async></script>
+                <div class="pa-gallery-player-widget" style="width:100%; height:480px; display:none;"
+                     data-link="https://photos.app.goo.gl/zEXLTiG11oPoTrN69"
+                     data-title="Votum · Tuesday, Oct 7 📸"
+                     data-description="Shared album · Tap to view!">
+                    <object data="https://lh3.googleusercontent.com/pw/AP1GczOXe6bGUE9Fhit9J9CagvvVbw8AFO3F6c6dq4BGIdIWsYTYG27ygo97ddfeRhcdx5CbKYGJ0zuuo-lnoPkP1JBTxwZqGEya3IXCzFHKwmwFN84ytg=w1920-h1080"></object>
+                    <object data="https://lh3.googleusercontent.com/pw/AP1GczOdZn9_h_nWz8KpQ-RyK_0Ky_XVslbmjQ4NWapPCsQJiKzFKJ6l7lmh4wHq41wYQL_DMbuJlWjTQHOq_SCGkLrYQlqraDCYhAF1z39zctn2TjaWCw=w1920-h1080"></object>
+                    <object data="https://lh3.googleusercontent.com/pw/AP1GczN--tXqKuQwDXJMZOo14y9WIEPCko7GYEN94jxeb16GtU9ghOOT0SF9ArVQO_fIc1QmdOUeCraq8EdqU82Auj1NcsIZrwxCor3pPPeo43ktINoyCw=w1920-h1080"></object>
                 </div>
+
             </div>
         </section>
 
         <!-- Videos Section -->
         <section class="max-w-5xl mx-auto mb-12">
-            <div class="bg-white p-8 rounded-lg shadow-lg">
-                <h2 class="text-2xl font-bold text-votum-blue mb-6">Pozrite si video</h2>
+            <div class="">
+                <h2 class="text-3xl font-bold text-votum-blue mb-6">Pozrite si video</h2>
 
-                <div class="aspect-video bg-gray-900 rounded-lg overflow-hidden flex items-center justify-center">
-                    <!-- Video Player Placeholder -->
-                    <div class="text-center">
-                        <button class="bg-white bg-opacity-20 hover:bg-opacity-30 text-white rounded-full p-6 hover-scale">
-                            <i class="fas fa-play text-4xl"></i>
-                        </button>
-                        <p class="text-white mt-4">Video z turistiky na Slavín</p>
-                    </div>
-                    <!-- In real implementation, you would use:
-                <video controls class="w-full h-full">
-                    <source src="{{asset('videos/event-slavin.mp4')}}" type="video/mp4">
-                </video>
-                -->
+                <div class="aspect-video bg-gray-900 rounded-lg overflow-hidden">
+                    <iframe class="w-full h-full" width="560" height="315"
+                            src="https://www.youtube.com/embed/sJHrJ1NKnZs?si=sBaLbHQunQUw5MJo"
+                            title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
             </div>
         </section>
 
         <!-- Documents Section -->
         <section class="max-w-5xl mx-auto mb-12">
-            <div class="bg-white p-8 rounded-lg shadow-lg">
+            <div class=" p-8 bg-other-cream rounded-lg">
                 <h2 class="text-2xl font-bold text-votum-blue mb-6">Dokumenty na stiahnutie</h2>
 
                 <div class="space-y-3">
@@ -172,14 +153,6 @@
                     <span>Domov</span>
                 </a>
             </div>
-
-            <!-- Scroll to Top Button -->
-            <div class="text-center mt-8">
-                <button onclick="scrollToTop()" class="bg-white text-votum-blue p-4 rounded-full shadow-lg hover-scale">
-                    <i class="fas fa-arrow-up text-2xl"></i>
-                </button>
-            </div>
         </div>
-
     </main>
 @endsection
