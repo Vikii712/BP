@@ -9,7 +9,7 @@
         <section class="mb-16 p-8 rounded-2xl bg-votum-blue">
             <h2 class="text-3xl font-bold text-other-cream mb-8 text-center flex items-center justify-center gap-3">
                 <img src="{{asset('images/stars.svg')}}" alt="stars" width="30"/>
-                <p>Čo nás čaká?</p>
+                Čo nás čaká?
                 <img src="{{asset('images/stars.svg')}}" alt="stars" width="30"/>
             </h2>
             <div class="grid md:grid-cols-2 gap-y-8">
