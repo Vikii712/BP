@@ -2,8 +2,8 @@
     <div class="pr-3 sm:pr-6 flex w-full items-center justify-between bg-[var(--blackblue)]">
         <!-- Logo -->
         <div class="flex items-center gap-3">
-            <img class="p-2" alt="logo" src="{{ asset('images/logo.svg') }}" width="70">
-            <h1 class="text-2xl md:text-3xl font-semibold text-[var(--cream)] caveat">Združenie VOTUM</h1>
+            <img class="p-2 pr-0 sm:pr-2" alt="logo" src="{{ asset('images/logo.svg') }}" width="70">
+            <h1 class="text-3xl font-semibold text-[var(--cream)] caveat">Združenie VOTUM</h1>
         </div>
 
         <!-- Right controls -->
@@ -37,7 +37,7 @@
 
 <!-- Single full-screen mobile menu (one element only) -->
 <div id="mobile-menu" class="fixed left-0 w-full bg-blue-950 text-[var(--cream)] hidden z-40 overflow-y-auto">
-    <div class="flex flex-col items-center gap-8 px-6">
+    <div class="flex flex-col items-center gap-8 px-6 pt-5">
 
         <!-- Mobile font + locale controls (visible only on mobile) -->
         <div class="flex flex-row items-center gap-4 md:hidden">
@@ -69,7 +69,7 @@
             // Font-size logic - robust + persistent
             const HTML = document.documentElement;
             const STORAGE_KEY = 'votum:font';
-            const MIN = 0.8, MAX = 1.5, STEP = 0.1;
+            const MIN = 1, MAX = 1.5, STEP = 0.1;
 
             function getSize() { return parseFloat(localStorage.getItem(STORAGE_KEY) || '1'); }
             function applySize() { HTML.style.fontSize = getSize() + 'rem'; }
@@ -109,7 +109,7 @@
 
                 // position mobile menu
                 if (menu) {
-                    menu.style.top = headerHeight + 'px';
+                    menu.style.top = headerHeight - 1 + 'px';
                     menu.style.height = `calc(100vh - ${headerHeight}px)`;
                 }
             }

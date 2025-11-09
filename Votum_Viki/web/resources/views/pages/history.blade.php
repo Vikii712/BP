@@ -68,7 +68,7 @@
                     </div>
 
                     <!-- Obsah -->
-                    <div class="ml-8  p-5 md:p-6">
+                    <div class="ml-8  pt-5 md:p-6">
                         <h3 class="text-3xl font-bold text-votum-blue mb-2">{{ $entry['name'] }}</h3>
                         <p class="text-gray-700 leading-relaxed text-xl">{{ $entry['text'] }}</p>
                     </div>

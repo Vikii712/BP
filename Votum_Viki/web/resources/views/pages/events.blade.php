@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <main class="container max-w-6xl mx-auto px-6 py-12">
+    <main class="container max-w-6xl mx-auto sm:px-6 py-12">
         <!-- Nadpis -->
         <h1 class="text-4xl md:text-5xl font-bold text-votum-blue text-center mb-12">Udalosti</h1>
 
@@ -19,7 +19,7 @@
         </section>
 
         <!-- Minulé udalosti -->
-        <section>
+        <section class="px-6 ms-px-0">
             <h2 class="text-4xl md:text-5xl font-bold text-votum-blue text-center mb-8">Naše spomienky</h2>
 
             @foreach([2025, 2024, 2023, 2022] as $year)

@@ -18,11 +18,11 @@
                     28. 6. 2024
                 </div>
                 <div class="flex gap-3">
-                    <button onclick="toggleListen()" id="listenBtn" class="bg-votum-blue text-white px-5 py-2 rounded-lg hover-scale font-semibold flex items-center gap-2">
+                    <button onclick="toggleListen()" id="listenBtn" class="bg-votum-blue text-white px-6 py-4 rounded-lg hover-scale font-semibold flex items-center gap-2 text-xl">
                         <i class="fas fa-volume-up text-lg"></i>
                         <span>Vypočuť si</span>
                     </button>
-                    <button onclick="shareEvent()" class="bg-green-600 text-white px-5 py-2 rounded-lg hover-scale font-semibold flex items-center gap-2">
+                    <button onclick="shareEvent()" class="bg-green-600 text-white px-6 py-4 rounded-lg hover-scale font-semibold flex items-center gap-2 text-xl">
                         <i class="fas fa-share-alt text-lg"></i>
                         <span>Zdieľať</span>
                     </button>
@@ -104,17 +104,20 @@
                     <x-documents.document color="true"/>
                 </div>
             </div>
-        </section>
 
-        <!-- Navigation Buttons -->
-        <div class="max-w-5xl mx-auto">
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="events.html" class="inline-flex items-center justify-center gap-3 bg-gray-600 text-white px-8 py-4 rounded-lg hover-scale font-semibold text-lg shadow-lg">
-                    <i class="fas fa-calendar-alt text-2xl"></i>
-                    <span>Udalosti</span>
-                </a>
+            <!-- Navigation Buttons -->
+            <div class="flex flex-col md:flex-row justify-between px-10">
+                <div class="text-center mt-16 mb-3">
+                    <a href="{{route('events')}}" class="inline-flex items-center gap-3 bg-gray-600 text-white px-10 py-8 rounded-lg hover-scale font-semibold text-xl shadow-lg">
+                        <i class="fas fa-calendar-days text-2xl"></i>
+                        <span>Udalosti</span>
+                    </a>
+                </div>
+
                 <x-home />
             </div>
-        </div>
+        </section>
+
+
     </main>
 @endsection
