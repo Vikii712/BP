@@ -8,16 +8,7 @@
                 O nás
             </h1>
 
-            <div class="flex justify-center md:justify-end gap-4 flex-wrap">
-                <button onclick="toggleListen()" id="listenBtn" class="bg-votum-blue text-white px-6 py-3 rounded-lg hover-scale font-semibold flex items-center gap-2">
-                    <i class="fas fa-volume-up text-xl"></i>
-                    <span>Vypočuť si</span>
-                </button>
-                <button onclick="shareButton()" class="bg-green-600 text-white px-6 py-3 rounded-lg hover-scale font-semibold flex items-center gap-2">
-                    <i class="fas fa-share-alt text-xl"></i>
-                    <span>Zdieľať</span>
-                </button>
-            </div>
+            <x-listen-share />
         </div>
 
         <x-about.section />

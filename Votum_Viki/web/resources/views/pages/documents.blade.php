@@ -18,7 +18,7 @@
                         <div class="h-1 w-24 bg-votum-blue rounded"></div>
                     </div>
 
-                    <div class="grid md:grid-cols-2 gap-6">
+                    <div class="grid lg:grid-cols-2 gap-6">
                             <x-documents.document/>
                             <x-documents.document/>
                             <x-documents.document/>

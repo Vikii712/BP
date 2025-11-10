@@ -42,3 +42,16 @@ Route::get('/contacts', function () {
 Route::get('/support', function () {
     return view('pages.support');
 })->name('support');
+
+Route::get('/support/2percent', function () {
+    return view('pages.2percent');
+})->name('2percent');
+
+Route::get('/support/financial', function () {
+    return view('pages.financial');
+})->name('financial');
+
+Route::get('/support/other', function () {
+    return view('pages.other');
+})->name('other');
+

@@ -1,5 +1,5 @@
 <header class="fixed top-0 left-0 right-0 z-50 bg-blue-950 backdrop-blur-md pb-2">
-    <div class="pr-3 sm:pr-6 flex w-full items-center justify-between bg-[var(--blackblue)]">
+    <div class=" sm:pr-6 flex w-full items-center justify-between bg-[var(--blackblue)]">
         <!-- Logo -->
         <div class="flex items-center gap-3">
             <img class="p-2 pr-0 sm:pr-2" alt="logo" src="{{ asset('images/logo.svg') }}" width="70">
@@ -9,10 +9,10 @@
         <!-- Right controls -->
         <div class="flex items-center gap-4">
             <!-- Font controls (desktop only) -->
-            <div class="hidden md:flex items-center gap-2 bg-blue-900 rounded-full px-3 py-1">
-                <button id="decrease-font" type="button" class="text-[var(--cream)] hover:text-blue-300 font-bold text-lg px-1">–</button>
-                <span class="text-sm text-[var(--cream)]">aA</span>
-                <button id="increase-font" type="button" class="text-[var(--cream)] hover:text-blue-300 font-bold text-lg px-1">+</button>
+            <div class="hidden md:flex items-center gap-2 bg-blue-900 rounded-full">
+                <button id="decrease-font" type="button" class="text-[var(--cream)] hover:text-blue-300 font-bold text-2xl px-5 py-2">–</button>
+                <span class="text-lg text-[var(--cream)]">aA</span>
+                <button id="increase-font" type="button" class="text-[var(--cream)] hover:text-blue-300 font-bold text-2xl px-5 py-2">+</button>
             </div>
 
             <!-- Language switch (desktop only) -->
@@ -40,11 +40,11 @@
     <div class="flex flex-col items-center gap-8 px-6 pt-5">
 
         <!-- Mobile font + locale controls (visible only on mobile) -->
-        <div class="flex flex-row items-center gap-4 md:hidden">
-            <div class="flex items-center gap-2 bg-blue-900 rounded-full px-3 py-1">
-                <button id="decrease-font-mobile" type="button" class="text-[var(--cream)] hover:text-blue-300 font-bold text-lg px-1">–</button>
-                <span class="text-sm text-[var(--cream)]">aA</span>
-                <button id="increase-font-mobile" type="button" class="text-[var(--cream)] hover:text-blue-300 font-bold text-lg px-1">+</button>
+        <div class="flex flex-row items-center gap-4 md:hidden ">
+            <div class="flex items-center gap-2 bg-blue-900 rounded-full text-2xl">
+                <button id="decrease-font-mobile" type="button" class="text-[var(--cream)] hover:text-blue-300 font-bold px-5 py-3">–</button>
+                <span class="text-lg text-[var(--cream)]">aA</span>
+                <button id="increase-font-mobile" type="button" class="text-[var(--cream)] hover:text-blue-300 font-bold px-5 py-3">+</button>
             </div>
 
             <x-locale-switch mobile />

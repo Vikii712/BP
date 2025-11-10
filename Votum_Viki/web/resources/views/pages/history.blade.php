@@ -37,17 +37,7 @@
             <h1 class="text-4xl md:text-6xl font-extrabold text-votum-blue">História</h1>
 
             <div class="flex justify-center md:justify-end gap-4 flex-wrap">
-                <button onclick="toggleListen()" id="listenBtn"
-                        class="bg-votum-blue text-white px-6 py-3 rounded-lg hover:scale-105 transition transform font-semibold flex items-center gap-2">
-                    <i class="fas fa-volume-up text-xl"></i>
-                    <span>Vypočuť si</span>
-                </button>
-
-                <button onclick="shareButton()"
-                        class="bg-green-600 text-white px-6 py-3 rounded-lg hover:scale-105 transition transform font-semibold flex items-center gap-2">
-                    <i class="fas fa-share-alt text-xl"></i>
-                    <span>Zdieľať</span>
-                </button>
+                <x-listen-share />
             </div>
         </div>
 

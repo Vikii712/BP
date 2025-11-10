@@ -1,7 +1,7 @@
 @props(['color' => false])
 
 <div class="document-card {{$color ? 'bg-votum-cream' : 'bg-white'}} rounded-lg shadow-lg p-6">
-    <div class="flex flex-col sm:flex-row items-center sm:items-start justify-between gap-4">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <!-- Ikona -->
         <div class="flex-shrink-0 mb-4 sm:mb-0">
             <div class="bg-blue-100 p-4 rounded-lg border border-blue-300 flex justify-center">

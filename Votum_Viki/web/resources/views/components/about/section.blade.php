@@ -10,7 +10,7 @@
                 </div>
 
                 <div class="bg-gradient-to-br flex items-center justify-center p-8 {{ $i % 2 == 1 ? 'md:order-1' : 'md:order-2' }}">
-                    <img src="{{ asset('images/us.svg') }}" alt="Naša vízia" class="md:pl-10">
+                    <img src="{{ asset('images/us.svg') }}" alt="Naša vízia" class="">
                 </div>
             </div>
         </div>
