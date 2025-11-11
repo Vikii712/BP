@@ -52,10 +52,10 @@
                     Potrebné údaje
                 </h2>
                 <div class="space-y-3 grid lg:grid-cols-2 gap-x-5">
-                    <x-contacts.input name="Názov" value="Združenie VOTUM" />
-                    <x-contacts.input name="Sídlo" value="Hlavná 123, 811 01 Bratislava" />
-                    <x-contacts.input name="Právna forma" value="Občianske združenie" />
-                    <x-contacts.input name="IČO" value="12345678" />
+                    <x-contacts.input name="Názov" value="Združenie VOTUM" :color="3"/>
+                    <x-contacts.input name="Sídlo" value="Hlavná 123, 811 01 Bratislava" :color="3"/>
+                    <x-contacts.input name="Právna forma" value="Občianske združenie" :color="3"/>
+                    <x-contacts.input name="IČO" value="12345678" :color="3"/>
                 </div>
         </section>
 

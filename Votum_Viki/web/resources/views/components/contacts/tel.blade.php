@@ -1,6 +1,6 @@
 <div class=" grid md:grid-cols-2">
 
-    <div class="border-4 border-votum bg-other-cream mb-5 p-6 rounded-lg">
+    <div class="border-4 border-votum1 bg-blue-100 mb-5 p-6 rounded-lg">
         <div class="flex items-start gap-4">
             <div class="flex-1">
                 <div class="flex items-center gap-3 mb-8">
@@ -11,7 +11,7 @@
                 </div>
 
                 <div class="space-y-2">
-                    <x-contacts.input name="Združenie VOTUM" value="0827654329" />
+                    <x-contacts.input name="Združenie VOTUM" value="0827654329" :color="1"/>
                     <div class="flex gap-2">
                         <a href="tel:0827654329" class="flex-1 bg-votum-blue text-white py-2 px-4 rounded text-center hover-scale">
                             <i class="fas fa-phone mr-2"></i>Volať
@@ -26,8 +26,8 @@
     </div>
 
     <div class="hidden md:flex items-center justify-center">
-        <div class="bg-votum-blue text-white rounded-full flex items-center justify-center w-28 h-28 shadow-lg">
-            <i class="fas fa-phone text-4xl"></i>
+        <div class="text-votum-blue flex items-center justify-center">
+            <i class="fas fa-phone text-6xl"></i>
         </div>
     </div>
 

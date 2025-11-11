@@ -1,8 +1,8 @@
-@props(['name', 'value', 'color' => '1'])
+@props(['name', 'value', 'color'])
 
 <div>
     <p class="text-lg text-bold text-gray-900 mb-1">{{$name}}:</p>
-    <div class="flex items-center justify-between border-2 border-votum2 bg-white p-3 rounded">
+    <div class="flex items-center justify-between border-2 {{$color == 1 ? 'border-votum1' :($color == 2 ? 'border-votum2' : 'border-votum3')}}  bg-white p-3 rounded">
         <span class="font-semibold text-xl">{{$value}}</span>
 
         <button

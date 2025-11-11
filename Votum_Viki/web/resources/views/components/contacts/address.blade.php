@@ -1,4 +1,4 @@
-<div class="border-4 border-votum2 p-6 bg-votum2 rounded-lg grid md:grid-cols-2 gap-3">
+<div class="border-4 border-votum1 p-6 bg-blue-100 rounded-lg grid lg:grid-cols-2 gap-3">
 
     <div class="space-y-3 mb-5 md:mb-0">
         <div class="flex items-center gap-3 mb-8">
@@ -7,8 +7,8 @@
             </div>
             <h3 class="text-2xl font-bold text-votum-blue">Adresa:</h3>
         </div>
-            <x-contacts.input name="Sídlo" value="Hlavná 123, 811 01 Bratislava"/>
-            <x-contacts.input name="Prevádzka" value="Komunitná 45, 811 05 Bratislava"/>
+            <x-contacts.input name="Sídlo" value="Hlavná 123, 811 01 Bratislava" :color="1"/>
+            <x-contacts.input name="Prevádzka" value="Komunitná 45, 811 05 Bratislava" :color="1"/>
     </div>
 
 
