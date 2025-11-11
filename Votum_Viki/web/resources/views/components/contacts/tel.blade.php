@@ -1,6 +1,6 @@
-<div class="grid md:grid-cols-2">
+<div class=" grid md:grid-cols-2">
 
-    <div class="bg-other-cream mb-5 p-6 rounded-lg">
+    <div class="border-4 border-votum bg-other-cream mb-5 p-6 rounded-lg">
         <div class="flex items-start gap-4">
             <div class="flex-1">
                 <div class="flex items-center gap-3 mb-8">

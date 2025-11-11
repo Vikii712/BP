@@ -12,8 +12,9 @@
         </div>
 
         <x-about.section />
-        <x-about.team />
-
-        <x-home />
     </div>
+
+    <x-wave />
+
+    <x-about.team />
 @endsection

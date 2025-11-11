@@ -1,4 +1,4 @@
-<div class=" p-6 bg-other-cream rounded-lg grid md:grid-cols-2 gap-3">
+<div class="border-4 border-votum2 p-6 bg-votum2 rounded-lg grid md:grid-cols-2 gap-3">
 
     <div class="space-y-3 mb-5 md:mb-0">
         <div class="flex items-center gap-3 mb-8">

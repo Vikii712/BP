@@ -17,12 +17,13 @@
 
 <x-header />
 
-<main id="site-main" role="main" class="bg-[var(--cream)]">
+<main id="site-main" role="main" class="">
     @yield('content')
 </main>
 
 <x-footer />
 
 @stack('scripts')
+<script src="//unpkg.com/alpinejs" defer></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
-
+<x-wave />
 <!-- Featured Activities Section -->
-<section class="bg-votum-cream py-12">
+<section class="bg-blue-100 py-12">
     <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold text-votum-blue mb-8 text-center">Naše Aktivity</h2>
 
@@ -17,3 +17,5 @@
         </div>
     </div>
 </section>
+
+<x-wave :inverted="true"/>

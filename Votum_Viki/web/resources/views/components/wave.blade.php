@@ -1,8 +1,9 @@
-<!-- VLNITÝ ODDIEL medzi sekciami -->
+@props(['inverted' => false, 'light' => false])
+
 <div class="relative -mt-[2px]">
     <svg viewBox="0 0 1440 100" xmlns="http://www.w3.org/2000/svg" class="block w-full">
         <!-- Horná krémová časť -->
-        <path fill="#fff" d="
+        <path fill="#{{$inverted ? ($light ? 'EFF6FF' :'dbeafe' ): 'FFF'}}" d="
             M0,60
             C180,30 360,30 540,60
             C720,90 900,90 1080,60
@@ -11,7 +12,7 @@
         "></path>
 
         <!-- Spodná modrá časť -->
-        <path fill="#dbeafe" d="
+        <path fill="#{{$inverted ? 'FFF' : ($light ? 'EFF6FF' :'dbeafe' )}}" d="
             M0,60
             C180,30 360,30 540,60
             C720,90 900,90 1080,60

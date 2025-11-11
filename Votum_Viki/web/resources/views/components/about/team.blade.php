@@ -1,11 +1,11 @@
 <!-- Team Section -->
-<div class="mx-auto">
-    <h2 class="text-3xl font-bold text-votum-blue mb-8 text-center">Náš Tím</h2>
+<div class="bg-blue-100 py-12 justify-center">
+    <h2 class="text-4xl font-bold text-votum-blue mb-8 text-center py-5">Náš Tím</h2>
 
-    <div class="grid lg:grid-cols-2 gap-8 mb-8">
+    <div class="grid lg:grid-cols-2 gap-8 mb-8 mx-10">
 
         @for($i = 0; $i < 4; $i++)
-            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden border-2 border-votum1">
                 <div class="flex flex-col sm:flex-row h-full">
 
                     <!-- Obrázok -->
@@ -32,6 +32,8 @@
                 </div>
             </div>
         @endfor
-
     </div>
+
+    <x-home />
+
 </div>

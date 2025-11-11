@@ -86,13 +86,13 @@
 
         <!-- Documents Section -->
         <section class="max-w-5xl mx-auto mb-12">
-            <div class=" p-8 bg-other-cream rounded-lg">
+            <div class=" p-8 rounded-lg">
                 <h2 class="text-2xl font-bold text-votum-blue mb-6">Dokumenty na stiahnutie</h2>
 
                 <div class="space-y-5">
-                    <x-documents.document color="true"/>
-                    <x-documents.document color="true"/>
-                    <x-documents.document color="true"/>
+                    <x-documents.document :color="false"/>
+                    <x-documents.document :color="false"/>
+                    <x-documents.document :color="false"/>
                 </div>
             </div>
 

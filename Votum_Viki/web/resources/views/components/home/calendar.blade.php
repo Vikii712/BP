@@ -2,7 +2,7 @@
     <div class="w-full px-4 sm:px-8 lg:px-16">
         <h2 class="text-3xl font-bold text-votum-blue mb-8 text-center">Čo nás čaká?</h2>
 
-        <div class="grid md:grid-cols-2 gap-8">
+        <div class="grid lg:grid-cols-2 gap-8">
             <!-- Calendar -->
             <div>
                 <div class="flex items-center justify-between mb-4">
@@ -17,9 +17,9 @@
                     </button>
                 </div>
 
-                <div class="bg-votum-cream rounded-lg p-4">
+                <div class="bg-votum2 rounded-lg p-4 border-2 border-votum2">
                     <div class="grid grid-cols-7 gap-2 mb-4">
-                        <div class="text-center font-bold text-sm">Po</div>
+                        <div class="text-center font-bold text-sm ">Po</div>
                         <div class="text-center font-bold text-sm">Ut</div>
                         <div class="text-center font-bold text-sm">St</div>
                         <div class="text-center font-bold text-sm">Št</div>
@@ -86,7 +86,7 @@
         // Add days of month
         for (let day = 1; day <= daysInMonth; day++) {
             const dayCell = document.createElement('div');
-            dayCell.className = 'calendar-day text-center p-1 bg-white rounded';
+            dayCell.className = 'calendar-day text-center sm:text-lg p-1 bg-white rounded border-2 border-votum2';
             dayCell.textContent = day;
 
             // Check if this day has an event
@@ -119,12 +119,12 @@
         sortedEvents.forEach(event => {
             const eventDate = new Date(event.date);
             const eventDiv = document.createElement('div');
-            eventDiv.className = 'bg-votum-cream p-4 rounded-lg flex justify-between items-center';
+            eventDiv.className = 'bg-votum2 p-4 rounded-lg flex justify-between items-center border-2 border-votum2';
             eventDiv.innerHTML = `
                 <div>
                     <h4 class="font-bold text-votum-blue text-xl">${eventDate.getDate()}.${eventDate.getMonth() + 1}. ${event.title}</h4>
                 </div>
-                <button class="text-lg bg-white px-5 py-3 rounded hover-scale text-votum-blue font-semibold">
+                <button class=" border-2 border-votum2 text-lg bg-white px-5 py-3 rounded hover-scale text-votum-blue font-semibold">
                     Viac<i class="pl-2 fas fa-arrow-right"></i>
                 </button>
             `;
