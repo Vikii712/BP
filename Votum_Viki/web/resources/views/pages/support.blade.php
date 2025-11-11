@@ -18,7 +18,7 @@
         </div>
 
         <!-- Additional Info Section -->
-        <div class="max-w-4xl mx-auto bg-other-cream rounded-2xl shadow-xl p-8 mb-16">
+        <div class="max-w-4xl mx-auto bg-votum2 border-4 border-votum2 rounded-2xl shadow-xl p-8 mb-16">
             <h3 class="text-2xl font-bold text-votum-blue mb-4 text-center">
                 Prečo je vaša podpora dôležitá?
             </h3>

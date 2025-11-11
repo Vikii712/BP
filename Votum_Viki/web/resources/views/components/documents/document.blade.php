@@ -1,6 +1,6 @@
-@props(['color' => false])
+@props(['color' => true])
 
-<div class="border-2 border-votum1 document-card {{ $color ? 'bg-white' : 'bg-blue-100' }} rounded-lg shadow-lg p-6">
+<div class="border-2 border-votum1 document-card {{ $color ? 'bg-blue-100' : ' bg-white' }} rounded-lg shadow-lg p-6">
     <div class="flex flex-col sm:flex-row sm:items-center justify-center sm:justify-between gap-4">
 
         <!-- Ikona -->

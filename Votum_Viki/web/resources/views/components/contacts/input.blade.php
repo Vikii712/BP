@@ -2,7 +2,7 @@
 
 <div>
     <p class="text-lg text-bold text-gray-900 mb-1">{{$name}}:</p>
-    <div class="flex items-center justify-between {{$color == '1' ? 'bg-votum-cream' : 'bg-other-cream'}} p-3 rounded">
+    <div class="flex items-center justify-between border-2 border-votum2 bg-white p-3 rounded">
         <span class="font-semibold text-xl">{{$value}}</span>
 
         <button

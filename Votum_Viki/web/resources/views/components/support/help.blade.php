@@ -1,5 +1,5 @@
 <section class="max-w-5xl mx-auto mb-12" x-data="{ tab: 'fyzicke' }">
-    <div class="bg-other-cream border-4 border-votum rounded-2xl p-10 text-votum-blue shadow-lg">
+    <div class="bg-votum2 border-4 border-votum2 rounded-2xl p-10 text-votum-blue shadow-lg">
 
 
         <!-- Prepínacie tlačidlá -->
@@ -7,7 +7,7 @@
             <button
                 @click="tab = 'fyzicke'"
                 :class="tab === 'fyzicke'
-                    ? 'bg-votum-blue text-votum-cream font-bold shadow'
+                    ? 'bg-dark-votum2 text-white font-bold shadow'
                     : 'bg-white text-votum-blue border border-votum-blue font-semibold'"
                 class="px-6 py-3 rounded-md transition-colors duration-200 hover:bg-votum-blue hover:text-votum-cream"
             >
@@ -17,7 +17,7 @@
             <button
                 @click="tab = 'pravnicke'"
                 :class="tab === 'pravnicke'
-                    ? 'bg-votum-blue text-votum-cream font-bold shadow'
+                    ? 'bg-dark-votum2 text-white font-bold shadow'
                     : 'bg-white text-votum-blue border border-votum-blue font-semibold'"
                 class="px-6 py-3 rounded-md transition-colors duration-200 hover:bg-votum-blue hover:text-votum-cream"
             >
@@ -34,7 +34,7 @@
             <p class="text-lg mb-8 text-center text-gray-800">
                 Ak ste zamestnanec alebo podnikateľ a podávate daňové priznanie, postupujte nasledovne:
             </p>
-            <ol class="list-decimal list-inside bg-votum-cream p-6 rounded-lg text-lg font-medium space-y-2 shadow-inner">
+            <ol class="border-3 border-votum2 list-decimal list-inside bg-white p-6 rounded-lg text-lg font-medium space-y-2 shadow-inner">
                 <li>Postup</li>
                 <li>Sprav toto potom</li>
                 <li>Stiahni</li>
@@ -52,7 +52,7 @@
             <p class="text-lg mb-8 text-center text-gray-800">
                 Ak ste firma alebo organizácia a chcete podporiť naše združenie, postup je podobný ako pre fyzické osoby:
             </p>
-            <ol class="list-decimal list-inside bg-votum-cream p-6 rounded-lg text-lg font-medium space-y-2 shadow-inner">
+            <ol class="border-3 border-votum2 list-decimal list-inside bg-white p-6 rounded-lg text-lg font-medium space-y-2 shadow-inner">
                 <li>Postup</li>
                 <li>Sprav toto potom</li>
                 <li>Stiahni</li>

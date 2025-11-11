@@ -22,9 +22,9 @@
             <!-- Sponsors/Partners -->
             <div class="p-4">
                 <div class="flex items-center gap-4 flex-wrap">
-                    <span class="w-full text-gray-600 font-semibold">Sponzori:</span>
+                    <span class="w-full text-gray-600 font-semibold font-xl">Sponzori:</span>
                     @for($i = 0; $i < 2; $i++)
-                        <div class="p-3 flex items-center gap-4 bg-other-cream rounded-lg">
+                        <div class="p-3 flex items-center gap-4 border-2 border-sponsor bg-sponsor rounded-lg">
                             <span class="text-votum-blue font-bold text-lg">Bratislavský samosprávny kraj</span>
                             <div class="h-16 bg-gray-200 rounded flex items-center justify-center">
                                 <img src="{{asset('images/logo_bk.png')}}" alt="Partner logo" class="max-w-full max-h-full object-contain">
@@ -83,9 +83,12 @@
                 </div>
             </div>
         </section>
+    </main>
 
+    <x-wave />
+    <div class="bg-blue-100">
         <!-- Documents Section -->
-        <section class="max-w-5xl mx-auto mb-12">
+        <section class=" max-w-5xl mx-auto pb-12">
             <div class=" p-8 rounded-lg">
                 <h2 class="text-2xl font-bold text-votum-blue mb-6">Dokumenty na stiahnutie</h2>
 
@@ -108,7 +111,5 @@
                 <x-home />
             </div>
         </section>
-
-
-    </main>
+    </div>
 @endsection

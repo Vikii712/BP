@@ -36,16 +36,29 @@ body {
 
 .bg-votum-blue { background-color: #051647; }
 .bg-votum-blue-light { background-color: #0a2558; }
-.border-votum2 { border-color: #4d4da3; }
-.border-votum1 { border-color: #014CC6; }
 .text-votum-blue { color: #051647; }
 .text-votum-cream{ color: #f1ebe3; }
+
+.bg-event{ background-color: #edeeff; }
+.border-event{border-color: #4d4da3;}
+
+.border-votum1 { border-color: #014CC6; }
+.border-votum2 { border-color: #4d4da3; }
+.border-votum3 { border-color: #904da3; }
 .bg-votum2 { background-color: #ededff;}
-.text-other-cream{ color: #e4cebc; }
-.bg-other-cream { background-color: #e4cebc;}
+.bg-votum3 { background-color: #fbedff;}
+.bg-dark-votum2 { background-color: #4d4da3;}
+
+
+
+
+
 .hover-scale { transition: transform 0.2s; }
 .hover-scale:hover { transform: scale(1.05); }
 .calendar-day { aspect-ratio: 1; }
 .event-day { background-color: #fbbf24; font-weight: bold; }
+.border-sponsor{border-color: #704a35;}
+.bg-sponsor{background-color: #fff9ed;}
+
 
 
