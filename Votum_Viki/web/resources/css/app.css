@@ -34,6 +34,16 @@ body {
     font-style: normal;
 }
 
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(20px); }
+    10%, 90% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(20px); }
+}
+
+.animate-fadeInOut {
+    animation: fadeInOut 2s ease-in-out forwards; /* trvá 2 sekundy a prebehne hladko */
+}
+
 .bg-votum-blue { background-color: #051647; }
 .bg-votum-blue-light { background-color: #0a2558; }
 .text-votum-blue { color: #051647; }
