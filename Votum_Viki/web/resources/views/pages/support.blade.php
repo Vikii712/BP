@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <main class="container mx-auto px-4 py-16">
+    <main class="container mx-auto px-4 pt-16">
 
         <h1 class="text-4xl md:text-5xl font-bold text-votum-blue text-center mb-6">
             Ako nás podporiť?
@@ -16,30 +16,39 @@
 
 
         </div>
+    </main>
 
-        <!-- Additional Info Section -->
-        <div class="max-w-4xl mx-auto bg-votum2 border-4 border-votum2 rounded-2xl shadow-xl p-8 mb-16">
-            <h3 class="text-2xl font-bold text-votum-blue mb-4 text-center">
-                Prečo je vaša podpora dôležitá?
-            </h3>
-            <div class="grid md:grid-cols-3 gap-6 text-center">
-                <div class="p-4">
-                    <i class="fa fa-music"></i>
-                    <h4 class="font-bold text-votum-blue mb-2">Muzikoterapia</h4>
-                    <p class="text-gray-600 text-sm">Organizujeme pravidelné hudobné kurzy pre každého</p>
+    <x-wave />
+    <div class="bg-blue-100 py-16">
+        <h3 class="text-2xl font-bold text-votum-blue pb-16 text-center">
+            Prečo je vaša podpora dôležitá?
+        </h3>
+        <div class="grid md:grid-cols-3 gap-4 mt-6 max-w-6xl mx-auto px-3  sm:px-10">
+            <div class="bg-white p-6 rounded-lg text-center border-4 border-votum1">
+                <div class="flex items-center justify-center gap-3 mb-3">
+                    <i class="fa fa-music text-emerald-900 text-3xl"></i>
+                    <h4 class="font-bold text-votum-blue text-2xl">Muzikoterapia</h4>
                 </div>
-                <div class="p-4">
-                    <h4 class="font-bold text-votum-blue mb-2">Aktivity</h4>
-                    <p class="text-gray-600 text-sm">Umožňujeme tábory, výlety a kultúrne podujatia</p>
+                <p class="text-gray-900 text-xl">Organizujeme pravidelné hudobné kurzy pre každého</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg text-center border-4 border-votum1">
+                <div class="flex items-center justify-center gap-3 mb-3">
+                    <i class="fa-solid fa-icons text-blue-900 text-3xl"></i>
+                    <h4 class="font-bold text-votum-blue text-2xl">Aktivity</h4>
                 </div>
-                <div class="p-4">
-                    <h4 class="font-bold text-votum-blue mb-2">Integrácia</h4>
-                    <p class="text-gray-600 text-sm">Pomáhame pri hľadaní práce a začlenení do spoločnosti</p>
+                <p class="text-gray-900 text-xl">Umožňujeme tábory, výlety a kultúrne podujatia</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg text-center border-4 border-votum1">
+                <div class="flex items-center justify-center gap-3 mb-3">
+                    <i class="fas fa-heart text-red-800 text-3xl"></i>
+                    <h4 class="font-bold text-votum-blue text-2xl">Integrácia</h4>
                 </div>
+                <p class="text-gray-900 text-xl">Pomáhame pri hľadaní práce a začlenení do spoločnosti</p>
             </div>
         </div>
 
         <x-home />
-
-    </main>
+    </div>
 @endsection

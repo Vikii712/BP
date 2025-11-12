@@ -1,6 +1,6 @@
 @props(['color' => true])
 
-<div class=" {{$color ? 'bg-event' : 'bg-white' }} rounded-lg overflow-hidden sm:mx-5 shadow-lg border-3 border-event">
+<div class=" {{$color ? 'bg-event' : 'bg-white' }} mx-3 rounded-lg overflow-hidden sm:mx-5 shadow-lg border-3 border-event">
     <!-- Obrázok -->
     <div class="h-64 overflow-hidden m-5 mb-0">
         <img src="{{ asset('images/activity1.jpg') }}" alt="Tábor 2024" class="w-full h-full object-cover">

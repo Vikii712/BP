@@ -6,7 +6,7 @@
         </div>
     </div>
 
-    <div class="border-4 border-votum3 bg-votum3 my-5 p-6 rounded-lg">
+    <div class="border-4 border-votum3 bg-votum3 my-5 p-2 sm:p-6 rounded-lg">
         <div class="flex items-start gap-4">
             <div class="flex-1">
                 <div class="flex items-center gap-3 mb-8">

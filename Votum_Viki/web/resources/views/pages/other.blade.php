@@ -8,7 +8,7 @@
                 Iné formy podpory
             </h1>
             <div class="flex justify-center gap-3">
-                <button onclick="shareEvent()" class="bg-green-600 text-white px-3 sm:px-6 py-4 rounded-lg hover-scale font-semibold flex items-center gap-2 text-xl">
+                <button onclick="shareEvent()" class="votum-share text-white px-3 sm:px-6 py-4 rounded-lg hover-scale font-semibold flex items-center gap-2 text-xl">
                     <i class="fas fa-share-alt text-lg"></i>
                     <span>Zdieľať</span>
                 </button>
@@ -44,7 +44,7 @@
                         <div class="icon-float mb-6">
                             <i class="fas fa-gift text-8xl"></i>
                         </div>
-                        <h2 class="text-3xl font-bold mb-2">Materiálne dary</h2>
+                        <h2 class="text-center text-3xl font-bold mb-2">Materiálne dary</h2>
                         <p class="text-center text-lg">Venujte to, čo nepotrebujete</p>
                     </div>
 
@@ -65,7 +65,7 @@
                         <div class="icon-float mb-6">
                             <i class="fas fa-gift text-8xl"></i>
                         </div>
-                        <h2 class="text-3xl font-bold mb-2">Hudobné vystúpenia</h2>
+                        <h2 class="text-center text-3xl font-bold mb-2">Hudobné vystúpenia</h2>
                         <p class="text-center text-lg">Pozvite nás na vašu udalosť!</p>
                     </div>
 
@@ -85,7 +85,7 @@
                         <div class="icon-float mb-6">
                             <i class="fas fa-gift text-8xl"></i>
                         </div>
-                        <h2 class="text-3xl font-bold mb-2">Verejná zbierka</h2>
+                        <h2 class="text-center text-3xl font-bold mb-2">Verejná zbierka</h2>
                         <p class="text-center text-lg">Vaša kreativita + naša pomoc</p>
                     </div>
 

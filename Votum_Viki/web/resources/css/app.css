@@ -60,6 +60,9 @@ body {
 .bg-dark-votum1 { background-color: #123d8e;}
 .bg-dark-votum2 { background-color: #4d4da3;}
 .bg-dark-votum3 { background-color: #784087;}
+.text-votum1 { color: #123d8e;}
+.text-votum2 { color: #4d4da3;}
+.text-votum3 { color: #784087;}
 
 .votum-share{background-color: #0d590d;}
 

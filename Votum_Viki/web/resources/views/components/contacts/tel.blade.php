@@ -1,6 +1,6 @@
 <div class=" grid md:grid-cols-2">
 
-    <div class="border-4 border-votum1 bg-blue-100 mb-5 p-6 rounded-lg">
+    <div class="border-4 border-votum1 bg-blue-100 mb-5 p-2 sm:p-6 rounded-lg">
         <div class="flex items-start gap-4">
             <div class="flex-1">
                 <div class="flex items-center gap-3 mb-8">
@@ -16,7 +16,7 @@
                         <a href="tel:0827654329" class="flex-1 bg-votum-blue text-white py-2 px-4 rounded text-center hover-scale">
                             <i class="fas fa-phone mr-2"></i>Volať
                         </a>
-                        <a href="sms:0827654329" class="flex-1 bg-green-600 text-white py-2 px-4 rounded text-center hover-scale">
+                        <a href="sms:0827654329" class="flex-1 votum-share text-white py-2 px-4 rounded text-center hover-scale">
                             <i class="fas fa-sms mr-2"></i>SMS
                         </a>
                     </div>

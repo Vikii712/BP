@@ -9,10 +9,10 @@
         <!-- Right controls -->
         <div class="flex items-center gap-4">
             <!-- Font controls (desktop only) -->
-            <div class="hidden md:flex items-center gap-2 bg-blue-900 rounded-full">
-                <button id="decrease-font" type="button" class="text-[var(--cream)] hover:text-blue-300 font-bold text-2xl px-5 py-2">–</button>
-                <span class="text-lg text-[var(--cream)]">aA</span>
-                <button id="increase-font" type="button" class="text-[var(--cream)] hover:text-blue-300 font-bold text-2xl px-5 py-2">+</button>
+            <div class="hidden md:flex items-center gap-2 border-1 border-blue-100 bg-blue-100 rounded-full">
+                <button id="decrease-font" type="button" class="text-votum-blue hover:text-blue-300 font-bold text-2xl px-5 py-2">–</button>
+                <span class="text-lg text-votum-blue">aA</span>
+                <button id="increase-font" type="button" class="text-votum-blue hover:text-blue-300 font-bold text-2xl px-5 py-2">+</button>
             </div>
 
             <!-- Language switch (desktop only) -->
@@ -41,17 +41,17 @@
 
         <!-- Mobile font + locale controls (visible only on mobile) -->
         <div class="flex flex-row items-center gap-4 md:hidden ">
-            <div class="flex items-center gap-2 bg-blue-900 rounded-full text-2xl">
-                <button id="decrease-font-mobile" type="button" class="text-[var(--cream)] hover:text-blue-300 font-bold px-5 py-3">–</button>
-                <span class="text-lg text-[var(--cream)]">aA</span>
-                <button id="increase-font-mobile" type="button" class="text-[var(--cream)] hover:text-blue-300 font-bold px-5 py-3">+</button>
+            <div class="flex items-center gap-2 border-1 border-blue-100 bg-blue-100  rounded-full text-2xl">
+                <button id="decrease-font-mobile" type="button" class="text-votum-blue hover:text-blue-300 font-bold px-5 py-3">–</button>
+                <span class="text-xl text-bold text-votum-blue">aA</span>
+                <button id="increase-font-mobile" type="button" class="text-votum-blue hover:text-blue-300 font-bold px-5 py-3">+</button>
             </div>
 
             <x-locale-switch mobile />
         </div>
 
         <!-- Links -->
-        <ul class="flex flex-col gap-6 text-center font-medium w-full">
+        <ul class="flex flex-col gap-6 text-center font-medium w-full text-xl">
             <li><a href="{{route('main')}}" class="flex justify-center items-center gap-3 hover:text-blue-300"><img src="{{ asset('images/domov.svg') }}" class="w-10 h-10" alt=""> {{ __('nav.home')}}</a></li>
             <li><a href="{{route('about')}}" class="flex justify-center items-center gap-3 hover:text-blue-300"><img src="{{ asset('images/Onas.svg') }}" class="w-10 h-10" alt=""> {{ __('nav.about')}}</a></li>
             <li><a href="{{route('events')}}"  class="flex justify-center items-center gap-3 hover:text-blue-300"><img src="{{ asset('images/udalosti.svg') }}" class="w-10 h-10" alt="">{{ __('nav.events')}}</a></li>

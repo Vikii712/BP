@@ -1,4 +1,4 @@
-<nav aria-label="Primary navigation" id="main-nav" class="relative z-40 bg-blue-950">
+<nav aria-label="Primary navigation" id="main-nav" class=" relative z-40 bg-blue-950">
     <!-- Desktop nav -->
     <ul class="hidden md:flex justify-evenly text-[var(--cream)]">
         <li><a href="{{route('main')}}" class="flex flex-col items-center px-3 hover:text-blue-300">
