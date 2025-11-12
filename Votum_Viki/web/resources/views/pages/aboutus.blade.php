@@ -8,7 +8,7 @@
                 O nás
             </h1>
 
-            <x-listen-share />
+            <x-share />
         </div>
 
         <x-about.section />
