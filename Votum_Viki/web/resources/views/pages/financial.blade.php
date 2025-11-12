@@ -82,7 +82,7 @@
 
     <!-- Ďakovná sekcia -->
     <div class="bg-blue-100">
-        <section class="max-w-4xl mx-auto mb-12 text-center py-10">
+        <section class="max-w-4xl mx-auto mb-12 text-center py-10 px-4">
             <i class="fas fa-heart text-6xl mb-4 text-red-600"></i>
             <h3 class="text-3xl font-bold mb-4 text-votum-blue">Ďakujeme za vašu podporu!</h3>
             <p class="text-lg text-gray-800">Každý príspevok, bez ohľadu na výšku, nám pomáha zlepšovať životy ľudí, ktorí to potrebujú.</p>

@@ -52,12 +52,16 @@ body {
 .bg-event{ background-color: #edeeff; }
 .border-event{border-color: #4d4da3;}
 
-.border-votum1 { border-color: #014CC6; }
+.border-votum1 { border-color: #123d8e; }
 .border-votum2 { border-color: #4d4da3; }
-.border-votum3 { border-color: #904da3; }
+.border-votum3 { border-color: #784087; }
 .bg-votum2 { background-color: #ededff;}
 .bg-votum3 { background-color: #fbedff;}
+.bg-dark-votum1 { background-color: #123d8e;}
 .bg-dark-votum2 { background-color: #4d4da3;}
+.bg-dark-votum3 { background-color: #784087;}
+
+.votum-share{background-color: #0d590d;}
 
 
 
