@@ -124,9 +124,11 @@
                 <div>
                     <h4 class="font-bold text-votum-blue text-xl">${eventDate.getDate()}.${eventDate.getMonth() + 1}. ${event.title}</h4>
                 </div>
-                <button class=" border-3 border-votum2 text-lg bg-white px-5 py-3 rounded hover-scale text-votum-blue font-semibold">
-                    Viac<i class="pl-2 fas fa-arrow-right"></i>
-                </button>
+                <a href="{{route('event')}}">
+                    <button class=" border-3 border-votum2 text-lg bg-white px-5 py-3 rounded hover-scale text-votum-blue font-semibold">
+                        Viac<i class="pl-2 fas fa-arrow-right"></i>
+                    </button>
+                </a >
             `;
             eventsList.appendChild(eventDiv);
         });

@@ -7,12 +7,7 @@
             Ako venovať 2% z daní?
         </h1>
 
-        <div class="flex justify-center gap-3">
-            <button onclick="shareEvent()" class="votum-share text-white px-3 sm:px-6 py-4 rounded-lg hover-scale font-semibold flex items-center gap-2 text-xl">
-                <i class="fas fa-share-alt text-lg"></i>
-                <span>Zdieľať</span>
-            </button>
-        </div>
+        <x-share />
     </div>
 
     <x-wave />

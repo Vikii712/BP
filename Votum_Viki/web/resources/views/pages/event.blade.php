@@ -17,7 +17,7 @@
                     <i class="fas fa-calendar-alt mr-2"></i>
                     28. 6. 2024
                 </div>
-                <x-listen-share />
+                <x-share />
             </div>
             <!-- Sponsors/Partners -->
             <div class="p-4">
@@ -37,8 +37,9 @@
 
         <!-- Event Description Section -->
         <section class="max-w-5xl mx-auto mb-12">
-            <div class="">
+            <div class="relative">
                 <h2 class="text-3xl font-bold text-votum-blue mb-6">O udalosti</h2>
+                <x-listen />
                 <div class=" text-xl prose max-w-none  space-y-4">
                     <p>
                         V júni 2024 sme sa vydali na nezabudnuteľnú turistiku k pamätníku Slavín v Bratislave. Táto akcia bola skvelou príležitosťou na spoločné trávenie času v prírode a spoznávanie historických pamiatok nášho hlavného města.

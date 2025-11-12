@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<main class="container mx-auto px-4 py-12">
+<main class="container mx-auto px-4 py-12 items-center">
     <!-- Page Title -->
     <h1 class="text-4xl md:text-5xl font-bold text-votum-blue text-center mb-4">
         Kontakt
