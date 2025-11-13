@@ -24,9 +24,9 @@
                 <div class="flex items-center gap-4 flex-wrap">
                     <span class="w-full text-gray-600 font-semibold font-xl">Sponzori:</span>
                     @for($i = 0; $i < 2; $i++)
-                        <div class="p-3 flex items-center gap-4 border-2 border-sponsor bg-sponsor rounded-lg">
+                        <div class="p-3 flex items-center gap-4 border-3 border-votum1 bg-votum1 rounded-lg">
                             <span class="text-votum-blue font-bold text-lg">Bratislavský samosprávny kraj</span>
-                            <div class="h-16 bg-gray-200 rounded flex items-center justify-center">
+                            <div class="h-16  rounded flex items-center justify-center">
                                 <img src="{{asset('images/logo_bk.png')}}" alt="Partner logo" class="max-w-full max-h-full object-contain">
                             </div>
                         </div>
@@ -54,7 +54,21 @@
             </div>
         </section>
 
-        <!-- Photos Section -->
+        <a href="https://photos.app.goo.gl/zEXLTiG11oPoTrN69" class="block group mx-4" target="_blank" >
+            <section
+                class="flex flex-col items-center justify-center text-center
+                   mx-auto p-10 border-6 border-votum2 bg-votum2 max-w-4xl mb-8
+                   rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105">
+                <div class="p-6  mb-6 ">
+                    <img src="{{ asset('images/fotky.svg') }}" alt="fotky" width="100" class="mx-auto">
+                </div>
+                <h2 class="text-3xl font-bold text-votum2 group-hover:text-votum-dark transition-colors duration-200">
+                    Fotky
+                </h2>
+            </section>
+        </a>
+
+        <!-- Photos Section
         <section class="max-w-5xl mx-auto mb-12">
             <div class="">
                 <h2 class="text-3xl font-bold text-votum-blue mb-6">Fotky</h2>
@@ -71,6 +85,7 @@
 
             </div>
         </section>
+        -->
 
         <!-- Videos Section -->
         <section class="max-w-5xl mx-auto mb-12">

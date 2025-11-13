@@ -15,19 +15,19 @@
                 <!-- Accessible Button Group -->
                 <div class="flex flex-col sm:flex-row sm:flex-wrap gap-6 justify-center lg:justify-start">
                     <a href="https://www.facebook.com/100064455204496" target="_blank"
-                       class="flex items-center justify-center gap-3 bg-blue-600 text-white px-10 py-5 rounded-xl text-xl font-semibold shadow-md hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none transition">
+                       class="flex items-center justify-center gap-3 bg-dark-votum1 text-white px-10 py-5 rounded-xl text-xl font-semibold shadow-md hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none transition">
                         <i class="fab fa-facebook text-3xl"></i>
                         <span>Facebook</span>
                     </a>
 
                     <a href="https://www.youtube.com/@zdruzenievotum641" target="_blank"
-                       class="flex items-center justify-center gap-3 bg-red-600 text-white px-10 py-5 rounded-xl text-xl font-semibold shadow-md hover:bg-red-700 focus:ring-4 focus:ring-red-300 focus:outline-none transition">
+                       class="flex items-center justify-center gap-3 bg-dark-votum3 text-white px-10 py-5 rounded-xl text-xl font-semibold shadow-md hover:bg-red-700 focus:ring-4 focus:ring-red-300 focus:outline-none transition">
                         <i class="fab fa-youtube text-3xl"></i>
                         <span>YouTube</span>
                     </a>
 
                     <a href="{{ route('about') }}"
-                       class="flex items-center justify-center gap-3 bg-votum-blue text-white px-10 py-5 rounded-xl text-xl font-semibold shadow-md hover:bg-votum-blue/90 focus:ring-4 focus:ring-blue-300 focus:outline-none transition">
+                       class="flex items-center justify-center gap-3 bg-dark-votum2 text-white px-10 py-5 rounded-xl text-xl font-semibold shadow-md hover:bg-votum-blue/90 focus:ring-4 focus:ring-blue-300 focus:outline-none transition">
                         <i class="fas fa-user-group text-2xl"></i>
                         <span>Viac o nás</span>
                     </a>

@@ -50,21 +50,19 @@ body {
 .text-votum-cream{ color: #f1ebe3; }
 
 .bg-event{ background-color: #edeeff; }
-.border-event{border-color: #4d4da3;}
-
+.border-event{border-color: #404087;}
 .border-votum1 { border-color: #123d8e; }
-.border-votum2 { border-color: #4d4da3; }
-.border-votum3 { border-color: #784087; }
-.bg-votum2 { background-color: #ededff;}
+.border-votum2 { border-color: #404087; }
+.border-votum3 { border-color: #713B7D; }
+.bg-votum1 { background-color: #EDF5FF;}
+.bg-votum2 { background-color: #e0e0ff;}
 .bg-votum3 { background-color: #fbedff;}
 .bg-dark-votum1 { background-color: #123d8e;}
-.bg-dark-votum2 { background-color: #4d4da3;}
-.bg-dark-votum3 { background-color: #784087;}
+.bg-dark-votum2 { background-color: #404087;}
+.bg-dark-votum3 { background-color: #713B7D;}
 .text-votum1 { color: #123d8e;}
-.text-votum2 { color: #4d4da3;}
-.text-votum3 { color: #784087;}
-
-.votum-share{background-color: #0d590d;}
+.text-votum2 { color: #404087;}
+.text-votum3 { color: #713B7D;}
 
 
 
@@ -74,8 +72,7 @@ body {
 .hover-scale:hover { transform: scale(1.05); }
 .calendar-day { aspect-ratio: 1; }
 .event-day { background-color: #fbbf24; font-weight: bold; }
-.border-sponsor{border-color: #704a35;}
-.bg-sponsor{background-color: #fff9ed;}
+
 
 
 

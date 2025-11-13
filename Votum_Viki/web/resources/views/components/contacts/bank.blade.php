@@ -1,6 +1,6 @@
 <div class="grid md:grid-cols-2 ">
 
-    <div class="border-4 border-votum1 bg-blue-100 p-2 sm:p-6 rounded-lg shadow-lg">
+    <div class="border-4 border-votum1 bg-votum1 p-2 sm:p-6 rounded-lg shadow-lg">
         <div class="flex items-start gap-4">
             <div class="flex-1">
                 <div class="flex items-center gap-3 mb-8">
