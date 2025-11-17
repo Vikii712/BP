@@ -3,7 +3,7 @@
 @section('content')
     <!-- Page Header -->
     <div class="max-w-4xl mx-auto mb-12 text-center">
-        <h1 class="text-4xl md:text-5xl font-bold text-votum-blue mb-4 pt-16">
+        <h1 class="h1 md:text-5xl font-bold text-votum-blue mb-4 pt-16">
             Ako venovať 2% z daní?
         </h1>
 
@@ -15,22 +15,22 @@
     <div class="bg-blue-100">
         <div class="max-w-5xl mx-auto py-5">
             <div class="p-5  rounded-lg">
-                <h2 class="text-2xl font-bold justify-center text-votum-blue mb-4 flex items-center gap-3">
+                <h2 class="h2 font-bold justify-center text-votum-blue mb-4 flex items-center gap-3">
                     <i class="fas fa-lightbulb "></i>
                     Prečo venovať 2%?
                 </h2>
-                <div class="space-y-4 text-gray-800 text-lg">
+                <div class="space-y-4 text-gray-800 txt">
                     <p>
                         Venovaním 2% z vašej dane na príjem môžete podporiť našu činnosť a pomôcť nám zlepšovať životy ľudí so zdravotným znevýhodnením. Tento spôsob pomoci vás nič nestojí – ide o časť dane, ktorú už platíte štátu, a môžete ju presmerovať na dobrú vec.
                     </p>
                     <div class="grid md:grid-cols-2 gap-4 mt-6">
                         <div class="bg-white p-4 rounded-lg text-center border-3 border-votum1">
                             <i class="fas fa-heart text-red-600 text-3xl mb-2"></i>
-                            <p class="font-bold">Nestojí vás to nič</p>
+                            <p class="font-bold txt">Nestojí vás to nič</p>
                         </div>
                         <div class="bg-white p-4 rounded-lg text-center border-3 border-votum1">
                             <i class="fas fa-hands-helping text-votum-blue text-3xl mb-2"></i>
-                            <p class="font-bold">Pomáha ľuďom</p>
+                            <p class="font-bold txt">Pomáha ľuďom</p>
                         </div>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
     <main class="container mx-auto px-4 py-12 mt-16">
 
         <section class="max-w-5xl mx-auto mb-12 p-6 rounded-xl border-4 border-votum3 bg-votum3">
-                <h2 class="text-3xl text-center font-bold text-votum-blue mb-6 flex items-center gap-3">
+                <h2 class="h3 text-center font-bold text-votum-blue mb-6 flex items-center gap-3">
                     Potrebné údaje
                 </h2>
                 <div class="space-y-3 grid lg:grid-cols-2 gap-x-5">
@@ -60,7 +60,7 @@
         <!-- Documents Section -->
         <section class="rounded-xl max-w-5xl mx-auto mb-12 bg-blue-100 border-4 border-votum1">
             <div class="rounded-2xl  p-8">
-                <h2 class="text-3xl font-bold text-votum-blue mb-6 flex items-center gap-3">
+                <h2 class="h3 font-bold text-votum-blue mb-6 flex items-center gap-3">
                     <i class="fas fa-download"></i>
                     Dokumenty na stiahnutie
                 </h2>
@@ -81,7 +81,7 @@
         <section class="max-w-4xl mx-auto mb-12 text-center py-5">
             <div class="">
                 <i class="fas fa-heart text-6xl mb-4 text-red-600"></i>
-                <h3 class="text-3xl font-bold mb-4">Ďakujeme za vašu podporu!</h3>
+                <h2 class="h3 font-bold mb-4">Ďakujeme za vašu podporu!</h2>
                 <p class="text-lg">Vďaka vašim 2% môžeme pokračovať v pomoci ľuďom, ktorí to potrebujú.</p>
             </div>
         </section>

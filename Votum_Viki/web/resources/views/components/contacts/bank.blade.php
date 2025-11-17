@@ -1,27 +1,18 @@
-<div class="grid md:grid-cols-2 ">
 
-    <div class="border-4 border-votum1 bg-votum1 p-2 sm:p-6 rounded-lg shadow-lg">
-        <div class="flex items-start gap-4">
-            <div class="flex-1">
-                <div class="flex items-center gap-3 mb-8">
-                    <div class="bg-votum-blue text-white p-4 rounded-full flex-shrink-0 flex md:hidden items-center justify-center">
-                        <i class="fas fa-envelope text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-votum-blue">Bankové údaje:</h3>
-                </div>
-                <div class="space-y-3">
-                    <x-contacts.input name="Číslo účtu" value="SK3112000000198765432100" :color="1"/>
-                    <x-contacts.input name="IBAN" value="SK3112000000198765432100" :color="1"/>
-                    <x-contacts.input name="SWIFT" value="SUBASKBXXXX" :color="1"/>
-                </div>
+<div class="support-option-card border-4 border-votum3 bg-votum3 rounded-xl shadow-xl overflow-hidden">
+    <div class="lg:grid lg:grid-cols-2 gap-0">
+
+        <div class="bg-dark-votum3 p-8 flex flex-col justify-center items-center text-white">
+            <div class="icon-float mb-6">
+                <i class="fas fa-building-columns text-6xl"></i>
             </div>
+            <h2 class="text-center h2 font-bold mb-2">Bankové údaje</h2>
+        </div>
+
+        <div class="space-y-3 p-8">
+            <x-contacts.input name="Číslo účtu" value="SK3112000000198765432100" :color="3"/>
+            <x-contacts.input name="IBAN" value="SK3112000000198765432100" :color="3"/>
+            <x-contacts.input name="SWIFT" value="SUBASKBXXXX" :color="3"/>
         </div>
     </div>
-
-    <div class="hidden md:flex items-center justify-center">
-        <div class="text-votum-blue flex items-center justify-center">
-            <i class="fas fa-university text-6xl"></i>
-        </div>
-    </div>
-
 </div>

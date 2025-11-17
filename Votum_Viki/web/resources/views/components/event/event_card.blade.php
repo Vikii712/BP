@@ -8,11 +8,11 @@
 
     <!-- Obsah v grid kontejnery -->
     <div class="pt-3 p-6 grid">
-        <h3 class="text-2xl font-bold text-votum-blue mb-2 ">Tábor 2024</h3>
+        <h3 class="h3 font-bold text-votum-blue mb-2 ">Tábor 2024</h3>
 
-        <p class="text-votum-blue text-bold mb-2 text-lg ">Nezabudnuteľné leto plné zábavy, priateľstva a dobrodružstva.</p>
+        <p class="txt text-bold mb-2 text-lg ">Nezabudnuteľné leto plné zábavy, priateľstva a dobrodružstva.</p>
 
-        <a href="{{ route('event') }}" class="text-lg bg-votum-blue text-white px-7 py-4 rounded hover-scale justify-self-end">
+        <a href="{{ route('event') }}" class="txt-btn text-bold bg-votum-blue text-white px-7 py-4 rounded hover-scale justify-self-end">
             Viac <i class="pl-2 fas fa-arrow-right"></i>
         </a>
     </div>

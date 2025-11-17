@@ -15,6 +15,6 @@
         <div class="p-5 rounded-2xl h-36 w-36 flex items-center justify-center transition-transform group-hover:scale-110">
             <img src="{{ asset('images/' . $icon . '.svg') }}" alt="" class="object-contain h-full w-full">
         </div>
-        <h3 class="text-4xl font-bold {{$text_col}}">{{ $text }}</h3>
+        <h2 class="h2 font-bold {{$text_col}}">{{ $text }}</h2>
     </div>
 </a>

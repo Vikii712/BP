@@ -34,7 +34,7 @@
     <div class="container mx-auto px-4 py-12">
         <!-- Nadpis + tlačidlá -->
         <div class="flex flex-col sm:flex-row  justify-between items-center text-center md:text-left gap-6 mb-10">
-            <h1 class="text-4xl md:text-6xl font-extrabold text-votum-blue">História</h1>
+            <h1 class="h1 md:text-6xl font-extrabold text-votum-blue">História</h1>
 
             <div class="flex justify-center md:justify-end gap-4 flex-wrap">
                 <x-share />
@@ -60,8 +60,8 @@
                     <!-- Obsah -->
                     <div class="ml-8  pt-5 md:p-6 relative">
                         <x-listen />
-                        <h3 class="text-3xl font-bold text-votum-blue mb-2">{{ $entry['name'] }}</h3>
-                        <p class="text-gray-700 leading-relaxed text-xl">{{ $entry['text'] }}</p>
+                        <h2 class="h3 font-bold text-votum-blue mb-2">{{ $entry['name'] }}</h2>
+                        <p class="text-gray-700 leading-relaxed txt">{{ $entry['text'] }}</p>
                     </div>
 
                     @if($loop->index % 3 == 0)

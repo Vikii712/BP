@@ -1,27 +1,16 @@
-<div class=" grid md:grid-cols-2">
+<div class="support-option-card border-4 border-votum2 bg-votum2 rounded-xl shadow-xl overflow-hidden">
+    <div class="lg:grid lg:grid-cols-2 gap-0">
 
-    <div class="hidden md:flex items-center justify-center">
-        <div class="text-votum-blue flex items-center justify-center">
-            <i class="fas fa-id-card text-6xl"></i>
-        </div>
-    </div>
-
-    <div class="border-4 border-votum3 bg-votum3 p-2 sm:p-6 rounded-lg shadow-lg mb-5">
-        <div class="flex items-start gap-4">
-            <div class="flex-1">
-                <div class="flex items-center gap-3 mb-8">
-                    <div class="bg-votum-blue text-white p-4 rounded-full flex-shrink-0 flex md:hidden items-center justify-center">
-                        <i class="fas fa-id-card text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-votum-blue">Identifikačné údaje:</h3>
-                </div>
-
-                <div class="space-y-3">
-                    <x-contacts.input name="IČO" value="12345678" :color="3"/>
-                    <x-contacts.input name="DIČ" value="2023456789" :color="3"/>
-                </div>
+        <div class="bg-dark-votum2 p-8 flex flex-col justify-center items-center text-white">
+            <div class="icon-float mb-6">
+                <i class="fas fa-id-card text-6xl"></i>
             </div>
+            <h2 class="text-center h2 font-bold mb-2">Identifikačné údaje</h2>
+        </div>
+
+        <div class="space-y-3 p-8">
+            <x-contacts.input name="IČO" value="12345678" :color="2"/>
+            <x-contacts.input name="DIČ" value="2023456789" :color="2"/>
         </div>
     </div>
-
 </div>

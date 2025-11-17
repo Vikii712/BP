@@ -64,9 +64,12 @@ body {
 .text-votum2 { color: #404087;}
 .text-votum3 { color: #713B7D;}
 
+.h1{font-size: 45px;}
+.h2{font-size: 34px;}
+.h3{font-size: 24px;}
 
-
-
+.txt-btn{font-size: 20px;}
+.txt{font-size: 20px;}
 
 .hover-scale { transition: transform 0.2s; }
 .hover-scale:hover { transform: scale(1.05); }

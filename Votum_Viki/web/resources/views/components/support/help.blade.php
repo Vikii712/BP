@@ -3,7 +3,7 @@
 
 
         <!-- Prepínacie tlačidlá -->
-        <div class="flex justify-center gap-4 mb-10">
+        <div class="txt flex justify-center gap-4 mb-10">
             <button
                 @click="tab = 'fyzicke'"
                 :class="tab === 'fyzicke'
@@ -27,14 +27,14 @@
 
         <!-- Postup pre fyzické osoby -->
         <div x-show="tab === 'fyzicke'">
-            <h3 class="text-2xl font-bold mb-6 flex items-center justify-center gap-3 text-votum-blue">
+            <h3 class="h3 font-bold mb-6 flex items-center justify-center gap-3 text-votum-blue">
                 <i class="fas fa-user text-3xl"></i>
                 Postup pre fyzické osoby
             </h3>
-            <p class="text-lg mb-8 text-center text-gray-800">
+            <p class="txt mb-8 text-center text-gray-800">
                 Ak ste zamestnanec alebo podnikateľ a podávate daňové priznanie, postupujte nasledovne:
             </p>
-            <ol class="border-3 border-votum2 list-decimal list-inside bg-white p-6 rounded-lg text-lg font-medium space-y-2 shadow-inner">
+            <ol class="border-3 border-votum2 list-decimal list-inside bg-white p-6 rounded-lg txt font-medium space-y-2 shadow-inner">
                 <li>Postup</li>
                 <li>Sprav toto potom</li>
                 <li>Stiahni</li>
@@ -45,14 +45,14 @@
 
         <!-- Postup pre právnické osoby -->
         <div x-show="tab === 'pravnicke'">
-            <h3 class="text-2xl font-bold mb-6 flex items-center justify-center gap-3 text-votum-blue">
+            <h3 class="h3 font-bold mb-6 flex items-center justify-center gap-3 text-votum-blue">
                 <i class="fas fa-building text-3xl"></i>
                 Postup pre právnické osoby
             </h3>
-            <p class="text-lg mb-8 text-center text-gray-800">
+            <p class="txt mb-8 text-center text-gray-800">
                 Ak ste firma alebo organizácia a chcete podporiť naše združenie, postup je podobný ako pre fyzické osoby:
             </p>
-            <ol class="border-3 border-votum2 list-decimal list-inside bg-white p-6 rounded-lg text-lg font-medium space-y-2 shadow-inner">
+            <ol class="border-3 border-votum2 list-decimal list-inside bg-white p-6 rounded-lg txt font-medium space-y-2 shadow-inner">
                 <li>Postup</li>
                 <li>Sprav toto potom</li>
                 <li>Stiahni</li>

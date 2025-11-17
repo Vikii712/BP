@@ -3,10 +3,10 @@
 @section('content')
     <main class="container mx-auto px-4 py-12">
         <!-- Page Title -->
-        <h1 class="text-4xl md:text-5xl font-bold text-votum-blue text-center mb-4">
+        <h1 class="h1 md:text-5xl font-bold text-votum-blue text-center mb-4">
             Dokumenty na stiahnutie
         </h1>
-        <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        <p class="txt text-center text-black mb-12 max-w-2xl mx-auto">
             Tu nájdete všetky dôležité dokumenty súvisiace s naším združením - stanovy, výročné zprávy, GDPR dokumentáciu a ďalšie materiály.
         </p>
 

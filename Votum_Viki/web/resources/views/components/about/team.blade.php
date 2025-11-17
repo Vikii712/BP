@@ -1,6 +1,6 @@
 <!-- Team Section -->
 <div class="bg-blue-100 py-12 justify-center">
-    <h2 class="text-4xl font-bold text-votum-blue mb-8 text-center py-5">Náš Tím</h2>
+    <h2 class="h2 font-bold text-votum-blue mb-8 text-center py-5">Náš Tím</h2>
 
     <div class="grid lg:grid-cols-2 gap-8 mb-8 mx-5 sm:mx-10">
 
@@ -8,7 +8,6 @@
             <div class="bg-white rounded-2xl shadow-lg overflow-hidden border-2 border-votum1">
                 <div class="flex flex-col sm:flex-row h-full">
 
-                    <!-- Obrázok -->
                     <div class=" sm:w-1/2 m-3 flex justify-center items-center">
                         <div class="w-48 h-48 sm:w-64 sm:h-64 bg-cover bg-center"
                              style="
@@ -19,14 +18,13 @@
                         </div>
                     </div>
 
-                    <!-- Text -->
                     <div class="p-6 sm:pl-0 flex flex-col justify-center sm:w-1/2">
-                        <h3 class="text-2xl font-bold text-votum-blue mb-2">Mária Nováková</h3>
-                        <p class="text-lg text-gray-600 mb-4 font-semibold">Riaditeľka združenia</p>
-                        <p class="text-gray-700 text-md">
-                            Zakladajúca členka VOTUM s viac ako 15-ročnými skúsenosťami v oblasti sociálnej práce
-                            a podpory ľudí so zdravotným znevýhodnením.
-                        </p>
+                        <h3 class="h3 font-bold text-votum-blue mb-2">Mária Nováková</h3>
+                        <p class="text-lg text-votum1 mb-4 font-semibold">Riaditeľka združenia</p>
+                        <ul class="list-disc ps-4 text-votum-blue txt" >
+                            <li>Zakladajúca členka VOTUM</li>
+                            <li>Viac ako 10-ročné skúsenosti v oblasti sociálnej práce</li>
+                        </ul>
                     </div>
 
                 </div>
