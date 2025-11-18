@@ -12,7 +12,7 @@
 
         <p class="txt text-bold mb-2 text-lg ">Nezabudnuteľné leto plné zábavy, priateľstva a dobrodružstva.</p>
 
-        <a href="{{ route('event') }}" class="txt-btn text-bold bg-votum-blue text-white px-7 py-4 rounded hover-scale justify-self-end">
+        <a href="{{ route('event') }}" class="txt-btn text-bold bg-votum-blue text-white px-7 py-4 rounded   justify-self-end">
             Viac <i class="pl-2 fas fa-arrow-right"></i>
         </a>
     </div>

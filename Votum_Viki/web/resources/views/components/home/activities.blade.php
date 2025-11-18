@@ -31,7 +31,7 @@
         </div>
 
         <div class="text-center">
-            <button class="bg-votum-blue text-white px-8 py-5 rounded-lg hover-scale font-semibold txt-btn">
+            <button class="bg-votum-blue text-white px-8 py-5 rounded-lg  font-semibold txt-btn">
                 <i class="fas fa-arrow-right mr-2"></i>Chcete vidieť viac?
             </button>
         </div>

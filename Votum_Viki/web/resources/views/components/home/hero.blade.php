@@ -20,9 +20,9 @@
 
                         <div class="absolute pointer-events-none opacity-100 z-0
                                     -top-12 right-5 w-28 h-28
-                                    sm:-top-15 sm:-right-0 sm:w-40 sm:h-40
+                                    sm:-top-13 sm:-right-0 sm:w-40 sm:h-40
                                     md:w-50  md:h-50
-                                    lg:-top-20 lg:right-0">
+                                    lg:-top-15 lg:right-0">
                             <img src="{{ asset('images/votumaci.png') }}" alt=""
                                  class="w-full h-full object-contain">
                         </div>

@@ -9,10 +9,8 @@
             </div>
 
             <div class="text-center">
-                <a href="{{route('about')}}">
-                    <button class="bg-votum-blue text-white px-8 py-5 rounded-lg hover-scale font-semibold txt-btn">
-                        <i class="fas fa-users mr-2"></i>Spoznať členov nášho tímu
-                    </button>
+                <a href="{{route('about')}}" class="bg-votum-blue text-white px-8 py-5 rounded-lg font-semibold txt-btn">
+                    <i class="fas fa-users mr-2"></i>Spoznať členov nášho tímu
                 </a>
             </div>
         </div>

@@ -63,11 +63,9 @@
                @class([
                    'flex flex-col items-center px-3 pb-0.5',
 
-                   // zvýrazni support aj všetky jeho podstránky
                    'border-b-4 border-blue-300 text-blue-200 font-extrabold aria-current-page'
                        => request()->is('support*') || request()->routeIs('financial') || request()->routeIs('2percent') || request()->routeIs('other'),
 
-                   // normálne správanie, keď NIE si na support podstránkach
                    'hover:text-blue-300'
                        => !(request()->is('support*') || request()->routeIs('financial') || request()->routeIs('2percent') || request()->routeIs('other')),
                ])

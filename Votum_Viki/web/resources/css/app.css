@@ -1,9 +1,12 @@
 @import 'tailwindcss';
 
+
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
 @source '../**/*.js';
+
+
 
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
@@ -68,7 +71,6 @@ body {
 .h2{font-size: 34px;}
 .h3{font-size: 24px;}
 
-.txt-btn{font-size: 20px;}
 .txt{font-size: 20px;}
 
 .hover-scale { transition: transform 0.2s; }
@@ -77,5 +79,36 @@ body {
 .event-day { background-color: #fbbf24; font-weight: bold; }
 
 
+.txt-btn {
+    font-size: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem; /* rovnaké ako gap-3 */
+    padding: 1.25rem 2.5rem; /* py-5 px-10 */
+    border-radius: 0.75rem; /* rounded-xl */
+    font-weight: 600; /* font-semibold */
+    outline: none;
+    cursor: pointer;
+}
 
+.txt-btn:focus {
+    box-shadow:
+        0 0 0 4px rgb(255, 255, 255),
+        0 0 0 8px #051647;
+}
 
+.txt-btn:hover {
+    box-shadow:
+        0 0 0 4px rgb(255, 255, 255),
+        0 0 0 8px #051647;
+}
+
+.txt-btn:active {
+    transform: scale(0.95);
+}
+
+.txt-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
