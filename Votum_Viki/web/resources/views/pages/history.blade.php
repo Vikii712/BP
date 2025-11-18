@@ -60,7 +60,7 @@
                     <!-- Obsah -->
                     <div class="ml-8  pt-5 md:p-6 relative">
                         <x-listen />
-                        <h2 class="h3 font-bold text-votum-blue mb-2">{{ $entry['name'] }}</h2>
+                        <h2 class="h3 font-bold text-votum-blue mb-2 pe-5">{{ $entry['name'] }}</h2>
                         <p class="text-gray-700 leading-relaxed txt">{{ $entry['text'] }}</p>
                     </div>
 
