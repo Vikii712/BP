@@ -14,7 +14,7 @@
 
     <div class="bg-blue-100">
         <div class="max-w-5xl mx-auto py-5">
-            <div class="p-5  rounded-lg">
+            <div class="p-5  rounded-lg text-center">
                 <h2 class="h2 font-bold justify-center text-votum-blue mb-4 flex items-center gap-3">
                     <i class="fas fa-lightbulb "></i>
                     Prečo venovať 2%?
@@ -59,13 +59,13 @@
 
         <!-- Documents Section -->
         <section class="rounded-xl max-w-5xl mx-auto mb-12 bg-blue-100 border-4 border-votum1">
-            <div class="rounded-2xl  p-8">
-                <h2 class="h3 font-bold text-votum-blue mb-6 flex items-center gap-3">
+            <div class="rounded-2xl p-4">
+                <h2 class="h3 p-2 sm:p-4 font-bold text-votum-blue mb-6 flex items-center gap-3">
                     <i class="fas fa-download"></i>
                     Dokumenty na stiahnutie
                 </h2>
 
-                <div class="grid lg:grid-cols-2 gap-6  ">
+                <div class="grid lg:grid-cols-2 gap-6">
                     <x-documents.document :color="false"/>
                     <x-documents.document :color="false"/>
                     <x-documents.document :color="false"/>
@@ -90,7 +90,7 @@
         <div class="max-w-4xl mx-auto">
             <div class="flex flex-col sm:flex-row justify-center gap-4">
                 <div class="text-center mt-16">
-                    <a href="{{route('support')}}" class="inline-flex items-center gap-3 bg-gray-600 text-white px-10 py-8 rounded-lg hover-scale font-semibold text-xl shadow-lg">
+                    <a href="{{route('support')}}" class="txt-btn inline-flex items-center gap-3 bg-gray-600 text-white px-10 py-8 rounded-lg font-semibold text-xl shadow-lg">
                         <img alt="" src="{{asset('images/podpora.svg')}}" width="30">
                         <span>Iné formy pomoci</span>
                     </a>

@@ -1,15 +1,15 @@
 <section class="max-w-5xl mx-auto mb-12" x-data="{ tab: 'fyzicke' }">
-    <div class="bg-votum2 border-4 border-votum2 rounded-2xl p-10 text-votum-blue shadow-lg">
+    <div class="bg-votum2 border-4 border-votum2 rounded-2xl p-5 sm:p-10 text-votum-blue shadow-lg">
 
 
         <!-- Prepínacie tlačidlá -->
-        <div class="txt flex justify-center gap-4 mb-10">
+        <div class="txt flex flex-wrap justify-center gap-4 mb-10">
             <button
                 @click="tab = 'fyzicke'"
                 :class="tab === 'fyzicke'
                     ? 'bg-dark-votum2 text-white font-bold shadow'
                     : 'bg-white text-votum-blue border border-votum-blue font-semibold'"
-                class="px-6 py-3 rounded-md transition-colors duration-200 hover:bg-votum-blue hover:text-votum-cream"
+                class="px-6 py-3 rounded-md transition-colors duration-200 txt-btn"
             >
                 Fyzické osoby
             </button>
@@ -19,7 +19,7 @@
                 :class="tab === 'pravnicke'
                     ? 'bg-dark-votum2 text-white font-bold shadow'
                     : 'bg-white text-votum-blue border border-votum-blue font-semibold'"
-                class="px-6 py-3 rounded-md transition-colors duration-200 hover:bg-votum-blue hover:text-votum-cream"
+                class="px-6 py-3 rounded-md transition-colors duration-200 txt-btn"
             >
                 Právnické osoby
             </button>

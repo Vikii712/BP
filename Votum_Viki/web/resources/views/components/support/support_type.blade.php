@@ -10,9 +10,9 @@
 @endphp
 
 <a href="{{ $route }}"
-   class="group block {{$bg}} border-5 {{$border}} text-white rounded-3xl shadow-xl overflow-hidden transform transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-votum-blue/50 focus:ring-offset-2">
+   class="group block {{$bg}} border-5 {{$border}} text-white rounded-3xl shadow-xl overflow-hidden txt-btn-block">
     <div class="flex flex-col items-center justify-center text-center p-10 space-y-6">
-        <div class="p-5 rounded-2xl h-36 w-36 flex items-center justify-center transition-transform group-hover:scale-110">
+        <div class="p-5 rounded-2xl h-36 w-36 flex items-center justify-center">
             <img src="{{ asset('images/' . $icon . '.svg') }}" alt="" class="object-contain h-full w-full">
         </div>
         <h2 class="h2 font-bold {{$text_col}}">{{ $text }}</h2>

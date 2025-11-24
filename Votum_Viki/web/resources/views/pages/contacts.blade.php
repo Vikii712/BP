@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<main class="container mx-auto px-4 py-12 items-center">
+<main class="container mx-auto  sm:px-4 py-12 items-center">
     <!-- Page Title -->
     <h1 class="h1 md:text-5xl font-bold text-votum-blue text-center mb-4">
         Kontakt
@@ -17,7 +17,7 @@
     <div class="mx-auto grid gap-8">
 
         <!-- Left Column -->
-        <div class="space-y-6">
+        <div class="space-y-6 p-4">
             <x-contacts.address />
             <x-contacts.mail />
             <x-contacts.tel />

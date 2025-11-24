@@ -1,25 +1,20 @@
 @extends('layouts.app')
 
+@php
+$text = "
+            Vďaka vašej finančnej, materiálnej či inej pomoci dokážeme robiť viac
+
+            Vybrali sme si cestu nekomerčnej organizácie, ktorá sa snaží čo najmenej zaťažovať rozpočet rodín našich detí.
+            Preto si každú formu podpory nesmierne vážime.\n
+
+            Máme srdce, nadšenie a chuť pomáhať, ale vašou podporou sa naše sny menia na skutočnosť.\n
+            Ak  cítite,  že naša práca má zmysel, podporte nás spôsobom, ktorý je vám najbližší.\n"
+@endphp
+
 @section('content')
 
-    <main class="container mx-auto px-4 pt-16">
-
-        <h1 class="h1 md:text-5xl font-bold text-votum-blue text-center mb-6">
-            Ako nás podporiť?
-        </h1>
-
-        <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 mb-16">
-
-            <x-support.support_type type="p"/>
-            <x-support.support_type type="f"/>
-            <x-support.support_type type="o"/>
-
-
-        </div>
-    </main>
-
-    <x-wave />
-    <div class="bg-blue-100 py-16">
+<!--
+    <div class=" py-16">
         <h2 class="h2 font-bold text-votum-blue pb-16 text-center">
             Prečo je vaša podpora dôležitá?
         </h2>
@@ -48,7 +43,38 @@
                 <p class="text-gray-900 txt">Pomáhame pri hľadaní práce a začlenení do spoločnosti</p>
             </div>
         </div>
+-->
+
+    <main class="container mx-auto px-4 pt-16">
+        <h1 class="h1 mb-16 md:text-5xl font-bold text-votum-blue text-center">
+            Prečo je vaša podpora dôležitá?
+        </h1>
+        <p class="txt m-10 text-center">
+            Vďaka vašej finančnej, materiálnej či inej pomoci dokážeme robiť viac. <br>
+
+            Vybrali sme si cestu nekomerčnej organizácie, ktorá sa snaží čo najmenej zaťažovať rozpočet rodín našich detí.
+            Preto si každú formu podpory nesmierne vážime.<br>
+
+            Máme srdce, nadšenie a chuť pomáhať, ale vašou podporou sa naše sny menia na skutočnosť.<br>
+            Ak  cítite,  že naša práca má zmysel, podporte nás spôsobom, ktorý je vám najbližší.<br>
+        </p>
+
+        <h1 class="h1 mb-16 md:text-5xl font-bold text-votum-blue text-center">
+            Ako nás podporiť?
+        </h1>
+
+        <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 mb-16">
+
+            <x-support.support_type type="p"/>
+            <x-support.support_type type="f"/>
+            <x-support.support_type type="o"/>
+
+
+        </div>
+    </main>
+
+
 
         <x-home />
-    </div>
+
 @endsection

@@ -1,18 +1,18 @@
 <header class="fixed top-0 left-0 right-0 z-50 bg-blue-950 backdrop-blur-md pb-2">
     <div class=" sm:pr-6 flex w-full items-center justify-between bg-[var(--blackblue)]">
         <!-- Logo -->
-        <div class="flex items-center gap-3">
+        <a class="flex items-center gap-3" href="{{route('main')}}">
             <img class="p-2 pr-0 sm:pr-2" alt="logo" src="{{ asset('images/logo.svg') }}" width="70">
-            <h1 class="text-3xl font-semibold text-[var(--cream)] caveat">Združenie VOTUM</h1>
-        </div>
+            <h1 class="font-semibold text-[var(--cream)] caveat">Združenie VOTUM</h1>
+        </a>
 
         <!-- Right controls -->
         <div class="flex items-center gap-4">
             <!-- Font controls (desktop only) -->
             <div class="hidden md:flex items-center gap-2 border-1 border-blue-100 bg-blue-100 rounded-full">
-                <button id="decrease-font" type="button" class="text-votum-blue hover:text-blue-300 font-bold text-2xl px-5 py-2">–</button>
+                <button id="decrease-font" type="button" class="txt-btn-block text-votum-blue hover:text-blue-300 font-bold text-2xl px-5 py-3 rounded-full">–</button>
                 <span class="text-lg text-votum-blue">aA</span>
-                <button id="increase-font" type="button" class="text-votum-blue hover:text-blue-300 font-bold text-2xl px-5 py-2">+</button>
+                <button id="increase-font" type="button" class="txt-btn-block text-votum-blue hover:text-blue-300 font-bold text-2xl px-5 py-3 rounded-full">+</button>
             </div>
 
             <!-- Language switch (desktop only) -->
@@ -21,7 +21,7 @@
             </div>
 
             <!-- Mobile toggle -->
-            <button id="menu-toggle" aria-label="Toggle menu" class="md:hidden p-2 rounded-full text-[var(--cream)] hover:bg-blue-800 transition z-[60] relative">
+            <button id="menu-toggle" aria-label="Toggle menu" class="hamburger md:hidden p-2 rounded-full text-[var(--cream)] hover:bg-blue-800 transition z-[60] relative">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                 </svg>
@@ -40,11 +40,11 @@
     <div class="flex flex-col items-center gap-8 px-6 pt-5">
 
         <!-- Mobile font + locale controls (visible only on mobile) -->
-        <div class="flex flex-row items-center gap-4 md:hidden ">
+        <div class="flex flex-row items-center gap-4  md:hidden ">
             <div class="flex items-center gap-2 border-1 border-blue-100 bg-blue-100  rounded-full text-2xl">
-                <button id="decrease-font-mobile" type="button" class="text-votum-blue hover:text-blue-300 font-bold px-5 py-3">–</button>
+                <button id="decrease-font-mobile" type="button" class="txt-btn-block text-votum-blue hover:text-blue-300 font-bold px-6 py-4 rounded-full">–</button>
                 <span class="text-xl text-bold text-votum-blue">aA</span>
-                <button id="increase-font-mobile" type="button" class="text-votum-blue hover:text-blue-300 font-bold px-5 py-3">+</button>
+                <button id="increase-font-mobile" type="button" class="txt-btn-block text-votum-blue hover:text-blue-300 font-bold px-6 py-4 rounded-full">+</button>
             </div>
 
             <x-locale-switch mobile />

@@ -21,7 +21,7 @@
 
         <!-- Tlačidlo -->
         <a href="#"
-           class=" txt-btn w-full sm:w-auto sm:px-4 inline-flex items-center justify-center sm:justify-start gap-2 bg-votum-blue text-white py-4 rounded-lg font-semibold hover:scale-105 transition transform mt-2 sm:mt-0">
+           class=" txt-btn w-full sm:w-auto sm:px-4 inline-flex items-center justify-center sm:justify-start gap-2 bg-votum-blue text-white py-4 rounded-lg font-semibold  sm:mt-0">
             <i class="fas fa-download"></i>
             <span>Stiahnuť</span>
         </a>

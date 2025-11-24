@@ -109,7 +109,7 @@
                     Každá forma podpory je vítaná! Ak máte nápad, ako by ste nám mohli pomôcť inak, neváhajte nás kontaktovať. Spoločne nájdeme najlepšie riešenie.
                 </p>
                 <div class="text-center mt-16">
-                    <a href="{{route('contacts')}}" class="inline-flex items-center gap-3 bg-votum-blue text-white px-10 py-8 rounded-lg hover-scale font-semibold txt-btn shadow-lg">
+                    <a href="{{route('contacts')}}" class="inline-flex items-center gap-3 bg-votum-blue text-white px-10 py-8 rounded-lg font-semibold txt-btn shadow-lg">
                         <img alt="" src="{{asset('images/kontakty.svg')}}" width="30">
                         <span>Kontakty</span>
                     </a>
@@ -131,10 +131,10 @@
         </section>
 
         <!-- Navigation -->
-        <div class="max-w-4xl mx-auto pb-16">
+        <div class="max-w-4xl mx-auto">
             <div class="flex flex-col sm:flex-row justify-center gap-4">
                 <div class="text-center mt-16">
-                    <a href="{{route('support')}}" class="inline-flex items-center gap-3 bg-gray-600 text-white px-10 py-8 rounded-lg hover-scale font-semibold text-xl shadow-lg">
+                    <a href="{{route('support')}}" class="txt-btn inline-flex items-center gap-3 bg-gray-600 text-white px-10 py-8 rounded-lg font-semibold text-xl shadow-lg">
                         <img alt="" src="{{asset('images/podpora.svg')}}" width="30">
                         <span>Iné formy pomoci</span>
                     </a>

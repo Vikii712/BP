@@ -12,8 +12,7 @@
 
         <button
             onclick="copyToClipboard('{{ $value }}')"
-            class="copy-btn text-gray-600 hover:scale-110 active:scale-90
-                   transition transform duration-150 ease-in-out ml-4"
+            class="copy-btn txt-btn-block ml-4"
             title="{{ $name }}">
             <i class="fas fa-copy text-3xl"></i>
         </button>
