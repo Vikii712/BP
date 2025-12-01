@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@plugin '@tailwindcss/typography';
 
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
@@ -26,9 +27,7 @@ body {
 }
 
 
-.caveat {
-    font-family: "Caveat", cursive;
-    font-size: 30px ;
+.logo-font {
     font-optical-sizing: auto;
     font-style: normal;
 }
@@ -68,6 +67,26 @@ body {
 .h3{font-size: 24px;}
 
 .txt{font-size: 20px;}
+
+.prose p {
+    display: block;
+    margin-bottom: 1em;
+    margin-top: 0;
+}
+
+.prose p:last-child {
+    margin-bottom: 0;
+}
+
+/* Alebo jednoduchšie riešenie bez prose */
+.txt p {
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.txt p:last-child {
+    margin-bottom: 0;
+}
 
 .calendar-day { aspect-ratio: 1; }
 .event-day { background-color: #fbbf24; font-weight: bold; }

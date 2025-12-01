@@ -1,8 +1,19 @@
+@props(['how'])
+
+@php
+    $fyzicke = $how
+        ->whereIn('title', ['Fyzická osoba', 'Natural person'])
+        ->first();
+
+    $pravnicke = $how
+        ->whereIn('title', ['Právnická osoba', 'Legal person'])
+        ->first();
+@endphp
+
 <section class="max-w-5xl mx-auto mb-12" x-data="{ tab: 'fyzicke' }">
     <div class="bg-votum2 border-4 border-votum2 rounded-2xl p-5 sm:p-10 text-votum-blue shadow-lg">
 
-
-        <!-- Prepínacie tlačidlá -->
+        <!-- TABS -->
         <div class="txt flex flex-wrap justify-center gap-4 mb-10">
             <button
                 @click="tab = 'fyzicke'"
@@ -11,7 +22,7 @@
                     : 'bg-white text-votum-blue border border-votum-blue font-semibold'"
                 class="px-6 py-3 rounded-md transition-colors duration-200 txt-btn"
             >
-                Fyzické osoby
+                {{ __('nav.fyz') }}
             </button>
 
             <button
@@ -21,46 +32,34 @@
                     : 'bg-white text-votum-blue border border-votum-blue font-semibold'"
                 class="px-6 py-3 rounded-md transition-colors duration-200 txt-btn"
             >
-                Právnické osoby
+                {{ __('nav.prav') }}
             </button>
         </div>
 
-        <!-- Postup pre fyzické osoby -->
+
         <div x-show="tab === 'fyzicke'">
             <h3 class="h3 font-bold mb-6 flex items-center justify-center gap-3 text-votum-blue">
                 <i class="fas fa-user text-3xl"></i>
-                Postup pre fyzické osoby
+                {{ __('nav.fyzHelp') }}
             </h3>
-            <p class="txt mb-8 text-center text-gray-800">
-                Ak ste zamestnanec alebo podnikateľ a podávate daňové priznanie, postupujte nasledovne:
-            </p>
-            <ol class="border-3 border-votum2 list-decimal list-inside bg-white p-6 rounded-lg txt font-medium space-y-2 shadow-inner">
-                <li>Postup</li>
-                <li>Sprav toto potom</li>
-                <li>Stiahni</li>
-                <li>Vyplň</li>
-                <li>Na záver toto</li>
-            </ol>
+            <div class="border-3 border-votum2 bg-white p-6 rounded-lg txt font-medium shadow-inner">
+                <div class="prose prose-lg list-decimal list-inside space-y-3">
+                    {!! $fyzicke['content'] ?? '' !!}
+                </div>
+            </div>
         </div>
 
-        <!-- Postup pre právnické osoby -->
         <div x-show="tab === 'pravnicke'">
             <h3 class="h3 font-bold mb-6 flex items-center justify-center gap-3 text-votum-blue">
                 <i class="fas fa-building text-3xl"></i>
-                Postup pre právnické osoby
+                {{ __('nav.pravHelp') }}
             </h3>
-            <p class="txt mb-8 text-center text-gray-800">
-                Ak ste firma alebo organizácia a chcete podporiť naše združenie, postup je podobný ako pre fyzické osoby:
-            </p>
-            <ol class="border-3 border-votum2 list-decimal list-inside bg-white p-6 rounded-lg txt font-medium space-y-2 shadow-inner">
-                <li>Postup</li>
-                <li>Sprav toto potom</li>
-                <li>Stiahni</li>
-                <li>Sprav toto potom inak</li>
-                <li>Este toto</li>
-                <li>Vyplň</li>
-                <li>Na záver toto</li>
-            </ol>
+            <div class="border-3 border-votum2 bg-white p-6 rounded-lg txt font-medium shadow-inner">
+                <div class="prose prose-lg list-decimal list-inside space-y-3">
+                    {!! $pravnicke['content'] ?? '' !!}
+                </div>
+            </div>
         </div>
+
     </div>
 </section>

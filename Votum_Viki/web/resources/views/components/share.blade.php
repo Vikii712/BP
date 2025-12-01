@@ -1,6 +1,6 @@
 <div class="flex gap-3 justify-center">
     <button onclick="shareEvent()" class="bg-dark-votum3 text-white px-3 rounded-lg font-semibold flex items-center gap-2 txt-btn">
         <i class="fas fa-share-alt text-lg"></i>
-        <span>Zdieľať</span>
+        <span>{{ __('nav.share') }}</span>
     </button>
 </div>

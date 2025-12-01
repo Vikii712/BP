@@ -2,7 +2,13 @@
 
 @php
     $route = $type == 'p' ? route('2percent') : ($type == 'f' ? route('financial') : route('other'));
-    $text = $type == 'p' ? 'Venujte 2%' : ($type == 'f' ? 'Finančná podpora' : 'Iné formy podpory');
+
+    $text = $type == 'p'
+        ? __('nav.2percent')
+        : ($type == 'f'
+            ? __('nav.financial')
+            : __('nav.otherSupport'));
+
     $icon = $type == 'p' ? 'percent' : ($type == 'f' ? 'money' : 'other');
     $border = $type == 'p' ? 'border-votum1' : ($type == 'f' ? 'border-votum2' : 'border-votum3');
     $bg = $type == 'p' ? 'bg-blue-100' : ($type == 'f' ? 'bg-votum2' : 'bg-votum3');

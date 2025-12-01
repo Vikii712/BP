@@ -1,7 +1,7 @@
 <!-- Team Section -->
 <section class="bg-white py-12">
     <div class="container mx-auto px-4">
-        <h2 class="h2 font-bold text-votum-blue mb-8 text-center">Náš tím</h2>
+        <h2 class="h2 font-bold text-votum-blue mb-8 text-center">{{__('nav.ourTeam')}}</h2>
 
         <div class="max-w-3xl mx-auto">
             <div class=" rounded-lg overflow-hidden shadow-lg mb-8">
@@ -9,8 +9,10 @@
             </div>
 
             <div class="text-center">
-                <a href="{{route('about')}}" class="bg-votum-blue text-white px-8 py-5 rounded-lg font-semibold txt-btn">
-                    <i class="fas fa-users mr-2"></i>Spoznať členov nášho tímu
+                <a href="{{ route('about') }}"
+                   class="bg-votum-blue text-white px-8 py-5 rounded-lg font-semibold txt-btn inline-flex items-center gap-3">
+                    <i class="fas fa-users"></i>
+                    <span>{{ __('nav.getToKnowTeam') }}</span>
                 </a>
             </div>
         </div>

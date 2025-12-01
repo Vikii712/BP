@@ -1,40 +1,10 @@
 @extends('layouts.app')
 
-@php
-    $timeline = [
-        [
-            'year' => 1993,
-            'name' => 'Vznik združenia Veselá škôlka',
-            'text' => 'Iniciatíva ľudí s cieľom vytvoriť alternatívnu predškolskú výchovu – vznik združenia Veselá škôlka, služba druhému ako základný princíp našej činnosti.'
-        ],
-        [
-            'year' => 1994,
-            'name' => 'Rozšírenie aktivít',
-            'text' => 'Nové podnety rodičov a priateľov: práca s mládežou, spoločné rodinné dovolenky, plesy.'
-        ],
-        [
-            'year' => 1995,
-            'name' => 'Vzdelávanie a kultúrne podujatia',
-            'text' => 'Rozšírenie činnosti o vzdelávanie – prednášky, jazykové kurzy, výstavy, koncerty. Združenie získava nový názov: VOTUM.'
-        ],
-        [
-            'year' => 2000,
-            'name' => 'Transformácia združenia',
-            'text' => 'Transformácia združenia – zameranie na deti a mladých ľudí s postihnutím. Snaha vnímať a reagovať na meniace sa potreby ľudí so zdravotným znevýhodnením.'
-        ],
-        [
-            'year' => 2016,
-            'name' => 'Nové priestory',
-            'text' => 'Sťahovanie do nových priestorov v Dome RAFAEL v Petržalke – nové zázemie pre naše aktivity a komunitné stretnutia.'
-        ]
-    ];
-@endphp
-
 @section('content')
     <div class="container mx-auto px-4 py-12">
         <!-- Nadpis + tlačidlá -->
         <div class="flex flex-col sm:flex-row  justify-between items-center text-center md:text-left gap-6 mb-10">
-            <h1 class="h1 md:text-6xl font-extrabold text-votum-blue">História</h1>
+            <h1 class="h1 md:text-6xl font-extrabold text-votum-blue">{{ __('nav.history')}}</h1>
 
             <div class="flex justify-center md:justify-end gap-4 flex-wrap">
                 <x-share />
@@ -45,7 +15,7 @@
         <div class="relative max-w-4xl mx-auto md:pl-20">            <!-- Vertikálna čiara -->
             <div class="absolute md:ml-20 left-2 top-3 bottom-0 w-[2px] bg-votum-blue"></div>
 
-            @foreach($timeline as $entry)
+            @foreach($timeline as $i =>  $entry)
                 <div class="relative mb-12 last:mb-0">
                     <!-- Bodka -->
                     <div class="absolute left-[1px] top-3 w-4 h-4 rounded-full bg-white border-4 border-votum-blue shadow"></div>
@@ -59,18 +29,10 @@
 
                     <!-- Obsah -->
                     <div class="ml-8  pt-5 md:p-6 relative">
-                        <x-listen />
+                        <x-listen :text="$entry['name'] . '. ' . $entry['text']" id="{{100 + $i}}" />
                         <h2 class="h3 font-bold text-votum-blue mb-2 pe-12">{{ $entry['name'] }}</h2>
                         <p class="text-gray-700 leading-relaxed txt">{{ $entry['text'] }}</p>
                     </div>
-
-                    @if($loop->index % 3 == 0)
-                        <div class="ml-8 mt-6 flex justify-center">
-                            <img src="{{ asset('images/team.jpg') }}"
-                                 alt="Votum"
-                                 class="w-full max-w-sm  sm:max-w-md md:max-w-xl" />
-                        </div>
-                    @endif
                 </div>
             @endforeach
         </div>

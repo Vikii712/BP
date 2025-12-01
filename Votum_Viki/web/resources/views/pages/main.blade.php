@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <x-home.hero />
-    <x-home.calendar />
+    <x-home.hero :hero="$hero"/>
+    <x-home.calendar :events="$events" />
     <x-home.activities />
     <x-home.team />
 @endsection

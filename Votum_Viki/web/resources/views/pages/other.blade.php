@@ -2,143 +2,107 @@
 
 @section('content')
 
-        <!-- Page Header -->
-        <div class="max-w-5xl mx-auto mb-12 text-center pt-16">
-            <h1 class="h1 md:text-5xl font-bold text-votum-blue mb-4">
-                Iné formy podpory
-            </h1>
-            <x-share />
+    <!-- Page Header -->
+    <div class="max-w-5xl mx-auto mb-12 text-center pt-16">
+        <h1 class="h1 md:text-5xl font-bold text-votum-blue mb-4">
+            {{ __('nav.other') }}
+        </h1>
+        <x-share />
+    </div>
 
-        </div>
+    <x-wave />
 
-        <x-wave />
+    <div class="bg-blue-100 py-6">
+        <div class="p-4 max-w-5xl text-center mx-auto space-y-4 text-gray-800 txt">
+            <h2 class="h2 font-bold text-votum-blue mb-4 flex items-center justify-center gap-3">
+                <i class="fas fa-heart"></i>
+                {{ $why['title'] }}
+            </h2>
 
-        <div class="bg-blue-100  py-6">
-            <div class="p-4 max-w-5xl text-center mx-auto space-y-4 text-gray-800 txt">
-                <h2 class="h2 font-bold justify-center text-votum-blue mb-4 flex items-center gap-3">
-                    <i class="fas fa-heart "></i>
-                    Ako inak pomôcť?
-                </h2>
-                <p>
-                    Nielen finančný príspevok dokáže urobiť rozdiel. Vaše schopnosti, čas, alebo organizovanie podujatia môžu byť pre nás rovnako cenné. Pozrite si možnosti nižšie a kontaktujte nás, ak vás niektorá z nich zaujala!
-                </p>
+            <div class="txt text-gray-800 space-y-4">
+                {!! $why['content'] !!}
             </div>
         </div>
+    </div>
 
-        <x-wave :inverted="true" />
+    <x-wave :inverted="true" />
 
-        <main class="container mx-auto px-4 py-12">
+    <main class="container mx-auto px-4 py-12">
 
         <!-- Support Options Grid -->
         <div class="max-w-6xl mx-auto space-y-12">
+            @php
+                $colors = ['votum3', 'votum2', 'votum1'];
+                $darkColors = ['dark-votum3', 'dark-votum2', 'dark-votum1'];
+                $icons = ['fa-hand-holding-heart', 'fa-gift', 'fa-drum'];
+            @endphp
 
-            <!-- Material Donations -->
-            <div class="support-option-card border-4 border-votum3 bg-votum3 rounded-3xl shadow-xl overflow-hidden">
-                <div class="md:grid md:grid-cols-2 gap-0">
+            @foreach($types as $index => $type)
+                @php
+                    $color = $colors[$index % count($colors)];
+                    $darkColor = $darkColors[$index % count($darkColors)];
+                    $icon = $icons[$index % count($icons)];
+                @endphp
 
-                    <div class="bg-dark-votum3 p-12 flex flex-col justify-center items-center text-white">
-                        <div class="icon-float mb-6">
-                            <i class="fas fa-gift text-8xl"></i>
+                <div class="support-option-card border-4 border-{{ $color }} bg-{{ $color }} rounded-3xl shadow-xl overflow-hidden">
+                    <div class="md:grid md:grid-cols-2 gap-0">
+
+                        <div class="bg-{{ $darkColor }} p-12 flex flex-col justify-center items-center text-white">
+                            <div class="icon-float mb-6">
+                                <i class="fas {{ $icon }} text-8xl"></i>
+                            </div>
+                            <h2 class="text-center h2 font-bold mb-2">{{ $type['title'] }}</h2>
                         </div>
-                        <h2 class="text-center h2 font-bold mb-2">Materiálne dary</h2>
-                        <p class="text-center txt">Venujte to, čo nepotrebujete</p>
-                    </div>
 
-                    <div class="p-8 txt">
-                        <h3 class="h3 font-bold text-votum-blue mb-4">Čo potrebujeme</h3>
-                        <p class="text-gray-700 mb-6 leading-relaxed">
-                            Okrem finančných príspevkov radi prijmeme aj materiálne dary, ktoré použijeme pri našich aktivitách alebo v našich priestoroch. Kontaktujte nás pred darovaním, aby sme overili, či daný predmet potrebujeme.
-                        </p>
-
+                        <div class="p-8 txt">
+                            <div class="text-gray-700 leading-relaxed">
+                                {!! $type['content'] !!}
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="support-option-card border-4 border-votum2 bg-votum2 rounded-3xl shadow-xl overflow-hidden">
-                <div class="md:grid md:grid-cols-2 gap-0">
-
-                    <div class="bg-dark-votum2 p-12 flex flex-col justify-center items-center text-white">
-                        <div class="icon-float mb-6">
-                            <i class="fas fa-drum text-8xl"></i>
-                        </div>
-                        <h2 class="text-center h2 font-bold mb-2">Hudobné vystúpenia</h2>
-                        <p class="text-center txt">Pozvite nás na vašu udalosť!</p>
-                    </div>
-
-                    <div class="p-8 txt">
-                        <h3 class="h3 font-bold text-votum-blue mb-4">Naša hudobná skupina</h3>
-                        <p class="text-gray-700 mb-6 leading-relaxed">
-                            Máme vlastnú hudobnú skupinu zloženú z našich talentovaných členov! Muzikoterapia je súčasťou našich aktivít a naši muzikanti majú skúsenosti s vystupovaním na rôznych podujatiach. Radi zahráme na vašej akcii, firemnom evenте, alebo charitativnom podujatí.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="support-option-card border-4 border-votum1 bg-blue-100 rounded-3xl shadow-xl overflow-hidden">
-                <div class="md:grid md:grid-cols-2 gap-0">
-
-                    <div class="bg-dark-votum1 p-12 flex flex-col justify-center items-center text-white">
-                        <div class="icon-float mb-6">
-                            <i class="fas fa-hand-holding-heart text-8xl"></i>
-                        </div>
-                        <h2 class="text-center h2 font-bold mb-2">Verejná zbierka</h2>
-                        <p class="text-center txt">Vaša kreativita + naša pomoc</p>
-                    </div>
-
-                    <div class="p-8 txt">
-                        <h3 class="h3 font-bold text-votum-blue mb-4">Zorganizujte zbierku</h3>
-                        <p class="text-gray-700 mb-6 leading-relaxed">
-                            Chcete pomôcť, ale neviete ako? Zorganizujte charitatívne podujatie, zbierku, bazár alebo aukciu! Môže to byť súčasť firemného eventu, rodinnej oslavy, alebo samostatnej akcie. My vám radi pomôžeme s propagáciou a zabezpečíme potrebné materiály.
-                        </p>
-                    </div>
-                </div>
-            </div>
+            @endforeach
 
         </div>
 
-
-
-        <!-- Call to Action -->
         <div class="max-w-4xl mx-auto mt-16 mb-12 text-center">
             <div class="bg-votum3 border-votum3 border-4 rounded-2xl shadow-xl p-8">
                 <h2 class="h3 font-bold text-votum-blue mb-4">
                     <i class="fas fa-question-circle mr-2"></i>
-                    Máte inú myšlienku?
+                    {{ $idea['title'] }}
                 </h2>
-                <p class="txt text-gray-700 mb-6">
-                    Každá forma podpory je vítaná! Ak máte nápad, ako by ste nám mohli pomôcť inak, neváhajte nás kontaktovať. Spoločne nájdeme najlepšie riešenie.
-                </p>
+                <div class="txt text-gray-700 mb-6">
+                    {!! $idea['content'] !!}
+                </div>
                 <div class="text-center mt-16">
-                    <a href="{{route('contacts')}}" class="inline-flex items-center gap-3 bg-votum-blue text-white px-10 py-8 rounded-lg font-semibold txt-btn shadow-lg">
-                        <img alt="" src="{{asset('images/kontakty.svg')}}" width="30">
-                        <span>Kontakty</span>
+                    <a href="{{ route('contacts') }}" class="inline-flex items-center gap-3 bg-votum-blue text-white px-10 py-8 rounded-lg font-semibold txt-btn shadow-lg">
+                        <img alt="" src="{{ asset('images/kontakty.svg') }}" width="30">
+                        <span>{{ __('nav.contacts') }}</span>
                     </a>
                 </div>
             </div>
         </div>
     </main>
 
-
     <x-wave />
+
     <div class="bg-blue-100">
-        <!-- Thank You -->
-        <section class="p-4 max-w-4xl mx-auto mb-12 text-center py-5">
-            <div class="">
-                <i class="fas fa-heart text-6xl mb-4 text-red-600"></i>
-                <h2 class="h3 font-bold mb-4">Ďakujeme za vašu podporu!</h2>
-                <p class="txt">Vďaka vašej podpore môžeme pokračovať v našej činnosti, v tom, čo nás baví a pomáha iným.</p>
-            </div>
+        <section class="max-w-4xl mx-auto mb-12 text-center py-5">
+            <i class="fas fa-heart text-6xl mb-4 text-red-600"></i>
+            <h2 class="h3 font-bold mb-4">{{ $thanks['title'] }}</h2>
+            <p class="text-lg">{{ $thanks['content'] }}</p>
         </section>
 
-        <!-- Navigation -->
         <div class="max-w-4xl mx-auto">
             <div class="flex flex-col sm:flex-row justify-center gap-4">
                 <div class="text-center mt-16">
-                    <a href="{{route('support')}}" class="txt-btn inline-flex items-center gap-3 bg-gray-600 text-white px-10 py-8 rounded-lg font-semibold text-xl shadow-lg">
-                        <img alt="" src="{{asset('images/podpora.svg')}}" width="30">
-                        <span>Iné formy pomoci</span>
+                    <a href="{{ route('support') }}"
+                       class="txt-btn inline-flex items-center gap-3 bg-gray-600 text-white px-10 py-8 rounded-lg font-semibold text-xl shadow-lg">
+                        <img src="{{ asset('images/podpora.svg') }}" width="30" alt="">
+                        <span>{{ __('nav.other') }}</span>
                     </a>
                 </div>
+
                 <x-home />
             </div>
         </div>

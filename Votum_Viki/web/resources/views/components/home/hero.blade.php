@@ -1,6 +1,7 @@
+@props(['hero'])
+
 <!-- Right: Hero Image -->
 <div class="relative">
-
 
     <!-- Hero Section -->
     <div class="bg-blue-50 relative">
@@ -9,11 +10,10 @@
                 <!-- Left: Content -->
                 <div>
                     <h1 class="h1 md:text-5xl font-bold text-votum-blue mb-6 text-center lg:text-left">
-                        Spolu je život veselší!
+                        {{$hero->title}}
                     </h1>
                     <p class="txt text-gray-700 mb-10 text-center lg:text-left leading-relaxed">
-                        VOTUM je komunita mladých ľudí so zdravotným znevýhodnením. Pomáhame si napĺňať sny, rozvíjať sa a žiť zmysluplný život.
-                        Podporujeme samostatnosť a dávame priestor na sebarealizáciu.
+                        {{$hero->content}}
                     </p>
 
                     <div class="pt-12 sm:pt-0 relative flex flex-col items-center lg:items-start gap-6">
@@ -31,7 +31,7 @@
                         <a href="{{ route('about') }}"
                            class="w-full sm:w-auto relative z-10 flex items-center justify-center gap-3 bg-dark-votum2 text-white px-10 py-5 rounded-xl txt-btn font-semibold shadow-md hover:bg-votum-blue/90 focus:ring-4 focus:ring-blue-300 focus:outline-none transition">
                             <i class="fas fa-user-group text-2xl"></i>
-                            <span>Viac o nás</span>
+                            <span>{{ __('nav.aboutUs') }}</span>
                         </a>
 
                         <!-- 2. Facebook a YouTube pod sebou -->

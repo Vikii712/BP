@@ -1,4 +1,4 @@
-@props(['color' => true])
+@props(['color' => true, 'text' => 'Prihláška Tábor 2026'])
 
 <div class="border-2 border-votum1 document-card {{ $color ? 'bg-blue-100' : ' bg-white' }} rounded-lg shadow-lg p-6">
     <div class="flex flex-col sm:flex-row sm:items-center justify-center sm:justify-between gap-4">
@@ -12,7 +12,7 @@
 
         <!-- Text a veľkosť súboru -->
         <div class="flex flex-col flex-1 text-center sm:text-left">
-            <h3 class="txt font-bold text-votum-blue mb-1">Prihláška Tábor 2026</h3>
+            <h3 class="txt font-bold text-votum-blue mb-1">{{$text}}</h3>
             <p class="text-sm text-black mb-2">
                 <span class="txt inline-block {{ $color ? 'bg-white' : ' bg-blue-100' }} border border-votum1 px-2 py-1 rounded mr-2">PDF</span>
                 <span class="txt text-black">450 KB</span>
@@ -23,7 +23,7 @@
         <a href="#"
            class=" txt-btn w-full sm:w-auto sm:px-4 inline-flex items-center justify-center sm:justify-start gap-2 bg-votum-blue text-white py-4 rounded-lg font-semibold  sm:mt-0">
             <i class="fas fa-download"></i>
-            <span>Stiahnuť</span>
+            <span>{{ __('nav.download') }}</span>
         </a>
 
     </div>

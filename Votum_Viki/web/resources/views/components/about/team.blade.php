@@ -1,37 +1,44 @@
 <!-- Team Section -->
-<div class="bg-blue-100 py-12 justify-center">
+<div class="bg-blue-100 py-12">
     <h2 class="h2 font-bold text-votum-blue mb-8 text-center py-5">Náš Tím</h2>
 
-    <div class="grid lg:grid-cols-2 gap-8 mb-8 mx-5 sm:mx-10">
+    <div class="flex flex-col gap-8 mx-5 sm:mx-10">
 
-        @for($i = 0; $i < 4; $i++)
+        @foreach($team as $i => $member)
             <div class="bg-white rounded-2xl shadow-lg overflow-hidden border-2 border-votum1">
-                <div class="flex flex-col sm:flex-row h-full">
 
-                    <div class=" sm:w-1/2 m-3 flex justify-center items-center">
-                        <div class="w-48 h-48 sm:w-64 sm:h-64 bg-cover bg-center"
-                             style="
-                                background-image: url('{{ asset('images/maria.png') }}');
-                                -webkit-mask: url('{{ asset('images/badge.svg') }}') no-repeat center / contain;
-                                mask: url('{{ asset('images/badge.svg') }}') no-repeat center / contain;
-                             ">
+                @if($member['image'])
+                    <div class="p-6 w-full">
+                            <h3 class="h3 font-bold text-votum-blue mb-4">{{ $member['title'] }}</h3>
+                            <div class="-top-10 relative">
+                                <x-listen text="{{strip_tags($member['title'] . ' .' . $member['content']) }}" id="{{250 + $i }}" />
+                            </div>
+
+                        <img src="{{ asset($member['image']) }}" alt="{{ $member['title'] }}"
+                             class="w-60 h-80 object-cover mb-4 sm:float-left sm:mr-6 sm:mb-4 mx-auto sm:mx-0 block">
+
+                        <div class="text-lg text-votum1 [&>p]:mb-6 [&>ul]:mb-6 [&>ol]:mb-6 [&>h1]:mb-6 [&>h2]:mb-6 [&>h3]:mb-6 [&>h4]:mb-6">
+                            {!! $member['content'] !!}
+                        </div>
+
+                        <div class="clear-both"></div>
+                    </div>
+                @else
+                    <div class="p-6 flex flex-col">
+                        <h3 class="h3 font-bold text-votum-blue mb-4">{{ $member['title'] }}</h3>
+                        <div class="-top-10 relative">
+                            <x-listen text="{{strip_tags($member['title'] . ' .' . $member['content']) }}" id="{{250 + $i }}" />
+                        </div>
+                        <div class="text-lg text-votum1 [&>p]:mb-6 [&>ul]:mb-6 [&>ol]:mb-6 [&>h1]:mb-6 [&>h2]:mb-6 [&>h3]:mb-6 [&>h4]:mb-6">
+                            {!! $member['content'] !!}
                         </div>
                     </div>
+                @endif
 
-                    <div class="p-6 sm:pl-0 flex flex-col justify-center sm:w-1/2">
-                        <h3 class="h3 font-bold text-votum-blue mb-2">Mária Nováková</h3>
-                        <p class="text-lg text-votum1 mb-4 font-semibold">Riaditeľka združenia</p>
-                        <ul class="list-disc ps-4 text-votum-blue txt" >
-                            <li>Zakladajúca členka VOTUM</li>
-                            <li>Viac ako 10-ročné skúsenosti v oblasti sociálnej práce</li>
-                        </ul>
-                    </div>
-
-                </div>
             </div>
-        @endfor
+        @endforeach
+
     </div>
 
     <x-home />
-
 </div>
