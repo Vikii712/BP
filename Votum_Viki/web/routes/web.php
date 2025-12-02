@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('main');
 
+Route::get('/calendar.ics', [HomeController::class, 'ics'])->name('calendar.ics');
+
 
 Route::post('/set-locale', function (Illuminate\Http\Request $request) {
     $locale = $request->input('locale', 'sk');

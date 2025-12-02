@@ -31,9 +31,11 @@
                     <div id="calendarGrid" class="grid grid-cols-7 gap-1 sm:gap-2"></div>
                 </div>
 
-                <button class="mt-4 w-full bg-votum-blue text-white py-2 rounded-lg txt-btn-block">
+                <a href="https://calendar.google.com/calendar/render?cid={{ urlencode(route('calendar.ics', absolute: true)) }}"
+                   target="_blank"
+                   class="mt-4 w-full bg-votum-blue text-white py-2 rounded-lg txt-btn-block">
                     <i class="fas fa-calendar-plus mr-2 py-6"></i>{{ __('nav.save') }}
-                </button>
+                </a>
             </div>
 
             <!-- Events List -->
@@ -100,7 +102,6 @@
             dayNumber.className = 'font-bold';
             dayCell.appendChild(dayNumber);
 
-            // eventy pre tento deň (všetky)
             const dayEvents = events.filter(e => e.dates.some(d=>normalizeDate(d)===dateString));
             if(dayEvents.length>0){
                 const barsContainer = document.createElement('div');
@@ -130,7 +131,6 @@
             const normalizedDates = e.dates.map(d=>normalizeDate(d)).sort();
             let futureDates = normalizedDates.filter(d=>d>=today);
 
-            // ak event prebieha dnes alebo v budúcnosti, zobraz ho
             if(futureDates.length===0 && today>=normalizedDates[0] && today<=normalizedDates[normalizedDates.length-1]){
                 futureDates = normalizedDates.filter(d=>d>=today);
             }

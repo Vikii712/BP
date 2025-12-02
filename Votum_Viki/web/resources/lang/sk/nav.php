@@ -26,7 +26,7 @@ return [
     'pi' => 'Pi',
     'so' => 'So',
     'ne' => 'Ne',
-    'save' => 'Uložiť do môjho kalendára',
+    'save' => 'Uložiť do môjho Google kalendára',
     'more' => 'Viac',
     'activities' => 'Naše Aktivity',
 

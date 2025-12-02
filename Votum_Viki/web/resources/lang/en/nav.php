@@ -26,7 +26,7 @@ return [
     'pi' => 'Fri',
     'so' => 'Sat',
     'ne' => 'Sun',
-    'save' => 'Save to my calendar',
+    'save' => 'Add to my Google calendar',
     'more' => 'More',
 
     'activities' => 'Our activities',
