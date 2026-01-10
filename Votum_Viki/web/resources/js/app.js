@@ -1,4 +1,9 @@
 import './bootstrap';
+import Alpine from 'alpinejs';
+
+window.Alpine = Alpine;
+
+Alpine.start();
 
 window.copyToClipboard = function (text) {
     navigator.clipboard.writeText(text).then(() => {

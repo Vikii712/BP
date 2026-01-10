@@ -51,4 +51,4 @@ Route::get('/a11y', function () {
     return view('pages.a11y');
 })->name('a11y');
 
-Route::get('/votumaci', [AdminController::class, 'index'])->name('admin');
+require __DIR__.'/auth.php';
