@@ -8,7 +8,7 @@
                     {{ session('status') }}
                 </div>
             @endif
-            
+
             <div class="mb-12 text-center">
                 <h2 class="text-3xl font-bold text-blue-950 mb-4">
                     Administrátorský panel
@@ -35,7 +35,7 @@
                 <x-admin.card name="Dokumenty" route="admin" icon="fa-file-alt" />
 
                 <x-admin.card name="Zmena hesla" route="password.change" icon="fa-lock" inverted />
-                <x-admin.card name="Správa adminov" route="admin" icon="fa-user-cog" inverted />
+                <x-admin.card name="Správa adminov" route="admin.manage" icon="fa-user-cog" inverted />
 
             </div>
         </div>

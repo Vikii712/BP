@@ -51,6 +51,14 @@ Route::middleware('auth')->group(function () {
     Route::put('votumaci/password', [PasswordController::class, 'update'])
         ->name('password.update');
 
+    //MANAGE ADMINS
+    Route::get('votumaci/manage-admins', [AdminController::class, 'manageAdmins'])
+        ->name('admin.manage');
+    Route::post('votumaci/manage-admins/add', [AdminController::class, 'add'])
+        ->name('admin.add');
+    Route::delete('votumaci/admin/delete/{id}', [AdminController::class, 'delete'])->name('admin.delete');
+
+
     // Logout
     Route::post('votumaci/logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
