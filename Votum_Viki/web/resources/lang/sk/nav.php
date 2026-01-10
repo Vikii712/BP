@@ -19,6 +19,8 @@ return [
 
     'nextUp' => 'Čo nás čaká?',
     'next' => 'Nadchádzajúce udalosti',
+    'mem' => 'Naše spomienky',
+
     'po' => 'Po',
     'ut' => 'Ut',
     'st' => 'St',
@@ -72,5 +74,6 @@ return [
 
     'nav' => 'Navigácia',
     'err' => 'Našli ste chybu?',
-    'acc' => 'Vyhlásenie o prístupnosti'
+    'acc' => 'Vyhlásenie o prístupnosti',
+
 ];

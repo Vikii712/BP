@@ -86,7 +86,7 @@
 
     <x-wave />
 
-    <div class="bg-blue-100">
+    <div class="bg-blue-100 px-4">
         <section class="max-w-4xl mx-auto mb-12 text-center py-5">
             <i class="fas fa-heart text-6xl mb-4 text-red-600"></i>
             <h2 class="h3 font-bold mb-4">{{ $thanks['title'] }}</h2>
@@ -94,7 +94,7 @@
         </section>
 
         <div class="max-w-4xl mx-auto">
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <div class="flex flex-col sm:flex-row justify-between gap-4">
                 <div class="text-center mt-16">
                     <a href="{{ route('support') }}"
                        class="txt-btn inline-flex items-center gap-3 bg-gray-600 text-white px-10 py-8 rounded-lg font-semibold text-xl shadow-lg">

@@ -19,6 +19,8 @@ return [
 
     'nextUp' => 'What awaits us?',
     'next' => 'Upcoming events',
+    'mem' => 'Our memories',
+
     'po' => 'Mon',
     'ut' => 'Tue',
     'st' => 'Wed',

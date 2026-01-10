@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\HomeController;
@@ -50,3 +51,4 @@ Route::get('/a11y', function () {
     return view('pages.a11y');
 })->name('a11y');
 
+Route::get('/votumaci', [AdminController::class, 'index'])->name('admin');

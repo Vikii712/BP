@@ -5,13 +5,11 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Event;
 use App\Models\EventDate;
-use Carbon\Carbon;
 
 class EventSeeder extends Seeder
 {
     public function run(): void
     {
-        $today = Carbon::today();
 
         $events = [
             [
@@ -96,6 +94,17 @@ class EventSeeder extends Seeder
                 'inGallery' => false,
                 'color' => 'c7',
                 'dates' => ['2026-07-06','2026-07-07','2026-07-08','2026-07-09','2026-07-10'],
+            ],
+            [
+                'title_sk' => 'Leto 2022 v Tučepy',
+                'title_en' => 'Leto 2022 v Tučepy',
+                'content_sk' => 'Spoločná letná dovolenka v Chorvátskom Tučepi',
+                'content_en' => '',
+                'inCalendar' => false,
+                'inHome' => true,
+                'inGallery' => true,
+                'color' => 'c6',
+                'dates' => ['2026-05-31'],
             ],
         ];
 

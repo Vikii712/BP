@@ -102,7 +102,7 @@ class ContactsSeeder extends Seeder
             [
                 'title_sk' => '<p>Mgr. Mária Horváthová, DiS. art</p>
                                 <p>Predseda, štatutár</p>
-                                <p>liečebný pedagóg, muzikoterapeut</p>',
+                                <p>Liečebný pedagóg, muzikoterapeut</p>',
                 'title_en' => '<p>Mgr. Mária Horváthová, DiS. art</p>
                                 <p>Association President, statutory officer</p>
                                 <p>Therapeutic Educator, Music Therapist</p>
@@ -118,11 +118,11 @@ class ContactsSeeder extends Seeder
             [
                 'title_sk' => ' <p>Renáta Štaffová</p>
                                 <p>Člen výboru </p>
-                                <p>asistent</p>
+                                <p>Asistent</p>
                                 ',
                 'title_en' => '<p>Renáta Štaffová</p>
                                 <p>Committee member</p>
-                                <p>assistant</p>
+                                <p>Assistant</p>
                                 ',
                 'content_sk' => '0908 798 463',
                 'content_en' => '0908 798 463',

@@ -3,14 +3,14 @@
 @section('content')
     <main class="py-12">
 
-        <h1 class="h1 md:text-5xl font-bold text-votum-blue text-center mb-12">Udalosti</h1>
+        <h1 class="h1 md:text-5xl font-bold text-votum-blue text-center mb-12">{{ __('nav.events') }}</h1>
 
         <x-wave />
         <section class="w-full bg-blue-100 py-12">
             <div class="container max-w-6xl mx-auto sm:px-6">
                 <h2 class=" h2 font-bold text-votum-blue mb-8 text-center flex items-center justify-center gap-3">
                     <img src="{{asset('images/stars.svg')}}" alt="stars" width="30"/>
-                    Čo nás čaká?
+                    {{__('nav.nextUp')}}
                     <img src="{{asset('images/stars.svg')}}" alt="stars" width="30"/>
                 </h2>
                 <div class="grid md:grid-cols-2 gap-y-8">
@@ -24,7 +24,7 @@
 
         <section class="w-full mt-16">
             <div class="container max-w-6xl mx-auto sm:px-6">
-                <h2 class=" h2 md:text-5xl font-bold text-votum-blue text-center mb-8">Naše spomienky</h2>
+                <h2 class=" h2 md:text-5xl font-bold text-votum-blue text-center mb-8">{{ __('nav.mem') }}</h2>
 
                 @foreach([2025, 2024, 2023, 2022] as $year)
                     <div class="mb-12">
