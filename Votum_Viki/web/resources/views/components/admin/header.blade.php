@@ -1,55 +1,21 @@
-<header class="bg-blue-950 shadow-xl">
-    <div class="container mx-auto px-4 sm:px-6 py-4">
-        <!-- Desktop layout (lg+) -->
-        <div class="hidden lg:grid lg:grid-cols-3 items-center gap-4">
-            <!-- Logo a názov - vľavo -->
-            <a class="flex items-center gap-3" href="{{route('admin')}}">
-                <img class="p-2 pr-0 sm:pr-2" alt="logo" src="{{ asset('images/logo.svg') }}" width="70">
-                <h1 class="text-white text-3xl font-bold logo-font tracking-wide">VOTUM<span class="text-indigo-300"> -admin</span></h1>
-            </a>
+<header class="bg-blue-950 shadow-xl fixed w-full z-100">
+    <div class="container mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
 
-            <!-- Email v strede -->
-            <div class="flex justify-center">
-                <div class="bg-white/10 backdrop-blur-sm px-6 py-2 rounded-full border border-white/20">
-                    <p class="text-white text-xl">zdruzenievotum@gmail.com</p>
-                </div>
-            </div>
+        <!-- Logo + názov -->
+        <a href="{{ route('admin') }}" class="flex items-center gap-3">
+            <img src="{{ asset('images/logo.svg') }}" alt="logo" class="p-1 w-12 lg:w-[70px]">
+            <h1 class="text-white text-xl lg:text-3xl font-bold logo-font tracking-wide">
+                VOTUM<span class="text-indigo-300">-admin</span>
+            </h1>
+        </a>
 
-            <!-- Okrúhle tlačidlo odhlásenia - vpravo -->
-            <div class="flex justify-end">
-                <a href="#"
-                   class="bg-white text-blue-950 px-6 py-2 rounded-full hover:shadow-2xl font-medium text-xl transition-all duration-300"
-                   aria-label="Odhlásiť sa z administrátorského panelu">
-                    <span>Odhlásiť sa</span>
-                </a>
-            </div>
-        </div>
+        <!-- Logout -->
+        <a href="#"
+           class="w-12 h-12 lg:w-14 lg:h-14 bg-white rounded-full flex items-center justify-center
+                  hover:shadow-2xl hover:scale-110 transition-all duration-300"
+           aria-label="Odhlásiť sa z administrátorského panelu">
+            <i class="fas fa-power-off text-blue-950 text-xl lg:text-2xl"></i>
+        </a>
 
-        <!-- Mobile layout -->
-        <div class="lg:hidden space-y-3">
-            <!-- Logo vycentrované -->
-            <div class="flex justify-center">
-                <a class="flex items-center gap-2" href="{{route('admin')}}">
-                    <img class="p-1" alt="logo" src="{{ asset('images/logo.svg') }}" width="45">
-                    <h1 class="text-white text-2xl font-bold logo-font tracking-wide">VOTUM<span class="text-indigo-300">-admin</span></h1>
-                </a>
-            </div>
-
-            <!-- Email vycentrovaný -->
-            <div class="flex justify-center">
-                <div class="bg-white/10 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/20">
-                    <p class="text-white text-xs sm:text-sm">zdruzenievotum@gmail.com</p>
-                </div>
-            </div>
-
-            <!-- Tlačidlo vycentrované -->
-            <div class="flex justify-center">
-                <a href="#"
-                   class="bg-white text-blue-950 px-6 py-2 rounded-full hover:shadow-2xl font-medium text-sm transition-all duration-300 inline-block"
-                   aria-label="Odhlásiť sa z administrátorského panelu">
-                    <span>Odhlásiť sa</span>
-                </a>
-            </div>
-        </div>
     </div>
 </header>

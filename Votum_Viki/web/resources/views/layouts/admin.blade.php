@@ -14,7 +14,7 @@
 
 <x-admin.header />
 
-<main id="site-main" role="main" class="">
+<main id="site-main" role="main" class="pt-22">
     @yield('adminContent')
 </main>
 
