@@ -3,7 +3,12 @@
 @section('adminContent')
     <div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-10 px-4">
         <div class="container mx-auto max-w-7xl">
-
+            @if(session('status'))
+                <div class="mb-4 text-sm text-green-900 text-center bg-green-100 border-2 border-b-green-900 rounded-md px-4 py-2">
+                    {{ session('status') }}
+                </div>
+            @endif
+            
             <div class="mb-12 text-center">
                 <h2 class="text-3xl font-bold text-blue-950 mb-4">
                     Administrátorský panel
@@ -19,7 +24,6 @@
                 </p>
             </div>
 
-
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
 
                 <x-admin.card name="Úvodný text" route="admin" icon="fa-home" />
@@ -30,7 +34,7 @@
                 <x-admin.card name="Kontaktné údaje" route="admin" icon="fa-address-book" />
                 <x-admin.card name="Dokumenty" route="admin" icon="fa-file-alt" />
 
-                <x-admin.card name="Zmena hesla" route="admin" icon="fa-lock" inverted />
+                <x-admin.card name="Zmena hesla" route="password.change" icon="fa-lock" inverted />
                 <x-admin.card name="Správa adminov" route="admin" icon="fa-user-cog" inverted />
 
             </div>

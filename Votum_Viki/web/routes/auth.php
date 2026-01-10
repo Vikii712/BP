@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('votumaci', [AuthenticatedSessionController::class, 'check'])->name('login');
-
 Route::middleware('guest')->post('votumaci', [AuthenticatedSessionController::class, 'store']);
 
 
@@ -46,7 +45,9 @@ Route::middleware('auth')->group(function () {
         ->name('password.confirm');
     Route::post('votumaci/confirm-password', [ConfirmablePasswordController::class, 'store']);
 
-    // Update password
+    // CHANGE PASSWORD
+    Route::get('votumaci/password', [PasswordController::class, 'edit'])
+        ->name('password.change');
     Route::put('votumaci/password', [PasswordController::class, 'update'])
         ->name('password.update');
 
