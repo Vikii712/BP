@@ -12,7 +12,7 @@
 
 <body>
 
-<x-header />
+<x-admin.header />
 
 <main id="site-main" role="main" class="">
     @yield('adminContent')
