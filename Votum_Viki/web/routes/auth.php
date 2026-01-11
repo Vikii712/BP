@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeEditController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
@@ -58,8 +59,13 @@ Route::middleware('auth')->group(function () {
         ->name('admin.add');
     Route::delete('votumaci/admin/delete/{id}', [AdminController::class, 'delete'])->name('admin.delete');
 
-
     // Logout
     Route::post('votumaci/logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
+
+    //DOMOV
+    Route::get('votumaci/admin/domov', [HomeEditController::class, 'edit'])
+        ->name('home.edit');
+    Route::put('votumaci/admin/domov', [HomeEditController::class, 'update'])
+        ->name('home.update');
 });

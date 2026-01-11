@@ -26,7 +26,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
 
-                <x-admin.card name="Domov" route="admin" icon="fa-home" image="domov.svg" />
+                <x-admin.card name="Domov" route="home.edit" icon="fa-home" image="domov.svg" />
                 <x-admin.card name="O nás" route="admin" icon="fa-users" image="Onas.svg" />
                 <x-admin.card name="Udalosti" route="admin" icon="fa-star" image="udalosti.svg" />
                 <x-admin.card name="História" route="admin" icon="fa-clock" image="historia.svg" />
