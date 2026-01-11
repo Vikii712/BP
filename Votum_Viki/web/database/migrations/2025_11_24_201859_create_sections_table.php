@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('position');
             $table->enum('category',
                 ['address', 'bank', 'tel', 'email',
-                    'team','history', 'about', 'hero',
+                    'team','ourTeam','history', 'about', 'hero',
                     'percentWhy', 'percentInfo', 'percentHow', 'percentThanks',
                     'qrHow', 'financialWhy', 'financialThanks',
                     'otherWhy', 'otherThanks', 'otherType', 'otherIdea',

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\Section;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -13,16 +14,41 @@ class HomeController extends Controller
         $locale = session('locale', 'sk');
         $isSK = $locale === 'sk';
 
+        // --- HERO ---
         $heroData = Section::where('category', 'hero')->first();
-
         $hero = null;
+        $heroImages = [];
         if ($heroData) {
             $hero = (object) [
                 'title' => $isSK ? $heroData->title_sk : $heroData->title_en,
                 'content' => $isSK ? $heroData->content_sk : $heroData->content_en,
             ];
+
+            $heroImages = DB::table('files')
+                ->where('section_id', $heroData->id)
+                ->where('type', 'image')
+                ->pluck('url')
+                ->first();
         }
 
+        // --- TEAM ---
+        $teamData = Section::where('category', 'ourTeam')->first();
+        $team = null;
+        $teamImages = [];
+        if ($teamData) {
+            $team = (object) [
+                'title' => $isSK ? $teamData->title_sk : $teamData->title_en,
+                'content' => $isSK ? $teamData->content_sk : $teamData->content_en,
+            ];
+
+            $teamImages = DB::table('files')
+                ->where('section_id', $teamData->id)
+                ->where('type', 'image')
+                ->pluck('url')
+                ->first();
+        }
+
+        // --- EVENTS ---
         $events = Event::with('dates')
             ->where('inCalendar', true)
             ->get()
@@ -40,15 +66,18 @@ class HomeController extends Controller
 
         return view('pages.main', [
             'hero' => $hero,
+            'heroImage' => $heroImages,
+            'team' => $team,
+            'teamImage' => $teamImages,
             'events' => $events,
         ]);
+
     }
 
+    // --- ICS GENERATOR ---
     public function ics()
     {
-        $events = Event::with('dates')
-            ->where('inCalendar', true)
-            ->get();
+        $events = Event::with('dates')->where('inCalendar', true)->get();
 
         if ($events->isEmpty()) {
             return response('ERROR: Ziadne udalosti v databaze')
@@ -66,30 +95,20 @@ class HomeController extends Controller
         foreach ($events as $event) {
             foreach ($event->dates as $eventDate) {
                 $date = \Carbon\Carbon::parse($eventDate->date);
-
                 $dtstart = $date->format('Ymd');
-
-                // Generovanie DTSTAMP/CREATED/LAST-MODIFIED v UTC (koniec na 'Z')
                 $nowUtc = now()->setTimezone('UTC')->format('Ymd\THis\Z');
-                $created = $event->created_at ?
-                    \Carbon\Carbon::parse($event->created_at)->setTimezone('UTC')->format('Ymd\THis\Z') :
-                    $nowUtc;
+                $created = $event->created_at
+                    ? \Carbon\Carbon::parse($event->created_at)->setTimezone('UTC')->format('Ymd\THis\Z')
+                    : $nowUtc;
 
-                // Google Calendar vyžaduje unikátny UID
                 $uid = md5("votum-{$event->id}-{$dtstart}") . "@votum.sk";
-
-                // Escapovanie pre Google Calendar
                 $title = $this->escapeGoogleCalendar($event->title_sk ?? $event->title_en);
 
                 $ics .= "BEGIN:VEVENT\r\n";
                 $ics .= "UID:{$uid}\r\n";
-                $ics .= "DTSTAMP:{$nowUtc}\r\n"; // Použijeme aktuálny čas pre DTSTAMP
+                $ics .= "DTSTAMP:{$nowUtc}\r\n";
                 $ics .= "DTSTART;VALUE=DATE:{$dtstart}\r\n";
-
-                // ZMENA 1: Používame DURATION:P1D (Perióda 1 deň) pre robustné jednodňové udalosti.
-                // Toto je plne kompatibilné s VALUE=DATE a Google Kalendárom.
                 $ics .= "DURATION:P1D\r\n";
-
                 $ics .= "SUMMARY:{$title}\r\n";
                 $ics .= "CREATED:{$created}\r\n";
                 $ics .= "LAST-MODIFIED:{$created}\r\n";
@@ -110,18 +129,13 @@ class HomeController extends Controller
             ->header('Expires', '0');
     }
 
-
     private function escapeGoogleCalendar($text)
     {
         $text = strip_tags($text);
-
-        $text = str_replace(["\r\n", "\n", "\r"], [" ", " ", " "], $text);
+        $text = str_replace(["\r\n", "\n", "\r"], " ", $text);
         $text = str_replace(['\\', ';', ','], ['\\\\', '\\;', '\\,'], $text);
-
         $text = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $text);
-
         $text = trim(preg_replace('/\s+/', ' ', $text));
-
         return $text;
     }
 }

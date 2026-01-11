@@ -1,6 +1,5 @@
-@props(['hero'])
+@props(['hero', 'image'])
 
-<!-- Right: Hero Image -->
 <div class="relative">
 
     <!-- Hero Section -->
@@ -55,7 +54,7 @@
 
                 <div class="relative">
                     <div class="rounded-2xl overflow-hidden shadow-xl">
-                        <img src="{{ asset('images/group.jpg') }}" alt="Skupina mladých ľudí" class="w-full h-full object-cover">
+                        <img src="{{ asset($image) }}" alt="Hero image" class="w-full h-full object-cover">
                     </div>
                 </div>
             </div>

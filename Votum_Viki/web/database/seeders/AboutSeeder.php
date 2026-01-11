@@ -22,6 +22,17 @@ class AboutSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'title_sk' => 'Náš tím',
+                'title_en' => 'Our team',
+                'content_sk' => 'Spoznať členov nášho tímu',
+                'content_en' => 'Get to know our team',
+                'year' => null,
+                'position' => 1,
+                'category' => 'ourTeam',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
                 'title_sk' => 'VOTUM – z latinského „želanie, sľub”',
                 'title_en' => 'VOTUM – from Latin “wish, promise”',
                 'content_sk' => '<p>Našim želaním je vytvárať spoločenstvo ľudí, ktorí si navzájom pomáhajú, podporujú sa a prinášajú si do života radosť. Sľubujeme, že sa o to budeme snažiť najlepšie, ako vieme.</p><p>Naša činnosť vychádza z kresťanských hodnôt – z úcty k Bohu, človeku a prostrediu, v ktorom žijeme. Veríme, že každý z nás je jedinečný, má svoje miesto, talenty a hodnotu. Spoločne sa učíme prijímať sa navzájom, rozvíjať svoje schopnosti a tvoriť komunitu, kde sa každý cíti vítaný.</p><p>Nič nepreverí Váš zámer lepšie ako čas... Už viac ako 30 rokov sa snažíme prinášať do života porozumenie, rešpekt a lásku – jednoducho to, čo robí život krajším.</p>',

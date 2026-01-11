@@ -1,11 +1,13 @@
-<!-- Team Section -->
+@props(['team', 'image'])
+
 <section class="bg-white py-12">
     <div class="container mx-auto px-4">
-        <h2 class="h2 font-bold text-votum-blue mb-8 text-center">{{__('nav.ourTeam')}}</h2>
+        <h2 class="h2 font-bold text-votum-blue mb-8 text-center">{{ $team->title ?? __('nav.ourTeam') }}</h2>
 
         <div class="max-w-3xl mx-auto">
-            <div class=" rounded-lg overflow-hidden shadow-lg mb-8">
-                <img src="{{asset('images/team.jpg')}}" alt="Náš tím" class="w-full h-auto object-cover">
+
+            <div class="rounded-lg overflow-hidden shadow-lg mb-8">
+                <img src="{{ asset($image) }}" alt="Team photo" class="w-full h-auto object-cover">
             </div>
 
             <div class="text-center">
