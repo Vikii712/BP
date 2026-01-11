@@ -16,7 +16,7 @@
 
                 <div class="inline-block px-6 py-3 border-2 border-blue-950 rounded-xl
                         bg-blue-50 text-blue-950 font-semibold tracking-wide shadow-sm">
-                    zdruzenievotum@gmail.com
+                    {{ Auth::user()->email }}
                 </div>
 
                 <p class="text-gray-600 mt-4">
@@ -26,17 +26,16 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
 
-                <x-admin.card name="Úvodný text" route="admin" icon="fa-home" />
-                <x-admin.card name="O nás" route="admin" icon="fa-users" />
-                <x-admin.card name="Udalosti" route="admin" icon="fa-star" />
-                <x-admin.card name="História" route="admin" icon="fa-clock" />
-                <x-admin.card name="Podpora" route="admin" icon="fa-hand-holding-heart" />
-                <x-admin.card name="Kontaktné údaje" route="admin" icon="fa-address-book" />
-                <x-admin.card name="Dokumenty" route="admin" icon="fa-file-alt" />
+                <x-admin.card name="Domov" route="admin" icon="fa-home" image="domov.svg" />
+                <x-admin.card name="O nás" route="admin" icon="fa-users" image="Onas.svg" />
+                <x-admin.card name="Udalosti" route="admin" icon="fa-star" image="udalosti.svg" />
+                <x-admin.card name="História" route="admin" icon="fa-clock" image="historia.svg" />
+                <x-admin.card name="Podpora" route="admin" icon="fa-hand-holding-heart" image="podpora.svg" />
+                <x-admin.card name="Kontakty" route="admin" icon="fa-address-book" image="kontakty.svg" />
+                <x-admin.card name="Dokumenty" route="admin" icon="fa-file-alt" image="dokumenty.svg" />
 
                 <x-admin.card name="Zmena hesla" route="password.change" icon="fa-lock" inverted />
                 <x-admin.card name="Správa adminov" route="admin.manage" icon="fa-user-cog" inverted />
-
             </div>
         </div>
     </div>

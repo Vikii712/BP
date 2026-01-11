@@ -3,6 +3,7 @@
     'route',
     'icon',
     'inverted' => false,
+    'image' => null
 ])
 
 <a href="{{ route($route) }}"
@@ -13,11 +14,15 @@
     ])>
 
     <div class="w-20 h-20 rounded-full flex items-center justify-center transition-colors duration-300
-                {{ $inverted ? 'bg-white' : 'bg-blue-100 group-hover:bg-blue-950' }}">
-        <i class="fas {{ $icon }} text-3xl {{ $inverted ? 'text-blue-950' : 'group-hover:text-white' }}"></i>
+                {{ $inverted ? 'bg-white' : 'bg-blue-950' }}">
+        @if($image)
+            <img src="{{ asset('images/' . $image) }}" alt="{{ $name }}" class="w-10 h-10 object-contain">
+        @else
+            <i class="fas {{ $icon }} text-3xl {{ $inverted ? 'text-blue-950' : 'group-hover:text-white' }}"></i>
+        @endif
     </div>
 
-    <h3 class="text-lg font-semibold">
+    <h3 class="text-xl font-bold">
         {{ $name }}
     </h3>
 
