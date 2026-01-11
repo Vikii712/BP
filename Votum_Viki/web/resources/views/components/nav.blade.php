@@ -1,6 +1,6 @@
 <nav aria-label="Primary navigation" id="main-nav" class="relative z-40 bg-blue-950">
 
-    <ul class="hidden md:flex justify-evenly text-[var(--cream)]">
+    <ul class="hidden md:flex justify-evenly text-white">
 
         <li>
             <a href="{{ route('main') }}"
@@ -10,7 +10,7 @@
                    'hover:text-blue-300' => !request()->routeIs('main')
                ])
                @if(request()->routeIs('main')) aria-current="page" @endif>
-                <img src="{{ asset('images/domov.svg') }}" alt="ikona domov"
+                <img src="{{ asset('images/nav/domov.svg') }}" alt="ikona domov"
                      class="w-10 h-10 object-contain">
                 <span class="text-lg font-bold">{{ __('nav.home') }}</span>
             </a>
@@ -24,7 +24,7 @@
                    'hover:text-blue-300' => !request()->routeIs('about')
                ])
                @if(request()->routeIs('about')) aria-current="page" @endif>
-                <img src="{{ asset('images/Onas.svg') }}" alt="ikona o nás"
+                <img src="{{ asset('images/nav/Onas.svg') }}" alt="ikona o nás"
                      class="w-10 h-10 object-contain">
                 <span class="text-lg font-bold">{{ __('nav.about') }}</span>
             </a>
@@ -38,7 +38,7 @@
                    'hover:text-blue-300' => !request()->routeIs('events')
                ])
                @if(request()->routeIs('events')) aria-current="page" @endif>
-                <img src="{{ asset('images/udalosti.svg') }}" alt="ikona udalosti"
+                <img src="{{ asset('images/nav/udalosti.svg') }}" alt="ikona udalosti"
                      class="w-10 h-10 object-contain">
                 <span class="text-lg font-bold">{{ __('nav.events') }}</span>
             </a>
@@ -52,7 +52,7 @@
                    'hover:text-blue-300' => !request()->routeIs('history')
                ])
                @if(request()->routeIs('history')) aria-current="page" @endif>
-                <img src="{{ asset('images/historia.svg') }}" alt="ikona historie"
+                <img src="{{ asset('images/nav/historia.svg') }}" alt="ikona historie"
                      class="w-10 h-10 object-contain">
                 <span class="text-lg font-bold">{{ __('nav.history') }}</span>
             </a>
@@ -74,7 +74,7 @@
                    aria-current="page"
                 @endif
             >
-                <img src="{{ asset('images/podpora.svg') }}" alt="ikona podpory"
+                <img src="{{ asset('images/nav/podpora.svg') }}" alt="ikona podpory"
                      class="w-10 h-10 object-contain">
                 <span class="text-lg font-bold">{{ __('nav.support') }}</span>
             </a>
@@ -88,7 +88,7 @@
                    'hover:text-blue-300' => !request()->routeIs('contacts')
                ])
                @if(request()->routeIs('contacts')) aria-current="page" @endif>
-                <img src="{{ asset('images/kontakty.svg') }}" alt="ikona kontaktov"
+                <img src="{{ asset('images/nav/kontakty.svg') }}" alt="ikona kontaktov"
                      class="w-10 h-10 object-contain">
                 <span class="text-lg font-bold">{{ __('nav.contacts') }}</span>
             </a>
@@ -102,7 +102,7 @@
                    'hover:text-blue-300' => !request()->is('documents*')
                ])
                @if(request()->is('documents*')) aria-current="page" @endif>
-                <img src="{{ asset('images/dokumenty.svg') }}" alt="ikona dokumentov"
+                <img src="{{ asset('images/nav/dokumenty.svg') }}" alt="ikona dokumentov"
                      class="w-10 h-10 object-contain">
                 <span class="text-lg font-bold">{{ __('nav.documents') }}</span>
             </a>

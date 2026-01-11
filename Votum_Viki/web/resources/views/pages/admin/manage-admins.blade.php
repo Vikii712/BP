@@ -16,7 +16,14 @@
 
             {{-- Formulár pridania admina --}}
             <div class="bg-white shadow-md rounded-md p-6 mb-8 border border-gray-200 w-full">
-                <h2 class="text-xl font-semibold text-blue-950 mb-4">Pridať nového admina</h2>
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-5 h-9 flex items-center justify-center rounded-md text-blue-950">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-blue-950">
+                        Pridať nového admina
+                    </h2>
+                </div>
 
                 <form method="POST" action="{{ route('admin.add') }}" class="flex flex-col gap-3 w-full">
                     @csrf
@@ -50,7 +57,7 @@
                     <thead class="bg-blue-950">
                     <tr>
                         <th class="px-6 py-3 font-medium text-blue-50">Email</th>
-                        <th class="px-6 py-3 font-medium text-blue-50 text-right">Akcie</th>
+                        <th class="px-6 py-3 font-medium text-blue-50 text-right">Akcia</th>
                     </tr>
                     </thead>
                     <tbody>

@@ -3,7 +3,7 @@
         <!-- Logo -->
         <a class="flex items-center gap-3" href="{{route('main')}}">
             <img class="p-2 pr-0 sm:pr-2" alt="logo" src="{{ asset('images/logo.svg') }}" width="70">
-            <h1 class="text-2xl sm:text-3xl font-bold text-[var(--cream)] logo-font">Združenie VOTUM</h1>
+            <h1 class="text-2xl sm:text-3xl font-bold text-white logo-font">Združenie VOTUM</h1>
         </a>
 
         <!-- Right controls -->
@@ -52,13 +52,13 @@
 
         <!-- Links -->
         <ul class="flex flex-col gap-6 text-center font-medium w-full text-xl">
-            <li><a href="{{route('main')}}" class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block"><img src="{{ asset('images/domov.svg') }}" class="w-10 h-10" alt=""> {{ __('nav.home')}}</a></li>
-            <li><a href="{{route('about')}}" class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block"><img src="{{ asset('images/Onas.svg') }}" class="w-10 h-10" alt=""> {{ __('nav.about')}}</a></li>
-            <li><a href="{{route('events')}}"  class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block"><img src="{{ asset('images/udalosti.svg') }}" class="w-10 h-10" alt="">{{ __('nav.events')}}</a></li>
-            <li><a href="{{route('history')}}" class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block"><img src="{{ asset('images/historia.svg') }}" class="w-10 h-10" alt="">{{ __('nav.history')}}</a></li>
-            <li><a href="{{route('support')}}" class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block"><img src="{{ asset('images/podpora.svg') }}" class="w-10 h-10" alt="">{{ __('nav.support')}}</a></li>
-            <li><a href="{{route('contacts')}}" class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block"><img src="{{ asset('images/kontakty.svg') }}" class="w-10 h-10" alt="">{{ __('nav.contacts')}}</a></li>
-            <li><a href="{{asset('documents')}}" class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block"><img src="{{ asset('images/dokumenty.svg') }}" class="w-10 h-10" alt="">{{ __('nav.documents')}}</a></li>
+            <li><a href="{{route('main')}}" class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block"><img src="{{ asset('images/nav/domov.svg') }}" class="w-10 h-10" alt=""> {{ __('nav.home')}}</a></li>
+            <li><a href="{{route('about')}}" class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block"><img src="{{ asset('images/nav/Onas.svg') }}" class="w-10 h-10" alt=""> {{ __('nav.about')}}</a></li>
+            <li><a href="{{route('events')}}"  class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block"><img src="{{ asset('images/nav/udalosti.svg') }}" class="w-10 h-10" alt="">{{ __('nav.events')}}</a></li>
+            <li><a href="{{route('history')}}" class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block"><img src="{{ asset('images/nav/historia.svg') }}" class="w-10 h-10" alt="">{{ __('nav.history')}}</a></li>
+            <li><a href="{{route('support')}}" class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block"><img src="{{ asset('images/nav/podpora.svg') }}" class="w-10 h-10" alt="">{{ __('nav.support')}}</a></li>
+            <li><a href="{{route('contacts')}}" class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block"><img src="{{ asset('images/nav/kontakty.svg') }}" class="w-10 h-10" alt="">{{ __('nav.contacts')}}</a></li>
+            <li><a href="{{asset('documents')}}" class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block"><img src="{{ asset('images/nav/dokumenty.svg') }}" class="w-10 h-10" alt="">{{ __('nav.documents')}}</a></li>
         </ul>
     </div>
 </div>
