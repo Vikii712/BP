@@ -7,7 +7,7 @@
         <div class="max-w-3xl mx-auto">
 
             <div class="rounded-lg overflow-hidden shadow-lg mb-8">
-                <img src="{{ asset($image->url) }}"
+                <img src="{{ asset('storage/'.$image->url) }}"
                      alt="{{ $image->alt }}"
                      class="w-full h-auto object-cover">
             </div>

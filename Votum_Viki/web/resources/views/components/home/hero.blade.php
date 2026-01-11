@@ -54,7 +54,7 @@
 
                 <div class="relative">
                     <div class="rounded-2xl overflow-hidden shadow-xl">
-                        <img src="{{ asset($image->url) }}"
+                        <img src="{{ asset('storage/'. $image->url) }}"
                              alt="{{ $image->alt }}"
                              class="w-full h-full object-cover">
                     </div>
