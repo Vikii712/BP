@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HistoryEditController;
 use App\Http\Controllers\HomeEditController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -68,4 +69,20 @@ Route::middleware('auth')->group(function () {
         ->name('home.edit');
     Route::put('votumaci/admin/domov', [HomeEditController::class, 'update'])
         ->name('home.update');
+
+    //HISTORY
+    Route::get('votumaci/admin/historia', [HistoryEditController::class, 'edit'])
+        ->name('history.edit');
+    Route::post('votumaci/admin/historia', [HistoryEditController::class, 'add'])
+        ->name('history.add');
+    Route::get('votumaci/admin/historia/{id}/edit', [HistoryEditController::class, 'editItem'])
+        ->name('history.editItem');
+    Route::put('votumaci/admin/historia/{id}', [HistoryEditController::class, 'update'])
+        ->name('history.update');
+    Route::delete('votumaci/admin/historia/{id}', [HistoryEditController::class, 'delete'])
+        ->name('history.delete');
+    Route::post('votumaci/admin/historia/{id}/up', [HistoryEditController::class, 'moveUp'])
+        ->name('history.moveUp');
+    Route::post('votumaci/admin/historia/{id}/down', [HistoryEditController::class, 'moveDown'])
+        ->name('history.moveDown');
 });
