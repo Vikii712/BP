@@ -17,36 +17,52 @@ class HomeController extends Controller
         // --- HERO ---
         $heroData = Section::where('category', 'hero')->first();
         $hero = null;
-        $heroImages = [];
+        $heroImage = null;
+
         if ($heroData) {
             $hero = (object) [
                 'title' => $isSK ? $heroData->title_sk : $heroData->title_en,
                 'content' => $isSK ? $heroData->content_sk : $heroData->content_en,
             ];
 
-            $heroImages = DB::table('files')
+            $image = DB::table('files')
                 ->where('section_id', $heroData->id)
                 ->where('type', 'image')
-                ->pluck('url')
                 ->first();
+
+            if ($image) {
+                $heroImage = (object) [
+                    'url' => $image->url,
+                    'alt' => $isSK ? $image->title_sk : $image->title_en,
+                ];
+            }
         }
+
 
         // --- TEAM ---
         $teamData = Section::where('category', 'ourTeam')->first();
         $team = null;
-        $teamImages = [];
+        $teamImage = null;
+
         if ($teamData) {
             $team = (object) [
                 'title' => $isSK ? $teamData->title_sk : $teamData->title_en,
                 'content' => $isSK ? $teamData->content_sk : $teamData->content_en,
             ];
 
-            $teamImages = DB::table('files')
+            $image = DB::table('files')
                 ->where('section_id', $teamData->id)
                 ->where('type', 'image')
-                ->pluck('url')
                 ->first();
+
+            if ($image) {
+                $teamImage = (object) [
+                    'url' => $image->url,
+                    'alt' => $isSK ? $image->title_sk : $image->title_en,
+                ];
+            }
         }
+
 
         // --- EVENTS ---
         $events = Event::with('dates')
@@ -66,9 +82,9 @@ class HomeController extends Controller
 
         return view('pages.main', [
             'hero' => $hero,
-            'heroImage' => $heroImages,
+            'heroImage' => $heroImage,
             'team' => $team,
-            'teamImage' => $teamImages,
+            'teamImage' => $teamImage,
             'events' => $events,
         ]);
 

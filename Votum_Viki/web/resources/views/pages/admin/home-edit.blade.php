@@ -8,149 +8,167 @@
                 Úprava stránky – Domov
             </h1>
 
-            {{-- TEXTY ÚVODNEJ SEKcie --}}
-            <div class="bg-white border border-gray-200 shadow-md rounded-md p-6 pt-0  space-y-6">
+            <form action="{{ route('home.update') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
 
-                <div class="bg-blue-950 text-lg -mx-6 px-6 py-4 text-white font-bold rounded-t-md ">
-                    Texty úvodnej sekcie
-                </div>
+                <div class="w-full space-y-10">
+                    {{-- TEXTY ÚVODNEJ SEKcie --}}
+                    <div class="bg-white border border-gray-200 shadow-md rounded-md p-6 pt-0  space-y-6">
 
-                {{-- MOTTO --}}
-                <div class="bg-gray-100 -mx-6 -mt-6 px-6 py-2 font-medium text-blue-950">
-                    Motto
-                </div>
+                        <div class="bg-blue-950 text-lg -mx-6 px-6 py-4 text-white font-bold rounded-t-md ">
+                            Texty úvodnej sekcie
+                        </div>
 
-                <div class="space-y-3">
-                    <div class="flex items-center gap-3">
-                        <span class="w-10 font-semibold text-blue-950">SK –</span>
-                        <input type="text"
-                               value="{{ $data['sk']['motto'] }}"
-                               class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">
+                        {{-- MOTTO --}}
+                        <div class="bg-gray-100 -mx-6 -mt-6 px-6 py-2 font-medium text-blue-950">
+                            Motto
+                        </div>
+
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-3">
+                                <span class="w-10 font-semibold text-blue-950">SK –</span>
+                                <input type="text"
+                                       name="sk[motto]"
+                                       value="{{ old('sk.motto', $data['sk']['motto']) }}"
+                                       class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">
+                            </div>
+
+                            <div class="flex items-center gap-3">
+                                <span class="w-10 font-semibold text-blue-950">EN –</span>
+                                <input type="text"
+                                       name="en[motto]"
+                                       value="{{ old('en.motto', $data['en']['motto']) }}"
+                                       class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">
+                            </div>
+                        </div>
+
+                        {{-- ÚVODNÝ TEXT --}}
+                        <div class="bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
+                            Úvodný text
+                        </div>
+
+                        <div class="space-y-3">
+                            <div class="flex gap-3">
+                                <span class="w-10 font-semibold text-blue-950 pt-2">SK –</span>
+                                <textarea name="sk[intro]" rows="4"
+                                          class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ old('sk.intro', $data['sk']['intro']) }}</textarea>
+                            </div>
+
+                            <div class="flex gap-3">
+                                <span class="w-10 font-semibold text-blue-950 pt-2">EN –</span>
+                                <textarea name="en[intro]" rows="4"
+                                          class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ old('en.intro', $data['en']['intro']) }}</textarea>
+                            </div>
+                        </div>
+
                     </div>
 
-                    <div class="flex items-center gap-3">
-                        <span class="w-10 font-semibold text-blue-950">EN –</span>
-                        <input type="text"
-                               value="{{ $data['en']['motto'] }}"
-                               class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">
-                    </div>
-                </div>
+                    {{-- ÚVODNÁ FOTKA --}}
+                    <div class="bg-white border border-gray-200 shadow-md rounded-md p-6 pt-0  space-y-6">
 
-                {{-- ÚVODNÝ TEXT --}}
-                <div class="bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
-                    Úvodný text
-                </div>
+                        <div class="bg-blue-950 text-lg -mx-6 px-6 py-4 text-white font-bold rounded-t-md ">
+                            Úvodná fotka
+                        </div>
 
-                <div class="space-y-3">
-                    <div class="flex gap-3">
-                        <span class="w-10 font-semibold text-blue-950 pt-2">SK –</span>
-                        <textarea rows="4"
-                                  class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ $data['sk']['intro'] }}</textarea>
-                    </div>
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <input type="hidden"
+                                   name="hero_image"
+                                   value="{{ old('hero_image', $data['sk']['hero_image']) }}">
 
-                    <div class="flex gap-3">
-                        <span class="w-10 font-semibold text-blue-950 pt-2">EN –</span>
-                        <textarea rows="4"
-                                  class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ $data['en']['intro'] }}</textarea>
-                    </div>
-                </div>
+                            <input type="text"
+                                   readonly
+                                   value="{{ $data['sk']['hero_image'] }}"
+                                   class="border-2 border-gray-300 rounded-md px-3 py-2 bg-gray-100 w-full sm:w-1/3">
 
-            </div>
+                            <button type="button"
+                                    class="px-4 py-2 border-2 border-blue-950 text-blue-950 font-semibold rounded-md hover:bg-blue-50">
+                                Nahradiť
+                            </button>
+                        </div>
 
-            {{-- ÚVODNÁ FOTKA --}}
-            <div class="bg-white border border-gray-200 shadow-md rounded-md p-6 pt-0  space-y-6">
+                        {{-- ALT TEXT --}}
+                        <div class="bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
+                            Alternatívny text obrázka
+                        </div>
 
-                <div class="bg-blue-950 text-lg -mx-6 px-6 py-4 text-white font-bold rounded-t-md ">
-                    Úvodná fotka
-                </div>
+                        <div class="space-y-3">
+                            <div class="flex gap-3">
+                                <span class="w-10 font-semibold text-blue-950 pt-2">SK –</span>
+                                <textarea name="sk[hero_alt]" rows="3"
+                                          class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ old('sk.hero_alt', $data['sk']['hero_alt']) }}</textarea>
+                            </div>
 
-                <div class="flex flex-col sm:flex-row gap-3">
-                    <input type="text"
-                           disabled
-                           value="{{ $data['sk']['hero_image'] }}"
-                           class="border-2 border-gray-300 rounded-md px-3 py-2 bg-gray-100 w-full sm:w-1/3">
+                            <div class="flex gap-3">
+                                <span class="w-10 font-semibold text-blue-950 pt-2">EN –</span>
+                                <textarea name="en[hero_alt]" rows="3"
+                                          class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ old('en.hero_alt', $data['en']['hero_alt']) }}</textarea>
+                            </div>
+                        </div>
 
-                    <button type="button"
-                            class="px-4 py-2 border-2 border-blue-950 text-blue-950 font-semibold rounded-md hover:bg-blue-50">
-                        Nahradiť
-                    </button>
-                </div>
-
-                {{-- ALT TEXT --}}
-                <div class="bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
-                    Alternatívny text obrázka
-                </div>
-
-                <div class="space-y-3">
-                    <div class="flex gap-3">
-                        <span class="w-10 font-semibold text-blue-950 pt-2">SK –</span>
-                        <textarea rows="3"
-                                  class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ $data['sk']['hero_alt'] }}</textarea>
                     </div>
 
-                    <div class="flex gap-3">
-                        <span class="w-10 font-semibold text-blue-950 pt-2">EN –</span>
-                        <textarea rows="3"
-                                  class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ $data['en']['hero_alt'] }}</textarea>
+                    {{-- TÍMOVÁ FOTKA --}}
+                    <div class="bg-white border border-gray-200 shadow-md rounded-md p-6 pt-0  space-y-6">
+
+                        <div class="bg-blue-950 text-lg -mx-6 px-6 py-4 text-white font-bold rounded-t-md ">
+                            Fotografia nášho tímu
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <input type="hidden"
+                                   name="team_image"
+                                   value="{{ old('team_image', $data['sk']['team_image']) }}">
+
+                            <input type="text"
+                                   readonly
+                                   value="{{ $data['sk']['team_image'] }}"
+                                   class="border-2 border-gray-300 rounded-md px-3 py-2 bg-gray-100 w-full sm:w-1/3">
+
+                            <button type="button"
+                                    class="px-4 py-2 border-2 border-blue-950 text-blue-950 font-semibold rounded-md hover:bg-blue-50">
+                                Nahradiť
+                            </button>
+                        </div>
+
+                        {{-- ALT TEXT --}}
+                        <div class="bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
+                            Alternatívny text obrázka
+                        </div>
+
+                        <div class="space-y-3">
+                            <div class="flex gap-3">
+                                <span class="w-10 font-semibold text-blue-950 pt-2">SK –</span>
+                                <textarea name="sk[team_alt]" rows="3"
+                                          class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ old('sk.team_alt', $data['sk']['team_alt']) }}</textarea>
+                            </div>
+
+                            <div class="flex gap-3">
+                                <span class="w-10 font-semibold text-blue-950 pt-2">EN –</span>
+                                <textarea name="en[team_alt]" rows="3"
+                                          class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ old('en.team_alt', $data['en']['team_alt']) }}</textarea>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    {{-- ULOŽENIE --}}
+                    <div class="flex justify-between">
+                        <button type="button"
+                                class="px-6 py-3 bg-blue-950 text-white font-semibold rounded-md hover:bg-blue-800 shadow-md">
+                            Späť
+                        </button>
+                        <button type="reset"
+                                class="px-6 py-3 bg-red-950 text-white font-semibold rounded-md hover:bg-red-800 shadow-md">
+                            vymazať zmeny
+                        </button>
+                        <button type="submit"
+                                class="px-6 py-3 bg-green-950 text-white font-semibold rounded-md hover:bg-green-800 shadow-md">
+                            Uložiť zmeny
+                        </button>
                     </div>
                 </div>
-
-            </div>
-
-            {{-- TÍMOVÁ FOTKA --}}
-            <div class="bg-white border border-gray-200 shadow-md rounded-md p-6 pt-0  space-y-6">
-
-                <div class="bg-blue-950 text-lg -mx-6 px-6 py-4 text-white font-bold rounded-t-md ">
-                    Fotografia nášho tímu
-                </div>
-
-                <div class="flex flex-col sm:flex-row gap-3">
-                    <input type="text"
-                           disabled
-                           value="{{ $data['sk']['team_image'] }}"
-                           class="border-2 border-gray-300 rounded-md px-3 py-2 bg-gray-100 w-full sm:w-1/3">
-
-                    <button type="button"
-                            class="px-4 py-2 border-2 border-blue-950 text-blue-950 font-semibold rounded-md hover:bg-blue-50">
-                        Nahradiť
-                    </button>
-                </div>
-
-                <div class="bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
-                    Alternatívny text obrázka
-                </div>
-
-                <div class="space-y-3">
-                    <div class="flex gap-3">
-                        <span class="w-10 font-semibold text-blue-950 pt-2">SK –</span>
-                        <textarea rows="3"
-                                  class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ $data['sk']['team_alt'] }}</textarea>
-                    </div>
-
-                    <div class="flex gap-3">
-                        <span class="w-10 font-semibold text-blue-950 pt-2">EN –</span>
-                        <textarea rows="3"
-                                  class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ $data['en']['team_alt'] }}</textarea>
-                    </div>
-                </div>
-
-            </div>
-
-            {{-- ULOŽENIE --}}
-            <div class="flex justify-between">
-                <button type="button"
-                        class="px-6 py-3 bg-blue-950 text-white font-semibold rounded-md hover:bg-blue-800 shadow-md">
-                    Späť
-                </button>
-                <button type="button"
-                        class="px-6 py-3 bg-red-950 text-white font-semibold rounded-md hover:bg-red-800 shadow-md">
-                    vymazať zmeny
-                </button>
-                <button type="button"
-                        class="px-6 py-3 bg-green-950 text-white font-semibold rounded-md hover:bg-green-800 shadow-md">
-                    Uložiť zmeny
-                </button>
-            </div>
+            </form>
 
         </div>
     </div>
