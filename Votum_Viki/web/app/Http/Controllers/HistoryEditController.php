@@ -19,27 +19,42 @@ class HistoryEditController extends Controller
     public function add(Request $request)
     {
         $request->validate([
-            'title_sk' => 'required|string|max:255',
-            'title_en' => 'required|string|max:255',
-            'content_sk' => 'nullable|string',
-            'content_en' => 'nullable|string',
-            'year' => 'required|integer',
+            'sk.title'   => 'required|string|max:255',
+            'en.title'   => 'required|string|max:255',
+            'sk.content' => 'required|string',
+            'en.content' => 'required|string',
+            'year'       => 'required|integer',
         ]);
 
-        $maxPosition = Section::where('category', 'history')->max('position') ?? 0;
+        $insertBefore = Section::where('category', 'history')
+            ->where('year', '>', $request->year)
+            ->orderBy('position')
+            ->first();
+
+        if ($insertBefore) {
+            $newPosition = $insertBefore->position;
+        } else {
+            $newPosition = (Section::where('category', 'history')->max('position') ?? 0) + 1;
+        }
+
+        Section::where('category', 'history')
+            ->where('position', '>=', $newPosition)
+            ->increment('position');
 
         Section::create([
-            'title_sk' => $request->title_sk,
-            'title_en' => $request->title_en,
-            'content_sk' => $request->content_sk,
-            'content_en' => $request->content_en,
-            'year' => $request->year,
-            'position' => $maxPosition + 1,
-            'category' => 'history',
+            'title_sk'   => $request->input('sk.title'),
+            'title_en'   => $request->input('en.title'),
+            'content_sk' => $request->input('sk.content'),
+            'content_en' => $request->input('en.content'),
+            'year'       => $request->year,
+            'position'   => $newPosition,
+            'category'   => 'history',
         ]);
 
-        return redirect()->back()->with('success', 'Udalosť bola pridaná do histórie.');
+        return redirect()->back()->with('success', 'Udalosť bola pridaná.');
     }
+
+
 
     public function editItem($id)
     {

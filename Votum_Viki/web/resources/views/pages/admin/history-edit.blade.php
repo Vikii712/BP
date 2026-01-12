@@ -17,61 +17,91 @@
             </div>
 
             {{-- Formulár na pridanie novej udalosti (skryty) --}}
-            <div id="addHistoryForm" class="bg-white shadow-md rounded-md p-6 mb-8 border border-gray-200 w-full hidden">
-                <div class="flex items-center gap-3 mb-6">
-                    <div class="w-5 h-9 flex items-center justify-center rounded-md text-blue-950">
-                        <i class="fas fa-plus"></i>
-                    </div>
-                    <h2 class="text-xl font-semibold text-blue-950">Pridať novú udalosť do histórie</h2>
+            <div id="addHistoryForm"
+                 class="bg-white border border-gray-200 shadow-md rounded-md p-6 pt-0 mb-8 w-full hidden space-y-6">
+
+                {{-- HLAVNÝ NADPIS --}}
+                <div class="bg-blue-950 text-lg -mx-6 px-6 py-4 text-white font-bold rounded-t-md">
+                    Pridať novú udalosť do histórie
                 </div>
 
-                <form method="POST" action="{{ route('history.add') }}" class="flex flex-col gap-3 w-full">
+                <form method="POST" action="{{ route('history.add') }}" class="space-y-6">
                     @csrf
 
-                    {{-- Nadpis --}}
-                    <div class="flex gap-3">
-                        <span class="w-10 font-semibold text-blue-950 pt-2">SK –</span>
-                        <input type="text" name="sk[title]" required
-                               class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2"
-                               placeholder="Nadpis v slovenčine">
-                    </div>
-                    <div class="flex gap-3">
-                        <span class="w-10 font-semibold pt-2">EN –</span>
-                        <input type="text" name="en[title]" required
-                               class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2"
-                               placeholder="Title in English">
+                    {{-- ROK --}}
+                    <div class="flex items-center bg-gray-100 -mt-6 -mx-6 px-6 py-2 font-medium text-blue-950">
+                        Rok udalosti
                     </div>
 
-                    {{-- Obsah --}}
+                    <div class="flex gap-3">
+                        <span class="w-10 font-semibold text-blue-950 pt-2">Rok</span>
+                        <input type="number"
+                               name="year"
+                               required
+                               class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2"
+                               placeholder="napr. 2002">
+                    </div>
+
+                    {{-- NADPIS --}}
+                    <div class="flex items-center bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
+                        Nadpis udalosti
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3">
+                            <span class="w-10 font-semibold text-blue-950">SK –</span>
+                            <input type="text"
+                                   name="sk[title]"
+                                   required
+                                   class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2"
+                                   placeholder="Nadpis v slovenčine">
+                        </div>
+
+                        <div class="flex items-center gap-3">
+                            <span class="w-10 font-semibold text-blue-950">EN –</span>
+                            <input type="text"
+                                   name="en[title]"
+                                   required
+                                   class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2"
+                                   placeholder="Title in English">
+                        </div>
+                    </div>
+
+                    {{-- TEXT --}}
+                    <div class="flex items-center bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
+                        Text udalosti
+                    </div>
+
                     <div class="space-y-3">
                         <div class="flex gap-3">
                             <span class="w-10 font-semibold text-blue-950 pt-2">SK –</span>
-                            <textarea name="sk[content]" rows="4"
+                            <textarea name="sk[content]"
+                                      rows="4"
+                                      required
                                       class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2"
-                                      placeholder="Obsah v slovenčine"></textarea>
+                                      placeholder="Text v slovenčine"></textarea>
                         </div>
 
                         <div class="flex gap-3">
                             <span class="w-10 font-semibold pt-2">EN –</span>
-                            <textarea name="en[content]" rows="4"
+                            <textarea name="en[content]"
+                                      rows="4"
+                                      required
                                       class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2"
-                                      placeholder="Content in English"></textarea>
+                                      placeholder="Text in English"></textarea>
                         </div>
                     </div>
 
-                    {{-- Rok --}}
-                    <div class="flex gap-3 mt-2">
-                        <span class="w-10 font-semibold text-blue-950 pt-2">Rok –</span>
-                        <input type="number" name="year" required
-                               class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2"
-                               placeholder="Rok udalosti">
+                    {{-- TLAČIDLO --}}
+                    <div class="pt-2 flex w-full justify-end">
+                        <button type="submit"
+                                class="bg-green-200 border-2 border-green-900 text-green-900 px-6 py-2 rounded-md font-semibold hover:bg-green-300">
+                            Pridať udalosť
+                        </button>
                     </div>
-
-                    <button type="submit" class="bg-green-200 border-2 border-green-900 text-green-900 px-4 py-2 rounded-md font-semibold hover:bg-green-300 mt-3 w-full sm:w-auto">
-                        Pridať
-                    </button>
                 </form>
             </div>
+
 
             {{-- Tabuľka histórie --}}
             <h2 class="text-xl font-bold text-center text-blue-950 mb-3">História</h2>
@@ -79,17 +109,18 @@
                 <table class="min-w-full text-left border-collapse">
                     <thead class="bg-blue-950">
                     <tr>
-                        <th class="px-6 py-3 font-medium text-blue-50">Poradie</th>
-                        <th class="px-6 py-3 font-medium text-blue-50">Rok</th>
-                        <th class="px-6 py-3 font-medium text-blue-50">Nadpis</th>
-                        <th class="px-6 py-3 font-medium text-blue-50 text-right">Akcia</th>
+                        <th class="px-6 py-3 text-blue-50">Poradie</th>
+                        <th class="px-6 py-3 text-blue-50">Rok</th>
+                        <th class="px-6 py-3 text-blue-50">Nadpis</th>
+                        <th class="px-6 py-3 text-blue-50 text-right">Akcia</th>
                     </tr>
                     </thead>
+
                     <tbody>
                     @foreach($history as $item)
-                        <tr class="border-t border-blue-950/20 hover:bg-blue-50">
 
-                            {{-- Šípky úplne naľavo --}}
+                        {{-- HLAVNÝ RIADOK --}}
+                        <tr class="border-t hover:bg-blue-50">
                             <td class="px-6 py-4 flex gap-1">
                                 <form method="POST" action="{{ route('history.moveUp', $item->id) }}">
                                     @csrf
@@ -101,24 +132,69 @@
                                 </form>
                             </td>
 
-                            {{-- Rok --}}
-                            <td class="px-6 py-4 font-medium text-gray-900">{{ $item->year }}</td>
+                            <td class="px-6 py-4">{{ $item->year }}</td>
+                            <td class="px-6 py-4 font-medium">{{ $item->title_sk }}</td>
 
-                            {{-- Nadpis --}}
-                            <td class="px-6 py-4 font-medium text-gray-900">{{ $item->title_sk }}</td>
+                            <td class="px-6 py-4 text-right flex justify-end gap-3">
+                                <button class="toggle-edit text-blue-900"
+                                        data-id="{{ $item->id }}"><i class="fas fa-pen"></i></button>
 
-                            {{-- Akcie --}}
-                            <td class="px-6 py-4 text-right flex justify-end gap-2">
-                                <a href="{{ route('history.editItem', $item->id) }}" class="text-blue-950 hover:text-gray-700 text-lg">
-                                    <i class="fas fa-pen"></i>
-                                </a>
                                 <form method="POST" action="{{ route('history.delete', $item->id) }}">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="text-red-600 hover:text-red-800 text-lg"><i class="fas fa-trash"></i></button>
+                                    <button class="text-red-600"><i class="fas fa-trash"></i></button>
                                 </form>
                             </td>
                         </tr>
+
+                        {{-- INLINE EDIT RIADOK --}}
+                        <tr id="edit-row-{{ $item->id }}" class="hidden bg-gray-50">
+                            <td colspan="4" class="px-6 py-6">
+
+                                <div class="bg-blue-950 text-white font-bold px-4 py-2 rounded-t-md">
+                                    Upraviť udalosť v histórii
+                                </div>
+
+                                <form method="POST"
+                                      action="{{ route('history.update', $item->id) }}"
+                                      class="bg-white border border-t-0 rounded-b-md p-4 space-y-4">
+                                    @csrf
+                                    @method('PUT')
+
+                                    <input type="number" name="year" required
+                                           value="{{ $item->year }}"
+                                           class="w-full border-2 border-gray-300 rounded-md px-3 py-2">
+
+                                    <input type="text" name="title_sk" required
+                                           value="{{ $item->title_sk }}"
+                                           class="w-full border-2 border-gray-300 rounded-md px-3 py-2">
+
+                                    <input type="text" name="title_en" required
+                                           value="{{ $item->title_en }}"
+                                           class="w-full border-2 border-gray-300 rounded-md px-3 py-2">
+
+                                    <textarea name="content_sk" required rows="4"
+                                              class="w-full border-2 border-gray-300 rounded-md px-3 py-2">{{ $item->content_sk }}</textarea>
+
+                                    <textarea name="content_en" required rows="4"
+                                              class="w-full border-2 border-gray-300 rounded-md px-3 py-2">{{ $item->content_en }}</textarea>
+
+                                    <div class="flex justify-end gap-3">
+                                        <button type="submit"
+                                                class="bg-blue-200 border-2 border-blue-900 text-blue-900 px-5 py-2 rounded-md font-semibold">
+                                            Uložiť zmeny
+                                        </button>
+                                        <button type="button"
+                                                class="close-edit text-gray-600"
+                                                data-id="{{ $item->id }}">
+                                            Zrušiť
+                                        </button>
+                                    </div>
+                                </form>
+
+                            </td>
+                        </tr>
+
                     @endforeach
                     </tbody>
                 </table>
@@ -127,12 +203,25 @@
         </div>
     </div>
 
+    {{-- JS --}}
     <script>
-        const toggleBtn = document.getElementById('toggleAddForm');
-        const addForm = document.getElementById('addHistoryForm');
+        document.getElementById('toggleAddForm')
+            .addEventListener('click', () => {
+                document.getElementById('addHistoryForm').classList.toggle('hidden');
+            });
 
-        toggleBtn.addEventListener('click', () => {
-            addForm.classList.toggle('hidden');
+        document.querySelectorAll('.toggle-edit').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.getElementById('edit-row-' + btn.dataset.id)
+                    .classList.toggle('hidden');
+            });
+        });
+
+        document.querySelectorAll('.close-edit').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.getElementById('edit-row-' + btn.dataset.id)
+                    .classList.add('hidden');
+            });
         });
     </script>
 @endsection
