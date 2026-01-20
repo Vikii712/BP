@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\HtmlSanitizer;
 use App\Models\Section;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -61,13 +62,15 @@ class AboutEditController extends Controller
             'image_alt_en' => ['required_with:image', 'nullable', 'string'],
         ]);
 
+
+
         $newPosition = (Section::where('category', 'about')->max('position') ?? 0) + 1;
 
         $section = Section::create([
             'title_sk' => $request->input('sk.title'),
             'title_en' => $request->input('en.title'),
-            'content_sk' => $request->input('sk.content'),
-            'content_en' => $request->input('en.content'),
+            'content_sk' => HtmlSanitizer::clean($request->input('sk.content')),
+            'content_en' => HtmlSanitizer::clean($request->input('en.content')),
             'position' => $newPosition,
             'category' => 'about',
         ]);
@@ -119,8 +122,8 @@ class AboutEditController extends Controller
         $item->update([
             'title_sk' => $request->title_sk,
             'title_en' => $request->title_en,
-            'content_sk' => $request->content_sk,
-            'content_en' => $request->content_en,
+            'content_sk' => HtmlSanitizer::clean($request->content_sk),
+            'content_en' => HtmlSanitizer::clean($request->content_en),
         ]);
 
         $existingImage = DB::table('files')
