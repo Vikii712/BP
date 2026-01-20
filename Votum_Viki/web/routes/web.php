@@ -5,6 +5,7 @@ use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SupportController;
+use App\Models\Event;
 use Illuminate\Support\Facades\Route;
 
 
@@ -49,5 +50,16 @@ Route::get('/support/other', [SupportController::class, 'other'])->name('other')
 Route::get('/a11y', function () {
     return view('pages.a11y');
 })->name('a11y');
+
+Route::get('/calendar-debug', function() {
+    $events = Event::with('dates')->where('inCalendar', true)->get();
+
+    return [
+        'total_events' => $events->count(),
+        'events_with_dates' => $events->filter(fn($e) => $e->dates->isNotEmpty())->count(),
+        'total_dates' => $events->sum(fn($e) => $e->dates->count()),
+        'sample_event' => $events->first(),
+    ];
+});
 
 require __DIR__.'/auth.php';

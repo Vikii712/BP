@@ -9,7 +9,9 @@
             <div class="rounded-lg overflow-hidden shadow-lg mb-8">
                 <img src="{{ asset('storage/'.$image->url) }}"
                      alt="{{ $image->alt }}"
-                     class="w-full h-auto object-cover">
+                     loading="lazy"
+                     width="800" height="500"
+                     class="w-full h-auto object-cover aspect-[8/5]">
             </div>
 
             <div class="text-center">

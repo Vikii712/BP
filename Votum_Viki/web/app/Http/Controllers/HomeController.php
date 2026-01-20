@@ -96,46 +96,80 @@ class HomeController extends Controller
         $events = Event::with('dates')->where('inCalendar', true)->get();
 
         if ($events->isEmpty()) {
-            return response('ERROR: Ziadne udalosti v databaze')
+            return response('ERROR: Žiadne udalosti v databáze')
                 ->header('Content-Type', 'text/plain');
         }
 
-        $ics = "BEGIN:VCALENDAR\r\n";
-        $ics .= "VERSION:2.0\r\n";
-        $ics .= "PRODID:-//VOTUM//Calendar//EN\r\n";
-        $ics .= "CALSCALE:GREGORIAN\r\n";
-        $ics .= "METHOD:PUBLISH\r\n";
-        $ics .= "X-WR-CALNAME:VOTUM\r\n";
-        $ics .= "X-WR-TIMEZONE:Europe/Bratislava\r\n";
+        $CRLF = "\r\n";
+
+        $ics = "BEGIN:VCALENDAR{$CRLF}";
+        $ics .= "PRODID:-//VOTUM//Calendar//SK{$CRLF}";
+        $ics .= "VERSION:2.0{$CRLF}";
+        $ics .= "CALSCALE:GREGORIAN{$CRLF}";
+        $ics .= "METHOD:PUBLISH{$CRLF}";
+        $ics .= "X-WR-CALNAME:VOTUM{$CRLF}";
+        $ics .= "X-WR-TIMEZONE:Europe/Bratislava{$CRLF}";
+
+        // Pridanie VTIMEZONE (voliteľné, ale pomáha s kompatibilitou)
+        $ics .= "BEGIN:VTIMEZONE{$CRLF}";
+        $ics .= "TZID:Europe/Bratislava{$CRLF}";
+        $ics .= "X-LIC-LOCATION:Europe/Bratislava{$CRLF}";
+        $ics .= "BEGIN:DAYLIGHT{$CRLF}";
+        $ics .= "TZOFFSETFROM:+0100{$CRLF}";
+        $ics .= "TZOFFSETTO:+0200{$CRLF}";
+        $ics .= "TZNAME:CEST{$CRLF}";
+        $ics .= "DTSTART:19700329T020000{$CRLF}";
+        $ics .= "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU{$CRLF}";
+        $ics .= "END:DAYLIGHT{$CRLF}";
+        $ics .= "BEGIN:STANDARD{$CRLF}";
+        $ics .= "TZOFFSETFROM:+0200{$CRLF}";
+        $ics .= "TZOFFSETTO:+0100{$CRLF}";
+        $ics .= "TZNAME:CET{$CRLF}";
+        $ics .= "DTSTART:19701025T030000{$CRLF}";
+        $ics .= "RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU{$CRLF}";
+        $ics .= "END:STANDARD{$CRLF}";
+        $ics .= "END:VTIMEZONE{$CRLF}";
+
+        // Debug: Spočítaj počet eventov
+        $eventCount = 0;
 
         foreach ($events as $event) {
+            if (!$event->dates || $event->dates->isEmpty()) {
+                continue; // Preskočiť eventy bez dátumov
+            }
+
             foreach ($event->dates as $eventDate) {
-                $date = \Carbon\Carbon::parse($eventDate->date);
-                $dtstart = $date->format('Ymd');
-                $nowUtc = now()->setTimezone('UTC')->format('Ymd\THis\Z');
-                $created = $event->created_at
-                    ? \Carbon\Carbon::parse($event->created_at)->setTimezone('UTC')->format('Ymd\THis\Z')
-                    : $nowUtc;
+                $eventCount++;
 
-                $uid = md5("votum-{$event->id}-{$dtstart}") . "@votum.sk";
-                $title = $this->escapeGoogleCalendar($event->title_sk ?? $event->title_en);
+                $start = \Carbon\Carbon::parse($eventDate->date)->format('Ymd');
+                $end = \Carbon\Carbon::parse($eventDate->date)->addDay()->format('Ymd');
+                $nowUtc = now()->utc()->format('Ymd\THis\Z');
+                $uid = "votum-{$event->id}-{$eventDate->id}@votum.sk";
 
-                $ics .= "BEGIN:VEVENT\r\n";
-                $ics .= "UID:{$uid}\r\n";
-                $ics .= "DTSTAMP:{$nowUtc}\r\n";
-                $ics .= "DTSTART;VALUE=DATE:{$dtstart}\r\n";
-                $ics .= "DURATION:P1D\r\n";
-                $ics .= "SUMMARY:{$title}\r\n";
-                $ics .= "CREATED:{$created}\r\n";
-                $ics .= "LAST-MODIFIED:{$created}\r\n";
-                $ics .= "SEQUENCE:0\r\n";
-                $ics .= "STATUS:CONFIRMED\r\n";
-                $ics .= "TRANSP:TRANSPARENT\r\n";
-                $ics .= "END:VEVENT\r\n";
+                $title = $this->escapeIcsText($event->title_sk ?? $event->title_en ?? 'Bez názvu');
+                $description = $this->escapeIcsText($event->content_sk ?? '');
+
+                $ics .= "BEGIN:VEVENT{$CRLF}";
+                $ics .= "DTSTART;VALUE=DATE:{$start}{$CRLF}";
+                $ics .= "DTEND;VALUE=DATE:{$end}{$CRLF}";
+                $ics .= "DTSTAMP:{$nowUtc}{$CRLF}";
+                $ics .= "UID:{$uid}{$CRLF}";
+                $ics .= "SUMMARY:{$title}{$CRLF}";
+
+                if (!empty($description)) {
+                    $ics .= "DESCRIPTION:{$description}{$CRLF}";
+                }
+
+                $ics .= "STATUS:CONFIRMED{$CRLF}";
+                $ics .= "TRANSP:TRANSPARENT{$CRLF}"; // Pridané ako vo FIIT kalendári
+                $ics .= "END:VEVENT{$CRLF}";
             }
         }
 
-        $ics .= "END:VCALENDAR\r\n";
+        $ics .= "END:VCALENDAR{$CRLF}";
+
+        // Debug log
+        \Log::info("Generated ICS with {$eventCount} events, size: " . strlen($ics) . " bytes");
 
         return response($ics)
             ->header('Content-Type', 'text/calendar; charset=utf-8')
@@ -145,13 +179,36 @@ class HomeController extends Controller
             ->header('Expires', '0');
     }
 
-    private function escapeGoogleCalendar($text)
+    private function escapeIcsText($text)
     {
         $text = strip_tags($text);
-        $text = str_replace(["\r\n", "\n", "\r"], " ", $text);
-        $text = str_replace(['\\', ';', ','], ['\\\\', '\\;', '\\,'], $text);
-        $text = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $text);
-        $text = trim(preg_replace('/\s+/', ' ', $text));
-        return $text;
+        // Najprv escapovať backslashe, potom ostatné
+        $text = str_replace('\\', '\\\\', $text);
+        $text = str_replace([';', ','], ['\\;', '\\,'], $text);
+        $text = str_replace(["\r\n", "\n", "\r"], '\\n', $text);
+
+        // Zalamovanie dlhých riadkov (ICS limit je 75 znakov)
+        return $this->foldLine($text);
     }
+
+    private function foldLine($text, $maxLength = 75)
+    {
+        if (strlen($text) <= $maxLength) {
+            return $text;
+        }
+
+        $result = '';
+        $line = '';
+
+        foreach (mb_str_split($text) as $char) {
+            $line .= $char;
+            if (strlen($line) >= $maxLength) {
+                $result .= $line . "\r\n ";
+                $line = '';
+            }
+        }
+
+        return $result . $line;
+    }
+
 }

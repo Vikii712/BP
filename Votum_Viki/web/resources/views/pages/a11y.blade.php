@@ -22,6 +22,9 @@
             <li>Dokumenty na stiahnutie sú označené</li>
         </ul>
 
+        <!--Stránka nepoužíva cookies na sledovanie používateľov.
+Externý obsah (napr. videá z YouTube alebo mapy) sa načítava až po interakcii používateľa.-->
+
         <h2 class="h3 font-semibold mt-6 mb-2">Známe obmedzenia</h2>
         <p class="mb-4">
             Aj napriek snahám sa môžu vyskytnúť časti stránky, ktoré momentálne nespĺňajú všetky požiadavky WCAG 2.1 AA. Patria sem napríklad:

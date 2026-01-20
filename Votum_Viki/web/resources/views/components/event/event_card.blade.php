@@ -3,7 +3,11 @@
 <div class=" {{$color ? 'bg-votum3 border-votum3' : 'bg-white border-votum1' }} mx-3 rounded-lg overflow-hidden sm:mx-5 shadow-lg border-3 ">
 
     <div class="h-64 overflow-hidden m-5 mb-0">
-        <img src="{{ asset('images/activity1.jpg') }}" alt="Tábor 2024" class="w-full h-full object-cover">
+        <img src="{{ asset('images/activity1.jpg') }}"
+             alt="Tábor 2024"
+             loading="lazy"
+             width="400" height="250"
+             class="w-full h-full object-cover">
     </div>
 
     <div class="pt-3 p-6 grid">

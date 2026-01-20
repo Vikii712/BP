@@ -25,7 +25,10 @@
                     Pridať novú udalosť do histórie
                 </div>
 
-                <form method="POST" action="{{ route('history.add') }}" class="space-y-6">
+                <form method="POST"
+                      action="{{ route('history.add') }}"
+                      enctype="multipart/form-data"
+                      class="space-y-6">
                     @csrf
 
                     {{-- ROK --}}
@@ -92,6 +95,69 @@
                         </div>
                     </div>
 
+                    {{-- ================= HISTORY IMAGE ================= --}}
+
+                    {{-- SIVÝ NADPIS – FOTKA --}}
+                    <div class="flex flex-row bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950 mt-6">
+                        Obrázok udalosti
+                    </div>
+
+                    {{-- FILENAME + BUTTON --}}
+                    <div class="flex gap-3 px-6 mt-4">
+                        <input id="newHistoryImageFilename"
+                               type="text"
+                               readonly
+                               value="— žiadny obrázok —"
+                               class="border-2 border-gray-300 rounded-md px-3 py-2 bg-gray-100 w-1/3">
+
+                        <label class="px-4 py-2 border-2 border-blue-950 rounded-md cursor-pointer">
+                            Nahrať
+                            <input type="file"
+                                   name="image"
+                                   accept="image/*"
+                                   class="hidden"
+                                   onchange="onNewHistoryImageSelected(this)">
+                        </label>
+                        <button type="button"
+                                id="removeNewHistoryImageBtn"
+                                onclick="removeNewHistoryImage()"
+                                class="px-4 py-2 border-2 border-red-600 text-red-600 rounded-md hidden">
+                            Odstrániť
+                        </button>
+
+                    </div>
+
+                    <input type="hidden"
+                           name="remove_image"
+                           id="newHistoryRemoveImageFlag"
+                           value="0">
+
+                    {{-- ALT WRAPPER --}}
+                    <div id="newHistoryAltWrapper" class="hidden">
+                        <div class="flex flex-row items-center bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950 mt-6">
+                            Alternatívny text obrázka
+                            <x-InfoTooltip typ="alt" />
+                        </div>
+
+                        <div class="space-y-3 px-6 mt-4">
+                            <div class="flex gap-3">
+                                <span class="w-10 font-semibold pt-2">SK –</span>
+                                <textarea name="image_alt_sk"
+                                          rows="3"
+                                          class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2"></textarea>
+                            </div>
+
+                            <div class="flex gap-3">
+                                <span class="w-10 font-semibold pt-2">EN –</span>
+                                <textarea name="image_alt_en"
+                                          rows="3"
+                                          class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+
+
                     {{-- TLAČIDLO --}}
                     <div class="pt-2 flex w-full justify-end">
                         <button type="submit"
@@ -151,49 +217,165 @@
                         <tr id="edit-row-{{ $item->id }}" class="hidden bg-gray-50">
                             <td colspan="4" class="px-6 py-6">
 
-                                <div class="bg-blue-950 text-white font-bold px-4 py-2 rounded-t-md">
-                                    Upraviť udalosť v histórii
-                                </div>
-
                                 <form method="POST"
                                       action="{{ route('history.update', $item->id) }}"
-                                      class="bg-white border border-t-0 rounded-b-md p-4 space-y-4">
+                                      enctype="multipart/form-data"
+                                      class="bg-white border rounded-md p-6 space-y-6">
                                     @csrf
                                     @method('PUT')
 
-                                    <input type="number" name="year" required
-                                           value="{{ $item->year }}"
-                                           class="w-full border-2 border-gray-300 rounded-md px-3 py-2">
+                                    {{-- ROK --}}
+                                    <div class="flex rounded-t-md items-center bg-gray-100 -mx-6 -mt-6 px-6 py-2 font-medium text-blue-950">
+                                        Upraviť rok udalosti
+                                    </div>
 
-                                    <input type="text" name="title_sk" required
-                                           value="{{ $item->title_sk }}"
-                                           class="w-full border-2 border-gray-300 rounded-md px-3 py-2">
+                                    <div class="flex gap-3">
+                                        <span class="w-10 font-semibold text-blue-950 pt-2">Rok</span>
+                                        <input type="number"
+                                               name="year"
+                                               required
+                                               value="{{ $item->year }}"
+                                               class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">
+                                    </div>
 
-                                    <input type="text" name="title_en" required
-                                           value="{{ $item->title_en }}"
-                                           class="w-full border-2 border-gray-300 rounded-md px-3 py-2">
+                                    {{-- NADPIS --}}
+                                    <div class="flex items-center bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
+                                        Upraviť nadpis udalosti
+                                    </div>
 
-                                    <textarea name="content_sk" required rows="4"
-                                              class="w-full border-2 border-gray-300 rounded-md px-3 py-2">{{ $item->content_sk }}</textarea>
+                                    <div class="space-y-3">
+                                        <div class="flex items-center gap-3">
+                                            <span class="w-10 font-semibold text-blue-950">SK –</span>
+                                            <input type="text"
+                                                   name="title_sk"
+                                                   required
+                                                   value="{{ $item->title_sk }}"
+                                                   class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">
+                                        </div>
 
-                                    <textarea name="content_en" required rows="4"
-                                              class="w-full border-2 border-gray-300 rounded-md px-3 py-2">{{ $item->content_en }}</textarea>
+                                        <div class="flex items-center gap-3">
+                                            <span class="w-10 font-semibold text-blue-950">EN –</span>
+                                            <input type="text"
+                                                   name="title_en"
+                                                   required
+                                                   value="{{ $item->title_en }}"
+                                                   class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">
+                                        </div>
+                                    </div>
 
-                                    <div class="flex justify-end gap-3">
+                                    {{-- TEXT --}}
+                                    <div class="flex items-center bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
+                                        Upraviť text udalosti
+                                    </div>
+
+                                    <div class="space-y-3">
+                                        <div class="flex gap-3">
+                                            <span class="w-10 font-semibold text-blue-950 pt-2">SK –</span>
+                                            <textarea name="content_sk"
+                                                      rows="4"
+                                                      required
+                                                      class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ $item->content_sk }}</textarea>
+                                        </div>
+
+                                        <div class="flex gap-3">
+                                            <span class="w-10 font-semibold pt-2">EN –</span>
+                                            <textarea name="content_en"
+                                                      rows="4"
+                                                      required
+                                                      class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ $item->content_en }}</textarea>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    {{-- ================= HISTORY IMAGE ================= --}}
+
+                                    {{-- SIVÝ NADPIS – FOTKA --}}
+                                    <div class="flex flex-row -mx-6 bg-gray-100 items-center px-6 py-2 font-medium text-blue-950 mt-6">
+                                        Upraviť obrázok udalosti
+                                    </div>
+
+                                    {{-- FILENAME + BUTTON --}}
+                                    <div class="flex gap-3 px-6 mt-4">
+                                        <input id="historyImageFilename-{{ $item->id }}"
+                                               type="text"
+                                               readonly
+                                               value="{{ $item->image ? basename($item->image->url) : '— žiadny obrázok —' }}"
+                                               class="border-2 border-gray-300 rounded-md px-3 py-2 bg-gray-100 w-1/3">
+
+                                        <label class="px-4 py-2 border-2 border-blue-950 rounded-md cursor-pointer">
+                                            Nahradiť
+                                            <input type="file"
+                                                   name="image"
+                                                   accept="image/*"
+                                                   class="hidden"
+                                                   onchange="onEditHistoryImageSelected(this, {{ $item->id }})">
+                                        </label>
+
+
+                                        <button type="button"
+                                                onclick="removeHistoryImage({{ $item->id }})"
+                                                class="px-4 py-2 border-2 border-red-600 text-red-600 rounded-md">
+                                            Odstrániť
+                                        </button>
+
+                                    </div>
+
+                                    <input type="hidden"
+                                           name="remove_image"
+                                           id="removeImageFlag-{{ $item->id }}"
+                                           value="0">
+
+
+                                    <div id="historyAltWrapper-{{ $item->id }}"
+                                         class="{{ $item->image ? '' : 'hidden' }}">
+                                        {{-- SIVÝ NADPIS – ALT --}}
+                                        <div class="flex flex-row -mx-6 bg-gray-100 items-center px-6 py-2 font-medium text-blue-950 mt-6">
+                                            Upraviť alternatívny text obrázka
+                                            <x-InfoTooltip typ="alt" />
+                                        </div>
+
+                                        {{-- ALT TEXTAREAS --}}
+                                        <div class="space-y-3 px-6 mt-4">
+                                            <div class="flex gap-3">
+                                                <span class="w-10 font-semibold pt-2">SK –</span>
+                                                <textarea name="image_alt_sk"
+                                                          rows="3"
+                                                          class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ old('image_alt_sk', $item->image->alt_sk ?? '') }}</textarea>
+                                            </div>
+
+                                            <div class="flex gap-3">
+                                                <span class="w-10 font-semibold pt-2">EN –</span>
+                                                <textarea name="image_alt_en"
+                                                          rows="3"
+                                                          class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ old('image_alt_en', $item->image->alt_en ?? '') }}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    {{-- TLAČIDLÁ --}}
+                                    <div class="pt-2 flex justify-end gap-3">
                                         <button type="submit"
-                                                class="bg-blue-200 border-2 border-blue-900 text-blue-900 px-5 py-2 rounded-md font-semibold">
+                                                class="bg-blue-200 border-2 border-blue-900 text-blue-900 px-6 py-2 rounded-md font-semibold hover:bg-blue-300">
                                             Uložiť zmeny
                                         </button>
+
                                         <button type="button"
-                                                class="close-edit text-gray-600"
+                                                class="close-edit text-gray-600 font-medium"
                                                 data-id="{{ $item->id }}">
                                             Zrušiť
                                         </button>
                                     </div>
+
                                 </form>
 
                             </td>
                         </tr>
+
 
                     @endforeach
                     </tbody>
@@ -223,5 +405,66 @@
                     .classList.add('hidden');
             });
         });
+
+        function updateFilename(input, targetId) {
+            if (input.files.length > 0) {
+                document.getElementById(targetId).value = input.files[0].name;
+            }
+        }
+
+        function setAltRequired(required, wrapperId) {
+            const wrapper = document.getElementById(wrapperId);
+            if (!wrapper) return;
+
+            wrapper.querySelectorAll('textarea').forEach(el => {
+                if (required) {
+                    el.setAttribute('required', 'required');
+                } else {
+                    el.removeAttribute('required');
+                }
+            });
+        }
+
+        function onNewHistoryImageSelected(input) {
+            if (input.files.length > 0) {
+                document.getElementById('newHistoryImageFilename').value = input.files[0].name;
+                document.getElementById('newHistoryAltWrapper').classList.remove('hidden');
+                document.getElementById('removeNewHistoryImageBtn').classList.remove('hidden');
+                document.getElementById('newHistoryRemoveImageFlag').value = 0;
+
+                setAltRequired(true, 'newHistoryAltWrapper');
+            }
+        }
+
+        function removeNewHistoryImage() {
+            const fileInput = document.querySelector('#addHistoryForm input[name="image"]');
+
+            fileInput.value = '';
+            document.getElementById('newHistoryImageFilename').value = '— žiadny obrázok —';
+            document.getElementById('newHistoryAltWrapper').classList.add('hidden');
+            document.getElementById('removeNewHistoryImageBtn').classList.add('hidden');
+            document.getElementById('newHistoryRemoveImageFlag').value = 1;
+
+            setAltRequired(false, 'newHistoryAltWrapper');
+        }
+
+        function onEditHistoryImageSelected(input, id) {
+            if (input.files.length > 0) {
+                document.getElementById('historyImageFilename-' + id).value = input.files[0].name;
+                document.getElementById('historyAltWrapper-' + id).classList.remove('hidden');
+
+                setAltRequired(true, 'historyAltWrapper-' + id);
+            }
+        }
+
+        function removeHistoryImage(id) {
+            document.getElementById('historyImageFilename-' + id).value = '— žiadny obrázok —';
+            document.getElementById('historyAltWrapper-' + id).classList.add('hidden');
+            document.getElementById('removeImageFlag-' + id).value = 1;
+
+            setAltRequired(false, 'historyAltWrapper-' + id);
+        }
+
+
     </script>
 @endsection

@@ -28,10 +28,29 @@
                     </div>
 
                     <!-- Obsah -->
-                    <div class="ml-8  pt-5 md:p-6 relative">
+                    <div class="ml-8 pt-5 md:p-6 relative">
+
+                        @if($entry['image'])
+                            <div class="mb-4">
+                                <img
+                                    src="{{ $entry['image']['url'] }}"
+                                    alt="{{ $entry['image']['alt'] }}"
+                                    loading="lazy"
+                                    width="800"
+                                    height="450"
+                                    class="w-full rounded-xl shadow-md object-cover aspect-[16/9]">
+                            </div>
+                        @endif
+
                         <x-listen :text="$entry['name'] . '. ' . $entry['text']" id="{{100 + $i}}" />
-                        <h2 class="h3 font-bold text-votum-blue mb-2 pe-12">{{ $entry['name'] }}</h2>
-                        <p class="text-gray-700 leading-relaxed txt">{{ $entry['text'] }}</p>
+
+                        <h2 class="h3 font-bold text-votum-blue mb-2 pe-12">
+                            {{ $entry['name'] }}
+                        </h2>
+
+                        <p class="text-gray-700 leading-relaxed txt">
+                            {{ $entry['text'] }}
+                        </p>
                     </div>
                 </div>
             @endforeach

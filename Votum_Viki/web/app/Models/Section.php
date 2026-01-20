@@ -15,7 +15,6 @@ class Section extends Model
         'year',
         'position',
         'category',
-        'main_pic'
     ];
     public function files()
     {
