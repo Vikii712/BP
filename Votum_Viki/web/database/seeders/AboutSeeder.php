@@ -98,7 +98,7 @@ class AboutSeeder extends Seeder
 <p>Once a month we also meet at the Royal Family Parish on Teplická Street, where we accompany the Holy Mass with music and then continue with a spiritual meeting with conversations.</p>
 ',
                     'year' => null,
-                    'position' => 2,
+                    'position' => 3,
                     'category' => 'about',
                     'created_at' => now(),
                     'updated_at' => now(),
@@ -129,7 +129,7 @@ class AboutSeeder extends Seeder
 </ol>
 ',
                     'year' => null,
-                    'position' => 3,
+                    'position' => 4,
                     'category' => 'about',
                     'created_at' => now(),
                     'updated_at' => now(),
@@ -148,7 +148,7 @@ class AboutSeeder extends Seeder
 <p>At the beginning of each school year, we set individual music therapy goals for each client - according to their needs. During the year and at the end of the year, we individually look at where they have moved, what music therapy has brought us and how to develop further. We learn to see the beauty of small steps.</p>
 ',
                     'year' => null,
-                    'position' => 4,
+                    'position' => 5,
                     'category' => 'about',
                     'created_at' => now(),
                     'updated_at' => now(),

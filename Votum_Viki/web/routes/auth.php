@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutEditController;
 use App\Http\Controllers\HistoryEditController;
 use App\Http\Controllers\HomeEditController;
 use App\Http\Controllers\AdminController;
@@ -85,4 +86,24 @@ Route::middleware('auth')->group(function () {
         ->name('history.moveUp');
     Route::post('votumaci/admin/historia/{id}/down', [HistoryEditController::class, 'moveDown'])
         ->name('history.moveDown');
+
+
+    //ABOUT
+    Route::get('votumaci/admin/about', function () {
+        return view('pages.admin.about');
+    })->name('admin.about');
+
+    Route::prefix('votumaci/admin/about/sections')->group(function () {
+        Route::get('/', [AboutEditController::class, 'index'])->name('about.sections');
+        Route::post('/add', [AboutEditController::class, 'add'])->name('about.sections.add');
+        Route::put('/{id}', [AboutEditController::class, 'update'])->name('about.sections.update');
+        Route::delete('/{id}', [AboutEditController::class, 'delete'])->name('about.sections.delete');
+        Route::post('/{id}/up', [AboutEditController::class, 'moveUp'])->name('about.sections.up');
+        Route::post('/{id}/down', [AboutEditController::class, 'moveDown'])->name('about.sections.down');
+    });
+
+
+    Route::get('votumaci/admin/team', function () {
+        return view('pages.admin.about_team');
+    })->name('about.team');
 });
