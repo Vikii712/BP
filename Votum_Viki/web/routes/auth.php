@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\SectionEditController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -71,39 +72,17 @@ Route::middleware('auth')->group(function () {
     Route::put('votumaci/admin/domov', [HomeEditController::class, 'update'])
         ->name('home.update');
 
-    //HISTORY
-    Route::get('votumaci/admin/historia', [HistoryEditController::class, 'edit'])
-        ->name('history.edit');
-    Route::post('votumaci/admin/historia', [HistoryEditController::class, 'add'])
-        ->name('history.add');
-    Route::get('votumaci/admin/historia/{id}/edit', [HistoryEditController::class, 'editItem'])
-        ->name('history.editItem');
-    Route::put('votumaci/admin/historia/{id}', [HistoryEditController::class, 'update'])
-        ->name('history.update');
-    Route::delete('votumaci/admin/historia/{id}', [HistoryEditController::class, 'delete'])
-        ->name('history.delete');
-    Route::post('votumaci/admin/historia/{id}/up', [HistoryEditController::class, 'moveUp'])
-        ->name('history.moveUp');
-    Route::post('votumaci/admin/historia/{id}/down', [HistoryEditController::class, 'moveDown'])
-        ->name('history.moveDown');
-
-
-    //ABOUT
-    Route::get('votumaci/admin/about', function () {
-        return view('pages.admin.about');
-    })->name('admin.about');
-
-    Route::prefix('votumaci/admin/about/sections')->group(function () {
-        Route::get('/', [AboutEditController::class, 'index'])->name('about.sections');
-        Route::post('/add', [AboutEditController::class, 'add'])->name('about.sections.add');
-        Route::put('/{id}', [AboutEditController::class, 'update'])->name('about.sections.update');
-        Route::delete('/{id}', [AboutEditController::class, 'delete'])->name('about.sections.delete');
-        Route::post('/{id}/up', [AboutEditController::class, 'moveUp'])->name('about.sections.up');
-        Route::post('/{id}/down', [AboutEditController::class, 'moveDown'])->name('about.sections.down');
+    //Sections
+    Route::prefix('votumaci/admin/{category}')->group(function () {
+        Route::get('/', [SectionEditController::class, 'index'])->name('section.index');
+        Route::post('/add', [SectionEditController::class, 'add'])->name('section.add');
+        Route::put('/{id}', [SectionEditController::class, 'update'])->name('section.update');
+        Route::delete('/{id}', [SectionEditController::class, 'delete'])->name('section.delete');
+        Route::post('/{id}/up', [SectionEditController::class, 'moveUp'])->name('section.up');
+        Route::post('/{id}/down', [SectionEditController::class, 'moveDown'])->name('section.down');
     });
 
-
-    Route::get('votumaci/admin/team', function () {
-        return view('pages.admin.about_team');
-    })->name('about.team');
+    Route::get('votumaci/admin/about', function () {
+        return view('admin.about.index');
+    })->name('admin.about');
 });

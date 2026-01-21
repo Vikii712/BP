@@ -6,7 +6,7 @@
     'image' => null
 ])
 
-<a href="{{ route($route) }}"
+<a href="{{ $route }}"
     @class([
          'group rounded-xl shadow-md transition-all duration-300 p-8 flex flex-col items-center justify-center space-y-4 hover:-translate-y-1',
          'text-blue-950 bg-white border-2 border-blue-950/10 hover:border-blue-950 hover:shadow-xl' => !$inverted,

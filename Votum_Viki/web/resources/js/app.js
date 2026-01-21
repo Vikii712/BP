@@ -27,3 +27,14 @@ function showCopyNotification(message) {
     // zmizne po 2 sekundách
     setTimeout(() => notif.remove(), 2000);
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleBtn = document.getElementById('toggleAddFormBtn');
+    const addForm = document.getElementById('addFormWrapper');
+
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+            addForm.classList.toggle('hidden');
+        });
+    }
+});

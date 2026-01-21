@@ -11,7 +11,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
 
                 {{-- SEKCIe O NÁS --}}
-                <a href="{{ route('about.sections') }}"
+                <a href="{{ route('section.index', ['category' => 'about']) }}"
                    class="group bg-white border-2 border-blue-950 rounded-md p-8 shadow hover:bg-blue-50 transition">
                     <i class="fas fa-align-left text-4xl text-blue-950 mb-4"></i>
                     <h2 class="text-xl font-bold text-blue-950 mb-2">
@@ -23,7 +23,7 @@
                 </a>
 
                 {{-- TÍM --}}
-                <a href="{{ route('about.team') }}"
+                <a href="{{ route('section.index', ['category' => 'team']) }}"
                    class="group bg-white border-2 border-blue-950 rounded-md p-8 shadow hover:bg-blue-50 transition">
                     <i class="fas fa-users text-4xl text-blue-950 mb-4"></i>
                     <h2 class="text-xl font-bold text-blue-950 mb-2">
