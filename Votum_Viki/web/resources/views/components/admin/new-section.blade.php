@@ -28,7 +28,8 @@
               action="{{ route('section.add', ['category' => $category]) }}"
               enctype="multipart/form-data"
               class="space-y-6"
-              id="addForm">
+              id="addForm"
+              >
 
             @csrf
 
@@ -96,7 +97,7 @@
                             <div class="quill-wrapper">
                                 <div id="editor-new-sk"></div>
                             </div>
-                            <textarea name="sk[content]" id="content-new-sk" required class="hidden"></textarea>
+                            <textarea name="sk[content]" id="content-new-sk" class="hidden"></textarea>
                         </div>
                     </div>
                     <div class="flex gap-3">
@@ -105,7 +106,7 @@
                             <div class="quill-wrapper">
                                 <div id="editor-new-en"></div>
                             </div>
-                            <textarea name="en[content]" id="content-new-en" required class="hidden"></textarea>
+                            <textarea name="en[content]" id="content-new-en" class="hidden"></textarea>
                         </div>
                     </div>
                 @endif

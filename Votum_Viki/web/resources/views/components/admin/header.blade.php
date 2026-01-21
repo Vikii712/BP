@@ -4,7 +4,7 @@
         <a href="{{ route('admin') }}" class="flex items-center gap-3">
             <img src="{{ asset('images/logo.svg') }}" alt="logo" class="p-1 w-12 lg:w-[70px]">
             <h1 class="text-white text-2xl lg:text-3xl font-bold logo-font tracking-wide">
-                VOTUM<span class="text-indigo-300">-admin</span>
+                VOTUM<span class="text-indigo-300"> - admin</span>
             </h1>
         </a>
 

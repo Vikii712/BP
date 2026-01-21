@@ -70,8 +70,10 @@ class SectionEditController extends Controller
     // =========================
     // ADD
     // =========================
-    public function add(Request $request)
+    public function add(Request $request, $category)
     {
+        $hasYear = ($category === 'history');
+
         $rules = [
             'sk.title' => ['required', 'string'],
             'en.title' => ['required', 'string'],
@@ -88,8 +90,7 @@ class SectionEditController extends Controller
 
         $request->validate($rules);
 
-        // pozícia
-        if ($this->hasYear) {
+        if ($hasYear) {
             // u history vložíme podľa year
             $insertBefore = Section::where('category', 'history')
                 ->where('year', '>', $request->year)
@@ -99,7 +100,6 @@ class SectionEditController extends Controller
             $newPosition = $insertBefore ? $insertBefore->position :
                 ((Section::where('category', 'history')->max('position') ?? 0) + 1);
 
-            // posuň existujúce
             Section::where('category', 'history')
                 ->where('position', '>=', $newPosition)
                 ->increment('position');
@@ -115,7 +115,7 @@ class SectionEditController extends Controller
             'content_en' => HtmlSanitizer::clean($request->input('en.content')),
             'position' => $newPosition,
             'category' => $this->category,
-            'year' => $this->hasYear ? $request->year : null,
+            'year' => $hasYear ? $request->year : null,
         ]);
 
         // upload obrázka
@@ -139,9 +139,11 @@ class SectionEditController extends Controller
     // =========================
     // UPDATE
     // =========================
-    public function update(Request $request, $id)
+    public function update(Request $request, $category, $id)
     {
-        $item = Section::where('category', $this->category)->findOrFail($id);
+        $hasYear = ($category === 'history');
+
+        $item = Section::where('category', $category)->findOrFail($id);
 
         if ($request->remove_image) {
             DB::table('files')
@@ -160,7 +162,7 @@ class SectionEditController extends Controller
             'image_alt_en' => ['required_with:image', 'nullable', 'string'],
         ];
 
-        if ($this->hasYear) {
+        if ($hasYear) {
             $rules['year'] = ['required', 'integer'];
         }
 
@@ -171,7 +173,7 @@ class SectionEditController extends Controller
             'title_en' => $request->title_en,
             'content_sk' => HtmlSanitizer::clean($request->content_sk),
             'content_en' => HtmlSanitizer::clean($request->content_en),
-            'year' => $this->hasYear ? $request->year : $item->year,
+            'year' => $hasYear ? $request->year : $item->year,
         ]);
 
         // spracovanie obrázka
@@ -186,7 +188,7 @@ class SectionEditController extends Controller
                 DB::table('files')->where('id', $existingImage->id)->delete();
             }
 
-            $path = $request->file('image')->store($this->category, 'public');
+            $path = $request->file('image')->store($category, 'public');
 
             DB::table('files')->insert([
                 'section_id' => $item->id,

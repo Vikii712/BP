@@ -82,7 +82,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/{id}/down', [SectionEditController::class, 'moveDown'])->name('section.down');
     });
 
-    Route::get('votumaci/admin/about', function () {
-        return view('admin.about.index');
+    Route::get('votumaci/about', function () {
+        return view('pages.admin.about');
     })->name('admin.about');
 });

@@ -183,6 +183,8 @@ class AboutSeeder extends Seeder
             'event_id' => null,
             'url' => 'images/team/Maria.jpg',
             'type' => 'image',
+            'title_sk' => 'Mgr. Mária Horváthová, DiS. Art.',
+            'title_en' =>'Mgr. Mária Horváthová, DiS. Art.',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -215,6 +217,8 @@ class AboutSeeder extends Seeder
             'event_id' => null,
             'url' => 'images/team/Renata.jpg',
             'type' => 'image',
+            'title_sk' => 'Renáta Štaffová',
+            'title_en' =>'Renáta Štaffová',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -246,6 +250,8 @@ class AboutSeeder extends Seeder
             'event_id' => null,
             'url' => 'images/team/Jana.jpg',
             'type' => 'image',
+            'title_sk' => 'Ing. Jana Hodeková',
+            'title_en' => 'Ing. Jana Hodeková',
             'created_at' => now(),
             'updated_at' => now(),
         ]);

@@ -167,18 +167,23 @@
             hideUrlModal();
         }
 
-        document.getElementById('urlCancel')?.addEventListener('click', hideUrlModal);
-        document.getElementById('urlConfirm')?.addEventListener('click', confirmUrl);
-        document.getElementById('urlInput')?.addEventListener('keydown', e => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                confirmUrl();
-            } else if (e.key === 'Escape') {
-                hideUrlModal();
+        ['urlCancel', 'urlConfirm', 'urlInput', 'urlModal'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                if (id === 'urlCancel') el.addEventListener('click', hideUrlModal);
+                if (id === 'urlConfirm') el.addEventListener('click', confirmUrl);
+                if (id === 'urlInput') {
+                    el.addEventListener('keydown', e => {
+                        if (e.key === 'Enter') { e.preventDefault(); confirmUrl(); }
+                        else if (e.key === 'Escape') hideUrlModal();
+                    });
+                }
+                if (id === 'urlModal') {
+                    el.addEventListener('click', e => {
+                        if (e.target.id === 'urlModal') hideUrlModal();
+                    });
+                }
             }
-        });
-        document.getElementById('urlModal')?.addEventListener('click', e => {
-            if (e.target.id === 'urlModal') hideUrlModal();
         });
 
         // ================= HELPERS =================
@@ -201,14 +206,9 @@
             const toolbar = quill.getModule('toolbar');
             if (toolbar) {
                 toolbar.addHandler('link', value => {
-                    if (!value) {
-                        quill.format('link', false);
-                        return;
-                    }
+                    if (!value) { quill.format('link', false); return; }
                     const range = quill.getSelection();
-                    if (range && range.length > 0) {
-                        showUrlModal(quill, range);
-                    }
+                    if (range && range.length > 0) showUrlModal(quill, range);
                 });
             }
         }
@@ -219,116 +219,150 @@
         let currentOpenEdit = null;
         const isHistory = {{ $category === 'history' ? 'true' : 'false' }};
 
+        // ========== ADD FORM SUBMIT - HLAVNÝ FIX ==========
+        function handleAddFormSubmit(e) {
+            console.log('=== ADD FORM SUBMIT ===');
+            e.preventDefault(); // ZASTAV DEFAULT PRE DEBUG
+
+            // 1. Nájdi hidden polia
+            const skContentField = document.getElementById('content-new-sk') ||
+                document.querySelector('input[name="sk[content]"], input[name="sk.content"]');
+            const enContentField = document.getElementById('content-new-en') ||
+                document.querySelector('input[name="en[content]"], input[name="en.content"]');
+            const skTitleField = document.querySelector('input[name="sk[title]"], input[name="sk.title"]');
+            const enTitleField = document.querySelector('input[name="en[title]"], input[name="en.title"]');
+
+            console.log('Polia:', { skContent: skContentField, enContent: enContentField, skTitle: skTitleField, enTitle: enTitleField });
+
+            // 2. Prepíš Quill obsah
+            if (addFormEditors && skContentField && enContentField) {
+                const skContent = addFormEditors.sk.root.innerHTML.trim();
+                const enContent = addFormEditors.en.root.innerHTML.trim();
+
+                console.log('Quill obsah:', { sk: skContent.substring(0, 100), en: enContent.substring(0, 100) });
+
+                skContentField.value = skContent;
+                enContentField.value = enContent;
+
+                // 3. Validácia
+                if (!skContent || !enContent || !skTitleField?.value.trim() || !enTitleField?.value.trim()) {
+                    alert('Vyplňte všetky povinné polia (tituly + obsah)!');
+                    return false;
+                }
+            }
+
+            // 4. Odešli formulár
+            console.log('Odosielam formulár...');
+            e.target.submit();
+        }
+
         // ========== IMAGE HANDLING ==========
         function onNewImage(input) {
-            if (!input.files || !input.files[0]) return;
-            document.getElementById('newImageFilename').value = input.files[0].name;
-            document.getElementById('newAltWrapper').classList.remove('hidden');
-            document.getElementById('removeNewBtn').classList.remove('hidden');
+            if (!input.files?.[0]) return;
+            const filenameEl = document.getElementById('newImageFilename');
+            if (filenameEl) filenameEl.textContent = input.files[0].name;
+            const altWrapper = document.getElementById('newAltWrapper');
+            const removeBtn = document.getElementById('removeNewBtn');
+            if (altWrapper) altWrapper.classList.remove('hidden');
+            if (removeBtn) removeBtn.classList.remove('hidden');
             document.querySelectorAll('#newAltWrapper textarea').forEach(t => t.setAttribute('required', 'required'));
         }
 
         function removeNewImage() {
             const fileInput = document.querySelector('#addForm input[name="image"]');
             if (fileInput) fileInput.value = '';
-            document.getElementById('newImageFilename').value = '— žiadny obrázok —';
-            document.getElementById('newAltWrapper').classList.add('hidden');
-            document.getElementById('removeNewBtn').classList.add('hidden');
+            const filenameEl = document.getElementById('newImageFilename');
+            if (filenameEl) filenameEl.textContent = '— žiadny obrázok —';
+            const altWrapper = document.getElementById('newAltWrapper');
+            const removeBtn = document.getElementById('removeNewBtn');
+            if (altWrapper) altWrapper.classList.add('hidden');
+            if (removeBtn) removeBtn.classList.add('hidden');
             document.querySelectorAll('#newAltWrapper textarea').forEach(t => t.removeAttribute('required'));
         }
 
-        function onEditImage(input, id) {
-            if (!input.files || !input.files.length) return;
-            document.getElementById(`aboutFilename-${id}`).value = input.files[0].name;
-            document.getElementById(`altWrapper-${id}`).classList.remove('hidden');
-            document.getElementById(`removeBtn-${id}`).classList.remove('hidden');
-            document.getElementById(`removeFlag-${id}`).value = 0;
-            document.querySelectorAll(`#altWrapper-${id} textarea`)
-                .forEach(t => t.setAttribute('required', 'required'));
-        }
-
-        function removeEditImage(id) {
-            document.querySelector(`#edit-row-${id} input[type="file"]`).value = '';
-            document.getElementById(`aboutFilename-${id}`).value = '— žiadny obrázok —';
-            document.getElementById(`altWrapper-${id}`).classList.add('hidden');
-            document.getElementById(`removeBtn-${id}`).classList.add('hidden');
-            document.getElementById(`removeFlag-${id}`).value = 1;
-            document.querySelectorAll(`#altWrapper-${id} textarea`)
-                .forEach(t => t.removeAttribute('required'));
-        }
-
-        // ========== ADD FORM ==========
+        // ========== ADD FORM FUNCTIONS ==========
         function openAddForm() {
-            const form = document.getElementById('addFormWrapper');
-            if (!form) return;
-
-            form.style.display = 'block';
+            const formWrapper = document.getElementById('addFormWrapper');
+            if (!formWrapper) return;
+            formWrapper.style.display = 'block';
         }
 
         function closeAddForm() {
-            const form = document.getElementById('addFormWrapper');
-            if (!form) return;
+            const formWrapper = document.getElementById('addFormWrapper');
+            if (!formWrapper) return;
+            formWrapper.style.display = 'none';
 
-            form.style.display = 'none';
-            document.getElementById('addForm')?.reset();
+            const addForm = document.getElementById('addForm');
+            if (addForm) addForm.reset();
 
             if (addFormEditors) {
                 addFormEditors.sk.setText('');
                 addFormEditors.en.setText('');
+                addFormEditors = null;
             }
-
             removeNewImage();
         }
 
-        document.getElementById('toggleAddFormBtn')?.addEventListener('click', () => {
-            const form = document.getElementById('addFormWrapper');
-            if (!form) return;
+        // Toggle add form
+        const toggleBtn = document.getElementById('toggleAddFormBtn');
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', () => {
+                const formWrapper = document.getElementById('addFormWrapper');
+                if (!formWrapper) return;
 
-            const isHidden = getComputedStyle(form).display === 'none';
+                const isHidden = getComputedStyle(formWrapper).display === 'none';
+                if (isHidden) {
+                    openAddForm();
 
-            if (isHidden) {
-                openAddForm();
+                    // Inicializuj Quill LEN AK NEEXISTUJE
+                    if (!addFormEditors && !isHistory) {
+                        setTimeout(() => {
+                            const skContainer = document.getElementById('editor-new-sk');
+                            const enContainer = document.getElementById('editor-new-en');
 
-                if (!addFormEditors && !isHistory) {
-                    setTimeout(() => {
-                        addFormEditors = {
-                            sk: new Quill('#editor-new-sk', {
-                                theme: 'snow',
-                                modules: { toolbar: toolbarOptions }
-                            }),
-                            en: new Quill('#editor-new-en', {
-                                theme: 'snow',
-                                modules: { toolbar: toolbarOptions }
-                            })
-                        };
-
-                        preventImagePaste(addFormEditors.sk);
-                        preventImagePaste(addFormEditors.en);
-                        fixLinks(addFormEditors.sk);
-                        fixLinks(addFormEditors.en);
-                    }, 0);
+                            if (skContainer && enContainer && !skContainer.__quill) {
+                                console.log('Inicializujem nové Quill editory');
+                                addFormEditors = {
+                                    sk: new Quill('#editor-new-sk', {
+                                        theme: 'snow',
+                                        modules: { toolbar: toolbarOptions }
+                                    }),
+                                    en: new Quill('#editor-new-en', {
+                                        theme: 'snow',
+                                        modules: { toolbar: toolbarOptions }
+                                    })
+                                };
+                                preventImagePaste(addFormEditors.sk);
+                                preventImagePaste(addFormEditors.en);
+                                fixLinks(addFormEditors.sk);
+                                fixLinks(addFormEditors.en);
+                            }
+                        }, 200);
+                    }
+                } else {
+                    closeAddForm();
                 }
-            } else {
-                closeAddForm();
-            }
+            });
+        }
+
+        const cancelBtn = document.getElementById('cancelAddForm');
+        if (cancelBtn) cancelBtn.addEventListener('click', closeAddForm);
+
+        // ADD FORM SUBMIT - NASTAV LISTENER LEN RAZ
+        const addForm = document.getElementById('addForm');
+        if (addForm && !addForm.hasAttribute('data-submit-handler')) {
+            addForm.setAttribute('data-submit-handler', 'true');
+            addForm.addEventListener('submit', handleAddFormSubmit);
+        }
+
+        // Image listeners
+        document.addEventListener('change', e => {
+            if (e.target.matches('#addForm input[name="image"]')) onNewImage(e.target);
         });
 
-        document.getElementById('cancelAddForm')?.addEventListener('click', closeAddForm);
-
-        document.getElementById('addForm')?.addEventListener('submit', function () {
-            if (addFormEditors) {
-                document.getElementById('content-new-sk').value =
-                    addFormEditors.sk.root.innerHTML;
-                document.getElementById('content-new-en').value =
-                    addFormEditors.en.root.innerHTML;
-            }
-        });
-
-
-        // ========== EDIT FORMS ==========
+        // ========== EDIT FORMS (zostáva rovnaké) ==========
         function initEditEditors(id) {
             if (quillEditors[id]) return;
-
             const textareaSk = document.getElementById(`content-edit-${id}-sk`);
             const textareaEn = document.getElementById(`content-edit-${id}-en`);
             if (!textareaSk || !textareaEn) return;
@@ -340,14 +374,8 @@
             if (!textareaEn.defaultValue) textareaEn.defaultValue = contentEn;
 
             quillEditors[id] = {
-                sk: new Quill(`#editor-edit-${id}-sk`, {
-                    theme: 'snow',
-                    modules: { toolbar: toolbarOptions }
-                }),
-                en: new Quill(`#editor-edit-${id}-en`, {
-                    theme: 'snow',
-                    modules: { toolbar: toolbarOptions }
-                })
+                sk: new Quill(`#editor-edit-${id}-sk`, { theme: 'snow', modules: { toolbar: toolbarOptions } }),
+                en: new Quill(`#editor-edit-${id}-en`, { theme: 'snow', modules: { toolbar: toolbarOptions } })
             };
 
             preventImagePaste(quillEditors[id].sk);
@@ -355,84 +383,66 @@
             fixLinks(quillEditors[id].sk);
             fixLinks(quillEditors[id].en);
 
-            if (contentSk?.trim()) {
-                quillEditors[id].sk.clipboard.dangerouslyPasteHTML(contentSk);
-            }
-            if (contentEn?.trim()) {
-                quillEditors[id].en.clipboard.dangerouslyPasteHTML(contentEn);
-            }
+            if (contentSk?.trim()) quillEditors[id].sk.clipboard.dangerouslyPasteHTML(contentSk);
+            if (contentEn?.trim()) quillEditors[id].en.clipboard.dangerouslyPasteHTML(contentEn);
         }
 
-        // Toggle edit - zatvorí ostatné, otvorí kliknutý
+        // Ostatné edit funkcie zostávajú rovnaké...
         document.querySelectorAll('.toggle-edit').forEach(btn => {
             btn.addEventListener('click', () => {
                 const id = btn.dataset.id;
                 const row = document.getElementById(`edit-row-${id}`);
                 const wasHidden = row.classList.contains('hidden');
 
-                // Zatvor add formulár ak je otvorený
-                const addForm = document.getElementById('addFormWrapper');
-                if (addForm && !addForm.classList.contains('hidden')) {
+                const addFormWrapper = document.getElementById('addFormWrapper');
+                if (addFormWrapper && getComputedStyle(addFormWrapper).display !== 'none') {
                     closeAddForm();
                 }
 
-                // Zatvor všetky ostatné edit riadky
                 document.querySelectorAll('[id^="edit-row-"]').forEach(r => {
-                    if (r.id !== `edit-row-${id}`) {
-                        r.classList.add('hidden');
-                    }
+                    if (r.id !== `edit-row-${id}`) r.classList.add('hidden');
                 });
 
-                // Toggle current
                 row.classList.toggle('hidden');
-
                 if (wasHidden) {
-                    // Otvárame - inicializuj editory len ak nie je history
                     currentOpenEdit = id;
-                    if (!isHistory) {
-                        initEditEditors(id);
-                    }
+                    if (!isHistory) setTimeout(() => initEditEditors(id), 200);
                 } else {
-                    // Zatvárame
                     currentOpenEdit = null;
                 }
             });
         });
 
-        // Close edit button - obnoví pôvodné hodnoty
         document.querySelectorAll('.close-edit').forEach(btn => {
             btn.addEventListener('click', () => {
                 const id = btn.dataset.id;
                 const row = document.getElementById(`edit-row-${id}`);
-
                 row.classList.add('hidden');
                 currentOpenEdit = null;
 
                 if (quillEditors[id]) {
                     const originalSk = document.getElementById(`content-edit-${id}-sk`)?.defaultValue;
                     const originalEn = document.getElementById(`content-edit-${id}-en`)?.defaultValue;
-
-                    if (originalSk) {
-                        quillEditors[id].sk.clipboard.dangerouslyPasteHTML(originalSk);
-                    }
-                    if (originalEn) {
-                        quillEditors[id].en.clipboard.dangerouslyPasteHTML(originalEn);
-                    }
+                    if (originalSk) quillEditors[id].sk.clipboard.dangerouslyPasteHTML(originalSk);
+                    if (originalEn) quillEditors[id].en.clipboard.dangerouslyPasteHTML(originalEn);
                 }
-
                 document.getElementById(`editForm-${id}`)?.reset();
             });
         });
 
-        // Pred submitom edit formu skopíruj obsah
         document.querySelectorAll('[id^="editForm-"]').forEach(form => {
-            form.addEventListener('submit', function(e) {
+            form.addEventListener('submit', function() {
                 const id = this.id.replace('editForm-', '');
                 if (quillEditors[id]) {
-                    document.getElementById(`content-edit-${id}-sk`).value = quillEditors[id].sk.root.innerHTML;
-                    document.getElementById(`content-edit-${id}-en`).value = quillEditors[id].en.root.innerHTML;
+                    const skField = document.getElementById(`content-edit-${id}-sk`);
+                    const enField = document.getElementById(`content-edit-${id}-en`);
+                    if (skField) skField.value = quillEditors[id].sk.root.innerHTML;
+                    if (enField) enField.value = quillEditors[id].en.root.innerHTML;
                 }
             });
         });
+
+        console.log('Script načítaný úspešne');
     </script>
+
 @endsection
