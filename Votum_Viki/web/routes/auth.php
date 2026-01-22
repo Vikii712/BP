@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutEditController;
+use App\Http\Controllers\EventsEditController;
 use App\Http\Controllers\HistoryEditController;
 use App\Http\Controllers\HomeEditController;
 use App\Http\Controllers\AdminController;
@@ -67,10 +68,24 @@ Route::middleware('auth')->group(function () {
         ->name('logout');
 
     //DOMOV
-    Route::get('votumaci/admin/domov', [HomeEditController::class, 'edit'])
+    Route::get('votumaci/admin/home', [HomeEditController::class, 'edit'])
         ->name('home.edit');
-    Route::put('votumaci/admin/domov', [HomeEditController::class, 'update'])
+    Route::put('votumaci/admin/home', [HomeEditController::class, 'update'])
         ->name('home.update');
+
+    Route::get('votumaci/about', function () {
+        return view('pages.admin.about');
+    })->name('admin.about');
+
+    Route::prefix('votumaci/admin/events')->group(function () {
+        Route::get('/', [EventsEditController::class, 'index'])->name('admin.events');
+        Route::get('edit', [EventsEditController::class, 'edit'])->name('events.edit');
+        Route::get('create', [EventsEditController::class, 'create'])->name('events.create');
+        Route::post('store', [EventsEditController::class, 'store'])->name('events.store');
+        Route::post('{event}/archive', [EventsEditController::class, 'archive'])->name('events.archive');
+        Route::post('{event}/restore', [EventsEditController::class, 'restore'])->name('events.restore');
+        Route::delete('{event}', [EventsEditController::class, 'destroy'])->name('events.destroy');
+    });
 
     //Sections
     Route::prefix('votumaci/admin/{category}')->group(function () {
@@ -82,7 +97,4 @@ Route::middleware('auth')->group(function () {
         Route::post('/{id}/down', [SectionEditController::class, 'moveDown'])->name('section.down');
     });
 
-    Route::get('votumaci/about', function () {
-        return view('pages.admin.about');
-    })->name('admin.about');
 });
