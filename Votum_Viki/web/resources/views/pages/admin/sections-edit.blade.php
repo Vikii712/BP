@@ -1,65 +1,5 @@
 @extends('layouts.admin')
 
-@section('head')
-    {{-- Quill CSS --}}
-    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-    <style>
-        /* Vlastný styling pre Quill editory */
-        .quill-wrapper {
-            border: 2px solid #d1d5db;
-            border-radius: 0.375rem;
-            overflow: visible;
-        }
-        .quill-wrapper .ql-toolbar {
-            border: none;
-            border-bottom: 2px solid #d1d5db;
-            background: #f9fafb;
-        }
-        .quill-wrapper .ql-container {
-            border: none;
-            min-height: 150px;
-            font-size: 1rem;
-            overflow: visible;
-        }
-        .quill-wrapper .ql-editor {
-            min-height: 150px;
-        }
-
-        /* Custom URL Modal */
-        .url-modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            opacity: 0;
-            transition: opacity 0.2s;
-            pointer-events: none;
-        }
-        .url-modal-overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-        .url-modal {
-            background: white;
-            border-radius: 0.5rem;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            max-width: 500px;
-            width: 90%;
-            transform: scale(0.95);
-            transition: transform 0.2s;
-        }
-        .url-modal-overlay.active .url-modal {
-            transform: scale(1);
-        }
-    </style>
-@endsection
-
 @section('adminContent')
     <div class="min-h-[calc(100vh-5.5rem)] bg-gray-100 px-4 py-10 flex justify-center">
         <div class="w-full max-w-5xl space-y-10">
@@ -114,10 +54,6 @@
             </div>
         </div>
     </div>
-
-    {{-- Quill JS --}}
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-
     <script>
         // ================= TOOLBAR =================
         const toolbarOptions = [

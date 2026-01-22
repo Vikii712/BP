@@ -87,14 +87,13 @@ class EventsEditController extends Controller
 
     public function create()
     {
-        // Presmerovanie na novú stránku pre pridanie udalosti
-        return view('admin.events.create');
+        return view('pages.admin.new-event');
     }
 
     public function store(Request $request)
     {
-        // TODO: uložiť novú udalosť
-        return redirect()->route('admin.events')->with('success', 'Udalosť pridaná (zatiaľ prázdna)');
+        // zatiaľ len redirect späť
+        return redirect()->route('admin.events');
     }
 
     public function archive(Event $event)
