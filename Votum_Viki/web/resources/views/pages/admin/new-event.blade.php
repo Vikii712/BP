@@ -1,5 +1,6 @@
 @extends('layouts.admin')
 
+
 @section('adminContent')
     <div class="min-h-[calc(100vh-5.5rem)] bg-gray-100 px-4 py-10 flex justify-center">
         <div class="w-full max-w-5xl space-y-10">
@@ -42,14 +43,33 @@
                         </div>
                     </div>
 
-                    {{-- DÁTUM (ZATIAĽ LEN NADPIS) --}}
+                    {{-- DÁTUMY UDALOSTI --}}
                     <div class="flex items-center bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
-                        Dátum udalosti
+                        Dátumy udalosti
                     </div>
 
-                    <div class="text-sm text-gray-500 px-6">
-                        Kalendár bude doplnený neskôr
+                    <div class="flex flex-col sm:flex-row gap-6">
+
+                        {{-- KALENDÁR vľavo --}}
+                        <div class="sm:w-1/2 flex justify-center">
+                            <div id="multiDatePicker"></div>
+                        </div>
+
+                        {{-- ZOZNAM vybraných dátumov vpravo --}}
+                        <div class="sm:w-1/2 flex flex-col">
+                            <div class="flex items-start gap-2">
+                                <label class="font-semibold text-gray-700 ms-2 mt-3 w-32">Vybrané dátumy:</label>
+                                <div id="datesList" class="text-gray-700 rounded-md py-3 max-h-[280px] overflow-y-auto flex-1">
+                                    <!-- dátumy sa doplnia JS -->
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+                    {{-- Skrytý input pre formulár --}}
+                    <input type="hidden" name="dates" id="datesInput">
+
+
 
                     {{-- FARBA + VOĽBY --}}
                     <div class="flex items-center bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
@@ -233,6 +253,8 @@
     </div>
 
 
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 
@@ -271,7 +293,7 @@
                         if(!value){ quill.format('link', false); return; }
                         const range = quill.getSelection();
                         if(range && range.length>0){
-                            const url = prompt('Zadaj URL:'); // jednoduchšie
+                            const url = prompt('Zadaj URL:');
                             if(url) quill.format('link', url.startsWith('http') ? url : 'https://'+url);
                         }
                     });
@@ -309,12 +331,42 @@
                 altTextareas.forEach(t => t.removeAttribute('required'));
             });
 
+            // ================= FLATPICKR CALENDAR =================
+            const datePickerDiv = document.getElementById('multiDatePicker');
+            const datesInput = document.getElementById('datesInput');
+            const datesList = document.getElementById('datesList');
+
+            flatpickr(datePickerDiv, {
+                inline: true,
+                mode: "multiple",
+                dateFormat: "d-m-Y",
+                locale: {
+                    firstDayOfWeek: 1,
+                    weekdays: {
+                        shorthand: ['Ne', 'Po', 'Ut', 'St', 'Št', 'Pi', 'So'],
+                        longhand: ['Nedeľa', 'Pondelok', 'Utorok', 'Streda', 'Štvrtok', 'Piatok', 'Sobota']
+                    },
+                    months: {
+                        shorthand: ['Jan', 'Feb', 'Mar', 'Apr', 'Máj', 'Jún', 'Júl', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'],
+                        longhand: ['Január', 'Február', 'Marec', 'Apríl', 'Máj', 'Jún', 'Júl', 'August', 'September', 'Október', 'November', 'December']
+                    }
+                },
+                onChange: function(selectedDates, dateStr, instance) {
+                    selectedDates.sort((a, b) => a - b);
+                    const datesArray = selectedDates.map(d => instance.formatDate(d, "d.m.Y"));
+                    datesInput.value = JSON.stringify(datesArray);
+
+                    datesList.innerHTML = datesArray.map(d => `<p>-> ${d}</p>`).join('');
+                }
+            });
+
         });
 
         function onSponsorImage(input) {
             if (!input.files?.[0]) return;
             document.getElementById('sponsorImageFilename').textContent = input.files[0].name;
         }
+
     </script>
 
 @endsection
