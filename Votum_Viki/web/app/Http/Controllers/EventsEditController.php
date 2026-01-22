@@ -39,13 +39,10 @@ class EventsEditController extends Controller
                 $event->end_date   = null;
             }
 
-            $event->archived = $event->archived ?? false;
-            $event->hasPage  = $event->hasPage ?? false;
-
             return $event;
         })
             ->sortByDesc(function($event) {
-                return $event->dates->max('date'); // zoradenie od najnovšieho
+                return $event->dates->max('date');
             })
             ->values();
 
@@ -79,9 +76,6 @@ class EventsEditController extends Controller
                 $event->end_date = null;
             }
 
-            $event->archived = $event->archived ?? false;
-            $event->hasPage = $event->hasPage ?? false;
-
             return $event;
         });
 
@@ -103,21 +97,40 @@ class EventsEditController extends Controller
         return redirect()->route('admin.events')->with('success', 'Udalosť pridaná (zatiaľ prázdna)');
     }
 
-    public function archive($eventId)
+    public function archive(Event $event)
     {
-        // TODO: archivovať udalosť
-        return redirect()->route('admin.events')->with('success', "Udalosť $eventId archivovaná (zatiaľ prázdna)");
+        $event->update([
+            'inCalendar' => false,
+            'inHome'     => false,
+            'inGallery'  => false,
+            'archived'   => true,
+        ]);
+
+        return redirect()
+            ->route('admin.events')
+            ->with('success', 'Udalosť bola archivovaná.');
     }
 
-    public function restore($eventId)
+
+    public function restore(Event $event)
     {
-        // TODO: obnoviť udalosť z archívu
-        return redirect()->route('admin.events')->with('success', "Udalosť $eventId obnovená (zatiaľ prázdna)");
+        $event->update([
+            'archived' => false,
+        ]);
+
+        return redirect()
+            ->route('admin.events')
+            ->with('success', 'Udalosť bola obnovená.');
     }
 
-    public function destroy($eventId)
+
+    public function destroy(Event $event)
     {
-        // TODO: vymazať udalosť
-        return redirect()->route('admin.events')->with('success', "Udalosť $eventId vymazaná (zatiaľ prázdna)");
+        $event->delete();
+
+        return redirect()
+            ->route('admin.events')
+            ->with('success', 'Udalosť bola odstránená.');
     }
+
 }

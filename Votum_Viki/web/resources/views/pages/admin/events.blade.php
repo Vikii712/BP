@@ -72,7 +72,7 @@
 
                             {{-- Vlastná stránka --}}
                             <td class="px-4 py-2 text-center">
-                                @if($event->hasPage)
+                                @if($event->inGallery)
                                     <i class="fas fa-check text-green-600"></i>
                                 @else
                                     <i class="fas fa-times text-red-600"></i>

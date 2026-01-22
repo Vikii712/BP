@@ -3,8 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 class Event extends Model
 {
+    use SoftDeletes;
     protected $fillable = [
         'title_sk',
         'title_en',
@@ -13,6 +16,7 @@ class Event extends Model
         'inCalendar',
         'inHome',
         'inGallery',
+        'archived',
         'color',
         'main_pic',
     ];
@@ -21,6 +25,7 @@ class Event extends Model
         'inCalendar' => 'boolean',
         'inHome' => 'boolean',
         'inGallery' => 'boolean',
+        'archived' => 'boolean',
     ];
 
     public function files()
