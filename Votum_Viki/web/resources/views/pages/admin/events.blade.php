@@ -12,34 +12,38 @@
             {{-- Tlačidlo pridania --}}
             <div class="flex justify-center">
                 <a href="{{ route('events.create') }}"
-                   class="bg-green-200 border-2 border-green-900 text-green-900 px-4 py-2 rounded-md font-semibold hover:bg-green-300">
+                   class="bg-green-200 border-2 border-green-900 text-green-900 px-6 py-2 rounded-md font-semibold hover:bg-green-300">
                     Pridať novú udalosť
                 </a>
             </div>
 
-            {{-- Tabuľka udalostí --}}
-            <div class="bg-white border border-gray-200 shadow-md rounded-md overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-blue-950 text-white">
-                    <tr class="">
-                        <th class="px-4 py-5 text-left text-sm font-medium  uppercase">Názov</th>
-                        <th class="px-2 py-5 text-center text-sm font-medium  uppercase">Dátum</th>
-                        <th class="px-2 py-5 text-center text-sm font-medium  uppercase">Kalendár</th>
-                        <th class="px-2 py-5 text-center text-sm font-medium  uppercase">Domov</th>
-                        <th class="px-2 py-5 text-center text-sm font-medium  uppercase">Stránka</th>
-                        <th class="px-2 py-5 text-center text-sm font-medium  uppercase">Upraviť</th>
-                        <th class="px-2 py-5 text-center text-sm font-medium  uppercase">Vymazať</th>
-                        <th class="px-2 py-5 text-center text-sm font-medium  uppercase">Archív</th>
+            {{-- TABUĽKA --}}
+            <div class="bg-white shadow-md rounded-md overflow-hidden">
+                <table class="min-w-full">
+                    <thead class="bg-blue-950 text-blue-50">
+                    <tr>
+                        <th class="px-6 py-3 text-start">Názov</th>
+                        <th class="px-6 py-3 text-center">Dátum</th>
+                        <th class="px-3 py-3 text-center">Kalendár</th>
+                        <th class="px-3 py-3 text-center">Domov</th>
+                        <th class="px-3 py-3 text-center">Stránka</th>
+                        <th class="px-4 py-3 text-center">Upraviť</th>
+                        <th class="px-4 py-3 text-center">Vymazať</th>
+                        <th class="px-4 py-3 text-center">Archív</th>
                     </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-200">
-                    @foreach($events as $event)
-                        <tr class="hover:bg-gray-50">
+
+                    <tbody>
+                    @forelse($events as $event)
+                        <tr class="border-t hover:bg-blue-50">
+
                             {{-- Názov --}}
-                            <td class="px-4 py-2 text-sm text-gray-700">{{ $event->title_sk }}</td>
+                            <td class="px-6 py-4 font-medium text-blue-950">
+                                {{ $event->title_sk }}
+                            </td>
 
                             {{-- Dátum --}}
-                            <td class="px-4 py-2 text-sm text-center text-gray-700">
+                            <td class="px-6 py-4 text-center text-blue-950">
                                 @if($event->start_date)
                                     @if($event->start_date === $event->end_date)
                                         {{ $event->start_date }}
@@ -52,17 +56,17 @@
                             </td>
 
                             {{-- Kalendár --}}
-                            <td class="px-4 py-2 text-center">
+                            <td class="px-3 py-4 text-center">
                                 @if($event->inCalendar)
                                     <span class="inline-block w-4 h-4 rounded-full"
                                           style="background-color: {{ $eventColors[$event->color] ?? '#ccc' }}"></span>
                                 @else
-                                    <i class="fas fa-times "></i>
+                                    <i class="fas fa-times text-red-600"></i>
                                 @endif
                             </td>
 
                             {{-- Domov --}}
-                            <td class="px-4 py-2 text-center">
+                            <td class="px-3 py-4 text-center">
                                 @if($event->inHome)
                                     <i class="fas fa-check text-green-600"></i>
                                 @else
@@ -70,8 +74,8 @@
                                 @endif
                             </td>
 
-                            {{-- Vlastná stránka --}}
-                            <td class="px-4 py-2 text-center">
+                            {{-- Stránka --}}
+                            <td class="px-3 py-4 text-center">
                                 @if($event->inGallery)
                                     <i class="fas fa-check text-green-600"></i>
                                 @else
@@ -80,36 +84,40 @@
                             </td>
 
                             {{-- Upraviť --}}
-                            <td class="px-4 py-2 text-center">
-                                <a href="{{ route('events.edit', $event->id) }}" class=" hover:text-blue-800">
+                            <td class="px-4 py-4 text-center">
+                                <a href="{{ route('events.edit', $event->id) }}"
+                                   class="text-blue-950 hover:text-gray-700 text-lg cursor-pointer">
                                     <i class="fas fa-pen"></i>
                                 </a>
                             </td>
 
                             {{-- Vymazať --}}
-                            <td class="px-4 py-2 text-center">
+                            <td class="px-4 py-4 text-center">
                                 <form action="{{ route('events.destroy', $event->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="hover:text-red-800 cursor-pointer focus:outline-none">
+                                    <button type="submit"
+                                            class="text-red-600 hover:text-red-800 text-lg cursor-pointer">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
                             </td>
 
                             {{-- Archív --}}
-                            <td class="px-4 py-2 text-center">
+                            <td class="px-4 py-4 text-center">
                                 @if($event->archived)
                                     <form action="{{ route('events.restore', $event->id) }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="font-bold cursor-pointer focus:outline-none">
+                                        <button type="submit"
+                                                class="font-medium text-blue-950 hover:text-gray-700 cursor-pointer">
                                             Obnoviť
                                         </button>
                                     </form>
                                 @else
                                     <form action="{{ route('events.archive', $event->id) }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="font-bold cursor-pointer focus:outline-none">
+                                        <button type="submit"
+                                                class="font-medium text-blue-950 hover:text-gray-700 cursor-pointer">
                                             Archivovať
                                         </button>
                                     </form>
@@ -117,16 +125,17 @@
                             </td>
 
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="8" class="px-6 py-6 text-center text-gray-500">
+                                Žiadne udalosti
+                            </td>
+                        </tr>
+                    @endforelse
                     </tbody>
                 </table>
-
-                @if($events->isEmpty())
-                    <div class="p-6 text-center text-gray-500">
-                        Žiadne udalosti
-                    </div>
-                @endif
             </div>
+
         </div>
     </div>
 @endsection
