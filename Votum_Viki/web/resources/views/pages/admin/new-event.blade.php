@@ -9,6 +9,12 @@
                 Pridať novú udalosť
             </h1>
 
+            @if(session('success'))
+                <div class="mb-4 rounded-md bg-green-100 border border-green-400 text-green-900 px-4 py-3">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             {{-- FORMULÁR --}}
             <div class="bg-white border border-gray-200 shadow-md rounded-md p-6 pt-0 space-y-6">
 

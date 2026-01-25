@@ -9,6 +9,13 @@
                 Správa udalostí
             </h1>
 
+            @if(session('success'))
+                <div class="mb-4 rounded-md bg-green-100 border border-green-400 text-green-900 px-4 py-3">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+
             {{-- Tlačidlo pridania --}}
             <div class="flex justify-center">
                 <a href="{{ route('events.create') }}"

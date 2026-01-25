@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Controllers\AboutEditController;
 use App\Http\Controllers\EventsEditController;
-use App\Http\Controllers\HistoryEditController;
 use App\Http\Controllers\HomeEditController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;

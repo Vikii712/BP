@@ -12,8 +12,8 @@ return new class extends Migration
             $table->id();
             $table->text('title_sk');
             $table->text('title_en');
-            $table->text('content_sk');
-            $table->text('content_en');
+            $table->text('content_sk')->nullable();
+            $table->text('content_en')->nullable();
             $table->boolean('inCalendar')->default(false);
             $table->boolean('inHome')->default(false);
             $table->boolean('inGallery')->default(false);

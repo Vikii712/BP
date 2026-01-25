@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\Date;
+use App\Models\Sponsor;
 use Illuminate\Http\Request;
 
 class EventsEditController extends Controller
@@ -92,9 +93,117 @@ class EventsEditController extends Controller
 
     public function store(Request $request)
     {
-        // zatiaľ len redirect späť
-        return redirect()->route('admin.events');
+        $request->merge([
+            'inCalendar' => $request->has('inCalendar'),
+            'inHome'     => $request->has('inHome'),
+            'inGallery'  => $request->has('inGallery'),
+            'archived'   => $request->has('archived'),
+        ]);
+
+        // 1) Validácia
+        $validated = $request->validate([
+            'title_sk' => 'required|string|max:255',
+            'title_en' => 'required|string|max:255',
+
+            'content_sk' => 'nullable|string',
+            'content_en' => 'nullable|string',
+
+            'inCalendar' => 'sometimes|boolean',
+            'inHome' => 'sometimes|boolean',
+            'inGallery' => 'sometimes|boolean',
+
+            'color' => 'nullable|string|max:50',
+            'archived' => 'sometimes|boolean',
+
+            'main_pic' => 'nullable|image|max:2048',
+
+            'dates' => 'nullable|string',
+            'sponsors' => 'nullable|array',
+            'sponsors.*' => 'nullable|string|max:255',
+            'sponsor_images' => 'nullable|array',
+            'sponsor_images.*' => 'nullable|image|max:2048',
+        ]);
+
+
+
+        // 2) Vytvorenie eventu (len stĺpce z $fillable)
+        $event = Event::create([
+            'title_sk'   => $validated['title_sk'],
+            'title_en'   => $validated['title_en'],
+            'content_sk' => $validated['content_sk'] ?? null,
+            'content_en' => $validated['content_en'] ?? null,
+
+            'inCalendar' => $request->has('inCalendar'),
+            'inHome'     => $request->has('inHome'),
+            'inGallery'  => $request->has('inGallery'),
+
+            'archived'   => $request->has('archived'),
+            'color'      => $validated['color'] ?? null,
+            'main_pic'   => null,
+        ]);
+
+
+        // 3) Hlavný obrázok
+        if ($request->hasFile('main_pic')) {
+            $path = $request->file('main_pic')->store('events', 'public');
+            $event->update([
+                'main_pic' => $path,
+            ]);
+        }
+
+        // 4) Dátumy (vzťah)
+        if (!empty($request->dates)) {
+            $dates = json_decode($request->dates, true);
+
+            if (is_array($dates)) {
+                foreach ($dates as $date) {
+                    $event->dates()->create([
+                        'date' => \Carbon\Carbon::createFromFormat('d.m.Y', $date),
+                    ]);
+                }
+            }
+        }
+
+        // 5) Sponzori (vzťah + pivot)
+        if (!empty($request->sponsors)) {
+            foreach ($request->sponsors as $i => $name) {
+                if (empty($name)) {
+                    continue;
+                }
+
+                $sponsor = Sponsor::firstOrCreate([
+                    'name' => $name,
+                ]);
+
+                // Logo sponzora
+                if (
+                    isset($request->sponsor_images[$i]) &&
+                    $request->file('sponsor_images')[$i]->isValid()
+                ) {
+                    $filePath = $request->file('sponsor_images')[$i]
+                        ->store('sponsors', 'public');
+
+                    $file = $sponsor->file()->create([
+                        'url' => $filePath,
+                    ]);
+
+                    $sponsor->update([
+                        'file_id' => $file->id,
+                    ]);
+                }
+
+                // Pivot tabuľka
+                $event->sponsors()->syncWithoutDetaching($sponsor->id);
+            }
+        }
+
+        return redirect()
+            ->route('admin.events')
+            ->with('success', 'Udalosť bola úspešne uložená.');
     }
+
+
+
 
     public function archive(Event $event)
     {
