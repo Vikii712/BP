@@ -38,8 +38,8 @@ class Event extends Model
         return $this->hasMany(EventDate::class);
     }
 
-//    public function sponsors()
-//    {
-//        return $this->belongsToMany(Sponsor::class, 'event_sponsor');
-//    }
+    public function sponsors()
+    {
+        return $this->belongsToMany(Sponsor::class, 'event_sponsor');
+    }
 }
