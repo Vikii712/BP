@@ -14,8 +14,7 @@
                      class="mx-auto mb-4 w-20">
 
                 <h1 class="text-4xl font-bold tracking-wide text-white">
-                    VOTUM<span class="text-indigo-300">-admin</span>
-                </h1>
+                    <span class="text-indigo-200">VOTUM admin</span>                </h1>
 
             </div>
 

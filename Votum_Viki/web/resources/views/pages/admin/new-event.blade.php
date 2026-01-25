@@ -1,6 +1,5 @@
 @extends('layouts.admin')
 
-
 @section('adminContent')
     <div class="min-h-[calc(100vh-5.5rem)] bg-gray-100 px-4 py-10 flex justify-center">
         <div class="w-full max-w-5xl space-y-10">
@@ -176,37 +175,6 @@
                         </div>
                     </div>
 
-                    {{--SPONZOR--}}
-                    <div class="space-y-3">
-                        <div class="flex items-center bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
-                            Sponzor
-                        </div>
-
-                        <div class="space-y-3 px-6">
-
-                            {{-- Pridať existujúceho alebo nový --}}
-                            <div class="flex items-center gap-2">
-                                <button type="button"
-                                        id="addEmptySponsor"
-                                        class="px-3 py-2 border-2 border-blue-950 rounded-md hover:bg-blue-50">
-                                    <i class="fa-solid fa-plus"></i>
-                                </button>
-
-                                <select id="existingSponsorSelect"
-                                        class="border-2 border-gray-300 rounded-md px-3 py-2 w-64">
-                                    <option value="">Pridať existujúceho sponzora</option>
-                                    <option value="Mesto Bratislava">Mesto Bratislava</option>
-                                    <option value="SPP">SPP</option>
-                                    <option value="Websupport">Websupport</option>
-                                </select>
-                            </div>
-
-                            {{-- Zoznam pridaných sponzorov --}}
-                            <div id="sponsorsList" class="space-y-5"></div>
-
-                        </div>
-                    </div>
-
                     {{-- FOTKY --}}
                     <div class="space-y-3">
                         <div class="flex items-center bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
@@ -227,32 +195,68 @@
                         </div>
 
                         <!-- + tlačidlo naľavo -->
-                        <div class="px-6 flex mb-2">
-                            <button type="button" id="addVideoLink" class="px-3 py-1 border-2 border-blue-950 rounded-md hover:bg-blue-50 mr-2">
+                        <div class="px-6 flex gap-3 mb-2">
+                            <button type="button"
+                                    id="addVideoLink"
+                                    class="h-10 w-10 flex items-center justify-center border-2 border-blue-950 rounded-md hover:bg-blue-50">
                                 <i class="fa-solid fa-plus"></i>
                             </button>
                         </div>
 
                         <!-- Wrapper pre všetky inputy (prázdny) -->
-                        <div id="videoLinksWrapper" class="px-6 space-y-3"></div>
+                        <div id="videoLinksWrapper" class="px-6 space-y-4"></div>
                     </div>
 
 
-
-                    {{-- DOKUMENTY --}}
-                    <!-- Dokumenty -->
+                    {{--SPONZOR--}}
                     <div class="space-y-3">
                         <div class="flex items-center bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
-                            Dokumenty
+                            Pridať sponzora
+                        </div>
+
+                        <div class="space-y-3 px-6">
+
+                            {{-- Pridať existujúceho alebo nový --}}
+                            <div class="flex items-center gap-3">
+                                <button type="button"
+                                        id="addEmptySponsor"
+                                        class="h-10 w-10 flex items-center justify-center border-2 border-blue-950 rounded-md hover:bg-blue-50">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+
+                                <select id="existingSponsorSelect"
+                                        class="flex-1 h-10 border-2 border-gray-300 rounded-md px-3">
+                                    <option value="">Pridať existujúceho sponzora</option>
+                                    <option value="Mesto Bratislava">Mesto Bratislava</option>
+                                    <option value="SPP">SPP</option>
+                                    <option value="Websupport">Websupport</option>
+                                </select>
+                            </div>
+
+
+                            {{-- Zoznam pridaných sponzorov --}}
+                            <div id="sponsorsList" class="space-y-5"></div>
+
+                        </div>
+                    </div>
+
+
+                    {{-- DOKUMENTY --}}
+                    <div class="space-y-3">
+                        <div class="flex items-center bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
+                            Pridať dokument
                         </div>
 
                         <!-- + tlačidlo a výber existujúceho súboru -->
-                        <div class="px-6 flex items-center gap-2 mb-2">
-                            <button type="button" id="addDocumentBtn" class="px-3 py-1 border-2 border-blue-950 rounded-md hover:bg-blue-50">
+                        <div class="px-6 flex items-center gap-3 mb-2">
+                            <button type="button"
+                                    id="addDocumentBtn"
+                                    class="h-10 w-10 flex items-center justify-center border-2 border-blue-950 rounded-md hover:bg-blue-50">
                                 <i class="fa-solid fa-plus"></i>
                             </button>
 
-                            <select id="existingDocumentSelect" class="border-2 border-gray-300 rounded-md px-3 py-2 flex-1">
+                            <select id="existingDocumentSelect"
+                                    class="flex-1 h-10 border-2 border-gray-300 rounded-md px-3">
                                 <option value="">Pridať existujúci dokument</option>
                                 <option value="2%">2%</option>
                                 <option value="2022">2022</option>
@@ -260,6 +264,7 @@
                                 <option value="Prihláška">Prihláška</option>
                             </select>
                         </div>
+
 
                         <!-- Wrapper pre nové dokumenty -->
                         <div id="documentsWrapper" class="px-6 space-y-5 my-5"></div>
@@ -419,61 +424,170 @@
             });
         });
 
+
+        // ================= VIDEO LINKY =================
+        document.addEventListener('DOMContentLoaded', function() {
+            const addVideoBtn = document.getElementById('addVideoLink');
+            const wrapper = document.getElementById('videoLinksWrapper');
+            let videoCounter = 0;
+
+            function createVideoInput() {
+                videoCounter++;
+                const div = document.createElement('div');
+                div.className = 'bg-votum3 border-2 border-votum3 rounded-lg shadow-sm overflow-hidden';
+
+                // Hlavička
+                const header = document.createElement('div');
+                header.className = 'bg-dark-votum3 flex items-center justify-between px-4 py-3';
+
+                const headerTitle = document.createElement('div');
+                headerTitle.className = 'flex items-center gap-3';
+                const numberBadge = document.createElement('span');
+                numberBadge.className = 'text-white px-3 py-1 rounded-md text-sm font-bold';
+                numberBadge.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+                numberBadge.textContent = `#${videoCounter}`;
+                const headerText = document.createElement('span');
+                headerText.className = 'font-semibold text-white';
+                headerText.textContent = 'YouTube video';
+                headerTitle.appendChild(numberBadge);
+                headerTitle.appendChild(headerText);
+
+                const trashIcon = document.createElement('i');
+                trashIcon.className = 'fa-solid fa-trash px-3 py-2 border-2 border-votum3 text-votum3 bg-white rounded-md cursor-pointer hover:bg-votum3 hover:text-white transition-colors';
+                trashIcon.addEventListener('click', () => div.remove());
+
+                header.appendChild(headerTitle);
+                header.appendChild(trashIcon);
+                div.appendChild(header);
+
+                // Obsah
+                const content = document.createElement('div');
+                content.className = 'p-4';
+
+                // Input
+                const inputWrapper = document.createElement('div');
+                const label = document.createElement('label');
+                label.className = 'block text-sm font-medium text-gray-700 mb-2';
+                label.textContent = 'URL adresa videa:';
+                const input = document.createElement('input');
+                input.type = 'url';
+                input.name = 'video_url[]';
+                input.placeholder = 'https://youtube.com/watch?v=...';
+                input.className = 'w-full border-2 border-gray-300 rounded-md px-3 py-2 bg-white';
+                inputWrapper.appendChild(label);
+                inputWrapper.appendChild(input);
+                content.appendChild(inputWrapper);
+
+                div.appendChild(content);
+                wrapper.appendChild(div);
+            }
+
+            addVideoBtn.addEventListener('click', createVideoInput);
+        });
+
+        // ================= SPONZORI =================
         document.addEventListener('DOMContentLoaded', function() {
             const addEmptyBtn = document.getElementById('addEmptySponsor');
             const select = document.getElementById('existingSponsorSelect');
             const list = document.getElementById('sponsorsList');
+            let sponsorCounter = 0;
 
             function createSponsorDiv(name = '') {
+                sponsorCounter++;
                 const sponsorDiv = document.createElement('div');
-                sponsorDiv.className = 'border-2 border-gray-300 rounded-md p-3 flex flex-col gap-3 ';
+                sponsorDiv.className = 'bg-votum3 border-2 border-votum3 rounded-lg shadow-sm overflow-hidden';
 
-                // riadok s názvom a košom
-                const topRow = document.createElement('div');
-                topRow.className = 'flex items-center justify-between';
+                // Hlavička s číslom a košom
+                const header = document.createElement('div');
+                header.className = 'bg-dark-votum3 flex items-center justify-between px-4 py-3';
 
+                const headerTitle = document.createElement('div');
+                headerTitle.className = 'flex items-center gap-3';
+                const numberBadge = document.createElement('span');
+                numberBadge.className = 'text-white px-3 py-1 rounded-md text-sm font-bold';
+                numberBadge.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+                numberBadge.textContent = `#${sponsorCounter}`;
+                const headerText = document.createElement('span');
+                headerText.className = 'font-semibold text-white';
+                headerText.textContent = 'Sponzor';
+                headerTitle.appendChild(numberBadge);
+                headerTitle.appendChild(headerText);
+
+                const trashIcon = document.createElement('i');
+                trashIcon.className = 'fa-solid fa-trash px-3 py-2 border-2 border-votum3 text-votum3 bg-white rounded-md cursor-pointer hover:bg-votum3 hover:text-white transition-colors';
+                trashIcon.addEventListener('click', () => sponsorDiv.remove());
+
+                header.appendChild(headerTitle);
+                header.appendChild(trashIcon);
+                sponsorDiv.appendChild(header);
+
+                // Obsah s paddingom
+                const content = document.createElement('div');
+                content.className = 'p-4 space-y-4';
+
+                // Názov sponzora
+                const nameWrapper = document.createElement('div');
+                const nameLabel = document.createElement('label');
+                nameLabel.className = 'block text-sm font-medium text-gray-700 mb-2';
+                nameLabel.textContent = 'Názov sponzora:';
                 const nameInput = document.createElement('input');
                 nameInput.type = 'text';
                 nameInput.name = 'sponsors[]';
                 nameInput.value = name;
-                nameInput.placeholder = 'Názov sponzora';
-                nameInput.className = 'border-2 border-gray-300 rounded-md px-3 py-2 flex-1';
-                topRow.appendChild(nameInput);
+                nameInput.placeholder = 'Zadajte názov sponzora';
+                nameInput.className = 'w-full border-2 border-gray-300 rounded-md px-3 py-2 bg-white';
+                nameWrapper.appendChild(nameLabel);
+                nameWrapper.appendChild(nameInput);
+                content.appendChild(nameWrapper);
 
-                const trashIcon = document.createElement('i');
-                trashIcon.className = 'fa-solid fa-trash px-4 py-3 border-2 border-red-600 text-red-600 rounded-md cursor-pointer hover:bg-red-50 ml-2';
-                trashIcon.addEventListener('click', () => sponsorDiv.remove());
-                topRow.appendChild(trashIcon);
+                // Logo sponzora
+                const logoWrapper = document.createElement('div');
+                const logoLabel = document.createElement('label');
+                logoLabel.className = 'block text-sm font-medium text-gray-700 mb-2';
+                logoLabel.textContent = 'Logo sponzora:';
+                logoWrapper.appendChild(logoLabel);
 
-
-                sponsorDiv.appendChild(topRow);
-
-                // Upload fotky
-                const fileWrapper = document.createElement('div');
-                fileWrapper.className = 'flex gap-3 items-center';
+                const fileRow = document.createElement('div');
+                fileRow.className = 'flex gap-3 items-center';
 
                 const fileNameInput = document.createElement('input');
                 fileNameInput.type = 'text';
                 fileNameInput.readOnly = true;
                 fileNameInput.value = '— žiadny obrázok —';
                 fileNameInput.className = 'border-2 border-gray-300 bg-gray-100 px-3 py-2 flex-1 rounded-md';
-                fileWrapper.appendChild(fileNameInput);
+                fileRow.appendChild(fileNameInput);
 
                 const fileLabel = document.createElement('label');
-                fileLabel.className = 'px-4 py-2 border-2 border-blue-950 rounded-md cursor-pointer hover:bg-blue-50';
+                fileLabel.className = 'px-4 py-2 bg-dark-votum3 text-white rounded-md cursor-pointer hover:opacity-90 transition-opacity';
                 fileLabel.textContent = 'Nahrať';
                 const fileInput = document.createElement('input');
                 fileInput.type = 'file';
                 fileInput.accept = 'image/*';
                 fileInput.className = 'hidden';
                 fileInput.addEventListener('change', () => {
-                    if (fileInput.files?.[0]) fileNameInput.value = fileInput.files[0].name;
+                    if (fileInput.files?.[0]) {
+                        fileNameInput.value = fileInput.files[0].name;
+                        removeFileBtn.classList.remove('hidden');
+                    }
                 });
                 fileLabel.appendChild(fileInput);
-                fileWrapper.appendChild(fileLabel);
+                fileRow.appendChild(fileLabel);
 
-                sponsorDiv.appendChild(fileWrapper);
+                const removeFileBtn = document.createElement('button');
+                removeFileBtn.type = 'button';
+                removeFileBtn.className = 'hidden px-4 py-2 border-2 border-votum3 text-votum3 rounded-md hover:bg-votum3 hover:text-white transition-colors';
+                removeFileBtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
+                removeFileBtn.addEventListener('click', () => {
+                    fileInput.value = '';
+                    fileNameInput.value = '— žiadny obrázok —';
+                    removeFileBtn.classList.add('hidden');
+                });
+                fileRow.appendChild(removeFileBtn);
 
+                logoWrapper.appendChild(fileRow);
+                content.appendChild(logoWrapper);
+
+                sponsorDiv.appendChild(content);
                 list.appendChild(sponsorDiv);
             }
 
@@ -489,114 +603,138 @@
             });
         });
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const addVideoBtn = document.getElementById('addVideoLink');
-            const wrapper = document.getElementById('videoLinksWrapper');
-
-            function createVideoInput() {
-                const div = document.createElement('div');
-                div.className = 'flex items-center';
-
-                const input = document.createElement('input');
-                input.type = 'url';
-                input.name = 'video_url[]';
-                input.placeholder = 'https://youtube.com/...';
-                input.className = 'w-full border-2 border-gray-300 rounded-md px-3 py-2';
-                div.appendChild(input);
-
-                const trashIcon = document.createElement('i');
-                trashIcon.className = 'fa-solid fa-trash px-4 py-2 border-2 border-red-600 text-red-600 rounded-md cursor-pointer hover:bg-red-50 ml-2';
-                trashIcon.addEventListener('click', () => div.remove());
-                div.appendChild(trashIcon);
-
-                wrapper.appendChild(div);
-            }
-
-            // tlačidlo + pridáva nový input
-            addVideoBtn.addEventListener('click', createVideoInput);
-        });
-
+        // ================= DOKUMENTY =================
         document.addEventListener('DOMContentLoaded', function() {
             const addDocBtn = document.getElementById('addDocumentBtn');
             const existingSelect = document.getElementById('existingDocumentSelect');
             const wrapper = document.getElementById('documentsWrapper');
+            let docCounter = 0;
 
             const existingSections = ['2%', 'GDPR', 'Výlety'];
 
             function createDocument(preselectedFileType = '') {
+                docCounter++;
                 const div = document.createElement('div');
-                div.className = 'border-2 border-gray-300 rounded-md p-3 flex flex-col gap-3 relative';
+                div.className = 'bg-votum3 border-2 border-votum3 rounded-lg shadow-sm overflow-hidden';
 
-                // riadok s názvom SK + EN
-                const topRow = document.createElement('div');
-                topRow.className = 'flex flex-col gap-2';
+                // Hlavička
+                const header = document.createElement('div');
+                header.className = 'bg-dark-votum3 flex items-center justify-between px-4 py-3';
 
-                const nameSKRow = document.createElement('div');
-                nameSKRow.className = 'flex items-center gap-2';
-                const labelSK = document.createElement('span');
-                labelSK.textContent = 'SK -';
-                labelSK.className = 'w-12';
+                const headerTitle = document.createElement('div');
+                headerTitle.className = 'flex items-center gap-3';
+                const numberBadge = document.createElement('span');
+                numberBadge.className = 'text-white px-3 py-1 rounded-md text-sm font-bold';
+                numberBadge.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+                numberBadge.textContent = `#${docCounter}`;
+                const headerText = document.createElement('span');
+                headerText.className = 'font-semibold text-white';
+                headerText.textContent = 'Dokument';
+                headerTitle.appendChild(numberBadge);
+                headerTitle.appendChild(headerText);
+
+                const trashIcon = document.createElement('i');
+                trashIcon.className = 'fa-solid fa-trash px-3 py-2 border-2 border-votum3 text-votum3 bg-white rounded-md cursor-pointer hover:bg-votum3 hover:text-white transition-colors';
+                trashIcon.addEventListener('click', () => div.remove());
+
+                header.appendChild(headerTitle);
+                header.appendChild(trashIcon);
+                div.appendChild(header);
+
+                // Obsah
+                const content = document.createElement('div');
+                content.className = 'p-4 space-y-4';
+
+                // Názvy SK/EN
+                const namesWrapper = document.createElement('div');
+                namesWrapper.className = 'space-y-3';
+
+                const nameSKWrapper = document.createElement('div');
+                const labelSK = document.createElement('label');
+                labelSK.className = 'block text-sm font-medium text-gray-700 mb-1';
+                labelSK.textContent = 'SK – Názov dokumentu:';
                 const inputSK = document.createElement('input');
                 inputSK.type = 'text';
                 inputSK.name = 'doc_name_sk[]';
-                inputSK.placeholder = 'Názov dokumentu SK';
-                inputSK.className = 'flex-1 border-2 border-gray-300 rounded-md px-3 py-2';
-                nameSKRow.appendChild(labelSK);
-                nameSKRow.appendChild(inputSK);
-                topRow.appendChild(nameSKRow);
+                inputSK.placeholder = 'Zadajte názov v slovenčine';
+                inputSK.className = 'w-full border-2 border-gray-300 rounded-md px-3 py-2 bg-white';
+                nameSKWrapper.appendChild(labelSK);
+                nameSKWrapper.appendChild(inputSK);
 
-                const nameENRow = document.createElement('div');
-                nameENRow.className = 'flex items-center gap-2';
-                const labelEN = document.createElement('span');
-                labelEN.textContent = 'EN -';
-                labelEN.className = 'w-12';
+                const nameENWrapper = document.createElement('div');
+                const labelEN = document.createElement('label');
+                labelEN.className = 'block text-sm font-medium text-gray-700 mb-1';
+                labelEN.textContent = 'EN – Názov dokumentu:';
                 const inputEN = document.createElement('input');
                 inputEN.type = 'text';
                 inputEN.name = 'doc_name_en[]';
-                inputEN.placeholder = 'Názov dokumentu EN';
-                inputEN.className = 'flex-1 border-2 border-gray-300 rounded-md px-3 py-2';
-                nameENRow.appendChild(labelEN);
-                nameENRow.appendChild(inputEN);
-                topRow.appendChild(nameENRow);
+                inputEN.placeholder = 'Enter name in English';
+                inputEN.className = 'w-full border-2 border-gray-300 rounded-md px-3 py-2 bg-white';
+                nameENWrapper.appendChild(labelEN);
+                nameENWrapper.appendChild(inputEN);
 
-                div.appendChild(topRow);
+                namesWrapper.appendChild(nameSKWrapper);
+                namesWrapper.appendChild(nameENWrapper);
+                content.appendChild(namesWrapper);
 
-                // Upload súboru
+                // Nahratie súboru
                 const fileWrapper = document.createElement('div');
-                fileWrapper.className = 'flex gap-3 items-center';
+                const fileLabel = document.createElement('label');
+                fileLabel.className = 'block text-sm font-medium text-gray-700 mb-2';
+                fileLabel.textContent = 'Súbor dokumentu:';
+                fileWrapper.appendChild(fileLabel);
+
+                const fileRow = document.createElement('div');
+                fileRow.className = 'flex gap-3 items-center';
                 const fileNameInput = document.createElement('input');
                 fileNameInput.type = 'text';
                 fileNameInput.readOnly = true;
                 fileNameInput.value = '— žiadny súbor —';
                 fileNameInput.className = 'border-2 border-gray-300 bg-gray-100 px-3 py-2 flex-1 rounded-md';
-                fileWrapper.appendChild(fileNameInput);
+                fileRow.appendChild(fileNameInput);
 
-                const fileLabel = document.createElement('label');
-                fileLabel.className = 'px-4 py-2 border-2 border-blue-950 rounded-md cursor-pointer hover:bg-blue-50';
-                fileLabel.textContent = 'Nahrať';
+                const uploadLabel = document.createElement('label');
+                uploadLabel.className = 'px-4 py-2 bg-dark-votum3 text-white rounded-md cursor-pointer hover:opacity-90 transition-opacity';
+                uploadLabel.textContent = 'Nahrať';
                 const fileInput = document.createElement('input');
                 fileInput.type = 'file';
                 fileInput.accept = '.pdf,.doc,.docx,.jpg,.png';
                 fileInput.className = 'hidden';
                 fileInput.addEventListener('change', () => {
-                    if(fileInput.files?.[0]) fileNameInput.value = fileInput.files[0].name;
+                    if(fileInput.files?.[0]) {
+                        fileNameInput.value = fileInput.files[0].name;
+                        removeDocBtn.classList.remove('hidden');
+                    }
                 });
-                fileLabel.appendChild(fileInput);
-                fileWrapper.appendChild(fileLabel);
-                div.appendChild(fileWrapper);
+                uploadLabel.appendChild(fileInput);
+                fileRow.appendChild(uploadLabel);
+
+                const removeDocBtn = document.createElement('button');
+                removeDocBtn.type = 'button';
+                removeDocBtn.className = 'hidden px-4 py-2 border-2 border-votum3 text-votum3 rounded-md hover:bg-votum3 hover:text-white transition-colors';
+                removeDocBtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
+                removeDocBtn.addEventListener('click', () => {
+                    fileInput.value = '';
+                    fileNameInput.value = '— žiadny súbor —';
+                    removeDocBtn.classList.add('hidden');
+                });
+                fileRow.appendChild(removeDocBtn);
+
+                fileWrapper.appendChild(fileRow);
+                content.appendChild(fileWrapper);
 
                 // Sekcia dokumentu
-                const sectionRow = document.createElement('div');
-                sectionRow.className = 'flex flex-col gap-1 mt-2';
-                const sectionLabel = document.createElement('span');
-                sectionLabel.textContent = 'Sekcia:';
-                sectionRow.appendChild(sectionLabel);
+                const sectionWrapper = document.createElement('div');
+                const sectionLabel = document.createElement('label');
+                sectionLabel.className = 'block text-sm font-medium text-gray-700 mb-2';
+                sectionLabel.textContent = 'Sekcia dokumentu:';
+                sectionWrapper.appendChild(sectionLabel);
 
-                const sectionSelectRow = document.createElement('div');
-                sectionSelectRow.className = 'flex items-center gap-2';
+                const sectionRow = document.createElement('div');
+                sectionRow.className = 'flex gap-2';
                 const sectionSelect = document.createElement('select');
-                sectionSelect.className = 'border-2 border-gray-300 rounded-md px-3 py-2 flex-1';
-                sectionSelect.innerHTML = '<option value="">Vybrať existujúcu sekciu</option>';
+                sectionSelect.className = 'border-2 border-gray-300 rounded-md px-3 py-2 flex-1 bg-white';
+                sectionSelect.innerHTML = '<option value="">Vybrať existujúcu</option>';
                 existingSections.forEach(sec => {
                     const option = document.createElement('option');
                     option.value = sec;
@@ -606,35 +744,23 @@
 
                 const newSectionInput = document.createElement('input');
                 newSectionInput.type = 'text';
-                newSectionInput.placeholder = 'Alebo nový názov sekcie';
-                newSectionInput.className = 'flex-1 border-2 border-gray-300 rounded-md px-3 py-2';
+                newSectionInput.placeholder = 'Alebo nová sekcia';
+                newSectionInput.className = 'flex-1 border-2 border-gray-300 rounded-md px-3 py-2 bg-white';
                 sectionSelect.addEventListener('change', () => {
                     newSectionInput.value = sectionSelect.value || '';
                 });
 
-                sectionSelectRow.appendChild(sectionSelect);
-                sectionSelectRow.appendChild(newSectionInput);
-                sectionRow.appendChild(sectionSelectRow);
-                div.appendChild(sectionRow);
+                sectionRow.appendChild(sectionSelect);
+                sectionRow.appendChild(newSectionInput);
+                sectionWrapper.appendChild(sectionRow);
+                content.appendChild(sectionWrapper);
 
-                // Samostatný riadok s košom úplne dole napravo
-                const trashRow = document.createElement('div');
-                trashRow.className = 'flex justify-end mt-2';
-                const trashIcon = document.createElement('i');
-                trashIcon.className = 'fa-solid fa-trash px-4 py-2 border-2 border-red-600 text-red-600 rounded-md cursor-pointer hover:bg-red-50';
-                trashIcon.addEventListener('click', () => div.remove());
-                trashRow.appendChild(trashIcon);
-                div.appendChild(trashRow);
-
+                div.appendChild(content);
                 wrapper.appendChild(div);
             }
 
-
-
-            // + tlačidlo pridá nový prázdny dokument
             addDocBtn.addEventListener('click', () => createDocument());
 
-            // Výber existujúceho dokumentu
             existingSelect.addEventListener('change', () => {
                 const type = existingSelect.value;
                 if(!type) return;
@@ -642,9 +768,6 @@
                 existingSelect.value = '';
             });
         });
-
-
-
     </script>
 
 @endsection

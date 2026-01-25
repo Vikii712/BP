@@ -18,8 +18,9 @@
             </div>
 
             {{-- TABUĽKA --}}
-            <div class="bg-white shadow-md rounded-md overflow-hidden">
-                <table class="min-w-full">
+            <div class="bg-white shadow-md rounded-md">
+                <div class="overflow-x-auto  rounded-md">
+                    <table class="min-w-full">
                     <thead class="bg-blue-950 text-blue-50">
                     <tr>
                         <th class="px-6 py-3 text-start">Názov</th>
@@ -134,6 +135,7 @@
                     @endforelse
                     </tbody>
                 </table>
+                </div>
             </div>
 
         </div>
