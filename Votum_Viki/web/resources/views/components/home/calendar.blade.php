@@ -67,8 +67,14 @@
     }[locale];
 
     const eventColors = {
-        'c1': '#ffd700', 'c2': '#cd42a4', 'c3': '#217e2b', 'c4': '#302caa',
-        'c5': '#7a2491', 'c6': '#9b1d1d', 'c7': '#42c3b6', 'c8': '#cd5d20',
+        'c1': '#FF0000', // červená
+        'c2': '#FF7F00', // oranžová
+        'c3': '#FFFF00', // žltá
+        'c4': '#00FF00', // zelená
+        'c5': '#0000FF', // modrá
+        'c6': '#4B0082', // indigo
+        'c7': '#8B00FF', // fialová
+        'c8': '#FF1493', // ružová
     };
 
     function normalizeDate(dateStr) {

@@ -93,96 +93,109 @@
 
                     <div class="space-y-3 px-6">
                         <label class="flex items-center gap-2">
-                            <input type="checkbox" name="inCalendar" class="rounded">
+                            <input type="checkbox" id="inCalendar" name="inCalendar" class="rounded">
                             <span>Zobraziť v kalendári</span>
                         </label>
 
+                        <!-- Radio buttony pre farbu, na začiatku skryté -->
+                        <div id="calendarColorWrapper" class="flex gap-3 flex-wrap mt-2 hidden">
+                            <!-- Radio buttons sa doplnia JS -->
+                        </div>
+
                         <label class="flex items-center gap-2">
-                            <input type="checkbox" name="inHome" class="rounded">
+                            <input type="checkbox" id="inHome" name="inHome" class="rounded">
                             <span>Pridať medzi vybrané udalosti na domovskej stránke</span>
+                        </label>
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" id="inGallery" name="inGallery" class="rounded">
+                            <span>Vytvoriť vlastnú stránku v časti udalosti s textom, fotkami alebo videom</span>
                         </label>
                     </div>
 
                     {{-- HLAVNÁ FOTKA --}}
-                    <div class="flex bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
-                        Hlavná fotka udalosti
-                    </div>
-
-                    <div class="flex gap-3 px-6">
-                        <input id="newImageFilename"
-                               readonly
-                               value="— žiadny obrázok —"
-                               class="border-2 border-gray-300 bg-gray-100 px-3 py-2 w-1/3 rounded-md">
-
-                        <label class="px-4 py-2 border-2 border-blue-950 rounded-md cursor-pointer hover:bg-blue-50">
-                            Nahrať
-                            <input type="file"
-                                   name="main_pic"
-                                   accept="image/*"
-                                   class="hidden"
-                                   onchange="onNewImage(this)">
-                        </label>
-
-                        <button type="button"
-                                id="removeNewBtn"
-                                onclick="removeNewImage()"
-                                class="hidden px-4 py-2 border-2 border-red-600 text-red-600 rounded-md hover:bg-red-50">
-                            Odstrániť
-                        </button>
-                    </div>
-
-                    <input type="hidden" name="remove_image" id="removeNewFlag" value="0">
-
-                    {{-- ALT TEXT --}}
-                    <div id="newAltWrapper" class="hidden">
-                        <div class="flex items-center bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
-                            Alternatívny text obrázka <x-InfoTooltip typ="alt"/>
+                    <div id="mainImageSection" class="hidden">
+                        <div class="flex bg-gray-100 -mx-6 px-6 mb-6 py-2 font-medium text-blue-950">
+                            Hlavná fotka udalosti
                         </div>
 
-                        <div class="space-y-3 mt-6">
-                            <div class="flex gap-3">
-                                <span class="w-10 font-semibold text-blue-950 pt-2">SK –</span>
-                                <textarea name="image_alt_sk" rows="3"
-                                          class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2"></textarea>
+                        <div class="flex gap-3 px-6">
+                            <input id="newImageFilename"
+                                   readonly
+                                   value="— žiadny obrázok —"
+                                   class="border-2 border-gray-300 bg-gray-100 px-3 py-2 w-1/3 rounded-md">
+
+                            <label class="px-4 py-2 border-2 border-blue-950 rounded-md cursor-pointer hover:bg-blue-50">
+                                Nahrať
+                                <input type="file"
+                                       name="main_pic"
+                                       accept="image/*"
+                                       class="hidden"
+                                       onchange="onNewImage(this)">
+                            </label>
+
+                            <button type="button"
+                                    id="removeNewBtn"
+                                    onclick="removeNewImage()"
+                                    class="hidden px-4 py-2 border-2 border-red-600 text-red-600 rounded-md hover:bg-red-50">
+                                Odstrániť
+                            </button>
+                        </div>
+
+                        <input type="hidden" name="remove_image" id="removeNewFlag" value="0">
+
+                        {{-- ALT TEXT --}}
+                        <div id="newAltWrapper" class="hidden mt-6">
+                            <div class="flex items-center bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
+                                Alternatívny text obrázka <x-InfoTooltip typ="alt"/>
                             </div>
 
-                            <div class="flex gap-3">
-                                <span class="w-10 font-semibold text-blue-950 pt-2">EN –</span>
-                                <textarea name="image_alt_en" rows="3"
-                                          class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2"></textarea>
+                            <div class="space-y-3 mt-6">
+                                <div class="flex gap-3">
+                                    <span class="w-10 font-semibold text-blue-950 pt-2">SK –</span>
+                                    <textarea name="image_alt_sk" rows="3"
+                                              class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2"></textarea>
+                                </div>
+
+                                <div class="flex gap-3">
+                                    <span class="w-10 font-semibold text-blue-950 pt-2">EN –</span>
+                                    <textarea name="image_alt_en" rows="3"
+                                              class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2"></textarea>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     {{-- TEXT --}}
-                    <div class="flex items-center bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
-                        Text udalosti
-                    </div>
-
-                    <div class="space-y-4">
-                        <div class="flex gap-3">
-                            <span class="w-10 font-semibold text-blue-950 pt-2">SK –</span>
-                            <div class="flex-1">
-                                <div class="quill-wrapper">
-                                    <div id="editor-new-sk"></div>
-                                </div>
-                                <textarea name="content_sk" id="content-new-sk" class="hidden"></textarea>
-                            </div>
+                    <div id="textSection" class="hidden">
+                        <div class="flex items-center bg-gray-100 -mx-6 mb-6 px-6 py-2 font-medium text-blue-950">
+                            Text udalosti
                         </div>
 
-                        <div class="flex gap-3">
-                            <span class="w-10 font-semibold text-blue-950 pt-2">EN –</span>
-                            <div class="flex-1">
-                                <div class="quill-wrapper">
-                                    <div id="editor-new-en"></div>
+                        <div class="space-y-4">
+                            <div class="flex gap-3">
+                                <span class="w-10 font-semibold text-blue-950 pt-2">SK –</span>
+                                <div class="flex-1">
+                                    <div class="quill-wrapper">
+                                        <div id="editor-new-sk"></div>
+                                    </div>
+                                    <textarea name="content_sk" id="content-new-sk" class="hidden"></textarea>
                                 </div>
-                                <textarea name="content_en" id="content-new-en" class="hidden"></textarea>
+                            </div>
+
+                            <div class="flex gap-3">
+                                <span class="w-10 font-semibold text-blue-950 pt-2">EN –</span>
+                                <div class="flex-1">
+                                    <div class="quill-wrapper">
+                                        <div id="editor-new-en"></div>
+                                    </div>
+                                    <textarea name="content_en" id="content-new-en" class="hidden"></textarea>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     {{-- FOTKY --}}
-                    <div class="space-y-3">
+                    <div id="gallerySection" class="space-y-3 hidden">
                         <div class="flex items-center bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
                             Odkaz na fotogalériu
                         </div>
@@ -195,7 +208,7 @@
                     </div>
 
                     {{-- VIDEO --}}
-                    <div class="space-y-3">
+                    <div id="videoSection" class="space-y-3 hidden">
                         <div class="flex items-center bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
                             Odkaz na youtube video
                         </div>
@@ -215,7 +228,7 @@
 
 
                     {{--SPONZOR--}}
-                    <div class="space-y-3">
+                    <div id="sponsorSection" class="space-y-3 hidden">
                         <div class="flex items-center bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
                             Pridať sponzora
                         </div>
@@ -248,7 +261,7 @@
 
 
                     {{-- DOKUMENTY --}}
-                    <div class="space-y-3">
+                    <div id="documentSection" class="space-y-3 hidden">
                         <div class="flex items-center bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
                             Pridať dokument
                         </div>
@@ -402,6 +415,55 @@
                     datesList.innerHTML = datesArray.map(d => `<p>-> ${d}</p>`).join('');
                 }
             });
+
+            // ================= VIDITEĽNOSŤ SEKCIÍ NA ZÁKLADE CHECKBOXOV =================
+            const inHomeCheckbox = document.getElementById('inHome');
+            const inGalleryCheckbox = document.getElementById('inGallery');
+
+            const mainImageSection = document.getElementById('mainImageSection');
+            const textSection = document.getElementById('textSection');
+            const gallerySection = document.getElementById('gallerySection');
+            const videoSection = document.getElementById('videoSection');
+            const sponsorSection = document.getElementById('sponsorSection');
+            const documentSection = document.getElementById('documentSection');
+
+            function updateSectionsVisibility() {
+                const isHomeChecked = inHomeCheckbox.checked;
+                const isGalleryChecked = inGalleryCheckbox.checked;
+
+                if (isGalleryChecked) {
+                    // Ak je inGallery zaškrtnuté, zobraziť všetky sekcie
+                    mainImageSection.classList.remove('hidden');
+                    textSection.classList.remove('hidden');
+                    gallerySection.classList.remove('hidden');
+                    videoSection.classList.remove('hidden');
+                    sponsorSection.classList.remove('hidden');
+                    documentSection.classList.remove('hidden');
+                } else if (isHomeChecked) {
+                    // Ak je iba inHome zaškrtnuté, zobraziť iba hlavnú fotku
+                    mainImageSection.classList.remove('hidden');
+                    textSection.classList.add('hidden');
+                    gallerySection.classList.add('hidden');
+                    videoSection.classList.add('hidden');
+                    sponsorSection.classList.add('hidden');
+                    documentSection.classList.add('hidden');
+                } else {
+                    // Ak nie je nič zaškrtnuté, skryť všetko
+                    mainImageSection.classList.add('hidden');
+                    textSection.classList.add('hidden');
+                    gallerySection.classList.add('hidden');
+                    videoSection.classList.add('hidden');
+                    sponsorSection.classList.add('hidden');
+                    documentSection.classList.add('hidden');
+                }
+            }
+
+            // Event listenery pre checkboxy
+            inHomeCheckbox.addEventListener('change', updateSectionsVisibility);
+            inGalleryCheckbox.addEventListener('change', updateSectionsVisibility);
+
+            // Inicializácia pri načítaní stránky
+            updateSectionsVisibility();
 
         });
 
@@ -772,6 +834,45 @@
                 if(!type) return;
                 createDocument(type);
                 existingSelect.value = '';
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const eventColors = {
+                'c1': '#FF0000', 'c2': '#FF7F00', 'c3': '#FFFF00', 'c4': '#00FF00',
+                'c5': '#0000FF', 'c6': '#4B0082', 'c7': '#8B00FF', 'c8': '#FF1493',
+            };
+
+            const wrapper = document.getElementById('calendarColorWrapper');
+
+            // vytvoríme radio buttony
+            for (const [key, color] of Object.entries(eventColors)) {
+                const label = document.createElement('label');
+                label.className = 'cursor-pointer';
+
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = 'calendarColor';
+                input.value = key;
+                input.className = 'hidden peer';
+
+                const circle = document.createElement('div');
+                circle.className = 'w-10 h-10 rounded-full border-3 border-gray-300 transition-transform peer-checked:scale-110 peer-checked:border-black';
+                circle.style.backgroundColor = color;
+
+                label.appendChild(input);
+                label.appendChild(circle);
+                wrapper.appendChild(label);
+            }
+
+            // zobrazovanie wrappera podľa checkboxu
+            const checkbox = document.getElementById('inCalendar');
+            checkbox.addEventListener('change', () => {
+                if (checkbox.checked) {
+                    wrapper.classList.remove('hidden');
+                } else {
+                    wrapper.classList.add('hidden');
+                }
             });
         });
     </script>

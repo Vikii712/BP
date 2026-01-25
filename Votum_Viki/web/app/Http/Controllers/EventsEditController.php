@@ -13,15 +13,16 @@ class EventsEditController extends Controller
     {
         // Farby pre kalendár
         $eventColors = [
-            'c1' => '#ffd700',
-            'c2' => '#cd42a4',
-            'c3' => '#217e2b',
-            'c4' => '#302caa',
-            'c5' => '#7a2491',
-            'c6' => '#9b1d1d',
-            'c7' => '#42c3b6',
-            'c8' => '#cd5d20',
+            'c1' => '#FF0000', // červená
+            'c2' => '#FF7F00', // oranžová
+            'c3' => '#FFFF00', // žltá
+            'c4' => '#00FF00', // zelená
+            'c5' => '#0000FF', // modrá
+            'c6' => '#4B0082', // indigo
+            'c7' => '#8B00FF', // fialová
+            'c8' => '#FF1493', // ružová
         ];
+
 
         // Načítame udalosti s dátumami
         $events = Event::with('dates')->get()->map(function ($event) {
@@ -109,10 +110,11 @@ class EventsEditController extends Controller
             'content_en' => 'nullable|string',
 
             'inCalendar' => 'sometimes|boolean',
+
             'inHome' => 'sometimes|boolean',
             'inGallery' => 'sometimes|boolean',
 
-            'color' => 'nullable|string|max:50',
+            'calendarColor' => 'nullable|string|max:50',
             'archived' => 'sometimes|boolean',
 
             'main_pic' => 'nullable|image|max:2048',
@@ -133,12 +135,12 @@ class EventsEditController extends Controller
             'content_sk' => $validated['content_sk'] ?? null,
             'content_en' => $validated['content_en'] ?? null,
 
-            'inCalendar' => $request->has('inCalendar'),
-            'inHome'     => $request->has('inHome'),
-            'inGallery'  => $request->has('inGallery'),
+            'inCalendar' => $validated['inCalendar'],
+            'inHome'     => $validated['inHome'],
+            'inGallery'  => $validated['inGallery'],
 
             'archived'   => $request->has('archived'),
-            'color'      => $validated['color'] ?? null,
+            'color'      => $validated['calendarColor'] ?? null,
             'main_pic'   => null,
         ]);
 
