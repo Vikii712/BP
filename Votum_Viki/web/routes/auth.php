@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\SectionEditController;
+use App\Http\Controllers\SupportEditController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -86,6 +87,16 @@ Route::middleware('auth')->group(function () {
         Route::delete('{event}', [EventsEditController::class, 'destroy'])->name('events.destroy');
     });
 
+    Route::get('votumaci/support', function () {
+        return view('pages.admin.support');
+    })->name('admin.support');
+
+    Route::prefix('votumaci/admin/support')->group(function () {
+        Route::get('percent-edit', [SupportEditController::class, 'percent'])->name('support.percent');
+        Route::get('financial-edit', [SupportEditController::class, 'financial'])->name('support.financial');
+        Route::get('other-edit', [SupportEditController::class, 'other'])->name('support.other');
+    });
+
     //Sections
     Route::prefix('votumaci/admin/{category}')->group(function () {
         Route::get('/', [SectionEditController::class, 'index'])->name('section.index');
@@ -95,5 +106,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/{id}/up', [SectionEditController::class, 'moveUp'])->name('section.up');
         Route::post('/{id}/down', [SectionEditController::class, 'moveDown'])->name('section.down');
     });
+
 
 });
