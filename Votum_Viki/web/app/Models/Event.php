@@ -19,6 +19,8 @@ class Event extends Model
         'archived',
         'color',
         'main_pic',
+        'pic_alt_sk',
+        'pic_alt_en'
     ];
 
     protected $casts = [

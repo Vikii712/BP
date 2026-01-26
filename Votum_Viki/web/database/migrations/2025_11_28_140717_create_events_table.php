@@ -20,6 +20,8 @@ return new class extends Migration
             $table->boolean('archived')->default(false);
             $table->enum('color', ['c1', 'c2', 'c3','c4', 'c5', 'c6','c7', 'c8'])->nullable();
             $table->text('main_pic')->nullable();
+            $table->text('pic_alt_sk')->nullable();
+            $table->text('pic_alt_en')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

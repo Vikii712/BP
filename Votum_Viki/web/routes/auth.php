@@ -77,9 +77,10 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('votumaci/admin/events')->group(function () {
         Route::get('/', [EventsEditController::class, 'index'])->name('admin.events');
-        Route::get('edit', [EventsEditController::class, 'edit'])->name('events.edit');
         Route::get('create', [EventsEditController::class, 'create'])->name('events.create');
+        Route::get('{event}/edit', [EventsEditController::class, 'edit'])->name('events.edit');
         Route::post('store', [EventsEditController::class, 'store'])->name('events.store');
+        Route::put('{event}', [EventsEditController::class, 'update'])->name('events.update');
         Route::post('{event}/archive', [EventsEditController::class, 'archive'])->name('events.archive');
         Route::post('{event}/restore', [EventsEditController::class, 'restore'])->name('events.restore');
         Route::delete('{event}', [EventsEditController::class, 'destroy'])->name('events.destroy');
