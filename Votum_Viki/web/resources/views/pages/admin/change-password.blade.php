@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('adminContent')
-    <div class="flex flex-col items-center justify-start bg-gray-100 px-4 py-10 min-h-[calc(100vh-5.5rem)]">
+    <div class="flex pt-20 flex-col items-center justify-start bg-gray-100 px-4 py-10 min-h-[calc(100vh-5.5rem)]">
         <div class="w-full max-w-md">
 
             {{-- Nadpis --}}

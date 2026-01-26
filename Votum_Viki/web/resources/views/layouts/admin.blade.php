@@ -9,15 +9,16 @@
     <meta http-equiv="Content-Security-Policy" content="frame-src https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com https://maps.google.com;">
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
     @yield('head')
 </head>
 
 
-<body>
+<body class="">
 
 <x-admin.header />
 
-<main id="site-main" role="main" class="pt-22">
+<main id="site-main" role="main" class="pt-18 lg:pt-22">
     @yield('adminContent')
 </main>
 

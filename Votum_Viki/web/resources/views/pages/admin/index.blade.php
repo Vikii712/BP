@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('adminContent')
-    <div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-10 px-4">
+    <div class="min-h-screen pt-20 bg-gradient-to-br from-gray-50 to-gray-100 py-10 px-4">
         <div class="container mx-auto max-w-7xl">
             @if(session('status'))
                 <div class="mb-4 text-sm text-green-900 text-center bg-green-100 border-2 border-b-green-900 rounded-md px-4 py-2">
