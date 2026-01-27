@@ -92,9 +92,9 @@ Route::middleware('auth')->group(function () {
     })->name('admin.support');
 
     Route::prefix('votumaci/admin/support')->group(function () {
-        Route::get('percent-edit', [SupportEditController::class, 'percent'])->name('support.percent');
-        Route::get('financial-edit', [SupportEditController::class, 'financial'])->name('support.financial');
-        Route::get('other-edit', [SupportEditController::class, 'other'])->name('support.other');
+        Route::get('{type}-edit', [SupportEditController::class, 'edit'])
+            ->where('type', 'percent|financial|other')
+            ->name('support.edit');
     });
 
     //Sections

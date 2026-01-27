@@ -144,12 +144,12 @@ body {
 }
 .quill-wrapper .ql-container {
     border: none;
-    min-height: 150px;
+    min-height: 1.5rem;
     font-size: 1rem;
     overflow: visible;
 }
 .quill-wrapper .ql-editor {
-    min-height: 150px;
+    min-height: 1.5rem;
 }
 
 /* Custom URL Modal */

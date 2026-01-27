@@ -7,36 +7,39 @@ use Illuminate\Routing\Controller;
 
 class SupportEditController extends Controller
 {
-    // 2%
-    public function percent()
+    public function edit($type)
     {
-        return view('admin.support-edit', [
-            'why'    => Section::where('category', 'percentWhy')->orderBy('position')->get(),
-            'info'   => Section::where('category', 'percentInfo')->orderBy('position')->get(),
-            'how'    => Section::where('category', 'percentHow')->orderBy('position')->get(),
-            'thanks' => Section::where('category', 'percentThanks')->orderBy('position')->get(),
-        ]);
-    }
+        $sections = [];
 
-    // Finančná pomoc
-    public function financial()
-    {
-        return view('admin.support-edit', [
-            'qrHow'  => Section::where('category', 'qrHow')->get(),
-            'bank'   => Section::where('category', 'bank')->get(),
-            'why'    => Section::where('category', 'financialWhy')->orderBy('position')->get(),
-            'thanks' => Section::where('category', 'financialThanks')->orderBy('position')->get(),
-        ]);
-    }
+        switch($type) {
+            case 'percent':
+                $sections['percentWhy']    = Section::where('category', 'percentWhy')->orderBy('position')->get();
+                $sections['percentInfo']   = Section::where('category', 'percentInfo')->orderBy('position')->get();
+                $sections['percentHow']    = Section::where('category', 'percentHow')->orderBy('position')->get();
+                $sections['percentThanks'] = Section::where('category', 'percentThanks')->orderBy('position')->get();
+                $type = 'Dve percentá';
+                break;
 
-    // Iná podpora
-    public function other()
-    {
-        return view('admin.support-edit', [
-            'why'    => Section::where('category', 'otherWhy')->orderBy('position')->get(),
-            'thanks' => Section::where('category', 'otherThanks')->orderBy('position')->get(),
-            'types'  => Section::where('category', 'otherType')->orderBy('position')->get(),
-            'idea'   => Section::where('category', 'otherIdea')->orderBy('position')->get(),
+            case 'financial':
+                $sections['financialWhy']    = Section::where('category', 'financialWhy')->orderBy('position')->get();
+                $sections['qrHow']  = Section::where('category', 'qrHow')->get();
+                $sections['bank']   = Section::where('category', 'bank')->get();
+                $sections['financialThanks'] = Section::where('category', 'financialThanks')->orderBy('position')->get();
+                $type = 'Finančná podpora';
+                break;
+
+            case 'other':
+                $sections['otherWhy']    = Section::where('category', 'otherWhy')->orderBy('position')->get();
+                $sections['otherTypes']  = Section::where('category', 'otherType')->orderBy('position')->get();
+                $sections['otherIdea']   = Section::where('category', 'otherIdea')->orderBy('position')->get();
+                $sections['otherThanks'] = Section::where('category', 'otherThanks')->orderBy('position')->get();
+                $type = 'Iné formy podpory';
+                break;
+        }
+
+        return view('pages.admin.support-edit', [
+            'type' => $type,
+            'sections' => $sections,
         ]);
     }
 }
