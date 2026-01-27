@@ -89,5 +89,66 @@
         });
         @endforeach
         @endforeach
+
+        function addSection(category) {
+            const container = document.querySelector(`form[action*='${category}']`);
+            if (!container) return;
+
+            // zisti počet existujúcich sekcií
+            const sections = container.querySelectorAll('.bg-white.border');
+            const index = sections.length;
+
+            // vytvor nový HTML blok (zjednodušená verzia)
+            const newSection = document.createElement('div');
+            newSection.className = 'bg-white border border-gray-200 rounded-md p-4 shadow-sm space-y-4';
+            newSection.innerHTML = `
+        <div class="flex gap-3 mb-2">
+            <span class="w-10 font-semibold text-gray-700 pt-2">SK –</span>
+            <input type="text" name="sk[${index}][title]" class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2" placeholder="Nadpis SK">
+        </div>
+        <div class="flex gap-3 mb-2">
+            <span class="w-10 font-semibold text-gray-700 pt-2">EN –</span>
+            <input type="text" name="en[${index}][title]" class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2" placeholder="Title EN">
+        </div>
+        <div class="flex gap-3 mt-2">
+            <span class="w-10 font-semibold text-gray-700 pt-2">SK –</span>
+            <div class="flex-1">
+                <div class="quill-wrapper"><div id="editor-${category}-sk-${index}"></div></div>
+                <textarea name="sk[${index}][content]" id="content-${category}-sk-${index}" class="hidden"></textarea>
+            </div>
+        </div>
+        <div class="flex gap-3 mt-2">
+            <span class="w-10 font-semibold text-gray-700 pt-2">EN –</span>
+            <div class="flex-1">
+                <div class="quill-wrapper"><div id="editor-${category}-en-${index}"></div></div>
+                <textarea name="en[${index}][content]" id="content-${category}-en-${index}" class="hidden"></textarea>
+            </div>
+        </div>
+    `;
+
+            container.insertBefore(newSection, container.querySelector('div.flex.justify-end')); // pred submit button
+
+            // inicializuj Quill editory pre novú sekciu
+            const quillSk = new Quill(`#editor-${category}-sk-${index}`, { theme: 'snow', modules: { toolbar: toolbarOptions } });
+            const quillEn = new Quill(`#editor-${category}-en-${index}`, { theme: 'snow', modules: { toolbar: toolbarOptions } });
+
+            preventImagePaste(quillSk);
+            preventImagePaste(quillEn);
+            fixLinks(quillSk);
+            fixLinks(quillEn);
+
+            const skTextarea = document.getElementById(`content-${category}-sk-${index}`);
+            const enTextarea = document.getElementById(`content-${category}-en-${index}`);
+
+            quillSk.on('text-change', () => { skTextarea.value = quillSk.root.innerHTML; });
+            quillEn.on('text-change', () => { enTextarea.value = quillEn.root.innerHTML; });
+        }
+
+        function markForDelete(btn) {
+            const section = btn.closest('.bg-white');
+            section.querySelector('input[name$="[_delete]"]').value = 1;
+            section.style.display = 'none';
+        }
+
     </script>
 @endsection

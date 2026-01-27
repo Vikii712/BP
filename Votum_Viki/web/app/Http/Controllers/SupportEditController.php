@@ -50,28 +50,49 @@ class SupportEditController extends Controller
     {
         DB::transaction(function() use ($request, $id) {
 
-            $sections = Section::where('category', $id)->get();
+            // existujúce sekcie podľa category
+            $sections = Section::where('category', $id)->get()->keyBy('id');
 
             $skData = $request->input('sk', []);
             $enData = $request->input('en', []);
 
-            foreach ($sections as $index => $section) {
-                if (isset($skData[$index])) {
-                    $section->title_sk = $skData[$index]['title'] ?? $section->title_sk;
-                    $section->content_sk = $skData[$index]['content'] ?? $section->content_sk;
+            foreach ($skData as $index => $skItem) {
+
+                $enItem = $enData[$index] ?? [];
+                $sectionId = $skItem['id'] ?? null;
+                $delete = ($skItem['_delete'] ?? 0) == 1;
+
+                if ($sectionId && $delete) {
+                    Section::where('id', $sectionId)->delete();
+                    continue;
                 }
 
-                if (isset($enData[$index])) {
-                    $section->title_en = $enData[$index]['title'] ?? $section->title_en;
-                    $section->content_en = $enData[$index]['content'] ?? $section->content_en;
-                }
+                if ($sectionId && isset($sections[$sectionId])) {
+                    $section = $sections[$sectionId];
+                    $section->title_sk = $skItem['title'] ?? $section->title_sk;
+                    $section->content_sk = $skItem['content'] ?? $section->content_sk;
+                    $section->title_en = $enItem['title'] ?? $section->title_en;
+                    $section->content_en = $enItem['content'] ?? $section->content_en;
+                    $section->save();
+                } else {
+                    $maxPosition = Section::where('category', $id)->max('position') ?? 0;
 
-                $section->save();
+                    Section::create([
+                        'category'   => $id,
+                        'title_sk'   => $skItem['title'] ?? '',
+                        'content_sk' => $skItem['content'] ?? '',
+                        'title_en'   => $enItem['title'] ?? '',
+                        'content_en' => $enItem['content'] ?? '',
+                        'position'   => $maxPosition + 1,
+                    ]);
+                }
             }
+
         });
 
         return redirect()
             ->back()
             ->with('success', 'Zmeny boli uložené.');
     }
+
 }

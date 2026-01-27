@@ -6,7 +6,6 @@
 
 <?php
     $add = false;
-    $editor = true;
 
     switch ($title){
         case 'PercentWhy':
@@ -30,7 +29,7 @@
             break;
         case 'Bank':
             $title = 'Údaje o bankovom účte';
-            $editor = false;
+            $add = true;
             break;
         case 'FinancialThanks':
             $title = 'Poďakovanie za finančnú podporu';
@@ -40,6 +39,7 @@
             break;
         case 'OtherTypes':
             $title = 'Iné druhy podpory (podrobne)';
+            $add = true;
             break;
         case 'OtherIdea':
             $title = 'Ak má niekto iný nápad na podporu';
@@ -57,6 +57,14 @@
         {{ $title }}
     </div>
 
+    @if($add)
+        <button type="button"
+                class="h-10 w-10 flex items-center justify-center border-2 border-blue-950 rounded-md hover:bg-blue-100 text-blue-950"
+                onclick="addSection('{{ $category }}')">
+            <i class="fa-solid fa-plus"></i>
+        </button>
+    @endif
+
     <form method="POST"
           action="{{ route('support.update', ['id' => $category]) }}"
           enctype="multipart/form-data"
@@ -65,9 +73,22 @@
         @method('PUT')
 
         @foreach($sections as $index => $section)
-
+            <input type="hidden" name="sk[{{ $index }}][id]" value="{{ $section->id }}">
 
             <div class="bg-white border border-gray-200 rounded-md p-4 shadow-sm space-y-4">
+
+                @if($add)
+                    <input type="hidden" name="sk[{{ $index }}][id]" value="{{ $section->id }}">
+                    <input type="hidden" name="sk[{{ $index }}][_delete]" value="0">
+
+                    <div class="flex justify-end">
+                        <button type="button"
+                                class="text-red-600 hover:text-red-800 hover:border-red-800 hover:bg-red-100 px-4 py-2 border-2 border-red-600 rounded-md"
+                                onclick="markForDelete(this)">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                @endif
 
                 {{-- Nadpis --}}
                 <div class="flex gap-3 mb-2">
