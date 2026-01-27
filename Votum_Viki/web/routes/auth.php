@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ContactsEditController;
+use App\Http\Controllers\DocumentsEditController;
 use App\Http\Controllers\EventsEditController;
 use App\Http\Controllers\HomeEditController;
 use App\Http\Controllers\AdminController;
@@ -103,6 +104,11 @@ Route::middleware('auth')->group(function () {
     Route::prefix('votumaci/admin/contacts')->group(function () {
         Route::get('edit', [ContactsEditController::class, 'edit'])->name('contacts.edit');
         Route::put('update/{id}', [ContactsEditController::class, 'update'])->name('contacts.update');
+    });
+
+    Route::prefix('votumaci/admin/documents')->group(function () {
+        Route::get('edit', [DocumentsEditController::class, 'edit'])->name('documents.edit');
+        Route::put('update/{id}', [DocumentsEditController::class, 'update'])->name('documents.update');
     });
 
     //Sections

@@ -25,7 +25,7 @@ return new class extends Migration
                     'percentWhy', 'percentInfo', 'percentHow', 'percentThanks',
                     'qrHow', 'financialWhy', 'financialThanks',
                     'otherWhy', 'otherThanks', 'otherType', 'otherIdea',
-                    'support'
+                    'support', 'documentSection'
                 ]);
             $table->timestamps();
         });

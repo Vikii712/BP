@@ -100,5 +100,118 @@ class FileSeeder extends Seeder
                 ]);
             }
         }
+
+
+
+
+
+
+        // -------------------
+        // Dokumentyyyyyyyyy
+        // -------------------
+
+        $sectionId = DB::table('sections')->insertGetId([
+            'title_sk'   => 'Prihlášky',
+            'title_en'   => 'Applications',
+            'content_sk' => '',
+            'content_en' => '',
+            'year'       => null,
+            'position'   => 1,
+            'category'   => 'documentSection',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        $documents = [
+            [
+                'file' => 'docs/04_Lecture.pdf',
+                'sk'   => 'Prihláška – dokument 04',
+                'en'   => 'Application – document 04',
+            ],
+            [
+                'file' => 'docs/05_Lecture.pdf',
+                'sk'   => 'Prihláška – dokument 05',
+                'en'   => 'Application – document 05',
+            ],
+            [
+                'file' => 'docs/06_Lecture.pdf',
+                'sk'   => 'Prihláška – dokument 06',
+                'en'   => 'Application – document 06',
+            ],
+            [
+                'file' => 'docs/07_Lecture.pdf',
+                'sk'   => 'Prihláška – dokument 07',
+                'en'   => 'Application – document 07',
+            ],
+            [
+                'file' => 'docs/08_Lecture.pdf',
+                'sk'   => 'Prihláška – dokument 08',
+                'en'   => 'Application – document 08',
+            ],
+        ];
+
+        foreach ($documents as $doc) {
+            DB::table('files')->insert([
+                'section_id' => $sectionId,
+                'url'        => $doc['file'],
+                'title_sk'   => $doc['sk'],
+                'title_en'   => $doc['en'],
+                'type'       => 'document',
+                'event_id'   => null,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
+        $sectionId = DB::table('sections')->insertGetId([
+            'title_sk'   => 'Dve Percentá',
+            'title_en'   => 'Two Percents',
+            'content_sk' => '',
+            'content_en' => '',
+            'year'       => null,
+            'position'   => 2,
+            'category'   => 'documentSection',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        foreach ($documents as $doc) {
+            DB::table('files')->insert([
+                'section_id' => $sectionId,
+                'url'        => $doc['file'],
+                'title_sk'   => $doc['sk'],
+                'title_en'   => $doc['en'],
+                'type'       => 'document',
+                'event_id'   => null,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
+        $sectionId = DB::table('sections')->insertGetId([
+            'title_sk'   => 'GDPR',
+            'title_en'  => 'GDPR',
+            'content_sk' => '',
+            'content_en' => '',
+            'year'       => null,
+            'position'   => 3,
+            'category'   => 'documentSection',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        foreach ($documents as $doc) {
+            DB::table('files')->insert([
+                'section_id' => $sectionId,
+                'url'        => $doc['file'],
+                'title_sk'   => $doc['sk'],
+                'title_en'   => $doc['en'],
+                'type'       => 'document',
+                'event_id'   => null,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
+
     }
 }
