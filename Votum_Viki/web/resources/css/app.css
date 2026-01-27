@@ -152,7 +152,11 @@ body {
     min-height: 1.5rem;
 }
 
-/* Custom URL Modal */
+.ql-editor{
+    font-size: 1rem;
+}
+
+    /* Custom URL Modal */
 .url-modal-overlay {
     position: fixed;
     top: 0;

@@ -4,51 +4,38 @@
 ])
 
 <?php
-    switch($category){
-        case 'address':
-            $title = 'Adresy';
-            break;
-        case 'mail':
-            $title = 'Mailové adresy';
-            break;
-        case 'phone':
-            $title = 'Telefónne čísla';
-            break;
-        case 'bank':
-            $title = 'Bankové údaje';
-            break;
-        case 'map':
-            $title = 'Link na mapu';
-            break;
-    }
+switch($category){
+    case 'address': $title = 'Adresa'; break;
+    case 'email': $title = 'Mailová adresa'; break;
+    case 'tel': $title = 'Telefónne číslo'; break;
+    case 'bank': $title = 'Bankové údaje'; break;
+    case 'map': $title = 'Link na mapu'; break;
+}
 ?>
-
 
 <div class="bg-blue-50 border border-gray-200 shadow-md rounded-md p-6 space-y-6">
 
-    {{-- HLAVNÝ NADPIS SEKCIE --}}
+    {{-- HLAVNÝ NADPIS --}}
     <div class="bg-blue-950 -mt-6 text-white text-lg -mx-6 px-6 py-4 font-medium rounded-t-md">
         {{ $title }}
     </div>
 
     <button type="button"
-            class="h-10 w-10 flex items-center justify-center border-2 border-blue-950 rounded-md hover:bg-blue-100 text-blue-950"
+            class="h-10 px-4 font-bold flex items-center justify-center border-2 border-blue-950 rounded-md hover:bg-blue-100 text-blue-950"
             onclick="addSection('{{ $category }}')">
-        <i class="fa-solid fa-plus"></i>
+        <i class="fa-solid fa-plus pe-2"></i> Pridať novú položku na koniec
     </button>
 
     <form method="POST"
           action="{{ route('support.update', ['id' => $category]) }}"
-          enctype="multipart/form-data"
+          data-category="{{ $category }}"
           class="space-y-6">
         @csrf
         @method('PUT')
 
         @foreach($sections as $index => $section)
-            <input type="hidden" name="sk[{{ $index }}][id]" value="{{ $section->id }}">
 
             <div class="bg-white border border-gray-200 rounded-md p-4 shadow-sm space-y-4">
-
 
                 <input type="hidden" name="sk[{{ $index }}][id]" value="{{ $section->id }}">
                 <input type="hidden" name="sk[{{ $index }}][_delete]" value="0">
@@ -61,54 +48,65 @@
                     </button>
                 </div>
 
-                {{-- Nadpis --}}
-                <div class="w-full font-bold text-blue-950 text-lg ">Názov</div>
+                {{-- NÁZOV --}}
+                <div class="w-full font-bold text-blue-950 text-lg">Názov</div>
+
                 <div class="flex gap-3 mb-2">
                     <span class="w-10 font-semibold text-gray-700 pt-2">SK –</span>
-                    <input type="text"
-                           name="sk[{{ $index }}][title]"
-                           value="{{ $section->title_sk ?? '' }}"
-                           required
-                           class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2"
-                           placeholder="Nadpis SK">
-                </div>
-                <div class="flex gap-3 mb-2">
-                    <span class="w-10 font-semibold text-gray-700 pt-2">EN –</span>
-                    <input type="text"
-                           name="en[{{ $index }}][title]"
-                           value="{{ $section->title_en ?? '' }}"
-                           required
-                           class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2"
-                           placeholder="Title EN">
+                    <div class="flex-1">
+                        <div class="quill-wrapper"
+                             data-quill
+                             data-textarea="title-sk-{{ $category }}-{{ $index }}"></div>
+                        <textarea name="sk[{{ $index }}][title]"
+                                  id="title-sk-{{ $category }}-{{ $index }}"
+                                  class="hidden">{{ $section->title_sk ?? '' }}</textarea>
+                    </div>
                 </div>
 
-                {{-- Text --}}
-                <div class="w-full font-bold text-blue-950 text-lg mb-3">Obsah</div>
+                <div class="flex gap-3 mb-2">
+                    <span class="w-10 font-semibold text-gray-700 pt-2">EN –</span>
+                    <div class="flex-1">
+                        <div class="quill-wrapper"
+                             data-quill
+                             data-textarea="title-en-{{ $category }}-{{ $index }}"></div>
+                        <textarea name="en[{{ $index }}][title]"
+                                  id="title-en-{{ $category }}-{{ $index }}"
+                                  class="hidden">{{ $section->title_en ?? '' }}</textarea>
+                    </div>
+                </div>
+
+                {{-- OBSAH --}}
+                <div class="w-full font-bold text-blue-950 text-lg">Obsah</div>
+
                 <div class="flex gap-3 mb-2">
                     <span class="w-10 font-semibold text-gray-700 pt-2">SK –</span>
-                    <input type="text"
-                           name="sk[{{ $index }}][content]"
-                           value="{{ $section->content_sk ?? '' }}"
-                           required
-                           class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2"
-                           placeholder="Obsah SK">
+                    <div class="flex-1">
+                        <div class="quill-wrapper"
+                             data-quill
+                             data-textarea="content-sk-{{ $category }}-{{ $index }}"></div>
+                        <textarea name="sk[{{ $index }}][content]"
+                                  id="content-sk-{{ $category }}-{{ $index }}"
+                                  class="hidden">{{ $section->content_sk ?? '' }}</textarea>
+                    </div>
                 </div>
+
                 <div class="flex gap-3 mb-2">
                     <span class="w-10 font-semibold text-gray-700 pt-2">EN –</span>
-                    <input type="text"
-                           name="en[{{ $index }}][content]"
-                           value="{{ $section->content_en ?? '' }}"
-                           required
-                           class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2"
-                           placeholder="Content EN">
+                    <div class="flex-1">
+                        <div class="quill-wrapper"
+                             data-quill
+                             data-textarea="content-en-{{ $category }}-{{ $index }}"></div>
+                        <textarea name="en[{{ $index }}][content]"
+                                  id="content-en-{{ $category }}-{{ $index }}"
+                                  class="hidden">{{ $section->content_en ?? '' }}</textarea>
+                    </div>
                 </div>
-
-
 
             </div>
         @endforeach
 
-        {{-- Submit --}}
+        <div class="sections-anchor"></div>
+
         <div class="flex justify-end gap-3">
             <button type="submit"
                     class="bg-green-200 border-2 border-green-900 text-green-900 px-6 py-2 rounded-md font-semibold hover:bg-green-300">

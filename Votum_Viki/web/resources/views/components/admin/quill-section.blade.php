@@ -59,9 +59,9 @@
 
     @if($add)
         <button type="button"
-                class="h-10 w-10 flex items-center justify-center border-2 border-blue-950 rounded-md hover:bg-blue-100 text-blue-950"
+                class="h-10 px-4 font-bold flex items-center justify-center border-2 border-blue-950 rounded-md hover:bg-blue-100 text-blue-950"
                 onclick="addSection('{{ $category }}')">
-            <i class="fa-solid fa-plus"></i>
+            <i class="fa-solid fa-plus pe-2"></i> Pridať novú položku na koniec
         </button>
     @endif
 

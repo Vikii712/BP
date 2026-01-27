@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Section;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ContactsEditController
 {
@@ -11,8 +13,8 @@ class ContactsEditController
         $sections = [];
 
         $sections['address'] = Section::where('category', 'address')->get();
-        $sections['mail'] = Section::where('category', 'email')->get();
-        $sections['phone'] = Section::where('category', 'tel')->get();
+        $sections['email'] = Section::where('category', 'email')->get();
+        $sections['tel'] = Section::where('category', 'tel')->get();
             $sections['bank'] = Section::where('category', 'bank')->get();
         $sections['map'] = Section::where('category', 'map')->get();
 
@@ -20,4 +22,5 @@ class ContactsEditController
             'sections' => $sections
         ]);
     }
+
 }
