@@ -156,6 +156,32 @@ class EventsEditController extends Controller
             ->with('success', 'Udalosť bola úspešne uložená.');
     }
 
+    public function archive(Event $event)
+    {
+        $event->update([
+            'inCalendar' => false,
+            'inHome'     => false,
+            'inGallery'  => false,
+            'archived'   => true,
+        ]);
+
+        return redirect()
+            ->route('admin.events')
+            ->with('success', 'Udalosť bola archivovaná.');
+    }
+
+
+    public function unarchive(Event $event)
+    {
+        $event->update([
+            'archived' => false,
+        ]);
+
+        return redirect()
+            ->route('admin.events')
+            ->with('success', 'Udalosť bola obnovená.');
+    }
+
     public function destroy(Event $event)
     {
         foreach ($event->files()->get() as $file) {
@@ -166,6 +192,18 @@ class EventsEditController extends Controller
 
         $event->delete();
 
-        return redirect()->route('admin.events');
+        return redirect()->route('admin.events')
+            ->with('warning', 'Udalosť bola vymazaná.')
+            ->with('deleted_event_id', $event->id);
     }
+
+    public function restore($id)
+    {
+        $event = Event::withTrashed()->findOrFail($id);
+        $event->restore();
+
+        return redirect()->route('admin.events')
+            ->with('success', 'Udalosť bola obnovená.');
+    }
+
 }

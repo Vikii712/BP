@@ -83,6 +83,7 @@ Route::middleware('auth')->group(function () {
         Route::post('store', [EventsEditController::class, 'store'])->name('events.store');
         Route::put('{event}', [EventsEditController::class, 'update'])->name('events.update');
         Route::post('{event}/archive', [EventsEditController::class, 'archive'])->name('events.archive');
+        Route::post('{event}/unarchive', [EventsEditController::class, 'unarchive'])->name('events.unarchive');
         Route::post('{event}/restore', [EventsEditController::class, 'restore'])->name('events.restore');
         Route::delete('{event}', [EventsEditController::class, 'destroy'])->name('events.destroy');
     });
