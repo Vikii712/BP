@@ -58,10 +58,11 @@
     </div>
 
     <form method="POST"
-          action="{{ route('section.add', ['category' => $category]) }}"
+          action="{{ route('support.update', ['id' => $category]) }}"
           enctype="multipart/form-data"
           class="space-y-6">
         @csrf
+        @method('PUT')
 
         @foreach($sections as $index => $section)
 

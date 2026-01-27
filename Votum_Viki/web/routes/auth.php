@@ -96,6 +96,7 @@ Route::middleware('auth')->group(function () {
         Route::get('{type}-edit', [SupportEditController::class, 'edit'])
             ->where('type', 'percent|financial|other')
             ->name('support.edit');
+        Route::put('update/{id}', [SupportEditController::class, 'update'])->name('support.update');
     });
 
     //Sections

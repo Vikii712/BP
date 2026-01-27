@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Section;
 use Illuminate\Routing\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class SupportEditController extends Controller
 {
@@ -41,5 +44,34 @@ class SupportEditController extends Controller
             'type' => $type,
             'sections' => $sections,
         ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        DB::transaction(function() use ($request, $id) {
+
+            $sections = Section::where('category', $id)->get();
+
+            $skData = $request->input('sk', []);
+            $enData = $request->input('en', []);
+
+            foreach ($sections as $index => $section) {
+                if (isset($skData[$index])) {
+                    $section->title_sk = $skData[$index]['title'] ?? $section->title_sk;
+                    $section->content_sk = $skData[$index]['content'] ?? $section->content_sk;
+                }
+
+                if (isset($enData[$index])) {
+                    $section->title_en = $enData[$index]['title'] ?? $section->title_en;
+                    $section->content_en = $enData[$index]['content'] ?? $section->content_en;
+                }
+
+                $section->save();
+            }
+        });
+
+        return redirect()
+            ->back()
+            ->with('success', 'Zmeny boli uložené.');
     }
 }

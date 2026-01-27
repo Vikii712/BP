@@ -8,6 +8,12 @@
                 Editácia sekcií - {{ ucfirst($type) }}
             </h1>
 
+            @if(session('success'))
+                <div class="mb-4 rounded-md bg-green-100 border border-green-400 text-green-900 px-4 py-3">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             {{-- Renderovanie každej sekcie cez komponent --}}
             @foreach ($sections as $sectionKey => $sectionItems)
                 <x-admin.quill-section
@@ -15,7 +21,6 @@
                     :title="ucfirst($sectionKey)"
                     :sections="$sectionItems" />
             @endforeach
-
 
         </div>
     </div>
@@ -47,46 +52,42 @@
             });
         }
 
-            @foreach($sections as $sectionKey => $sectionItems)
-            @foreach($sectionItems as $index => $section)
-        {
-            const quillSk = new Quill(
-                '#editor-{{ $sectionKey }}-sk-{{ $index }}',
-                { theme: 'snow', modules: { toolbar: toolbarOptions } }
-            );
+        @foreach($sections as $sectionKey => $sectionItems)
+        @foreach($sectionItems as $index => $section)
+        const quillSk{{ $sectionKey }}{{ $index }} = new Quill(
+            '#editor-{{ $sectionKey }}-sk-{{ $index }}',
+            { theme: 'snow', modules: { toolbar: toolbarOptions } }
+        );
 
-            const quillEn = new Quill(
-                '#editor-{{ $sectionKey }}-en-{{ $index }}',
-                { theme: 'snow', modules: { toolbar: toolbarOptions } }
-            );
+        const quillEn{{ $sectionKey }}{{ $index }} = new Quill(
+            '#editor-{{ $sectionKey }}-en-{{ $index }}',
+            { theme: 'snow', modules: { toolbar: toolbarOptions } }
+        );
 
-            preventImagePaste(quillSk);
-            preventImagePaste(quillEn);
-            fixLinks(quillSk);
-            fixLinks(quillEn);
+        preventImagePaste(quillSk{{ $sectionKey }}{{ $index }});
+        preventImagePaste(quillEn{{ $sectionKey }}{{ $index }});
+        fixLinks(quillSk{{ $sectionKey }}{{ $index }});
+        fixLinks(quillEn{{ $sectionKey }}{{ $index }});
 
-            const skTextarea = document.getElementById('content-{{ $sectionKey }}-sk-{{ $index }}');
-            const enTextarea = document.getElementById('content-{{ $sectionKey }}-en-{{ $index }}');
+        const skTextarea{{ $sectionKey }}{{ $index }} = document.getElementById('content-{{ $sectionKey }}-sk-{{ $index }}');
+        const enTextarea{{ $sectionKey }}{{ $index }} = document.getElementById('content-{{ $sectionKey }}-en-{{ $index }}');
 
-            if (skTextarea?.value?.trim()) {
-                quillSk.clipboard.dangerouslyPasteHTML(skTextarea.value);
-            }
-
-            if (enTextarea?.value?.trim()) {
-                quillEn.clipboard.dangerouslyPasteHTML(enTextarea.value);
-            }
-
-            quillSk.on('text-change', () => {
-                skTextarea.value = quillSk.root.innerHTML;
-            });
-
-            quillEn.on('text-change', () => {
-                enTextarea.value = quillEn.root.innerHTML;
-            });
+        if (skTextarea{{ $sectionKey }}{{ $index }}?.value?.trim()) {
+            quillSk{{ $sectionKey }}{{ $index }}.clipboard.dangerouslyPasteHTML(skTextarea{{ $sectionKey }}{{ $index }}.value);
         }
+
+        if (enTextarea{{ $sectionKey }}{{ $index }}?.value?.trim()) {
+            quillEn{{ $sectionKey }}{{ $index }}.clipboard.dangerouslyPasteHTML(enTextarea{{ $sectionKey }}{{ $index }}.value);
+        }
+
+        quillSk{{ $sectionKey }}{{ $index }}.on('text-change', () => {
+            skTextarea{{ $sectionKey }}{{ $index }}.value = quillSk{{ $sectionKey }}{{ $index }}.root.innerHTML;
+        });
+
+        quillEn{{ $sectionKey }}{{ $index }}.on('text-change', () => {
+            enTextarea{{ $sectionKey }}{{ $index }}.value = quillEn{{ $sectionKey }}{{ $index }}.root.innerHTML;
+        });
         @endforeach
         @endforeach
     </script>
-
-
 @endsection
