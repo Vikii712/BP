@@ -31,7 +31,7 @@
                 <x-admin.card name="Udalosti" :route="route('admin.events')" icon="fa-star" image="udalosti.svg" />
                 <x-admin.card name="História" :route="route('section.index', 'history')" icon="fa-clock" image="historia.svg" />
                 <x-admin.card name="Podpora" :route="route('admin.support')" icon="fa-hand-holding-heart" image="podpora.svg" />
-                <x-admin.card name="Kontakty" :route="route('admin')" icon="fa-address-book" image="kontakty.svg" />
+                <x-admin.card name="Kontakty" :route="route('contacts.edit')" icon="fa-address-book" image="kontakty.svg" />
                 <x-admin.card name="Dokumenty" :route="route('admin')" icon="fa-file-alt" image="dokumenty.svg" />
 
                 <x-admin.card name="Zmena hesla" :route="route('password.change')" icon="fa-lock" inverted />
