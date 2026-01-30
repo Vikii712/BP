@@ -91,25 +91,52 @@
         @endforeach
 
         function addSection(category) {
-            const container = document.querySelector(`form[action*='${category}']`);
-            if (!container) return;
+            const form = document.querySelector(`form[data-category="${category}"]`);
+            if (!form) {
+                console.warn('Form not found for category:', category);
+                return;
+            }
 
-            // zisti počet existujúcich sekcií
-            const sections = container.querySelectorAll('.bg-white.border');
+            const anchor = form.querySelector('.sections-anchor');
+            if (!anchor) {
+                console.warn('Anchor (.sections-anchor) not found');
+                return;
+            }
+
+            const sections = form.querySelectorAll('.bg-white.border');
             const index = sections.length;
 
-            // vytvor nový HTML blok (zjednodušená verzia)
             const newSection = document.createElement('div');
             newSection.className = 'bg-white border border-gray-200 rounded-md p-4 shadow-sm space-y-4';
+
             newSection.innerHTML = `
+        <input type="hidden" name="sk[${index}][id]" value="">
+        <input type="hidden" name="sk[${index}][_delete]" value="0">
+
+        <div class="flex justify-end mb-0">
+            <button type="button"
+                    class="text-red-600 hover:text-red-800 hover:border-red-800 hover:bg-red-100 px-4 py-2 border-2 border-red-600 rounded-md"
+                    onclick="markForDelete(this)">
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
+
+        <div class="w-full font-bold text-blue-950 text-lg">Názov</div>
+
+
         <div class="flex gap-3 mb-2">
             <span class="w-10 font-semibold text-gray-700 pt-2">SK –</span>
-            <input type="text" name="sk[${index}][title]" class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2" placeholder="Nadpis SK">
+            <input type="text" name="sk[${index}][title]" required class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2" placeholder="Nadpis SK">
         </div>
         <div class="flex gap-3 mb-2">
             <span class="w-10 font-semibold text-gray-700 pt-2">EN –</span>
-            <input type="text" name="en[${index}][title]" class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2" placeholder="Title EN">
+            <input type="text" name="en[${index}][title]" required class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2" placeholder="Title EN">
         </div>
+
+
+        <div class="w-full font-bold text-blue-950 text-lg">Obsah</div>
+
+
         <div class="flex gap-3 mt-2">
             <span class="w-10 font-semibold text-gray-700 pt-2">SK –</span>
             <div class="flex-1">
@@ -126,11 +153,17 @@
         </div>
     `;
 
-            container.insertBefore(newSection, container.querySelector('div.flex.justify-end')); // pred submit button
+            anchor.before(newSection);
 
-            // inicializuj Quill editory pre novú sekciu
-            const quillSk = new Quill(`#editor-${category}-sk-${index}`, { theme: 'snow', modules: { toolbar: toolbarOptions } });
-            const quillEn = new Quill(`#editor-${category}-en-${index}`, { theme: 'snow', modules: { toolbar: toolbarOptions } });
+            // Inicializácia Quill editorov pre novú sekciu
+            const quillSk = new Quill(`#editor-${category}-sk-${index}`, {
+                theme: 'snow',
+                modules: { toolbar: toolbarOptions }
+            });
+            const quillEn = new Quill(`#editor-${category}-en-${index}`, {
+                theme: 'snow',
+                modules: { toolbar: toolbarOptions }
+            });
 
             preventImagePaste(quillSk);
             preventImagePaste(quillEn);
