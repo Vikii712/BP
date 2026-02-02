@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text('title_en')->nullable();
             $table->text('url');
             $table->enum('type', ['image', 'video', 'document']);
-
+            $table->softDeletes();
             $table->timestamps();
         });
     }
