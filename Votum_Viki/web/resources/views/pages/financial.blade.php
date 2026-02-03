@@ -38,6 +38,7 @@
         <!-- Obsah -->
         <div class="mt-16 flex flex-col items-center gap-12">
 
+            @isset($qrImage)
             <!-- QR sekcia -->
             <div class="border-4 border-votum1 bg-blue-100 p-6 rounded-lg shadow-lg w-full max-w-4xl">
                 <div class="flex flex-col lg:flex-row items-start gap-6 text-lg text-gray-800 leading-relaxed">
@@ -57,7 +58,7 @@
                     <div class="flex justify-center self-center lg:justify-end w-full lg:w-auto">
                         <div class="bg-white p-3 rounded-lg border-4 border-votum2 shadow-md">
                             <img
-                                src="{{ asset('images/qr.jpg') }}"
+                                src="{{ asset('storage/'. $qrImage) }}"
                                 alt="QR kód na podporu"
                                 class="w-56 h-56 sm:w-72 sm:h-72 object-contain"
                             >
@@ -65,6 +66,7 @@
                     </div>
                 </div>
             </div>
+            @endisset
 
             <!-- Bankové údaje -->
             <div class="border-4 border-votum1 bg-blue-100 p-6 rounded-lg shadow-lg self-center">
@@ -106,7 +108,7 @@
                     <div class="text-center mt-16">
                         <a href="{{ route('support') }}"
                            class="txt-btn inline-flex items-center gap-3 bg-gray-600 text-white px-10 py-8 rounded-lg font-semibold text-xl shadow-lg">
-                            <img src="{{ asset('images/podpora.svg') }}" width="30" alt="">
+                            <img src="{{ asset('images/nav/podpora.svg') }}" width="30" alt="">
                             <span>{{ __('nav.other') }}</span>
                         </a>
                     </div>

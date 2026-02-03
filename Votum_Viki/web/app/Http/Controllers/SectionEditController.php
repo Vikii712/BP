@@ -64,6 +64,7 @@ class SectionEditController extends Controller
             'category' => $this->category,
             'items'    => $items,
             'title'    => $title,
+            'backRoute' => $this->category != 'history' ? route('admin.about') : route('admin'),
         ]);
     }
 
@@ -259,8 +260,18 @@ class SectionEditController extends Controller
 
     public function destroy(string $category, int $id)
     {
-        $section = Section::findOrFail($id);
-        $section->delete();
+        $section = Section::where('category', $category)->findOrFail($id);
+
+        DB::transaction(function () use ($section, $category) {
+            $deletedPosition = $section->position;
+
+            $section->delete();
+
+            Section::where('category', $category)
+                ->whereNull('deleted_at')
+                ->where('position', '>', $deletedPosition)
+                ->decrement('position');
+        });
 
         return back()->with([
             'warning' => 'Sekcia bola vymazaná.',
@@ -270,13 +281,27 @@ class SectionEditController extends Controller
 
     public function restore(string $category, int $id)
     {
-        Section::withTrashed()
-            ->where('category', $category)
-            ->findOrFail($id)
-            ->restore();
+        DB::transaction(function () use ($category, $id) {
+            $section = Section::withTrashed()
+                ->where('category', $category)
+                ->findOrFail($id);
+
+            $originalPosition = $section->position;
+
+            Section::where('category', $category)
+                ->whereNull('deleted_at')
+                ->where('position', '>=', $originalPosition)
+                ->increment('position');
+
+            $section->restore();
+            $section->update([
+                'position' => $originalPosition,
+            ]);
+        });
 
         return back()->with('success', 'Sekcia bola obnovená.');
     }
+
 
 
 }

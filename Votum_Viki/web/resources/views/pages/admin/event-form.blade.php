@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@section('back-url', route('admin.events'))
 
 @section('adminContent')
     <div class="min-h-[calc(100vh-5.5rem)] pt-20 bg-gray-100 px-4 py-10 flex justify-center">

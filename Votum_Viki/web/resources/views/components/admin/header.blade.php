@@ -4,11 +4,11 @@
         <a href="{{ route('admin') }}" class="flex items-center gap-3"
            title="Otvoriť administrátorský panel VOTUM">
             <!-- Veľké settings koliesko -->
-            <i class="fas fa-cog text-indigo-200 text-3xl lg:text-4xl"></i>
+            <i class="fas fa-cog text-blue-200 text-3xl lg:text-4xl"></i>
 
             <!-- Text vedľa ikony -->
             <span class=" text-2xl lg:text-3xl font-bold logo-font tracking-wide">
-                <span class="text-indigo-200">VOTUM admin</span>
+                <span class="text-blue-200">VOTUM admin</span>
             </span>
         </a>
 
@@ -26,14 +26,14 @@
 </header>
 
 
-<button
-    onclick="history.back()"
+<a
+    href="@yield('back-url', route('admin'))"
     class="fixed border-2 border-blue-950 top-24 lg:top-28 left-4 bg-white rounded-full w-12 h-12 flex items-center justify-center
            hover:bg-blue-50 z-50 cursor-pointer"
     aria-label="Späť"
     title="Späť">
     <i class="fas fa-arrow-left text-blue-950 text-xl"></i>
-</button>
+</a>
 
 <!-- VOTUM main -->
 <a href="{{ route('main') }}" target="_blank"

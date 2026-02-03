@@ -2,10 +2,12 @@
     'category',
     'title',
     'sections' => collect(),
+    'qrImage',
 ])
 
 <?php
 $add = false;
+$qr = false;
 
 switch ($title){
     case 'PercentWhy':
@@ -23,6 +25,7 @@ switch ($title){
         break;
     case 'QrHow':
         $title = 'Finančná podpora pomocou QR kódu';
+        $qr = true;
         break;
     case 'FinancialWhy':
         $title = 'Prečo finančne podporiť?';
@@ -140,6 +143,37 @@ switch ($title){
                                       class="hidden">{!! $section->content_en ?? '' !!}</textarea>
                         </div>
                     </div>
+
+                    @if($qr)
+                        <div class="flex bg-gray-100 -mx-4 px-4 py-2 font-semibold text-lg text-blue-950">
+                            Obrázok QR kódu
+                        </div>
+
+                        <div class="flex gap-3">
+                            <input id="newImageFilename"
+                                   readonly
+                                   value="{{ $qrImage ? basename($qrImage->url) : '— žiadny qr kód —' }}"
+                                   class="border-2 border-gray-300 bg-gray-100 px-3 py-2 w-1/3 rounded-md">
+
+                            <label class="px-4 py-2 border-2 border-blue-950 rounded-md cursor-pointer hover:bg-blue-50">
+                                Nahrať
+                                <input type="file"
+                                       name="qr_image"
+                                       accept="image/*"
+                                       class="hidden"
+                                       onchange="onNewImage(this)">
+                            </label>
+
+                            <button type="button"
+                                    id="removeNewBtn"
+                                    onclick="removeNewImage()"
+                                    class="{{ $qrImage ? '' : 'hidden' }} px-4 py-2 border-2 border-red-600 text-red-600 rounded-md hover:bg-red-50">
+                                Odstrániť
+                            </button>
+                        </div>
+
+                        <input type="hidden" name="remove_qr_image" id="removeNewFlag" value="0">
+                    @endif
 
             </div>
         @endforeach

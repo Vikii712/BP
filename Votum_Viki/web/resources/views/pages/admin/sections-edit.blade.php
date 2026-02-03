@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
+@section('back-url', $backRoute)
+
 @section('adminContent')
     <div class="min-h-[calc(100vh-5.5rem)] pt-20 bg-gray-100 px-4 py-10 flex justify-center">
         <div class="w-full max-w-5xl space-y-10">

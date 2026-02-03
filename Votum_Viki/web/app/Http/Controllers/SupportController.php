@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\File;
 use App\Models\Section;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 
 class SupportController extends Controller
 {
@@ -78,6 +79,15 @@ class SupportController extends Controller
     {
         $locale = session('locale', 'sk');
 
+        $qrHowSectionId = Section::where('category', 'qrHow')->value('id');
+
+        $qrImage = $qrHowSectionId
+            ? DB::table('files')
+                ->where('section_id', $qrHowSectionId)
+                ->where('type', 'image')
+                ->value('url')
+            : null;
+
         $qrhow = Section::where('category', 'qrHow')
             ->get()
             ->map(fn($item) => [
@@ -109,12 +119,14 @@ class SupportController extends Controller
             ])->first();
 
         return view('pages.financial', [
-            'qrHow' => $qrhow,
-            'bank'   => $bank,
-            'thanks' => $thanks,
+            'qrHow'   => $qrhow,
+            'qrImage' => $qrImage,
+            'bank'    => $bank,
+            'thanks'  => $thanks,
             'why'     => $why,
         ]);
     }
+
     public function other()
     {
         $locale = session('locale', 'sk');

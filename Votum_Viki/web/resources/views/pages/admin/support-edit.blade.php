@@ -1,4 +1,6 @@
 @extends('layouts.admin')
+@section('back-url', route('admin.support'))
+
 
 @section('adminContent')
     <div class="min-h-[calc(100vh-5.5rem)] pt-20 bg-gray-100 px-4 py-10">
@@ -19,7 +21,9 @@
                 <x-admin.quill-section
                     :category="$sectionKey"
                     :title="ucfirst($sectionKey)"
-                    :sections="$sectionItems" />
+                    :sections="$sectionItems"
+                    :qrImage="$qrImage"
+                />
             @endforeach
 
         </div>
@@ -182,6 +186,31 @@
             section.querySelector('input[name$="[_delete]"]').value = 1;
             section.style.display = 'none';
         }
+
+        function onNewImage(input) {
+            const filenameInput = document.getElementById('newImageFilename');
+            const removeBtn = document.getElementById('removeNewBtn');
+            const removeFlag = document.getElementById('removeNewFlag');
+
+            if (input.files && input.files.length > 0) {
+                filenameInput.value = input.files[0].name;
+                removeBtn.classList.remove('hidden');
+                removeFlag.value = 0;
+            }
+        }
+
+        function removeNewImage() {
+            const fileInput = document.querySelector('input[name="qr_image"]');
+            const filenameInput = document.getElementById('newImageFilename');
+            const removeBtn = document.getElementById('removeNewBtn');
+            const removeFlag = document.getElementById('removeNewFlag');
+
+            fileInput.value = '';
+            filenameInput.value = '— žiadny qr kód —';
+            removeBtn.classList.add('hidden');
+            removeFlag.value = 1;
+        }
+
 
     </script>
 @endsection

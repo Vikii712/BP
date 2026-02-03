@@ -6,6 +6,7 @@ use App\Models\Section;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 
 class SupportEditController extends Controller
@@ -13,6 +14,7 @@ class SupportEditController extends Controller
     public function edit($type)
     {
         $sections = [];
+        $qrImage = null;
 
         switch($type) {
             case 'percent':
@@ -26,6 +28,12 @@ class SupportEditController extends Controller
             case 'financial':
                 $sections['financialWhy']    = Section::where('category', 'financialWhy')->orderBy('position')->get();
                 $sections['qrHow']  = Section::where('category', 'qrHow')->get();
+
+                $qrSectionId = Section::where('category', 'qrHow')->value('id');
+                $qrImage = $qrSectionId
+                    ? DB::table('files')->where('section_id', $qrSectionId)->where('type', 'image')->first()
+                    : null;
+
                 $sections['bank']   = Section::where('category', 'bank')->get();
                 $sections['financialThanks'] = Section::where('category', 'financialThanks')->orderBy('position')->get();
                 $type = 'Finančná podpora';
@@ -43,6 +51,7 @@ class SupportEditController extends Controller
         return view('pages.admin.support-edit', [
             'type' => $type,
             'sections' => $sections,
+            'qrImage' => $qrImage,
         ]);
     }
 
@@ -50,7 +59,6 @@ class SupportEditController extends Controller
     {
         DB::transaction(function() use ($request, $id) {
 
-            // existujúce sekcie podľa category
             $sections = Section::where('category', $id)->get()->keyBy('id');
 
             $skData = $request->input('sk', []);
@@ -88,11 +96,71 @@ class SupportEditController extends Controller
                 }
             }
 
+            if ($request->hasFile('qr_image') || $request->input('remove_qr_image')) {
+                $this->handleQrImage($request, 'qrHow');
+            }
+
+
         });
 
         return redirect()
             ->back()
             ->with('success', 'Zmeny boli uložené.');
+    }
+
+    private function handleQrImage(Request $request, $category)
+    {
+        $qrSectionId = Section::where('category', $category)->value('id');
+
+        if (!$qrSectionId) {
+            return;
+        }
+
+        if ($request->input('remove_qr_image') == 1) {
+            $existingFile = DB::table('files')
+                ->where('section_id', $qrSectionId)
+                ->where('type', 'image')
+                ->first();
+
+            if ($existingFile) {
+                if (Storage::disk('public')->exists($existingFile->url)) {
+                    Storage::disk('public')->delete($existingFile->url);
+                }
+
+                DB::table('files')->where('id', $existingFile->id)->delete();
+            }
+
+            return;
+        }
+
+        if ($request->hasFile('qr_image')) {
+            $file = $request->file('qr_image');
+
+            $existingFile = DB::table('files')
+                ->where('section_id', $qrSectionId)
+                ->where('type', 'image')
+                ->first();
+
+            if ($existingFile) {
+                if (Storage::disk('public')->exists($existingFile->url)) {
+                    Storage::disk('public')->delete($existingFile->url);
+                }
+                DB::table('files')->where('id', $existingFile->id)->delete();
+            }
+
+            $path = $file->store('images/support', 'public');
+
+            DB::table('files')->insert([
+                'section_id' => $qrSectionId,
+                'url' => $path,
+                'title_sk' => 'QR kód podpory VOTUM',
+                'title_en' => 'QR code to support VOTUM',
+                'type' => 'image',
+                'event_id' => null,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
     }
 
 }

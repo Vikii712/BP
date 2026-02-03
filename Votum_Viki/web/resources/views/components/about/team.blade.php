@@ -17,7 +17,7 @@
                         <img src="{{ asset('storage/' .$member['image']) }}" alt="{{ $member['title'] }}"
                              class="w-60 h-80 object-cover mb-4 sm:float-left sm:mr-6 sm:mb-4 mx-auto sm:mx-0 block">
 
-                        <div class="text-lg text-votum1 [&>p]:mb-6 [&>ul]:mb-6 [&>ol]:mb-6 [&>h1]:mb-6 [&>h2]:mb-6 [&>h3]:mb-6 [&>h4]:mb-6">
+                        <div class="text-lg  prose max-w-none [&>p]:mb-6 [&>ul]:mb-6 [&>ol]:mb-6 [&>h1]:mb-6 [&>h2]:mb-6 [&>h3]:mb-6 [&>h4]:mb-6">
                             {!! $member['content'] !!}
                         </div>
 
@@ -29,7 +29,7 @@
                         <div class="-top-10 relative">
                             <x-listen text="{{strip_tags($member['title'] . ' .' . $member['content']) }}" id="{{250 + $i }}" />
                         </div>
-                        <div class="text-lg text-votum1 [&>p]:mb-6 [&>ul]:mb-6 [&>ol]:mb-6 [&>h1]:mb-6 [&>h2]:mb-6 [&>h3]:mb-6 [&>h4]:mb-6">
+                        <div class="text-lg  prose max-w-none [&>p]:mb-6 [&>ul]:mb-6 [&>ol]:mb-6 [&>h1]:mb-6 [&>h2]:mb-6 [&>h3]:mb-6 [&>h4]:mb-6">
                             {!! $member['content'] !!}
                         </div>
                     </div>

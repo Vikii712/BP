@@ -39,7 +39,7 @@ body {
 }
 
 .animate-fadeInOut {
-    animation: fadeInOut 2s ease-in-out forwards; /* trvá 2 sekundy a prebehne hladko */
+    animation: fadeInOut 2s ease-in-out forwards;
 }
 
 .bg-votum-blue { background-color: #051647; }
@@ -78,7 +78,6 @@ body {
     margin-bottom: 0;
 }
 
-/* Alebo jednoduchšie riešenie bez prose */
 .txt p {
     display: block;
     margin-bottom: 1rem;
@@ -95,9 +94,9 @@ body {
 .txt-btn {
     font-size: 20px;
     justify-content: center;
-    gap: 0.75rem; /* rovnaké ako gap-3 */
-    padding: 1.25rem 2.5rem; /* py-5 px-10 */
-    font-weight: 600; /* font-semibold */
+    gap: 0.75rem;
+    padding: 1.25rem 2.5rem;
+    font-weight: 600;
     outline: none;
     cursor: pointer;
 }

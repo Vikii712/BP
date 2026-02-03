@@ -212,6 +212,23 @@ class FileSeeder extends Seeder
             ]);
         }
 
+        $qrSectionId = DB::table('sections')
+            ->where('category', 'qrHow')
+            ->value('id');
+
+        if ($qrSectionId) {
+            DB::table('files')->insert([
+                'section_id' => $qrSectionId,
+                'url' => 'images/support/qr.jpg',
+                'title_sk' => 'QR kód podpory VOTUM',
+                'title_en' => 'QR code to support VOTUM',
+                'type' => 'image',
+                'event_id' => null,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
 
     }
 }
