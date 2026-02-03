@@ -212,26 +212,15 @@ class SectionEditController extends Controller
         return redirect()->back()->with('success', 'Sekcia bola upravená.');
     }
 
-    // =========================
-    // DELETE
-    // =========================
-    public function delete($id)
+// =========================
+// MOVE UP
+// =========================
+    public function moveUp($category, $id)
     {
-        $item = Section::where('category', $this->category)->findOrFail($id);
-        $item->delete();
-
-        return redirect()->back()->with('success', 'Sekcia bola vymazaná.');
-    }
-
-    // =========================
-    // MOVE UP / DOWN
-    // =========================
-    public function moveUp($id)
-    {
-        $item = Section::where('category', $this->category)->findOrFail($id);
+        $item = Section::where('category', $category)->findOrFail($id);
 
         if ($item->position > 1) {
-            $swap = Section::where('category', $this->category)
+            $swap = Section::where('category', $category)
                 ->where('position', $item->position - 1)
                 ->first();
 
@@ -245,13 +234,16 @@ class SectionEditController extends Controller
         return redirect()->back();
     }
 
-    public function moveDown($id)
+// =========================
+// MOVE DOWN
+// =========================
+    public function moveDown($category, $id)
     {
-        $item = Section::where('category', $this->category)->findOrFail($id);
-        $max = Section::where('category', $this->category)->max('position');
+        $item = Section::where('category', $category)->findOrFail($id);
+        $max = Section::where('category', $category)->max('position');
 
         if ($item->position < $max) {
-            $swap = Section::where('category', $this->category)
+            $swap = Section::where('category', $category)
                 ->where('position', $item->position + 1)
                 ->first();
 
@@ -264,4 +256,27 @@ class SectionEditController extends Controller
 
         return redirect()->back();
     }
+
+    public function destroy(string $category, int $id)
+    {
+        $section = Section::findOrFail($id);
+        $section->delete();
+
+        return back()->with([
+            'warning' => 'Sekcia bola vymazaná.',
+            'deleted_section_id' => $section->id,
+        ]);
+    }
+
+    public function restore(string $category, int $id)
+    {
+        Section::withTrashed()
+            ->where('category', $category)
+            ->findOrFail($id)
+            ->restore();
+
+        return back()->with('success', 'Sekcia bola obnovená.');
+    }
+
+
 }

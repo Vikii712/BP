@@ -36,10 +36,11 @@
                 <td class="px-6 py-4 font-medium">{{ $item->title_sk }}</td>
                 <td class="px-6 py-4 text-right flex justify-end gap-3">
                     <button class="toggle-edit" data-id="{{ $item->id }}"><i class="fas fa-pen"></i></button>
-                    <form method="POST" action="{{ route('section.delete', ['category' => $category, 'id' => $item->id]) }}">
-                        @csrf @method('DELETE')
-                        <button class="text-red-600"><i class="fas fa-trash"></i></button>
-                    </form>
+                    <button
+                        onclick="openSectionDeleteModal({{ $item->id }}, '{{ addslashes($item->title_sk) }}')"
+                        class="text-red-600 hover:text-red-800">
+                        <i class="fas fa-trash"></i>
+                    </button>
                 </td>
             </tr>
 
@@ -68,7 +69,7 @@
                         @endif
 
                         {{-- Nadpis --}}
-                        <div class="flex items-center rounded-t-md bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
+                        <div class="flex items-center rounded-t-md bg-gray-100 -mx-6 -mt-6 px-6 py-2 font-medium text-blue-950">
                             Nadpis sekcie
                         </div>
 
@@ -167,12 +168,14 @@
                                 <div class="flex gap-3">
                                     <span class="w-10 font-semibold text-blue-950 pt-2">SK –</span>
                                     <textarea name="image_alt_sk" rows="3"
+                                              required
                                               class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ old('image_alt_sk', $item->image?->alt_sk) }}</textarea>
                                 </div>
 
                                 <div class="flex gap-3">
                                     <span class="w-10 font-semibold text-blue-950 pt-2">EN –</span>
                                     <textarea name="image_alt_en" rows="3"
+                                              required
                                               class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ old('image_alt_en', $item->image?->alt_en) }}</textarea>
                                 </div>
                             </div>

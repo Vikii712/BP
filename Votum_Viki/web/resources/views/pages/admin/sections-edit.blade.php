@@ -8,6 +8,30 @@
                 Úprava stránky – {{ $title }}
             </h1>
 
+            @if(session('success'))
+                <div class="mb-4 rounded-md bg-green-100 border border-green-400 text-green-900 px-4 py-3">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if(session('warning'))
+                <div class="mb-4 rounded-md bg-yellow-100 border border-yellow-400 text-yellow-900 px-4 py-3 flex justify-between items-center">
+                    <span>{{ session('warning') }}</span>
+
+                    @if(session('deleted_section_id'))
+                        <form action="{{ route('section.restore', ['category' => $category, 'id' => session('deleted_section_id')]) }}"
+                              method="POST">
+                            @csrf
+                            <button type="submit"
+                                    class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
+                                Vrátiť späť
+                            </button>
+                        </form>
+                    @endif
+                </div>
+            @endif
+
+
             <x-admin.new-section
                 :category="$category"
                 :title="$title"
@@ -54,6 +78,34 @@
             </div>
         </div>
     </div>
+
+    <!-- Section Delete Confirmation Modal -->
+    <div id="sectionDeleteModal"
+         class="hidden fixed inset-0 bg-transparent bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-gray-200 p-6 rounded-md shadow-md space-y-4 w-96">
+            <p class="mb-6 text-blue-950">
+                Naozaj chcete vymazať sekciu:
+                <span id="sectionDeleteName" class="font-bold"></span>?
+            </p>
+
+            <div class="flex justify-end gap-3">
+                <button onclick="closeSectionDeleteModal()"
+                        class="px-4 py-2 bg-white rounded-md hover:bg-gray-300">
+                    Zrušiť
+                </button>
+
+                <form id="sectionDeleteForm" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit"
+                            class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">
+                        Vymazať
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script>
         // ================= TOOLBAR =================
         const toolbarOptions = [
@@ -378,7 +430,89 @@
             });
         });
 
-        console.log('Script načítaný úspešne');
+        // ===== EDIT IMAGE HANDLING =====
+        function onEditImage(input, id) {
+            if (!input.files || !input.files[0]) return;
+
+            // názov súboru
+            const filenameInput = document.getElementById(`aboutFilename-${id}`);
+            if (filenameInput) {
+                filenameInput.value = input.files[0].name;
+            }
+
+            // zobraz ALT sekciu
+            const altWrapper = document.getElementById(`altWrapper-${id}`);
+            if (altWrapper) {
+                altWrapper.classList.remove('hidden');
+            }
+
+            // zobraz tlačidlo odstrániť
+            const removeBtn = document.getElementById(`removeBtn-${id}`);
+            if (removeBtn) {
+                removeBtn.classList.remove('hidden');
+            }
+
+            // zruš remove flag
+            const removeFlag = document.getElementById(`removeFlag-${id}`);
+            if (removeFlag) {
+                removeFlag.value = 0;
+            }
+
+            // ALT povinné
+            document
+                .querySelectorAll(`#altWrapper-${id} textarea`)
+                .forEach(t => t.setAttribute('required', 'required'));
+        }
+
+        function removeEditImage(id) {
+            // vyčisti file input
+            const fileInput = document.querySelector(`#editForm-${id} input[name="image"]`);
+            if (fileInput) fileInput.value = '';
+
+            // nastav remove flag
+            const removeFlag = document.getElementById(`removeFlag-${id}`);
+            if (removeFlag) {
+                removeFlag.value = 1;
+            }
+
+            // reset názvu
+            const filenameInput = document.getElementById(`aboutFilename-${id}`);
+            if (filenameInput) {
+                filenameInput.value = '— žiadny obrázok —';
+            }
+
+            // skry ALT sekciu
+            const altWrapper = document.getElementById(`altWrapper-${id}`);
+            if (altWrapper) {
+                altWrapper.classList.add('hidden');
+            }
+
+            // skry tlačidlo odstrániť
+            const removeBtn = document.getElementById(`removeBtn-${id}`);
+            if (removeBtn) {
+                removeBtn.classList.add('hidden');
+            }
+
+            // ALT už netreba
+            document
+                .querySelectorAll(`#altWrapper-${id} textarea`)
+                .forEach(t => t.removeAttribute('required'));
+        }
+
+            function openSectionDeleteModal(id, name) {
+            const modal = document.getElementById('sectionDeleteModal');
+            const form = document.getElementById('sectionDeleteForm');
+            const nameSpan = document.getElementById('sectionDeleteName');
+
+            nameSpan.textContent = name;
+            form.action = `/votumaci/edit/{{ $category }}/${id}`;
+            modal.classList.remove('hidden');
+        }
+
+            function closeSectionDeleteModal() {
+            document.getElementById('sectionDeleteModal').classList.add('hidden');
+        }
+
     </script>
 
 @endsection

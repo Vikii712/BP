@@ -28,6 +28,7 @@ return new class extends Migration
                     'support', 'documentSection'
                 ]);
             $table->timestamps();
+            $table->softDeletes();
         });
 
 

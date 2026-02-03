@@ -52,10 +52,10 @@ class HomeEditController extends Controller
 
         if ($heroSection) {
             $heroSection->update([
-                'title_sk'   => $request->input('sk.motto'),
-                'content_sk' => $request->input('sk.intro'),
-                'title_en'   => $request->input('en.motto'),
-                'content_en' => $request->input('en.intro'),
+                'title_sk'   => $request->input('sk.motto') ?? '',
+                'content_sk' => $request->input('sk.intro') ?? '',
+                'title_en'   => $request->input('en.motto') ?? '',
+                'content_en' => $request->input('en.intro') ?? '',
             ]);
 
             $heroFile = DB::table('files')
