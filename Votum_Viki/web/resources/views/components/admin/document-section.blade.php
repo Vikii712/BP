@@ -131,7 +131,7 @@
                                         Nahrať
                                         <input type="file"
                                                name="sections[{{ $sectionIndex }}][documents][{{ $docIndex }}][file]"
-                                               accept=".pdf,.doc,.docx,.jpg,.png"
+                                               accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png"
                                                {{ ($doc->url ?? false) ? '' : 'required' }}
                                                class="hidden file-input">
                                     </label>

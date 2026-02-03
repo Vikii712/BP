@@ -6,6 +6,7 @@ use App\Models\File;
 use App\Models\Section;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class SupportController extends Controller
 {
@@ -62,9 +63,29 @@ class SupportController extends Controller
             ])->first();
 
 
+        $two = Section::where('title_sk', 'Dve Percentá')->first();
+
         $documents = File::where('type', 'document')
-            ->whereNotNull('section_id')
-            ->get();
+            ->where('section_id', $two->id)
+            ->get()
+            ->map(function ($doc) use ($locale) {
+
+                $doc->title = $locale === 'sk'
+                    ? $doc->title_sk
+                    : $doc->title_en;
+
+                $doc->size_kb = $doc->url && Storage::disk('public')->exists($doc->url)
+                    ? round(Storage::disk('public')->size($doc->url) / 1024)
+                    : null;
+
+                $doc->download_url = asset('storage/' . $doc->url);
+
+                $doc->file_type = $doc->url
+                    ? strtolower(pathinfo($doc->url, PATHINFO_EXTENSION))
+                    : null;
+
+                return $doc;
+            });
 
         return view('pages.2percent', [
             'why'       => $why,

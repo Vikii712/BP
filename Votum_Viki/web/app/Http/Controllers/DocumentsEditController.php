@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use App\Models\File;
 
 class DocumentsEditController extends Controller
 {
@@ -15,8 +16,7 @@ class DocumentsEditController extends Controller
             ->orderBy('position')
             ->get()
             ->map(function ($section) {
-                $section->documents = DB::table('files')
-                    ->where('section_id', $section->id)
+                $section->documents = File::where('section_id', $section->id)
                     ->where('type', 'document')
                     ->orderBy('id')
                     ->get();
@@ -35,7 +35,7 @@ class DocumentsEditController extends Controller
             'sections.*.name_en' => 'nullable|string|max:255',
             'sections.*.documents.*.name_sk' => 'nullable|string|max:255',
             'sections.*.documents.*.name_en' => 'nullable|string|max:255',
-            'sections.*.documents.*.file' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:10240',
+            'sections.*.documents.*.file' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png|max:10240',
         ]);
 
         DB::transaction(function () use ($request) {
@@ -82,103 +82,68 @@ class DocumentsEditController extends Controller
 
                     // Ak dokument existuje, aktualizuj ho
                     if (!empty($docData['id'])) {
-                        $updateData = [
-                            'title_sk' => $docData['name_sk'] ?? '',
-                            'title_en' => $docData['name_en'] ?? '',
-                            'updated_at' => now(),
-                        ];
+                        $file = File::find($docData['id']);
 
-                        // Ak je nahraný nový súbor
-                        if ($request->hasFile("sections.{$sectionIndex}.documents.{$docIndex}.file")) {
-                            $file = $request->file("sections.{$sectionIndex}.documents.{$docIndex}.file");
+                        if ($file) {
+                            $file->title_sk = $docData['name_sk'] ?? '';
+                            $file->title_en = $docData['name_en'] ?? '';
 
-                            // Vymaž starý súbor
-                            $oldDoc = DB::table('files')->where('id', $docData['id'])->first();
-                            if ($oldDoc && $oldDoc->url) {
-                                Storage::disk('public')->delete($oldDoc->url);
+                            // Ak je nahraný nový súbor
+                            if ($request->hasFile("sections.{$sectionIndex}.documents.{$docIndex}.file")) {
+                                $uploadedFile = $request->file("sections.{$sectionIndex}.documents.{$docIndex}.file");
+
+                                // SOFT DELETE: Neukladáme starý súbor, len nahrávame nový
+                                $path = $uploadedFile->store('documents', 'public');
+                                $file->url = $path;
                             }
 
-                            // Ulož nový súbor
-                            $path = $file->store('documents', 'public');
-                            $updateData['url'] = $path;
+                            $file->save();
+                            $docId = $file->id;
                         }
-
-                        DB::table('files')
-                            ->where('id', $docData['id'])
-                            ->update($updateData);
-
-                        $docId = $docData['id'];
                     } else {
                         // Vytvorenie nového dokumentu
-                        $insertData = [
+                        $fileData = [
                             'section_id' => $sectionId,
                             'title_sk' => $docData['name_sk'] ?? '',
                             'title_en' => $docData['name_en'] ?? '',
                             'type' => 'document',
-                            'created_at' => now(),
-                            'updated_at' => now(),
                         ];
 
                         // Ak je nahraný súbor
                         if ($request->hasFile("sections.{$sectionIndex}.documents.{$docIndex}.file")) {
-                            $file = $request->file("sections.{$sectionIndex}.documents.{$docIndex}.file");
-                            $path = $file->store('documents', 'public');
-                            $insertData['url'] = $path;
+                            $uploadedFile = $request->file("sections.{$sectionIndex}.documents.{$docIndex}.file");
+                            $path = $uploadedFile->store('documents', 'public');
+                            $fileData['url'] = $path;
                         }
 
-                        $docId = DB::table('files')->insertGetId($insertData);
+                        $newFile = File::create($fileData);
+                        $docId = $newFile->id;
                     }
 
                     $incomingDocIds[] = $docId;
                 }
 
-                // Vymaž dokumenty, ktoré už nie sú v sekcii
-                $documentsToDelete = DB::table('files')
-                    ->where('section_id', $sectionId)
+                // SOFT DELETE dokumentov, ktoré už nie sú v sekcii
+                File::where('section_id', $sectionId)
                     ->where('type', 'document')
                     ->whereNotIn('id', $incomingDocIds)
-                    ->get();
-
-                foreach ($documentsToDelete as $doc) {
-                    if ($doc->url) {
-                        Storage::disk('public')->delete($doc->url);
-                    }
-                }
-
-                DB::table('files')
-                    ->where('section_id', $sectionId)
-                    ->where('type', 'document')
-                    ->whereNotIn('id', $incomingDocIds)
-                    ->delete();
+                    ->delete(); // Soft delete
             }
 
-            // Vymaž sekcie, ktoré už nie sú v requeste
+            // SOFT DELETE sekcií a ich dokumentov
             $sectionsToDelete = DB::table('sections')
                 ->where('category', 'documentSection')
                 ->whereNotIn('id', $incomingSectionIds)
-                ->get();
+                ->pluck('id');
 
-            foreach ($sectionsToDelete as $section) {
-                // Najprv vymaž všetky súbory v sekcii
-                $docs = DB::table('files')
-                    ->where('section_id', $section->id)
+            foreach ($sectionsToDelete as $sectionId) {
+                // Soft delete všetkých dokumentov v sekcii
+                File::where('section_id', $sectionId)
                     ->where('type', 'document')
-                    ->get();
-
-                foreach ($docs as $doc) {
-                    if ($doc->url) {
-                        Storage::disk('public')->delete($doc->url);
-                    }
-                }
-
-                // Vymaž dokumenty
-                DB::table('files')
-                    ->where('section_id', $section->id)
-                    ->where('type', 'document')
-                    ->delete();
+                    ->delete(); // Soft delete
             }
 
-            // Vymaž sekcie
+            // Vymaž sekcie (toto je hard delete, ak chceš soft delete aj na sekciách, musíš pridať SoftDeletes do Section modelu)
             DB::table('sections')
                 ->where('category', 'documentSection')
                 ->whereNotIn('id', $incomingSectionIds)

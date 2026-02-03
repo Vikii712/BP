@@ -3,13 +3,9 @@
 @section('content')
     <main class="container mx-auto px-4 py-12">
 
-        <h1 class="h1 md:text-5xl font-bold text-votum-blue text-center mb-4">
+        <h1 class="h1 md:text-5xl font-bold text-votum-blue text-center mb-12">
             {{ __('nav.docDown') }}
         </h1>
-
-        <p class="txt text-center text-black mb-12 max-w-2xl mx-auto">
-            {{ __('nav.docDownText') }}
-        </p>
 
         <div class="max-w-5xl mx-auto space-y-12">
 
@@ -28,6 +24,7 @@
                                 :text="$document->title"
                                 :url="$document->download_url"
                                 :size="$document->size_kb"
+                                :type="$document->file_type"
                             />
                         @endforeach
                     </div>

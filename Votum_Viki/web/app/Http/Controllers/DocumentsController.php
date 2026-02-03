@@ -33,6 +33,10 @@ class DocumentsController extends Controller
 
                         $doc->download_url = asset('storage/' . $doc->url);
 
+                        $doc->file_type = $doc->url
+                            ? strtolower(pathinfo($doc->url, PATHINFO_EXTENSION))
+                            : null;
+
                         return $doc;
                     });
 

@@ -69,7 +69,13 @@
 
                 <div class="grid lg:grid-cols-2 gap-6">
                     @foreach($documents as $doc)
-                        <x-documents.document :file="$doc" :color="false"/>
+                        <x-documents.document
+                            :text="$doc->title"
+                            :url="$doc->download_url"
+                            :size="$doc->size_kb"
+                            :type="$doc->file_type"
+                            :color="false"
+                        />
                     @endforeach
                 </div>
 
