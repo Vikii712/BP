@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\Section;
+use Carbon\Carbon;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 
@@ -13,6 +14,7 @@ class HomeController extends Controller
     {
         $locale = session('locale', 'sk');
         $isSK = $locale === 'sk';
+        $today = Carbon::today();
 
         // --- HERO ---
         $heroData = Section::where('category', 'hero')->first();
@@ -64,19 +66,74 @@ class HomeController extends Controller
         }
 
 
-        // --- EVENTS ---
-        $events = Event::with('dates')
-            ->where('inCalendar', true)
-            ->get()
-            ->map(function ($event) use ($locale) {
-                return [
+        // EVENTS
+        $events = Event::with('dates')->get()->map(function ($event) use ($locale, $today) {
+            $dates = $event->dates
+                ->pluck('date')
+                ->map(fn ($d) => Carbon::parse($d)->startOfDay())
+                ->sort()
+                ->values();
+
+            $futureDates = $dates->filter(fn ($d) => $d->gte($today));
+
+            return (object)[
+                'id' => $event->id,
+                'title' => $locale === 'sk' ? $event->title_sk : $event->title_en,
+                'description' => $locale === 'sk' ? $event->content_sk : $event->content_en,
+                'color' => $event->color,
+
+                'dates' => $dates->map(fn($d) => $d->format('Y-m-d')),  // Pre JS kalendár
+                'futureDates' => $futureDates,
+                'nextDate' => $futureDates->first(),
+
+                'inCalendar' => (bool) $event->inCalendar,
+                'inGallery' => (bool) $event->inGallery,
+                'inHome' => (bool) $event->inHome,
+            ];
+        });
+
+        // CalendarEvents - len tie s inCalendar
+        $calendarEvents = $events->filter->inCalendar->values();
+
+        // UpcomingEvents - len tie s inCalendar a budúcimi dátumami
+        $upcomingEvents = $events
+            ->filter(fn ($e) => $e->inCalendar && $e->nextDate)
+            ->sortBy('nextDate')
+            ->values()
+            ->map(function ($event) {
+                // Formátovanie dátumu pre zobrazenie
+                $dates = $event->futureDates->map(fn($d) => Carbon::parse($d));
+                $dateLabel = $dates->count() === 1
+                    ? $dates->first()->format('j. n.')
+                    : $dates->first()->format('j. n.') . ' – ' . $dates->last()->format('j. n.');
+
+                return (object)[
                     'id' => $event->id,
-                    'title' => $locale === 'sk' ? $event->title_sk : $event->title_en,
-                    'description' => $locale === 'sk' ? $event->content_sk : $event->content_en,
-                    'color' => $event->color,
-                    'dates' => $event->dates->pluck('date')->map(function($date) {
-                        return date('Y-m-d', strtotime($date));
-                    })->toArray(),
+                    'title' => $event->title,
+                    'description' => $event->description,
+                    'dateLabel' => $dateLabel,
+                    'inGallery' => $event->inGallery,
+                ];
+            });
+
+        $homeEvents = $events
+            ->filter(fn ($e) => $e->inHome && $e->inGallery)
+            ->values()
+            ->map(function ($event) {
+                // Formátovanie dátumu pre home eventy
+                $dates = $event->futureDates->isNotEmpty()
+                    ? $event->futureDates->map(fn($d) => Carbon::parse($d))
+                    : collect($event->dates)->map(fn($d) => Carbon::parse($d));
+
+                $dateLabel = $dates->count() === 1
+                    ? $dates->first()->format('j. n.')
+                    : $dates->first()->format('j. n.') . ' – ' . $dates->last()->format('j. n.');
+
+                return (object)[
+                    'id' => $event->id,
+                    'title' => $event->title,
+                    'description' => $event->description,
+                    'dateLabel' => $dateLabel,
                 ];
             });
 
@@ -85,7 +142,9 @@ class HomeController extends Controller
             'heroImage' => $heroImage,
             'team' => $team,
             'teamImage' => $teamImage,
-            'events' => $events,
+            'calendarEvents' => $calendarEvents,
+            'upcomingEvents' => $upcomingEvents,
+            'homeEvents' => $homeEvents,
         ]);
 
     }

@@ -76,4 +76,5 @@ return [
     'err' => 'Našli ste chybu?',
     'acc' => 'Vyhlásenie o prístupnosti',
 
+    'noEvents' => 'Aktuálne sa tu nenachádzajú žiadne udalosti :('
 ];

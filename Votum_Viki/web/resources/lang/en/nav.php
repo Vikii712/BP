@@ -73,6 +73,8 @@ return [
 
     'nav' => 'Navigation',
     'err' => 'Found an error?',
-    'acc' => 'Accessibility Statement'
+    'acc' => 'Accessibility Statement',
+
+    'noEvents' => 'There are currently no events here. :('
 
 ];

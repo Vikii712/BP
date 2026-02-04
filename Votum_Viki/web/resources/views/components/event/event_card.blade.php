@@ -11,9 +11,9 @@
     </div>
 
     <div class="pt-3 p-6 grid">
-        <h3 class="h3 font-bold text-votum-blue mb-2 ">Tábor 2024</h3>
+        <h3 class="h3 font-bold text-votum-blue mb-2 text-center">{{$event->title}}</h3>
 
-        <p class="txt text-bold mb-2 text-lg ">Nezabudnuteľné leto plné zábavy, priateľstva a dobrodružstva.</p>
+        <p class="txt font-semibold text-votum-blue  mb-4 text-lg text-center">{{$event->dateLabel}}</p>
 
         <a href="{{ route('event') }}" class="w-full text-center txt-btn text-bold {{$color ? 'bg-dark-votum3' : 'bg-dark-votum1 ' }} text-white px-7 py-4 rounded-lg   justify-self-end">
             {{__('nav.more')}} <i class="pl-2 fas fa-arrow-right"></i>

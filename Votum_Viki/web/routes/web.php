@@ -3,6 +3,7 @@
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\DocumentsController;
+use App\Http\Controllers\EventsController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SupportController;
@@ -26,9 +27,8 @@ Route::get('/about', [AboutController::class, 'index'])->name('about');
 
 Route::get('/history', [HistoryController::class, 'index'])->name('history');
 
-Route::get('/events', function () {
-    return view('pages.events');
-})->name('events');
+Route::get('/events', [EventsController::class, 'index'])->name('events');
+
 
 Route::get('/event', function () {
     return view('pages.event');

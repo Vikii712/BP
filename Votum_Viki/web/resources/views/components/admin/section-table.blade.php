@@ -16,6 +16,9 @@
         <thead class="bg-blue-950 text-blue-50">
         <tr>
             <th class="px-6 py-3 text-start">Poradie</th>
+            @if($isHistory)
+                <th class="px-6 py-3 text-start">Rok</th>
+            @endif
             <th class="px-6 py-3 text-start">Názov</th>
             <th class="px-6 py-3 text-right">Akcia</th>
         </tr>
@@ -33,6 +36,11 @@
                         <button type="submit" class="text-blue-950 hover:text-gray-700 text-lg"><i class="fas fa-arrow-down"></i></button>
                     </form>
                 </td>
+
+                @if($isHistory)
+                    <td class="px-6 py-4 font-medium">{{ $item->year }}</td>
+                @endif
+
                 <td class="px-6 py-4 font-medium">{{ $item->title_sk }}</td>
                 <td class="px-6 py-4 text-right flex justify-end gap-3">
                     <button class="toggle-edit" data-id="{{ $item->id }}"><i class="fas fa-pen"></i></button>
@@ -46,7 +54,7 @@
 
             {{-- Edit Form --}}
             <tr id="edit-row-{{ $item->id }}" class="hidden bg-gray-50">
-                <td colspan="3" class="px-6 py-6">
+                <td colspan="{{$isHistory ? 4 : 3}}" class="px-6 py-6">
                     <form method="POST"
                           action="{{ route('section.update', ['category' => $category, 'id' => $item->id]) }}"
                           enctype="multipart/form-data"
@@ -69,7 +77,7 @@
                         @endif
 
                         {{-- Nadpis --}}
-                        <div class="flex items-center rounded-t-md bg-gray-100 -mx-6 -mt-6 px-6 py-2 font-medium text-blue-950">
+                        <div class="flex items-center rounded-t-md bg-gray-100 -mx-6  {{$isHistory ? '' : '-mt-6 ' }} px-6 py-2 font-medium text-blue-950">
                             Nadpis sekcie
                         </div>
 

@@ -1,3 +1,5 @@
+@props(['events'])
+
 <x-wave />
 
 <!-- Featured Activities Section -->
@@ -25,9 +27,9 @@
         </div>
 
         <div class="grid md:grid-cols-2 gap-y-8 mb-5">
-            @for($i = 0; $i < 2; $i++)
-                <x-event.event_card :color='false' />
-            @endfor
+            @foreach($events as $event)
+                <x-event.event_card :color='false' :event="$event"/>
+            @endforeach
         </div>
 
         <div class="text-center p-4">
