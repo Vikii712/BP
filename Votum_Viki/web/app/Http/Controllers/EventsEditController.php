@@ -6,6 +6,8 @@ use App\Models\Event;
 use App\Models\Sponsor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Models\File;
+
 
 class EventsEditController extends Controller
 {
@@ -51,11 +53,30 @@ class EventsEditController extends Controller
 
     public function edit(Event $event)
     {
-        $event->load(['dates', 'sponsors', 'files']);
+        $event->load(['dates', 'sponsors.file', 'files']);
+
+        // Priprav video URL ako array
+        $videoUrls = $event->files()
+            ->where('type', 'video')
+            ->pluck('url')
+            ->toArray();
+
+        // Priprav gallery_url (ak máš len 1 fotogalériu)
+        $galleryUrl = $event->files()
+            ->where('type', 'image')
+            ->value('url');
+
+        // Priprav dokumenty
+        $documents = $event->files()
+            ->where('type', 'document')
+            ->get();
 
         return view('pages.admin.event-form', [
             'event' => $event,
             'isEdit' => true,
+            'videoUrls' => $videoUrls,
+            'galleryUrl' => $galleryUrl,
+            'documents' => $documents,
         ]);
     }
 
@@ -82,6 +103,7 @@ class EventsEditController extends Controller
             'archived'   => $request->boolean('archived'),
         ]);
 
+        /* -------- DATES -------- */
         if ($request->filled('dates')) {
             $dates = json_decode($request->dates, true);
 
@@ -96,10 +118,74 @@ class EventsEditController extends Controller
             }
         }
 
+        /* -------- PHOTO LINK (1× image) -------- */
+        if ($request->filled('gallery_url')) {
+            $event->files()->create([
+                'type' => 'image',
+                'url'  => $request->gallery_url,
+            ]);
+        }
+
+        /* -------- VIDEOS -------- */
+        if ($request->filled('video_url')) {
+            foreach ($request->video_url as $url) {
+                if (!$url) continue;
+
+                $event->files()->create([
+                    'type' => 'video',
+                    'url'  => $url,
+                ]);
+            }
+        }
+
+        /* -------- DOCUMENTS -------- */
+        if ($request->hasFile('documents')) {
+            foreach ($request->file('documents') as $i => $file) {
+                if (!$file) continue;
+
+                $path = $file->store('documents', 'public');
+
+                $event->files()->create([
+                    'type' => 'document',
+                    'url' => $path,
+                    'title_sk' => $request->doc_name_sk[$i] ?? null,
+                    'title_en' => $request->doc_name_en[$i] ?? null,
+                ]);
+            }
+        }
+
+        /* -------- SPONSORS -------- */
+        if ($request->filled('sponsors')) {
+            foreach ($request->sponsors as $i => $name) {
+                if (!$name) continue;
+
+                $fileId = null;
+
+                if ($request->hasFile('sponsor_images') && isset($request->file('sponsor_images')[$i])) {
+                    $logo = $request->file('sponsor_images')[$i];
+                    $path = $logo->store('sponsors', 'public');
+
+                    $file = File::create([
+                        'type' => 'image',
+                        'url' => $path,
+                    ]);
+
+                    $fileId = $file->id;
+                }
+
+                $sponsor = Sponsor::create([
+                    'name' => $name,
+                    'file_id' => $fileId,
+                ]);
+
+                $event->sponsors()->attach($sponsor->id);
+            }
+        }
+
         return redirect()->route('admin.events')
             ->with('success', 'Udalosť bola úspešne vytvorená.');
-
     }
+
 
     public function update(Request $request, Event $event)
     {
@@ -115,13 +201,16 @@ class EventsEditController extends Controller
         $data = [
             'title_sk'   => $validated['title_sk'],
             'title_en'   => $validated['title_en'],
-            'content_sk' => $validated['content_sk'] ?? null,
-            'content_en' => $validated['content_en'] ?? null,
             'inCalendar' => $request->boolean('inCalendar'),
             'inHome'     => $request->boolean('inHome'),
             'inGallery'  => $request->boolean('inGallery'),
             'archived'   => $request->boolean('archived'),
         ];
+
+        if ($request->boolean('inGallery')) {
+            $data['content_sk'] = $validated['content_sk'] ?? null;
+            $data['content_en'] = $validated['content_en'] ?? null;
+        }
 
         if ($request->filled('calendarColor')) {
             $data['color'] = $validated['calendarColor'];
@@ -129,6 +218,7 @@ class EventsEditController extends Controller
 
         $event->update($data);
 
+        /* -------- RESET DATES -------- */
         $event->dates()->delete();
 
         if ($request->filled('dates')) {
@@ -145,16 +235,83 @@ class EventsEditController extends Controller
             }
         }
 
-        foreach ($event->files()->where('type', 'document')->get() as $file) {
-            if ($file->path) {
-                Storage::disk('public')->delete($file->path);
+        /* -------- RESET FILES -------- */
+        foreach ($event->files as $file) {
+            if ($file->type === 'document') {
+                Storage::disk('public')->delete($file->url);
             }
             $file->delete();
+        }
+
+        /* -------- RESET SPONSORS -------- */
+        $event->sponsors()->detach();
+
+        /* -------- RE-ADD FILES & SPONSORS (same as store) -------- */
+
+        if ($request->filled('gallery_url')) {
+            $event->files()->create([
+                'type' => 'image',
+                'url' => $request->gallery_url,
+            ]);
+        }
+
+        if ($request->filled('video_url')) {
+            foreach ($request->video_url as $url) {
+                if (!$url) continue;
+
+                $event->files()->create([
+                    'type' => 'video',
+                    'url' => $url,
+                ]);
+            }
+        }
+
+        if ($request->hasFile('documents')) {
+            foreach ($request->file('documents') as $i => $file) {
+                if (!$file) continue;
+
+                $path = $file->store('documents', 'public');
+
+                $event->files()->create([
+                    'type' => 'document',
+                    'url' => $path,
+                    'title_sk' => $request->doc_name_sk[$i] ?? null,
+                    'title_en' => $request->doc_name_en[$i] ?? null,
+                ]);
+            }
+        }
+
+        if ($request->filled('sponsors')) {
+            foreach ($request->sponsors as $i => $name) {
+                if (!$name) continue;
+
+                $fileId = null;
+
+                if ($request->hasFile('sponsor_images') && isset($request->file('sponsor_images')[$i])) {
+                    $logo = $request->file('sponsor_images')[$i];
+                    $path = $logo->store('sponsors', 'public');
+
+                    $file = File::create([
+                        'type' => 'image',
+                        'url' => $path,
+                    ]);
+
+                    $fileId = $file->id;
+                }
+
+                $sponsor = Sponsor::create([
+                    'name' => $name,
+                    'file_id' => $fileId,
+                ]);
+
+                $event->sponsors()->attach($sponsor->id);
+            }
         }
 
         return redirect()->route('admin.events')
             ->with('success', 'Udalosť bola úspešne uložená.');
     }
+
 
     public function archive(Event $event)
     {

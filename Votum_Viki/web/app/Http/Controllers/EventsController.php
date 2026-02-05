@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use Carbon\Carbon;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class EventsController extends Controller
 {
@@ -69,4 +70,66 @@ class EventsController extends Controller
             'pastEventsByYear' => $pastEventsByYear,
         ]);
     }
+
+    public function event($id)
+    {
+        $locale = session('locale', 'sk');
+
+        $event = Event::with([
+            'dates',
+            'sponsors.file',
+            'files'
+        ])->findOrFail($id);
+
+        // dátumy
+        $dates = $event->dates
+            ->pluck('date')
+            ->map(fn ($d) => Carbon::parse($d)->startOfDay())
+            ->sort()
+            ->values();
+
+        $dateLabel = $dates->count() === 1
+            ? $dates->first()->format('j. n.')
+            : ($dates->count() > 1
+                ? $dates->first()->format('j. n.') . ' – ' . $dates->last()->format('j. n.')
+                : '');
+
+        $photoLink = $event->files->firstWhere('type', 'image');
+        $videos    = $event->files->where('type', 'video');
+        $documents = $event->files->where('type', 'document');
+
+        $documents = $documents->map(function ($doc) use ($locale) {
+
+            $doc->title = $locale === 'sk'
+                ? $doc->title_sk
+                : $doc->title_en;
+
+            if ($doc->url && Storage::disk('public')->exists($doc->url)) {
+                $doc->size_kb = round(Storage::disk('public')->size($doc->url) / 1024);
+                $doc->download_url = asset('storage/' . $doc->url);
+                $doc->file_type = strtolower(pathinfo($doc->url, PATHINFO_EXTENSION));
+            } else {
+                $doc->size_kb = null;
+                $doc->download_url = null;
+                $doc->file_type = null;
+            }
+
+            return $doc;
+        });
+
+
+        return view('pages.event', [
+            'event'       => $event,
+            'title'       => $locale === 'sk' ? $event->title_sk : $event->title_en,
+            'description' => $locale === 'sk' ? $event->content_sk : $event->content_en,
+            'dateLabel'   => $dateLabel,
+
+            'sponsors'    => $event->sponsors,
+            'photoLink'   => $photoLink,
+            'videos'      => $videos,
+            'documents'   => $documents,
+        ]);
+    }
+
+
 }

@@ -29,10 +29,7 @@ Route::get('/history', [HistoryController::class, 'index'])->name('history');
 
 Route::get('/events', [EventsController::class, 'index'])->name('events');
 
-
-Route::get('/event', function () {
-    return view('pages.event');
-})->name('event');
+Route::get('/event/{id}', [EventsController::class, 'event'])->name('event');
 
 Route::get('/documents', [DocumentsController::class, 'index'])
     ->name('documents');

@@ -15,7 +15,7 @@
 
         <p class="txt font-semibold text-votum-blue  mb-4 text-lg text-center">{{$event->dateLabel}}</p>
 
-        <a href="{{ route('event') }}" class="w-full text-center txt-btn text-bold {{$color ? 'bg-dark-votum3' : 'bg-dark-votum1 ' }} text-white px-7 py-4 rounded-lg   justify-self-end">
+        <a href="{{ route('event', $event->id) }}" class="w-full text-center txt-btn text-bold {{$color ? 'bg-dark-votum3' : 'bg-dark-votum1 ' }} text-white px-7 py-4 rounded-lg   justify-self-end">
             {{__('nav.more')}} <i class="pl-2 fas fa-arrow-right"></i>
         </a>
     </div>
