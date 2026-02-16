@@ -94,25 +94,58 @@
         @endforeach
         @endforeach
 
+        // Pole ikon, rovnaké ako v Blade
+        const icons = [
+            'fa-handshake-angle',
+            'fa-drum',
+            'fa-gift',
+            'fa-hand-holding-heart',
+            'fa-hand-holding-medical',
+            'fa-person-skating',
+            'fa-person-swimming',
+            'fa-basketball',
+            'fa-heart',
+            'fa-plane',
+            'fa-horse',
+            'fa-music',
+            'fa-guitar',
+            'fa-children',
+            'fa-pizza-slice',
+            'fa-desktop',
+        ];
+
         function addSection(category) {
             const form = document.querySelector(`form[data-category="${category}"]`);
-            if (!form) {
-                console.warn('Form not found for category:', category);
-                return;
-            }
+            if (!form) return;
 
             const anchor = form.querySelector('.sections-anchor');
-            if (!anchor) {
-                console.warn('Anchor (.sections-anchor) not found');
-                return;
-            }
+            if (!anchor) return;
 
             const sections = form.querySelectorAll('.bg-white.border');
             const index = sections.length;
 
+            let iconHTML = '';
+            if (category === 'otherType') {
+                iconHTML = `
+        <div class="w-full font-bold text-blue-950 text-lg mt-4">Ikona</div>
+        <div class="flex flex-wrap gap-2 ms-14">
+          ${icons.map(iconName => `
+            <label class="cursor-pointer">
+              <input type="radio" name="sk[${index}][iconName]" value="${iconName}" class="hidden peer" required>
+              <span class="border-2 rounded-xl w-12 h-12 inline-flex items-center justify-center
+                           transition-all duration-200 border-gray-300
+                           peer-checked:border-blue-950
+                           peer-checked:bg-blue-100
+                           hover:border-blue-950">
+                <i class="fa-solid ${iconName} text-2xl"></i>
+              </span>
+            </label>
+          `).join('')}
+        </div>`;
+            }
+
             const newSection = document.createElement('div');
             newSection.className = 'bg-white border border-gray-200 rounded-md p-4 shadow-sm space-y-4';
-
             newSection.innerHTML = `
         <input type="hidden" name="sk[${index}][id]" value="">
         <input type="hidden" name="sk[${index}][_delete]" value="0">
@@ -127,7 +160,6 @@
 
         <div class="w-full font-bold text-blue-950 text-lg">Názov</div>
 
-
         <div class="flex gap-3 mb-2">
             <span class="w-10 font-semibold text-gray-700 pt-2">SK –</span>
             <input type="text" name="sk[${index}][title]" required class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2" placeholder="Nadpis SK">
@@ -137,9 +169,7 @@
             <input type="text" name="en[${index}][title]" required class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2" placeholder="Title EN">
         </div>
 
-
         <div class="w-full font-bold text-blue-950 text-lg">Obsah</div>
-
 
         <div class="flex gap-3 mt-2">
             <span class="w-10 font-semibold text-gray-700 pt-2">SK –</span>
@@ -148,6 +178,7 @@
                 <textarea name="sk[${index}][content]" id="content-${category}-sk-${index}" class="hidden"></textarea>
             </div>
         </div>
+
         <div class="flex gap-3 mt-2">
             <span class="w-10 font-semibold text-gray-700 pt-2">EN –</span>
             <div class="flex-1">
@@ -155,19 +186,15 @@
                 <textarea name="en[${index}][content]" id="content-${category}-en-${index}" class="hidden"></textarea>
             </div>
         </div>
+
+        ${iconHTML}
     `;
 
             anchor.before(newSection);
 
-            // Inicializácia Quill editorov pre novú sekciu
-            const quillSk = new Quill(`#editor-${category}-sk-${index}`, {
-                theme: 'snow',
-                modules: { toolbar: toolbarOptions }
-            });
-            const quillEn = new Quill(`#editor-${category}-en-${index}`, {
-                theme: 'snow',
-                modules: { toolbar: toolbarOptions }
-            });
+            // Inicializácia Quill editorov
+            const quillSk = new Quill(`#editor-${category}-sk-${index}`, { theme: 'snow', modules: { toolbar: toolbarOptions } });
+            const quillEn = new Quill(`#editor-${category}-en-${index}`, { theme: 'snow', modules: { toolbar: toolbarOptions } });
 
             preventImagePaste(quillSk);
             preventImagePaste(quillEn);
@@ -181,10 +208,15 @@
             quillEn.on('text-change', () => { enTextarea.value = quillEn.root.innerHTML; });
         }
 
+
         function markForDelete(btn) {
             const section = btn.closest('.bg-white');
             section.querySelector('input[name$="[_delete]"]').value = 1;
             section.style.display = 'none';
+
+            // Odstráni required zo všetkých inputov a radio buttonov
+            section.querySelectorAll('[required]').forEach(el => el.removeAttribute('required'));
+            section.querySelectorAll('input[type="radio"]').forEach(el => el.removeAttribute('required'));
         }
 
         function onNewImage(input) {

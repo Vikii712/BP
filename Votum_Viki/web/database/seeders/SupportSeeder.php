@@ -213,48 +213,93 @@ All contributions go directly to the development of activities and support of ou
                 'category' => 'otherThanks',
                 'created_at' => now(),
                 'updated_at' => now(),
-            ],[
-                'title_sk' => 'Dobrovoľníctvo, ktoré vás posilní',
-                'title_en' => 'Volunteering that empowers you',
+            ],
+            [
+                'title_sk' => 'Máte inú myšlienku?',
+                'title_en' => 'Do you have another idea?',
                 'content_sk' => '
+                Každá forma podpory je vítaná! Ak máte nápad, ako by ste nám mohli pomôcť inak, neváhajte nás kontaktovať. Spoločne nájdeme najlepšie riešenie.',
+                'content_en' => '
+                Every form of support is welcome! If you have an idea on how you could help us in another way, do not hesitate to contact us. Together we will find the best solution.',
+                'year' => null,
+                'position' => 1,
+                'category' => 'otherIdea',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+
+        ]);
+
+
+
+        $sectionId1 = DB::table('sections')->insertGetId([
+            'title_sk' => 'Dobrovoľníctvo, ktoré vás posilní',
+            'title_en' => 'Volunteering that empowers you',
+            'content_sk' => '
             <p>Dobrovoľníctvo u nás nie je len o pomoci – je o zážitkoch, priateľstve a radosti. Možno vás prekvapí, ako veľmi vás naplní alebo zmení…</p>
             <p>Dobrovoľníci sú pre nás aj pre naše deti nesmierne dôležití. Najviac sa osvedčilo zapojenie počas letného kempu, pri verejných vystúpeniach alebo ako osobný asistent pri individuálnych záujmoch našich mladých. Nakoľko pracujeme s deťmi a mladými s rôznymi telesnými či mentálnymi znevýhodneniami, každá pomocná ruka sa zíde – pri presunoch, sebaobsluhe a tvorivých aktivitách.</p>
             <p>Každá chvíľa, ktorú venujete, má veľkú hodnotu. Pridajte sa k nám a zažite, aké to je – byť súčasťou niečoho, čo mení životy.</p>
         ',
-                'content_en' => '
+            'content_en' => '
             <p>Volunteering for us is not just about helping – it is about experiences, friendship and joy. You may be surprised at how much it will fulfill or change you…</p>
             <p>Volunteers are incredibly important to us and to our children. The most successful have been involvement during summer camp, public speaking or as a personal assistant in the individual interests of our young people. Since we work with children and young people with various physical or mental disabilities, every helping hand is welcome – during transfers, self-care and creative activities.</p>
             <p>Every moment you dedicate has great value. Join us and experience what it is like to be part of something that changes lives.</p>
         ',
-                'year' => null,
-                'position' => 1,
-                'category' => 'otherType',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'title_sk' => 'Partnerská podpora',
-                'title_en' => 'Partner Support',
-                'content_sk' => '
+            'year' => null,
+            'position' => 1,
+            'category' => 'otherType',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        DB::table('files')->insert([
+            'section_id' => $sectionId1,
+            'event_id' => null,
+            'url' => 'fa-hand-holding-heart',
+            'type' => 'image',
+            'title_sk' => '',
+            'title_en' => '',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+
+        $sectionId2 = DB::table('sections')->insertGetId([
+            'title_sk' => 'Partnerská podpora',
+            'title_en' => 'Partner Support',
+            'content_sk' => '
             <p>S vďakou vítame všetky organizácie, firmy a spoločnosti, ktoré sa rozhodnú podporiť naše združenie – či už finančne, materiálne alebo mediálne.</p>
             <p>Občas potrebujeme nové hudobné nástroje, dopravu na výlet, priestor na koncert, alebo len niekoho, kto o nás napíše pár milých slov.</p>
             <p>Každá forma pomoci sa počíta. Spolu dokážeme rozohrať viac.</p>
         ',
-                'content_en' => '
+            'content_en' => '
             <p>We gratefully welcome all organizations, companies and societies that decide to support our association – whether financially, materially or through the media.</p>
             <p>Sometimes we need new musical instruments, transportation for a trip, a venue for a concert, or just someone to write a few kind words about us.</p>
             <p>Every form of help counts. Together we can do more.</p>
         ',
-                'year' => null,
-                'position' => 2,
-                'category' => 'otherType',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'title_sk' => 'Podpora vystúpení Kapely VOTUM',
-                'title_en' => 'Support for VOTUM Band performances',
-                'content_sk' => '
+            'year' => null,
+            'position' => 2,
+            'category' => 'otherType',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        DB::table('files')->insert([
+            'section_id' => $sectionId2,
+            'event_id' => null,
+            'url' => 'fa-gift',
+            'type' => 'image',
+            'title_sk' => '',
+            'title_en' => '',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+
+        $sectionId3 = DB::table('sections')->insertGetId([
+            'title_sk' => 'Podpora vystúpení Kapely VOTUM',
+            'title_en' => 'Support for VOTUM Band performances',
+            'content_sk' => '
             <p>Potrebujete hudobne sprevádzať Vaše podujatie? Veľmi radi prídeme hudobne obohatiť Vaše podujatie.</p>
             <p>Kapela VOTUM je výsledkom dlhoročnej práce s mladými talentovanými ľuďmi so zdravotným znevýhodnením, ktorí milujú hudbu a chcú sa o svoju radosť podeliť so svetom.</p>
             <p>Na verejných vystúpeniach sa prezentujeme vždy novým hudobným programom – prispôsobeným danej príležitosti. Naši Votumáci vystupujú s obrovskou energiou, nadšením a úprimnosťou, ktorá si získava srdcia publika všade, kam prídu.</p>
@@ -272,7 +317,7 @@ All contributions go directly to the development of activities and support of ou
             </ul>
             <p>Hudba nás spája, prináša radosť nám – a veríme, že aj vám.</p>
         ',
-                'content_en' => '
+            'content_en' => '
             <p>Do you need musical accompaniment for your event? We would be happy to come and enrich your event with music.</p>
             <p>The VOTUM band is the result of many years of work with young talented people with disabilities who love music and want to share their joy with the world.</p>
             <p>At public performances, we always present ourselves with a new musical program - adapted to the occasion. Our Votum members perform with enormous energy, enthusiasm and sincerity, which wins the hearts of the audience wherever they go.</p>
@@ -290,30 +335,23 @@ All contributions go directly to the development of activities and support of ou
             </ul>
             <p>Music unites us, brings joy to us – and we believe to you too.</p>
         ',
-                'year' => null,
-                'position' => 3,
-                'category' => 'otherType',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],[
-                'title_sk' => 'Máte inú myšlienku?',
-                'title_en' => 'Do you have another idea?',
-                'content_sk' => '
-                Každá forma podpory je vítaná! Ak máte nápad, ako by ste nám mohli pomôcť inak, neváhajte nás kontaktovať. Spoločne nájdeme najlepšie riešenie.
-
-    ',
-                'content_en' => '
-                Every form of support is welcome! If you have an idea on how you could help us in another way, do not hesitate to contact us. Together we will find the best solution.
-
-    ',
-                'year' => null,
-                'position' => 1,
-                'category' => 'otherIdea',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-
-
+            'year' => null,
+            'position' => 3,
+            'category' => 'otherType',
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
+
+        DB::table('files')->insert([
+            'section_id' => $sectionId3,
+            'event_id' => null,
+            'url' => 'fa-drum',
+            'type' => 'image',
+            'title_sk' => '',
+            'title_en' => '',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
     }
 }

@@ -5,9 +5,10 @@
     'qrImage',
 ])
 
-<?php
+@php
 $add = false;
 $qr = false;
+$icon = false;
 
 switch ($title){
     case 'PercentWhy':
@@ -40,9 +41,10 @@ switch ($title){
     case 'OtherWhy':
         $title = 'Ako inak sa dá pomôcť';
         break;
-    case 'OtherTypes':
+    case 'OtherType':
         $title = 'Iné druhy podpory (podrobne)';
         $add = true;
+        $icon = true;
         break;
     case 'OtherIdea':
         $title = 'Ak má niekto iný nápad na podporu';
@@ -51,7 +53,27 @@ switch ($title){
         $title = 'Poďakovanie za iné formy podpory';
         break;
 }
-?>
+
+$icons = [
+    'fa-handshake-angle',
+    'fa-drum',
+    'fa-gift',
+    'fa-hand-holding-heart',
+    'fa-hand-holding-medical',
+    'fa-person-skating',
+    'fa-person-swimming',
+    'fa-basketball',
+    'fa-heart',
+    'fa-plane',
+    'fa-horse',
+    'fa-music',
+    'fa-guitar',
+    'fa-children',
+    'fa-pizza-slice',
+    'fa-desktop',
+];
+@endphp
+
 
 <div class="bg-blue-50 border border-gray-200 shadow-md rounded-md p-6 space-y-6">
 
@@ -174,6 +196,41 @@ switch ($title){
 
                         <input type="hidden" name="remove_qr_image" id="removeNewFlag" value="0">
                     @endif
+
+                    @if($icon)
+
+                        <div class="w-full font-bold text-blue-950 text-lg">Ikona</div>
+
+                        <div class="flex flex-wrap gap-2 ms-14">
+
+                            @foreach($icons as $iconName)
+                                <label class="cursor-pointer">
+
+                                    <input
+                                        type="radio"
+                                        name="sk[{{ $index }}][iconName]"
+                                        value="{{ $iconName }}"
+                                        class="hidden peer"
+                                        required
+                                        @checked($iconName === ($section->files->first()?->url ?? null))
+                                    >
+
+                                    <span class="border-2 rounded-xl w-12 h-12 inline-flex items-center justify-center
+                                    transition-all duration-200
+                                    border-gray-300
+                                    peer-checked:border-blue-950
+                                    peer-checked:bg-blue-100
+                                    hover:border-blue-950">
+
+                                    <i class="fa-solid {{ $iconName }} text-2xl"></i>
+                                    </span>
+
+                                </label>
+                            @endforeach
+
+                        </div>
+                    @endif
+
 
             </div>
         @endforeach

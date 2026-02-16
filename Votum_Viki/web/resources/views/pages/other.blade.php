@@ -34,24 +34,22 @@
             @php
                 $colors = ['votum3', 'votum2', 'votum1'];
                 $darkColors = ['dark-votum3', 'dark-votum2', 'dark-votum1'];
-                $icons = ['fa-hand-holding-heart', 'fa-gift', 'fa-drum'];
             @endphp
 
             @foreach($types as $index => $type)
                 @php
                     $color = $colors[$index % count($colors)];
                     $darkColor = $darkColors[$index % count($darkColors)];
-                    $icon = $icons[$index % count($icons)];
                 @endphp
 
                 <div class="support-option-card border-4 border-{{ $color }} bg-{{ $color }} rounded-3xl shadow-xl overflow-hidden">
-                    <div class="md:grid md:grid-cols-2 gap-0">
+                    <div class=" gap-0">
 
-                        <div class="bg-{{ $darkColor }} p-12 flex flex-col justify-center items-center text-white">
-                            <div class="icon-float mb-6">
-                                <i class="fas {{ $icon }} text-8xl"></i>
+                        <div class="bg-{{ $darkColor }} p-5 flex justify-center items-center text-white">
+                            <div class="icon-float">
+                                <i class="fas {{ $type['image'] }} text-6xl px-5"></i>
                             </div>
-                            <h2 class="text-center h2 font-bold mb-2">{{ $type['title'] }}</h2>
+                            <h2 class=" text-center h2 font-bold">{{ $type['title'] }}</h2>
                         </div>
 
                         <div class="p-8 txt">
@@ -76,7 +74,7 @@
                 </div>
                 <div class="text-center mt-16">
                     <a href="{{ route('contacts') }}" class="inline-flex items-center gap-3 bg-votum-blue text-white px-10 py-8 rounded-lg font-semibold txt-btn shadow-lg">
-                        <img alt="" src="{{ asset('images/kontakty.svg') }}" width="30">
+                        <img alt="" src="{{ asset('images/nav/kontakty.svg') }}" width="30">
                         <span>{{ __('nav.contacts') }}</span>
                     </a>
                 </div>

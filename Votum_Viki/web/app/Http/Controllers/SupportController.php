@@ -174,6 +174,7 @@ class SupportController extends Controller
             ->map(fn($item) => [
                 'title'   => $locale === 'sk' ? $item->title_sk : $item->title_en,
                 'content' => $locale === 'sk' ? $item->content_sk : $item->content_en,
+                'image' => $item->files->first()?->url,
             ]);
 
         $otherIdea = Section::where('category', 'otherIdea')

@@ -41,7 +41,7 @@ class SupportEditController extends Controller
 
             case 'other':
                 $sections['otherWhy']    = Section::where('category', 'otherWhy')->orderBy('position')->get();
-                $sections['otherTypes']  = Section::where('category', 'otherType')->orderBy('position')->get();
+                $sections['otherType']  = Section::with('files')->where('category', 'otherType')->orderBy('position')->get();
                 $sections['otherIdea']   = Section::where('category', 'otherIdea')->orderBy('position')->get();
                 $sections['otherThanks'] = Section::where('category', 'otherThanks')->orderBy('position')->get();
                 $type = 'Iné formy podpory';
@@ -71,7 +71,23 @@ class SupportEditController extends Controller
                 $delete = ($skItem['_delete'] ?? 0) == 1;
 
                 if ($sectionId && $delete) {
-                    Section::where('id', $sectionId)->delete();
+                    $section = Section::with('files')->find($sectionId);
+
+                    if ($section) {
+
+                        // Vymažeme všetky priradené súbory
+                        foreach ($section->files as $file) {
+                            // ak používaš Storage a súbor je uložený
+                            if (Storage::disk('public')->exists($file->url)) {
+                                Storage::disk('public')->delete($file->url);
+                            }
+                            $file->delete();
+                        }
+
+                        // Potom vymažeme samotnú sekciu
+                        $section->delete();
+                    }
+
                     continue;
                 }
 
@@ -82,10 +98,42 @@ class SupportEditController extends Controller
                     $section->title_en = $enItem['title'] ?? $section->title_en;
                     $section->content_en = $enItem['content'] ?? $section->content_en;
                     $section->save();
+
+                    // ✅ IKONY LEN PRE otherType
+                    if ($id === 'otherType' && isset($skItem['iconName'])) {
+
+                        $icon = $skItem['iconName'];
+
+                        $existingFile = DB::table('files')
+                            ->where('section_id', $section->id)
+                            ->where('type', 'image')
+                            ->first();
+
+                        if ($existingFile) {
+                            DB::table('files')
+                                ->where('id', $existingFile->id)
+                                ->update([
+                                    'url' => $icon,
+                                    'updated_at' => now(),
+                                ]);
+                        } else {
+                            DB::table('files')->insert([
+                                'section_id' => $section->id,
+                                'url' => $icon,
+                                'title_sk' => ' ',
+                                'title_en' => ' ',
+                                'type' => 'image',
+                                'event_id' => null,
+                                'created_at' => now(),
+                                'updated_at' => now(),
+                            ]);
+                        }
+                    }
+
                 } else {
                     $maxPosition = Section::where('category', $id)->max('position') ?? 0;
 
-                    Section::create([
+                    $newSection = Section::create([
                         'category'   => $id,
                         'title_sk'   => $skItem['title'] ?? '',
                         'content_sk' => $skItem['content'] ?? '',
@@ -93,13 +141,26 @@ class SupportEditController extends Controller
                         'content_en' => $enItem['content'] ?? '',
                         'position'   => $maxPosition + 1,
                     ]);
+
+                    // ✅ IKONY LEN PRE otherType (pri vytvorení)
+                    if ($id === 'otherType' && isset($skItem['iconName'])) {
+                        DB::table('files')->insert([
+                            'section_id' => $newSection->id,
+                            'url' => $skItem['iconName'],
+                            'title_sk' => null,
+                            'title_en' => null,
+                            'type' => 'image',
+                            'event_id' => null,
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                        ]);
+                    }
                 }
             }
 
             if ($request->hasFile('qr_image') || $request->input('remove_qr_image')) {
                 $this->handleQrImage($request, 'qrHow');
             }
-
 
         });
 
