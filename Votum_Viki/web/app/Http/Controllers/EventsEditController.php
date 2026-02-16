@@ -45,38 +45,26 @@ class EventsEditController extends Controller
 
     public function create()
     {
+        $sponsors = Sponsor::all();
         return view('pages.admin.event-form', [
             'event' => null,
             'isEdit' => false,
+            'allSponsors' => $sponsors
         ]);
     }
 
     public function edit(Event $event)
     {
         $event->load(['dates', 'sponsors.file', 'files']);
-
-        // Priprav video URL ako array
-        $videoUrls = $event->files()
-            ->where('type', 'video')
-            ->pluck('url')
-            ->toArray();
-
-        // Priprav gallery_url (ak máš len 1 fotogalériu)
-        $galleryUrl = $event->files()
-            ->where('type', 'image')
-            ->value('url');
-
-        // Priprav dokumenty
-        $documents = $event->files()
-            ->where('type', 'document')
-            ->get();
+        $sponsors = Sponsor::all();
 
         return view('pages.admin.event-form', [
             'event' => $event,
             'isEdit' => true,
-            'videoUrls' => $videoUrls,
-            'galleryUrl' => $galleryUrl,
-            'documents' => $documents,
+            'allSponsors' => $sponsors,
+            'videoUrls' => $event->files()->where('type','video')->pluck('url')->toArray(),
+            'galleryUrl' => $event->files()->where('type','image')->value('url'),
+            'documents' => $event->files()->where('type','document')->get(),
         ]);
     }
 
@@ -155,6 +143,10 @@ class EventsEditController extends Controller
         }
 
         /* -------- SPONSORS -------- */
+        if($request->filled('existing_sponsor_ids')) {
+            $event->sponsors()->sync($request->existing_sponsor_ids);
+        }
+
         if ($request->filled('sponsors')) {
             foreach ($request->sponsors as $i => $name) {
                 if (!$name) continue;
@@ -279,6 +271,10 @@ class EventsEditController extends Controller
                     'title_en' => $request->doc_name_en[$i] ?? null,
                 ]);
             }
+        }
+
+        if($request->filled('existing_sponsor_ids')) {
+            $event->sponsors()->sync($request->existing_sponsor_ids);
         }
 
         if ($request->filled('sponsors')) {

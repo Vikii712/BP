@@ -54,306 +54,35 @@
                         </div>
                     </div>
 
-                    {{-- DÁTUMY UDALOSTI --}}
-                    <div class="flex items-center bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
-                        Dátumy udalosti
-                    </div>
+                    <x-admin.event.calendar
+                        :isEdit="$isEdit"
+                        :event="$event"
 
-                    {{-- RADIO BUTTONY pre výber dátumu --}}
-                    <div class="flex gap-6 px-6 py-3">
-                        <label class="flex items-center gap-2">
-                            <input type="radio"
-                                   name="dateOption"
-                                   value="none"
-                                {{ ($isEdit && $event->dates->isEmpty()) || !$isEdit ? 'checked' : '' }}>
-                            Bez dátumu
-                        </label>
-                        <label class="flex items-center gap-2">
-                            <input type="radio"
-                                   name="dateOption"
-                                   value="add"
-                                {{ ($isEdit && $event->dates->isNotEmpty()) ? 'checked' : '' }}>
-                            Pridať dátum
-                        </label>
-                    </div>
+                    />
 
-                    <div id="datesWrapper" class="flex flex-col sm:flex-row gap-6">
+                    <x-admin.event.main_pic
+                        :isEdit="$isEdit"
+                        :event="$event"
+                    />
 
-                        {{-- KALENDÁR vľavo --}}
-                        <div class="sm:w-1/2 flex justify-center">
-                            <div id="multiDatePicker"></div>
-                        </div>
+                    <x-admin.event.text
+                        :event="$event"
+                    />
 
-                        {{-- ZOZNAM vybraných dátumov vpravo --}}
-                        <div class="sm:w-1/2 flex flex-col">
-                            <div class="flex items-start gap-2">
-                                <label class="font-semibold text-gray-700 ms-2 mt-3 w-32">Vybrané dátumy:</label>
-                                <div id="datesList" class="text-gray-700 rounded-md py-3 max-h-[280px] overflow-y-auto flex-1">
-                                    @if($isEdit && $event->dates->isNotEmpty())
-                                        @foreach($event->dates->sortBy('date') as $date)
-                                            <p>-> {{ $date->date->format('d.m.Y') }}</p>
-                                        @endforeach
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <x-admin.event.media
+                        :isEdit="$isEdit"
+                        :event="$event"
+                    />
 
-                    <input type="hidden"
-                           name="dates"
-                           id="datesInput"
-                           value="{{ $isEdit ? json_encode($event->dates->pluck('date')->map(fn($d) => $d->format('d.m.Y'))->toArray()) : '' }}">
+                    <x-admin.event.sponsor
+                        :isEdit="$isEdit"
+                        :event="$event"
+                        :allSponsors="$allSponsors"
+                    />
 
-
-                    {{-- FARBA + VOĽBY --}}
-                    <div class="flex items-center bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
-                        Nastavenia udalosti
-                    </div>
-
-                    <div class="space-y-3 px-6">
-                        <label class="flex items-center gap-2">
-                            <input type="checkbox"
-                                   id="inCalendar"
-                                   name="inCalendar"
-                                   class="rounded"
-                                {{ old('inCalendar', $event->inCalendar ?? false) ? 'checked' : '' }}>
-                            <span>Zobraziť v kalendári</span>
-                        </label>
-
-                        <!-- Radio buttony pre farbu, na začiatku skryté -->
-                        <div id="calendarColorWrapper" class="flex gap-3 flex-wrap mt-2 {{ old('inCalendar', $event->inCalendar ?? false) ? '' : 'hidden' }}">
-                            <!-- Radio buttons sa doplnia JS -->
-                        </div>
-
-                        <label class="flex items-center gap-2">
-                            <input type="checkbox"
-                                   id="inHome"
-                                   name="inHome"
-                                   class="rounded"
-                                {{ old('inHome', $event->inHome ?? false) ? 'checked' : '' }}>
-                            <span>Pridať medzi vybrané udalosti na domovskej stránke</span>
-                        </label>
-                        <label class="flex items-center gap-2">
-                            <input type="checkbox"
-                                   id="inGallery"
-                                   name="inGallery"
-                                   class="rounded"
-                                {{ old('inGallery', $event->inGallery ?? false) ? 'checked' : '' }}>
-                            <span>Vytvoriť vlastnú stránku v časti udalosti s textom, fotkami alebo videom</span>
-                        </label>
-
-                        @if($isEdit)
-                            <label class="flex items-center gap-2">
-                                <input type="checkbox"
-                                       id="archived"
-                                       name="archived"
-                                       class="rounded"
-                                    {{ old('archived', $event->archived ?? false) ? 'checked' : '' }}>
-                                <span>Archivovaná udalosť</span>
-                            </label>
-                        @endif
-                    </div>
-
-                    {{-- HLAVNÁ FOTKA --}}
-                    <div id="mainImageSection" class="{{ (old('inHome', $event->inHome ?? false) || old('inGallery', $event->inGallery ?? false)) ? '' : 'hidden' }}">
-                        <div class="flex bg-gray-100 -mx-6 px-6 mb-6 py-2 font-medium text-blue-950">
-                            Hlavná fotka udalosti
-                        </div>
-
-                        @if($isEdit && $event->main_pic)
-                            <div class="px-6 mb-4">
-                                <img src="{{ asset('storage/' . $event->main_pic) }}"
-                                     alt="{{ $event->image_alt_sk }}"
-                                     class="max-w-xs rounded-md border-2 border-gray-300">
-                            </div>
-                        @endif
-
-                        <div class="flex gap-3 px-6">
-                            <input id="newImageFilename"
-                                   readonly
-                                   value="{{ $isEdit && $event->main_pic ? basename($event->main_pic) : '— žiadny obrázok —' }}"
-                                   class="border-2 border-gray-300 bg-gray-100 px-3 py-2 w-1/3 rounded-md">
-
-                            <label class="px-4 py-2 border-2 border-blue-950 rounded-md cursor-pointer hover:bg-blue-50">
-                                {{ $isEdit && $event->main_pic ? 'Zmeniť' : 'Nahrať' }}
-                                <input type="file"
-                                       name="main_pic"
-                                       accept="image/*"
-                                       class="hidden"
-                                       onchange="onNewImage(this)">
-                            </label>
-
-                            <button type="button"
-                                    id="removeNewBtn"
-                                    onclick="removeNewImage()"
-                                    class="{{ $isEdit && $event->main_pic ? '' : 'hidden' }} px-4 py-2 border-2 border-red-600 text-red-600 rounded-md hover:bg-red-50">
-                                Odstrániť
-                            </button>
-                        </div>
-
-                        <input type="hidden" name="remove_image" id="removeNewFlag" value="0">
-
-                        {{-- ALT TEXT --}}
-                        <div id="newAltWrapper" class="{{ $isEdit && $event->main_pic ? '' : 'hidden' }} mt-6">
-                            <div class="flex items-center bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
-                                Alternatívny text obrázka <x-InfoTooltip typ="alt"/>
-                            </div>
-
-                            <div class="space-y-3 mt-6">
-                                <div class="flex gap-3">
-                                    <span class="w-10 font-semibold text-blue-950 pt-2">SK –</span>
-                                    <textarea name="image_alt_sk"
-                                              rows="3"
-                                              class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ old('image_alt_sk', $event->image_alt_sk ?? '') }}</textarea>
-                                </div>
-
-                                <div class="flex gap-3">
-                                    <span class="w-10 font-semibold text-blue-950 pt-2">EN –</span>
-                                    <textarea name="image_alt_en"
-                                              rows="3"
-                                              class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ old('image_alt_en', $event->image_alt_en ?? '') }}</textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {{-- TEXT --}}
-                    <div id="textSection" class="{{ old('inGallery', $event->inGallery ?? false) ? '' : 'hidden' }}">
-                        <div class="flex items-center bg-gray-100 -mx-6 mb-6 px-6 py-2 font-medium text-blue-950">
-                            Text udalosti
-                        </div>
-
-                        <div class="space-y-4">
-                            <div class="flex gap-3">
-                                <span class="w-10 font-semibold text-blue-950 pt-2">SK –</span>
-                                <div class="flex-1">
-                                    <div class="quill-wrapper">
-                                        <div id="editor-new-sk"></div>
-                                    </div>
-                                    <textarea name="content_sk" id="content-new-sk" class="hidden">{{ old('content_sk', $event->content_sk ?? '') }}</textarea>
-                                </div>
-                            </div>
-
-                            <div class="flex gap-3">
-                                <span class="w-10 font-semibold text-blue-950 pt-2">EN –</span>
-                                <div class="flex-1">
-                                    <div class="quill-wrapper">
-                                        <div id="editor-new-en"></div>
-                                    </div>
-                                    <textarea name="content_en" id="content-new-en" class="hidden">{{ old('content_en', $event->content_en ?? '') }}</textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {{-- FOTKY --}}
-                    <div id="gallerySection" class="space-y-3 {{ old('inGallery', $event->inGallery ?? false) ? '' : 'hidden' }}">
-                        <div class="flex items-center bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
-                            Odkaz na fotogalériu
-                        </div>
-                        <div class="px-6">
-                            <input type="url"
-                                   name="gallery_url"
-                                   value="{{ old('gallery_url', $event->gallery_url ?? '') }}"
-                                   placeholder="https://photos.google.com/..."
-                                   class="w-full border-2 border-gray-300 rounded-md px-3 py-2">
-                        </div>
-                    </div>
-
-                    {{-- VIDEO --}}
-                    <div id="videoSection" class="space-y-3 {{ old('inGallery', $event->inGallery ?? false) ? '' : 'hidden' }}">
-                        <div class="flex items-center bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
-                            Odkaz na youtube video
-                        </div>
-
-                        <!-- + tlačidlo naľavo -->
-                        <div class="px-6 flex gap-3 mb-2">
-                            <button type="button"
-                                    id="addVideoLink"
-                                    class="h-10 w-10 flex items-center justify-center border-2 border-blue-950 rounded-md hover:bg-blue-50">
-                                <i class="fa-solid fa-plus"></i>
-                            </button>
-                        </div>
-
-                        <!-- Wrapper pre všetky inputy -->
-                        <div id="videoLinksWrapper" class="px-6 space-y-4">
-                            @if($isEdit && $event->video_url)
-                                @php
-                                    $videoUrls = is_array($event->video_url) ? $event->video_url : json_decode($event->video_url, true) ?? [];
-                                @endphp
-                                @foreach($videoUrls as $url)
-                                    {{-- Videa sa načítajú cez JS --}}
-                                @endforeach
-                            @endif
-                        </div>
-                    </div>
-
-
-                    {{--SPONZOR--}}
-                    <div id="sponsorSection" class="space-y-3 {{ old('inGallery', $event->inGallery ?? false) ? '' : 'hidden' }}">
-                        <div class="flex items-center bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
-                            Pridať sponzora
-                        </div>
-
-                        <div class="space-y-3 px-6">
-
-                            {{-- Pridať existujúceho alebo nový --}}
-                            <div class="flex items-center gap-3">
-                                <button type="button"
-                                        id="addEmptySponsor"
-                                        class="h-10 w-10 flex items-center justify-center border-2 border-blue-950 rounded-md hover:bg-blue-50">
-                                    <i class="fa-solid fa-plus"></i>
-                                </button>
-
-                                <select id="existingSponsorSelect"
-                                        class="flex-1 h-10 border-2 border-gray-300 rounded-md px-3">
-                                    <option value="">Pridať existujúceho sponzora</option>
-                                    <option value="Mesto Bratislava">Mesto Bratislava</option>
-                                    <option value="SPP">SPP</option>
-                                    <option value="Websupport">Websupport</option>
-                                </select>
-                            </div>
-
-
-                            {{-- Zoznam pridaných sponzorov --}}
-                            <div id="sponsorsList" class="space-y-5">
-                                @if($isEdit && $event->sponsors->isNotEmpty())
-                                    {{-- Sponzori sa načítajú cez JS --}}
-                                @endif
-                            </div>
-
-                        </div>
-                    </div>
-
-
-                    {{-- DOKUMENTY --}}
-                    <div id="documentSection" class="space-y-3 {{ old('inGallery', $event->inGallery ?? false) ? '' : 'hidden' }}">
-                        <div class="flex items-center bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
-                            Pridať dokument
-                        </div>
-
-                        <!-- + tlačidlo a výber existujúceho súboru -->
-                        <div class="px-6 flex items-center gap-3 mb-2">
-                            <button type="button"
-                                    id="addDocumentBtn"
-                                    class="h-10 w-10 flex items-center justify-center border-2 border-blue-950 rounded-md hover:bg-blue-50">
-                                <i class="fa-solid fa-plus"></i>
-                            </button>
-
-                            <select id="existingDocumentSelect"
-                                    class="flex-1 h-10 border-2 border-gray-300 rounded-md px-3">
-                                <option value="">Pridať existujúci dokument</option>
-                                <option value="2%">2%</option>
-                                <option value="2022">2022</option>
-                                <option value="GDPR">GDPR</option>
-                                <option value="Prihláška">Prihláška</option>
-                            </select>
-                        </div>
-
-
-                        <!-- Wrapper pre nové dokumenty -->
-                        <div id="documentsWrapper" class="px-6 space-y-5 my-5"></div>
-                    </div>
+                    <x-admin.event.docs
+                        :event="$event"
+                    />
 
 
                     {{-- TLAČIDLÁ --}}
@@ -381,11 +110,14 @@
         // Prenos PHP dát do JS
         const isEdit = {{ $isEdit ? 'true' : 'false' }};
         const existingDates = @json($isEdit && $event->dates ? $event->dates->pluck('date')->map(fn($d) => $d->format('d-m-Y'))->toArray() : []);
-        const existingVideoUrls = @json($isEdit && $event->video_url ? (is_array($event->video_url) ? $event->video_url : json_decode($event->video_url, true) ?? []) : []);
+        const existingVideoUrls = @json($videoUrls ?? []);
         const existingSponsors = @json($isEdit && $event->sponsors ? $event->sponsors->map(fn($s) => ['name' => $s->name, 'logo' => $s->file ? $s->file->url : null])->toArray() : []);
+        const existingDocuments = @json($documents ?? []);
         const existingColor = @json($isEdit && $event->color ? $event->color : null);
         const existingContentSK = @json($isEdit && $event->content_sk ? $event->content_sk : '');
         const existingContentEN = @json($isEdit && $event->content_en ? $event->content_en : '');
+        const allSponsors = @json($allSponsors);
+
 
         document.addEventListener('DOMContentLoaded', function() {
 
@@ -403,10 +135,23 @@
                 en: new Quill('#editor-new-en', { theme: 'snow', modules: { toolbar: toolbarOptions } })
             };
 
-            // Načítanie existujúceho obsahu pri edit
+            addFormEditors.sk.on('text-change', function() {
+                document.getElementById('content-new-sk').value = addFormEditors.sk.root.innerHTML;
+            });
+
+            addFormEditors.en.on('text-change', function() {
+                document.getElementById('content-new-en').value = addFormEditors.en.root.innerHTML;
+            });
+
             if (isEdit) {
-                if (existingContentSK) addFormEditors.sk.root.innerHTML = existingContentSK;
-                if (existingContentEN) addFormEditors.en.root.innerHTML = existingContentEN;
+                if (existingContentSK) {
+                    addFormEditors.sk.root.innerHTML = existingContentSK;
+                    document.getElementById('content-new-sk').value = existingContentSK;
+                }
+                if (existingContentEN) {
+                    addFormEditors.en.root.innerHTML = existingContentEN;
+                    document.getElementById('content-new-en').value = existingContentEN;
+                }
             }
 
             // prevent images paste
@@ -438,10 +183,20 @@
             });
 
             // ================= FORM SUBMIT =================
+
             const form = document.querySelector('form');
             form.addEventListener('submit', function(e){
-                document.getElementById('content-new-sk').value = addFormEditors.sk.root.innerHTML;
-                document.getElementById('content-new-en').value = addFormEditors.en.root.innerHTML;
+                // Najprv skontroluj či existujú Quill editory
+                if (addFormEditors && addFormEditors.sk && addFormEditors.en) {
+                    const skContent = addFormEditors.sk.root.innerHTML;
+                    const enContent = addFormEditors.en.root.innerHTML;
+
+                    document.getElementById('content-new-sk').value = skContent;
+                    document.getElementById('content-new-en').value = enContent;
+
+                    console.log('SK obsah:', skContent); // Pre debugging
+                    console.log('EN obsah:', enContent); // Pre debugging
+                }
             });
 
             // ================= IMAGE HANDLING =================
@@ -634,7 +389,7 @@
             const sponsorsList = document.getElementById('sponsorsList');
             let sponsorCounter = 0;
 
-            function createSponsorDiv(name = '', logoUrl = null) {
+            function createSponsorDiv(name = '', logoUrl = null, id = null) {
                 sponsorCounter++;
                 const sponsorDiv = document.createElement('div');
                 sponsorDiv.className = 'bg-votum3 border-2 border-votum3 rounded-lg shadow-sm overflow-hidden';
@@ -737,15 +492,29 @@
                 content.appendChild(logoWrapper);
 
                 sponsorDiv.appendChild(content);
+
+                if(id) {
+                    const hiddenId = document.createElement('input');
+                    hiddenId.type = 'hidden';
+                    hiddenId.name = 'existing_sponsor_ids[]';
+                    hiddenId.value = id;
+                    sponsorDiv.appendChild(hiddenId);
+                }
+
                 sponsorsList.appendChild(sponsorDiv);
             }
 
             addEmptyBtn.addEventListener('click', () => createSponsorDiv());
 
             sponsorSelect.addEventListener('change', () => {
-                const name = sponsorSelect.value;
-                if (!name) return;
-                createSponsorDiv(name);
+                const sponsorId = sponsorSelect.value;
+                if (!sponsorId) return;
+
+                const sponsor = allSponsors.find(s => s.id == sponsorId);
+                if (!sponsor) return;
+
+                createSponsorDiv(sponsor.name, sponsor.file?.url ?? null, sponsor.id);
+
                 sponsorSelect.value = '';
             });
 
@@ -907,6 +676,90 @@
                 docsWrapper.appendChild(div);
             }
 
+            function createDocumentFromExisting(doc) {
+                docCounter++;
+                const div = document.createElement('div');
+                div.className = 'bg-votum3 border-2 border-votum3 rounded-lg shadow-sm overflow-hidden';
+
+                const header = document.createElement('div');
+                header.className = 'bg-dark-votum3 flex items-center justify-between px-4 py-3';
+
+                const headerTitle = document.createElement('div');
+                headerTitle.className = 'flex items-center gap-3';
+                const numberBadge = document.createElement('span');
+                numberBadge.className = 'text-white px-3 py-1 rounded-md text-sm font-bold';
+                numberBadge.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+                numberBadge.textContent = `#${docCounter}`;
+                const headerText = document.createElement('span');
+                headerText.className = 'font-semibold text-white';
+                headerText.textContent = 'Dokument';
+                headerTitle.appendChild(numberBadge);
+                headerTitle.appendChild(headerText);
+
+                const trashIcon = document.createElement('i');
+                trashIcon.className = 'fa-solid fa-trash px-3 py-2 border-2 border-votum3 text-votum3 bg-white rounded-md cursor-pointer hover:bg-votum3 hover:text-white transition-colors';
+                trashIcon.addEventListener('click', () => div.remove());
+
+                header.appendChild(headerTitle);
+                header.appendChild(trashIcon);
+                div.appendChild(header);
+
+                const content = document.createElement('div');
+                content.className = 'p-4 space-y-4';
+
+                // SK názov
+                const nameSKWrapper = document.createElement('div');
+                const labelSK = document.createElement('label');
+                labelSK.className = 'block text-sm font-medium text-gray-700 mb-1';
+                labelSK.textContent = 'SK – Názov dokumentu:';
+                const inputSK = document.createElement('input');
+                inputSK.type = 'text';
+                inputSK.name = 'doc_name_sk[]';
+                inputSK.value = doc.title_sk || '';
+                inputSK.className = 'w-full border-2 border-gray-300 rounded-md px-3 py-2 bg-white';
+                nameSKWrapper.appendChild(labelSK);
+                nameSKWrapper.appendChild(inputSK);
+
+                // EN názov
+                const nameENWrapper = document.createElement('div');
+                const labelEN = document.createElement('label');
+                labelEN.className = 'block text-sm font-medium text-gray-700 mb-1';
+                labelEN.textContent = 'EN – Názov dokumentu:';
+                const inputEN = document.createElement('input');
+                inputEN.type = 'text';
+                inputEN.name = 'doc_name_en[]';
+                inputEN.value = doc.title_en || '';
+                inputEN.className = 'w-full border-2 border-gray-300 rounded-md px-3 py-2 bg-white';
+                nameENWrapper.appendChild(labelEN);
+                nameENWrapper.appendChild(inputEN);
+
+                content.appendChild(nameSKWrapper);
+                content.appendChild(nameENWrapper);
+
+                // Link na existujúci súbor
+                const fileInfo = document.createElement('div');
+                fileInfo.className = 'text-sm text-gray-600 bg-gray-50 p-3 rounded-md border border-gray-300';
+                const fileName = doc.url.split('/').pop();
+                fileInfo.innerHTML = `
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-file-pdf text-red-600"></i>
+                    <span>Aktuálny súbor: </span>
+                    <a href="/storage/${doc.url}" target="_blank" class="text-blue-600 hover:underline font-medium">${fileName}</a>
+                </div>
+            `;
+                content.appendChild(fileInfo);
+
+                // Hidden input pre ID existujúceho dokumentu
+                const hiddenId = document.createElement('input');
+                hiddenId.type = 'hidden';
+                hiddenId.name = 'existing_doc_ids[]';
+                hiddenId.value = doc.id;
+                content.appendChild(hiddenId);
+
+                div.appendChild(content);
+                docsWrapper.appendChild(div);
+            }
+
             addDocBtn.addEventListener('click', () => createDocument());
 
             existingDocSelect.addEventListener('change', () => {
@@ -915,6 +768,11 @@
                 createDocument(type);
                 existingDocSelect.value = '';
             });
+
+            // Načítanie existujúcich dokumentov
+            if (isEdit && existingDocuments.length > 0) {
+                existingDocuments.forEach(doc => createDocumentFromExisting(doc));
+            }
 
             // ================= FARBY PRE KALENDÁR =================
             const eventColors = {
