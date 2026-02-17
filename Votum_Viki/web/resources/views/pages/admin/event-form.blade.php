@@ -111,7 +111,15 @@
         const isEdit = {{ $isEdit ? 'true' : 'false' }};
         const existingDates = @json($isEdit && $event->dates ? $event->dates->pluck('date')->map(fn($d) => $d->format('d-m-Y'))->toArray() : []);
         const existingVideoUrls = @json($videoUrls ?? []);
-        const existingSponsors = @json($isEdit && $event->sponsors ? $event->sponsors->map(fn($s) => ['name' => $s->name, 'logo' => $s->file ? $s->file->url : null])->toArray() : []);
+        const existingSponsors = @json(
+            $isEdit && $event->sponsors
+                ? $event->sponsors->map(fn($s) => [
+                    'id' => $s->id,
+                    'name' => $s->name,
+                    'logo' => $s->file ? $s->file->url : null
+                ])
+                : []
+        );
         const existingDocuments = @json($documents ?? []);
         const existingColor = @json($isEdit && $event->color ? $event->color : null);
         const existingContentSK = @json($isEdit && $event->content_sk ? $event->content_sk : '');
@@ -426,7 +434,7 @@
                 nameLabel.textContent = 'Názov sponzora:';
                 const nameInput = document.createElement('input');
                 nameInput.type = 'text';
-                nameInput.name = 'sponsors[]';
+                nameInput.name = id ? `existing_sponsor_names[${id}]` : 'sponsors[]';
                 nameInput.value = name;
                 nameInput.placeholder = 'Zadajte názov sponzora';
                 nameInput.className = 'w-full border-2 border-gray-300 rounded-md px-3 py-2 bg-white';
@@ -450,50 +458,52 @@
                     logoWrapper.appendChild(existingImage);
                 }
 
-                const fileRow = document.createElement('div');
-                fileRow.className = 'flex gap-3 items-center';
 
-                const fileNameInput = document.createElement('input');
-                fileNameInput.type = 'text';
-                fileNameInput.readOnly = true;
-                fileNameInput.value = logoUrl ? 'Aktuálne logo nastavené' : '— žiadny obrázok —';
-                fileNameInput.className = 'border-2 border-gray-300 bg-gray-100 px-3 py-2 flex-1 rounded-md';
-                fileRow.appendChild(fileNameInput);
+                    const fileRow = document.createElement('div');
+                    fileRow.className = 'flex gap-3 items-center';
 
-                const fileLabel = document.createElement('label');
-                fileLabel.className = 'px-4 py-2 bg-dark-votum3 text-white rounded-md cursor-pointer hover:opacity-90 transition-opacity';
-                fileLabel.textContent = logoUrl ? 'Zmeniť' : 'Nahrať';
-                const fileInput = document.createElement('input');
-                fileInput.type = 'file';
-                fileInput.name = 'sponsor_images[]';
-                fileInput.accept = 'image/*';
-                fileInput.className = 'hidden';
-                fileInput.addEventListener('change', () => {
-                    if (fileInput.files?.[0]) {
-                        fileNameInput.value = fileInput.files[0].name;
-                        removeFileBtn.classList.remove('hidden');
-                    }
-                });
-                fileLabel.appendChild(fileInput);
-                fileRow.appendChild(fileLabel);
-
-                const removeFileBtn = document.createElement('button');
-                removeFileBtn.type = 'button';
-                removeFileBtn.className = 'hidden px-4 py-2 border-2 border-votum3 text-votum3 rounded-md hover:bg-votum3 hover:text-white transition-colors';
-                removeFileBtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
-                removeFileBtn.addEventListener('click', () => {
-                    fileInput.value = '';
+                    const fileNameInput = document.createElement('input');
+                    fileNameInput.type = 'text';
+                    fileNameInput.readOnly = true;
                     fileNameInput.value = '— žiadny obrázok —';
-                    removeFileBtn.classList.add('hidden');
-                });
-                fileRow.appendChild(removeFileBtn);
+                    fileNameInput.className = 'border-2 border-gray-300 bg-gray-100 px-3 py-2 flex-1 rounded-md';
+                    fileRow.appendChild(fileNameInput);
 
-                logoWrapper.appendChild(fileRow);
+                    const fileLabel = document.createElement('label');
+                    fileLabel.className = 'px-4 py-2 bg-dark-votum3 text-white rounded-md cursor-pointer hover:opacity-90 transition-opacity';
+                    fileLabel.textContent = 'Nahrať';
+                    const fileInput = document.createElement('input');
+                    fileInput.type = 'file';
+                    fileInput.name = 'sponsor_images[]';
+                    fileInput.accept = 'image/*';
+                    fileInput.className = 'hidden';
+                    fileInput.addEventListener('change', () => {
+                        if (fileInput.files?.[0]) {
+                            fileNameInput.value = fileInput.files[0].name;
+                            removeFileBtn.classList.remove('hidden');
+                        }
+                    });
+                    fileLabel.appendChild(fileInput);
+                    fileRow.appendChild(fileLabel);
+
+                    const removeFileBtn = document.createElement('button');
+                    removeFileBtn.type = 'button';
+                    removeFileBtn.className = 'hidden px-4 py-2 border-2 border-votum3 text-votum3 rounded-md hover:bg-votum3 hover:text-white transition-colors';
+                    removeFileBtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
+                    removeFileBtn.addEventListener('click', () => {
+                        fileInput.value = '';
+                        fileNameInput.value = '— žiadny obrázok —';
+                        removeFileBtn.classList.add('hidden');
+                    });
+                    fileRow.appendChild(removeFileBtn);
+
+                    logoWrapper.appendChild(fileRow);
+
                 content.appendChild(logoWrapper);
-
                 sponsorDiv.appendChild(content);
 
-                if(id) {
+                // ← Hidden ID iba pre existujúcich
+                if (id) {
                     const hiddenId = document.createElement('input');
                     hiddenId.type = 'hidden';
                     hiddenId.name = 'existing_sponsor_ids[]';
@@ -518,10 +528,12 @@
                 sponsorSelect.value = '';
             });
 
-            // Načítanie existujúcich sponzorov
             if (isEdit && existingSponsors.length > 0) {
-                existingSponsors.forEach(sponsor => createSponsorDiv(sponsor.name, sponsor.logo));
+                existingSponsors.forEach(sponsor =>
+                    createSponsorDiv(sponsor.name, sponsor.logo, sponsor.id)
+                );
             }
+
 
             // ================= DOKUMENTY =================
             const addDocBtn = document.getElementById('addDocumentBtn');

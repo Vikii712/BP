@@ -140,13 +140,13 @@
                 <div class="space-y-3 mt-6">
                     <div class="flex gap-3">
                         <span class="w-10 font-semibold text-blue-950 pt-2">SK –</span>
-                        <textarea name="image_alt_sk" rows="3"
-                                  class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2"></textarea>
+                        <input name="pic_alt_sk"
+                                  class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">
                     </div>
                     <div class="flex gap-3">
                         <span class="w-10 font-semibold text-blue-950 pt-2">EN –</span>
-                        <textarea name="image_alt_en" rows="3"
-                                  class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2"></textarea>
+                        <input name="pic_alt_en"
+                                  class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">
                     </div>
                 </div>
             </div>

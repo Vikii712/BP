@@ -47,9 +47,9 @@ class EventsEditController extends Controller
     {
         $sponsors = Sponsor::all();
         return view('pages.admin.event-form', [
-            'event' => null,
-            'isEdit' => false,
-            'allSponsors' => $sponsors
+            'event'       => null,
+            'isEdit'      => false,
+            'allSponsors' => $sponsors,
         ]);
     }
 
@@ -59,24 +59,24 @@ class EventsEditController extends Controller
         $sponsors = Sponsor::all();
 
         return view('pages.admin.event-form', [
-            'event' => $event,
-            'isEdit' => true,
+            'event'       => $event,
+            'isEdit'      => true,
             'allSponsors' => $sponsors,
-            'videoUrls' => $event->files()->where('type','video')->pluck('url')->toArray(),
-            'galleryUrl' => $event->files()->where('type','image')->value('url'),
-            'documents' => $event->files()->where('type','document')->get(),
+            'videoUrls'   => $event->files()->where('type', 'video')->pluck('url')->toArray(),
+            'galleryUrl'  => $event->files()->where('type', 'image')->value('url'),
+            'documents'   => $event->files()->where('type', 'document')->get(),
         ]);
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title_sk' => 'required|string|max:255',
-            'title_en' => 'required|string|max:255',
-            'content_sk' => 'nullable|string',
-            'content_en' => 'nullable|string',
+            'title_sk'      => 'required|string|max:255',
+            'title_en'      => 'required|string|max:255',
+            'content_sk'    => 'nullable|string',
+            'content_en'    => 'nullable|string',
             'calendarColor' => 'nullable|string|max:50',
-            'dates' => 'nullable|string',
+            'dates'         => 'nullable|string',
         ]);
 
         $event = Event::create([
@@ -98,15 +98,23 @@ class EventsEditController extends Controller
             if (is_array($dates)) {
                 foreach ($dates as $date) {
                     if (!$date) continue;
-
-                    $event->dates()->create([
-                        'date' => $date,
-                    ]);
+                    $event->dates()->create(['date' => $date]);
                 }
             }
         }
 
-        /* -------- PHOTO LINK (1× image) -------- */
+        /* -------- MAIN IMAGE -------- */
+        if ($request->hasFile('main_pic')) {
+            $path = $request->file('main_pic')->store('events', 'public');
+
+            $event->update([
+                'main_pic'   => $path,
+                'pic_alt_sk' => $request->pic_alt_sk,
+                'pic_alt_en' => $request->pic_alt_en,
+            ]);
+        }
+
+        /* -------- GALLERY URL -------- */
         if ($request->filled('gallery_url')) {
             $event->files()->create([
                 'type' => 'image',
@@ -134,8 +142,8 @@ class EventsEditController extends Controller
                 $path = $file->store('documents', 'public');
 
                 $event->files()->create([
-                    'type' => 'document',
-                    'url' => $path,
+                    'type'     => 'document',
+                    'url'      => $path,
                     'title_sk' => $request->doc_name_sk[$i] ?? null,
                     'title_en' => $request->doc_name_en[$i] ?? null,
                 ]);
@@ -143,10 +151,39 @@ class EventsEditController extends Controller
         }
 
         /* -------- SPONSORS -------- */
-        if($request->filled('existing_sponsor_ids')) {
-            $event->sponsors()->sync($request->existing_sponsor_ids);
+        $existingIds   = $request->existing_sponsor_ids ?? [];
+        $newSponsorIds = [];
+
+        // Aktualizuj mená existujúcich sponzorov
+        if ($request->filled('existing_sponsor_names')) {
+            foreach ($request->existing_sponsor_names as $sponsorId => $name) {
+                $sponsor = Sponsor::find($sponsorId);
+                if (!$sponsor || !$name) continue;
+                $sponsor->update(['name' => $name]);
+            }
         }
 
+        // Aktualizuj logá existujúcich sponzorov
+        if ($request->hasFile('existing_sponsor_images')) {
+            foreach ($request->file('existing_sponsor_images') as $sponsorId => $logo) {
+                $sponsor = Sponsor::find($sponsorId);
+                if (!$sponsor) continue;
+
+                if ($sponsor->file_id) {
+                    $oldFile = File::find($sponsor->file_id);
+                    if ($oldFile) {
+                        Storage::disk('public')->delete($oldFile->url);
+                        $oldFile->delete();
+                    }
+                }
+
+                $path = $logo->store('sponsors', 'public');
+                $file = File::create(['type' => 'image', 'url' => $path]);
+                $sponsor->update(['file_id' => $file->id]);
+            }
+        }
+
+        // Vytvor nových sponzorov
         if ($request->filled('sponsors')) {
             foreach ($request->sponsors as $i => $name) {
                 if (!$name) continue;
@@ -154,25 +191,18 @@ class EventsEditController extends Controller
                 $fileId = null;
 
                 if ($request->hasFile('sponsor_images') && isset($request->file('sponsor_images')[$i])) {
-                    $logo = $request->file('sponsor_images')[$i];
-                    $path = $logo->store('sponsors', 'public');
-
-                    $file = File::create([
-                        'type' => 'image',
-                        'url' => $path,
-                    ]);
-
+                    $logo   = $request->file('sponsor_images')[$i];
+                    $path   = $logo->store('sponsors', 'public');
+                    $file   = File::create(['type' => 'image', 'url' => $path]);
                     $fileId = $file->id;
                 }
 
-                $sponsor = Sponsor::create([
-                    'name' => $name,
-                    'file_id' => $fileId,
-                ]);
-
-                $event->sponsors()->attach($sponsor->id);
+                $sponsor         = Sponsor::create(['name' => $name, 'file_id' => $fileId]);
+                $newSponsorIds[] = $sponsor->id;
             }
         }
+
+        $event->sponsors()->sync(array_merge($existingIds, $newSponsorIds));
 
         return redirect()->route('admin.events')
             ->with('success', 'Udalosť bola úspešne vytvorená.');
@@ -182,12 +212,12 @@ class EventsEditController extends Controller
     public function update(Request $request, Event $event)
     {
         $validated = $request->validate([
-            'title_sk' => 'required|string|max:255',
-            'title_en' => 'required|string|max:255',
-            'content_sk' => 'nullable|string',
-            'content_en' => 'nullable|string',
+            'title_sk'      => 'required|string|max:255',
+            'title_en'      => 'required|string|max:255',
+            'content_sk'    => 'nullable|string',
+            'content_en'    => 'nullable|string',
             'calendarColor' => 'nullable|string|max:50',
-            'dates' => 'nullable|string',
+            'dates'         => 'nullable|string',
         ]);
 
         $data = [
@@ -210,6 +240,33 @@ class EventsEditController extends Controller
 
         $event->update($data);
 
+        /* -------- MAIN IMAGE -------- */
+        if ($request->remove_image == '1') {
+            if ($event->main_pic) {
+                Storage::disk('public')->delete($event->main_pic);
+            }
+
+            $event->update([
+                'main_pic'   => null,
+                'pic_alt_sk' => null,
+                'pic_alt_en' => null,
+            ]);
+        }
+
+        if ($request->hasFile('main_pic')) {
+            if ($event->main_pic) {
+                Storage::disk('public')->delete($event->main_pic);
+            }
+
+            $path = $request->file('main_pic')->store('events', 'public');
+
+            $event->update([
+                'main_pic'   => $path,
+                'pic_alt_sk' => $request->pic_alt_sk,
+                'pic_alt_en' => $request->pic_alt_en,
+            ]);
+        }
+
         /* -------- RESET DATES -------- */
         $event->dates()->delete();
 
@@ -219,10 +276,7 @@ class EventsEditController extends Controller
             if (is_array($dates)) {
                 foreach ($dates as $date) {
                     if (!$date) continue;
-
-                    $event->dates()->create([
-                        'date' => $date,
-                    ]);
+                    $event->dates()->create(['date' => $date]);
                 }
             }
         }
@@ -235,15 +289,11 @@ class EventsEditController extends Controller
             $file->delete();
         }
 
-        /* -------- RESET SPONSORS -------- */
-        $event->sponsors()->detach();
-
-        /* -------- RE-ADD FILES & SPONSORS (same as store) -------- */
-
+        /* -------- RE-ADD FILES -------- */
         if ($request->filled('gallery_url')) {
             $event->files()->create([
                 'type' => 'image',
-                'url' => $request->gallery_url,
+                'url'  => $request->gallery_url,
             ]);
         }
 
@@ -253,7 +303,7 @@ class EventsEditController extends Controller
 
                 $event->files()->create([
                     'type' => 'video',
-                    'url' => $url,
+                    'url'  => $url,
                 ]);
             }
         }
@@ -265,18 +315,48 @@ class EventsEditController extends Controller
                 $path = $file->store('documents', 'public');
 
                 $event->files()->create([
-                    'type' => 'document',
-                    'url' => $path,
+                    'type'     => 'document',
+                    'url'      => $path,
                     'title_sk' => $request->doc_name_sk[$i] ?? null,
                     'title_en' => $request->doc_name_en[$i] ?? null,
                 ]);
             }
         }
 
-        if($request->filled('existing_sponsor_ids')) {
-            $event->sponsors()->sync($request->existing_sponsor_ids);
+        /* -------- SPONSORS -------- */
+        $existingIds   = $request->existing_sponsor_ids ?? [];
+        $newSponsorIds = [];
+
+        // Aktualizuj mená existujúcich sponzorov
+        if ($request->filled('existing_sponsor_names')) {
+            foreach ($request->existing_sponsor_names as $sponsorId => $name) {
+                $sponsor = Sponsor::find($sponsorId);
+                if (!$sponsor || !$name) continue;
+                $sponsor->update(['name' => $name]);
+            }
         }
 
+        // Aktualizuj logá existujúcich sponzorov
+        if ($request->hasFile('existing_sponsor_images')) {
+            foreach ($request->file('existing_sponsor_images') as $sponsorId => $logo) {
+                $sponsor = Sponsor::find($sponsorId);
+                if (!$sponsor) continue;
+
+                if ($sponsor->file_id) {
+                    $oldFile = File::find($sponsor->file_id);
+                    if ($oldFile) {
+                        Storage::disk('public')->delete($oldFile->url);
+                        $oldFile->delete();
+                    }
+                }
+
+                $path = $logo->store('sponsors', 'public');
+                $file = File::create(['type' => 'image', 'url' => $path]);
+                $sponsor->update(['file_id' => $file->id]);
+            }
+        }
+
+        // Vytvor nových sponzorov
         if ($request->filled('sponsors')) {
             foreach ($request->sponsors as $i => $name) {
                 if (!$name) continue;
@@ -284,30 +364,22 @@ class EventsEditController extends Controller
                 $fileId = null;
 
                 if ($request->hasFile('sponsor_images') && isset($request->file('sponsor_images')[$i])) {
-                    $logo = $request->file('sponsor_images')[$i];
-                    $path = $logo->store('sponsors', 'public');
-
-                    $file = File::create([
-                        'type' => 'image',
-                        'url' => $path,
-                    ]);
-
+                    $logo   = $request->file('sponsor_images')[$i];
+                    $path   = $logo->store('sponsors', 'public');
+                    $file   = File::create(['type' => 'image', 'url' => $path]);
                     $fileId = $file->id;
                 }
 
-                $sponsor = Sponsor::create([
-                    'name' => $name,
-                    'file_id' => $fileId,
-                ]);
-
-                $event->sponsors()->attach($sponsor->id);
+                $sponsor         = Sponsor::create(['name' => $name, 'file_id' => $fileId]);
+                $newSponsorIds[] = $sponsor->id;
             }
         }
+
+        $event->sponsors()->sync(array_merge($existingIds, $newSponsorIds));
 
         return redirect()->route('admin.events')
             ->with('success', 'Udalosť bola úspešne uložená.');
     }
-
 
     public function archive(Event $event)
     {
@@ -326,9 +398,7 @@ class EventsEditController extends Controller
 
     public function unarchive(Event $event)
     {
-        $event->update([
-            'archived' => false,
-        ]);
+        $event->update(['archived' => false]);
 
         return redirect()
             ->route('admin.events')
@@ -358,5 +428,4 @@ class EventsEditController extends Controller
         return redirect()->route('admin.events')
             ->with('success', 'Udalosť bola obnovená.');
     }
-
 }

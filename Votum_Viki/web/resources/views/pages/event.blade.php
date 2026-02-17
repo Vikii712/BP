@@ -33,7 +33,7 @@
                             @if($sponsor->file)
                                 <div class="h-16 rounded flex items-center justify-center">
                                     <img
-                                        src="{{ $sponsor->file->url }}"
+                                        src="{{ asset('storage/' . $sponsor->file->url) }}"
                                         alt="{{ $sponsor->name }}"
                                         class="max-w-full max-h-full object-contain"
                                     >
