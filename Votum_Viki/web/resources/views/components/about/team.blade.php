@@ -1,6 +1,6 @@
 <!-- Team Section -->
 <div class="bg-blue-100 py-12">
-    <h2 class="h2 font-bold text-votum-blue mb-8 text-center py-5">Náš Tím</h2>
+    <h2 class="h2 font-bold text-votum-blue mb-8 text-center py-5">{{__('nav.ourTeam')}}</h2>
 
     <div class="flex flex-col gap-8 mx-5 sm:mx-10">
 

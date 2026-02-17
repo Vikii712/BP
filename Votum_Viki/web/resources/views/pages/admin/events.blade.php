@@ -115,10 +115,11 @@
 
                                 {{-- Vymazať --}}
                                 <td class="px-4 py-4 text-center">
-                                    <button onclick="openDeleteModal({{ $event->id }}, '{{ addslashes($event->title_sk) }}')"
+                                    <button onclick="openDeleteModal('Udalosť: {{ addslashes($event->title_sk) }}', '{{ route('events.destroy', $event->id) }}')"
                                             class="text-red-600 hover:text-red-800 text-lg cursor-pointer">
                                         <i class="fas fa-trash"></i>
                                     </button>
+
                                 </td>
 
                                 {{-- Archív --}}
@@ -158,38 +159,5 @@
         </div>
     </div>
 
-    <!-- Delete Confirmation Modal -->
-    <div id="deleteModal" class="hidden fixed inset-0 bg-transparent bg-opacity-50 flex items-center justify-center z-50">
-        <div class="bg-gray-200 p-6 rounded-md shadow-md space-y-4 w-96">
-            <p class="mb-6">Naozaj chcete vymazať udalosť: <span id="deleteEventName" class="font-bold"></span>?</p>
-            <div class="flex justify-end gap-3">
-                <button onclick="closeDeleteModal()"
-                        class="px-4 py-2 bg-white rounded-md hover:bg-gray-300">Zrušiť</button>
-                <form id="deleteForm" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit"
-                            class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">Vymazať</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function openDeleteModal(eventId, eventName) {
-            const modal = document.getElementById('deleteModal');
-            const form = document.getElementById('deleteForm');
-            const nameSpan = document.getElementById('deleteEventName');
-
-            nameSpan.textContent = eventName;
-            form.action = '/votumaci/admin/events/' + eventId;
-
-            modal.classList.remove('hidden');
-        }
-
-        function closeDeleteModal() {
-            document.getElementById('deleteModal').classList.add('hidden');
-        }
-    </script>
-
+    <x-admin.modal />
 @endsection

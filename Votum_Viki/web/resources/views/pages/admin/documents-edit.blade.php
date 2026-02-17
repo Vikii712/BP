@@ -46,35 +46,67 @@
                 </div>
 
                 {{-- ULOŽIŤ VŠETKY ZMENY --}}
-                <div class="flex justify-center pt-6">
+                <div class="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
                     <button type="submit"
-                            class="px-8 py-4 hover:bg-green-300 bg-green-200 border-2 border-green-900 font-bold text-lg rounded-lg  transition-colors flex items-center gap-3 shadow-lg">
+                            class="px-8 py-2 hover:bg-green-300 bg-green-200 border-2 3border-green-900 font-bold text-lg rounded-lg  transition-colors flex items-center gap-3 shadow-lg">
                         <i class="fa-solid fa-check"></i>
-                        Uložiť všetky zmeny
+                        Uložiť
                     </button>
                 </div>
 
             </form>
         </div>
+        <x-admin.modal />
+
     </div>
 
     <script>
         let sectionCounter = {{ count($sections) }};
 
+        // ===== REINDEXUJE ČÍSLA VIZUÁLNE =====
+        function reindexAll() {
+            // Reindexuj sekcie
+            document.querySelectorAll('.section').forEach((section, sIndex) => {
+                const sectionLabel = section.querySelector('h2 span');
+                if (sectionLabel) {
+                    sectionLabel.textContent = `#${sIndex + 1} Sekcia`;
+                }
+
+                // Reindexuj dokumenty v danej sekcii
+                section.querySelectorAll('.document').forEach((doc, dIndex) => {
+                    const docLabel = doc.querySelector('.bg-dark-votum3 span');
+                    if (docLabel) {
+                        docLabel.textContent = `#${dIndex + 1}`;
+                    }
+                });
+            });
+        }
+
         document.addEventListener('click', e => {
+
 
             // ===== ODSTRÁNI DOKUMENT =====
             if (e.target.closest('.removeDocBtn')) {
-                if (confirm('Naozaj chcete odstrániť tento dokument?')) {
-                    e.target.closest('.document').remove();
-                }
+                e.preventDefault();
+                e.stopPropagation();
+                const docElement = e.target.closest('.document');
+                const docNumber = docElement.querySelector('span').textContent.trim();
+                openDeleteModal(`Dokument ${docNumber}`, () => {
+                    docElement.remove();
+                    reindexAll(); // 👈
+                });
             }
 
             // ===== ODSTRÁNI SEKCIU =====
             if (e.target.closest('.removeSectionBtn')) {
-                if (confirm('Naozaj chcete odstrániť celú sekciu vrátane všetkých dokumentov?')) {
-                    e.target.closest('.section').remove();
-                }
+                e.preventDefault();
+                e.stopPropagation();
+                const sectionElement = e.target.closest('.section');
+                const sectionNumber = sectionElement.querySelector('h2 span').textContent.trim();
+                openDeleteModal(`${sectionNumber}`, () => {
+                    sectionElement.remove();
+                    reindexAll(); // 👈
+                });
             }
 
             // ===== PRIDÁ DOKUMENT DO SEKCIE =====
@@ -151,7 +183,7 @@
                 sectionCounter++;
 
                 const sectionHTML = `
-                    <div class="bg-votum3 border-2 border-votum3 rounded-xl shadow-lg overflow-hidden section">
+                    <div class="bg-votum3 border-2 border-blue-950 rounded-xl shadow-lg overflow-hidden section">
                         <div class="bg-blue-950 px-6 py-2">
                             <div class="flex items-center justify-between">
                                 <h2 class="text-xl font-bold text-white flex items-center gap-3">
@@ -204,19 +236,15 @@
                                     <!-- Dokumenty budú pridané cez tlačidlo -->
                                 </div>
                             </div>
-
-                            <div class="flex justify-end pt-4 border-t-2 border-gray-200">
-                                <button type="submit"
-                                        class="px-6 py-2 hover:bg-green-200 bg-green-100 border-2 border-green-900 font-semibold rounded-md hover:opacity-90 transition-opacity flex items-center gap-2">
-                                    <i class="fa-solid fa-check"></i>
-                                    Uložiť zmeny
-                                </button>
-                            </div>
                         </div>
                     </div>
                 `;
 
                 wrapper.insertAdjacentHTML('beforeend', sectionHTML);
+                const newSection = wrapper.lastElementChild;
+                if (newSection) {
+                    newSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
             }
         });
 

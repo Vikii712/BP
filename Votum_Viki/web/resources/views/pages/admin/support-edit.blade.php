@@ -206,6 +206,8 @@
 
             quillSk.on('text-change', () => { skTextarea.value = quillSk.root.innerHTML; });
             quillEn.on('text-change', () => { enTextarea.value = quillEn.root.innerHTML; });
+
+            newSection.scrollIntoView({behavior:'smooth', block:'start'})
         }
 
 
