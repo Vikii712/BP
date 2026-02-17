@@ -35,9 +35,9 @@ class EventsController extends Controller
                 $displayDates = $isUpcoming ? $futureDates : $pastDates;
 
                 $dateLabel = $displayDates->count() === 1
-                    ? $displayDates->first()->format('j. n.')
+                    ? $displayDates->first()->format('j. n. Y')
                     : ($displayDates->count() > 1
-                        ? $displayDates->first()->format('j. n.') . ' – ' . $displayDates->last()->format('j. n.')
+                        ? $displayDates->first()->format('j. n. Y') . ' – ' . $displayDates->last()->format('j. n. Y')
                         : '');
 
                 // Rok pre past eventy (použiť posledný dátum)
@@ -47,6 +47,8 @@ class EventsController extends Controller
                     'id' => $event->id,
                     'title' => $locale === 'sk' ? $event->title_sk : $event->title_en,
                     'description' => $locale === 'sk' ? $event->content_sk : $event->content_en,
+                    'main_pic' => $event->main_pic,
+                    'pic_alt' => $locale === 'sk' ? $event->pic_alt_sk : $event->pic_alt_en,
                     'dateLabel' => $dateLabel,
                     'year' => $year,
                     'isUpcoming' => $isUpcoming,
@@ -89,9 +91,9 @@ class EventsController extends Controller
             ->values();
 
         $dateLabel = $dates->count() === 1
-            ? $dates->first()->format('j. n.')
+            ? $dates->first()->format('j. n. Y')
             : ($dates->count() > 1
-                ? $dates->first()->format('j. n.') . ' – ' . $dates->last()->format('j. n.')
+                ? $dates->first()->format('j. n. Y') . ' – ' . $dates->last()->format('j. n. Y')
                 : '');
 
         $photoLink = $event->files->firstWhere('type', 'image');

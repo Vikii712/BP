@@ -86,6 +86,9 @@ class HomeController extends Controller
                 'futureDates' => $futureDates,
                 'nextDate' => $futureDates->first(),
 
+                'main_pic' => $event->main_pic,
+                'pic_alt' => $locale === 'sk' ? $event->pic_alt_sk : $event->pic_alt_en,
+
                 'inCalendar' => (bool) $event->inCalendar,
                 'inGallery' => (bool) $event->inGallery,
                 'inHome' => (bool) $event->inHome,
@@ -119,21 +122,24 @@ class HomeController extends Controller
         $homeEvents = $events
             ->filter(fn ($e) => $e->inHome && $e->inGallery)
             ->values()
-            ->map(function ($event) {
+            ->map(function ($event) use ($locale) {
                 // Formátovanie dátumu pre home eventy
                 $dates = $event->futureDates->isNotEmpty()
                     ? $event->futureDates->map(fn($d) => Carbon::parse($d))
                     : collect($event->dates)->map(fn($d) => Carbon::parse($d));
 
                 $dateLabel = $dates->count() === 1
-                    ? $dates->first()->format('j. n.')
-                    : $dates->first()->format('j. n.') . ' – ' . $dates->last()->format('j. n.');
+                    ? $dates->first()->format('j. n. Y')
+                    : $dates->first()->format('j. n. Y') . ' – ' . $dates->last()->format('j. n. Y');
 
                 return (object)[
                     'id' => $event->id,
                     'title' => $event->title,
                     'description' => $event->description,
                     'dateLabel' => $dateLabel,
+                    'main_pic' => $event->main_pic,
+                    'pic_alt' => $event->pic_alt,
+
                 ];
             });
 

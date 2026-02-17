@@ -1,8 +1,22 @@
 @props(['calendarEvents', 'upcomingEvents'])
+@php
+    $titles = $upcomingEvents
+        ->pluck('title')
+        ->implode('. ');
+@endphp
 
 <section class="bg-white py-12" id="events">
     <div class="w-full px-2 sm:px-8 lg:px-16">
-        <h2 class="h2 font-bold text-votum-blue mb-8 text-center">{{ __('nav.nextUp') }}</h2>
+        <div class="flex justify-center">
+            <div class="inline-flex items-center gap-3 mb-10">
+                <h2 class="h2 font-bold text-votum-blue underline underline-offset-4 ">
+                    {{ __('nav.nextUp') }}
+                </h2>
+
+                <x-listen text="{{ __('nav.nextUp') . $titles }}" :down="true" :relative="true"/>
+            </div>
+        </div>
+
 
         <div class="grid lg:grid-cols-2 gap-8">
             <!-- Calendar -->

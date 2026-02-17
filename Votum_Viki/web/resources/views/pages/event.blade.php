@@ -6,18 +6,17 @@
         <!-- Event Header -->
         <div class="max-w-5xl mx-auto mb-8">
 
-            <h1 class="text-center md:text-start h1 font-bold text-votum-blue mb-4">
-                {{$title}}
+            <h1 class="h1 text-center font-bold text-votum-blue mb-4">
+                {{ $title }}
             </h1>
-
-
-            <!-- Date and Action Buttons -->
-            <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
-                <div class="h3 font-bold text-votum-blue">
-                    <i class="fas fa-calendar-alt mr-2"></i>
-                    {{$dateLabel}}
+                <div class="w-full flex gap-3 justify-center">
+                    <x-listen :text="$title . $description" :event="true"/>
+                    <x-share />
                 </div>
-                <x-share />
+
+            <div class="h3 font-bold text-votum-blue pt-5">
+                <i class="fas fa-calendar-alt mr-2"></i>
+                {{$dateLabel}}
             </div>
 
             @if($sponsors->isNotEmpty())
@@ -49,8 +48,7 @@
         <!-- Event Description Section -->
         <section class="max-w-5xl mx-auto mb-12">
             <div class="relative">
-                <x-listen :text="$description" />
-                <div class=" txt prose max-w-none  space-y-4">
+                <div class="txt text-black prose max-w-none space-y-4">
                     {!! $description !!}
                 </div>
             </div>
