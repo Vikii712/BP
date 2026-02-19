@@ -287,7 +287,7 @@ class AboutSeeder extends Seeder
 <p>We thank: family Hodek, Švec, Wűrfl, Katka Horváth, Zuzana Vitek, Lucia Štassel, family Savko, Tána Kuzmová, family Hajko, Drábik, Mrs. Taubnerová, family Delič, Bishop Haľko, Slavo Jurko, the many volunteers and all the people who, thanks to their good will, built or are building VOTUM.</p>
 ",
             'year' => null,
-            'position' => 99,
+            'position' => 4,
             'category' => 'team',
             'created_at' => now(),
             'updated_at' => now(),

@@ -5,6 +5,7 @@
 
 @php
     $isHistory = $category === 'history';
+    $isTeam = $category === 'team';
 @endphp
 
 <div class="space-y-6">
@@ -12,7 +13,7 @@
     {{-- Tlačidlo na zobrazenie formulára --}}
     <div class="flex justify-center">
         <button type="button" id="toggleAddFormBtn" class="bg-green-200 border-2 border-green-900 text-green-900 px-4 py-2 rounded-md font-semibold hover:bg-green-300">
-            {{ $isHistory ? 'Pridať novú udalosť' : 'Pridať novú sekciu' }}
+            {{ $isHistory ? 'Pridať novú udalosť' : ($isTeam ? 'Pridať nového člena' : 'Pridať novú sekciu') }}
         </button>
     </div>
 
@@ -21,7 +22,7 @@
 
         {{-- HLAVNÝ NADPIS --}}
         <div class="bg-blue-950 text-lg -mx-6 px-6 py-4 text-white font-bold rounded-t-md">
-            {{ $isHistory ? 'Pridať udalosť' : 'Pridať sekciu O nás' }}
+            {{ $isHistory ? 'Pridať udalosť' : ($isTeam ? 'Pridať nového člena' : 'Pridať sekciu o nás')  }}
         </div>
 
         <form method="POST"
@@ -52,7 +53,7 @@
 
             {{-- Nadpis --}}
             <div class="flex items-center bg-gray-100 {{ $isHistory ? '' : '-mt-6' }} -mx-6 px-6 py-2 font-medium text-blue-950">
-                {{ $isHistory ? 'Nadpis udalosti' : 'Názov sekcie' }}
+                {{ $isHistory ? 'Nadpis udalosti' : ($isTeam ? 'Meno člena / názov skupiny' : 'Názov sekcie')  }}
             </div>
             <div class="space-y-3">
                 <div class="flex items-center gap-3">
@@ -140,12 +141,12 @@
                 <div class="space-y-3 mt-6">
                     <div class="flex gap-3">
                         <span class="w-10 font-semibold text-blue-950 pt-2">SK –</span>
-                        <input name="pic_alt_sk"
+                        <input name="image_alt_sk"
                                   class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">
                     </div>
                     <div class="flex gap-3">
                         <span class="w-10 font-semibold text-blue-950 pt-2">EN –</span>
-                        <input name="pic_alt_en"
+                        <input name="image_alt_en"
                                   class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">
                     </div>
                 </div>

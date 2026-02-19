@@ -116,7 +116,7 @@
                 ? $event->sponsors->map(fn($s) => [
                     'id' => $s->id,
                     'name' => $s->name,
-                    'logo' => $s->file ? $s->file->url : null
+                    'logo' => $s->file ? asset('storage/' . $s->file->url) : null
                 ])
                 : []
         );
@@ -452,7 +452,7 @@
                     const existingImage = document.createElement('div');
                     existingImage.className = 'mb-3';
                     const img = document.createElement('img');
-                    img.src = '/storage/' + logoUrl;
+                    img.src = logoUrl;
                     img.className = 'max-w-xs rounded-md border-2 border-gray-300';
                     existingImage.appendChild(img);
                     logoWrapper.appendChild(existingImage);

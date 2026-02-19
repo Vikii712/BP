@@ -250,12 +250,12 @@
         function onNewImage(input) {
             if (!input.files?.[0]) return;
             const filenameEl = document.getElementById('newImageFilename');
-            if (filenameEl) filenameEl.textContent = input.files[0].name;
+            if (filenameEl) filenameEl.value = input.files[0].name;
             const altWrapper = document.getElementById('newAltWrapper');
             const removeBtn = document.getElementById('removeNewBtn');
             if (altWrapper) altWrapper.classList.remove('hidden');
             if (removeBtn) removeBtn.classList.remove('hidden');
-            document.querySelectorAll('#newAltWrapper textarea').forEach(t => t.setAttribute('required', 'required'));
+            document.querySelectorAll('#newAltWrapper input').forEach(t => t.setAttribute('required', 'required'));
         }
 
         function removeNewImage() {
@@ -267,7 +267,7 @@
             const removeBtn = document.getElementById('removeNewBtn');
             if (altWrapper) altWrapper.classList.add('hidden');
             if (removeBtn) removeBtn.classList.add('hidden');
-            document.querySelectorAll('#newAltWrapper textarea').forEach(t => t.removeAttribute('required'));
+            document.querySelectorAll('#newAltWrapper input').forEach(t => t.removeAttribute('required'));
         }
 
         // ========== ADD FORM FUNCTIONS ==========

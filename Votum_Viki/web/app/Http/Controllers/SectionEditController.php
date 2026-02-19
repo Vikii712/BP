@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\HtmlSanitizer;
+use App\Models\File;
 use App\Models\Section;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -123,7 +124,7 @@ class SectionEditController extends Controller
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store($this->category, 'public');
 
-            DB::table('files')->insert([
+            File::create([
                 'section_id' => $section->id,
                 'url' => $path,
                 'type' => 'image',
@@ -131,6 +132,10 @@ class SectionEditController extends Controller
                 'title_en' => $request->image_alt_en,
                 'created_at' => now(),
                 'updated_at' => now(),
+            ]);
+
+            DB::table('files')->insert([
+
             ]);
         }
 
@@ -191,7 +196,7 @@ class SectionEditController extends Controller
 
             $path = $request->file('image')->store($category, 'public');
 
-            DB::table('files')->insert([
+            File::create([
                 'section_id' => $item->id,
                 'url' => $path,
                 'type' => 'image',
@@ -200,6 +205,7 @@ class SectionEditController extends Controller
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
+
         } elseif ($existingImage) {
             DB::table('files')
                 ->where('id', $existingImage->id)

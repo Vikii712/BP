@@ -9,18 +9,21 @@
             <h1 class="h1 text-center font-bold text-votum-blue mb-4">
                 {{ $title }}
             </h1>
-                <div class="w-full flex gap-3 justify-center">
-                    <x-listen :text="$title . $description" :event="true"/>
-                    <x-share />
-                </div>
 
-            <div class="h3 font-bold text-votum-blue pt-5">
-                <i class="fas fa-calendar-alt mr-2"></i>
-                {{$dateLabel}}
+            @if($dateLabel)
+                <div class="h3 font-bold text-votum-blue pb-5 text-center">
+                    <i class="fas fa-calendar-alt mr-2"></i>
+                    {{$dateLabel}}
+                </div>
+            @endif
+
+            <div class="w-full flex gap-3 justify-center">
+                <x-listen :text="$title . $description" :event="true"/>
+                <x-share />
             </div>
 
             @if($sponsors->isNotEmpty())
-                <span class="w-full text-votum-blue font-semibold txt">Sponzori:</span>
+                <h2 class="h2 font-bold w-full text-votum-blue mt-10">Sponzori:</h2>
 
                 <div class="flex items-center gap-4 flex-wrap p-4">
                     @foreach($sponsors as $sponsor)
@@ -28,7 +31,6 @@
                 <span class="text-votum-blue font-bold text-lg">
                     {{ $sponsor->name }}
                 </span>
-
                             @if($sponsor->file)
                                 <div class="h-16 rounded flex items-center justify-center">
                                     <img
@@ -45,14 +47,19 @@
 
         </div>
 
-        <!-- Event Description Section -->
-        <section class="max-w-5xl mx-auto mb-12">
-            <div class="relative">
-                <div class="txt text-black prose max-w-none space-y-4">
-                    {!! $description !!}
+        @if($description)
+            <!-- Event Description Section -->
+            <section class="max-w-5xl mx-auto mb-12">
+                <p class="h2 font-bold w-full text-votum-blue mt-10">O udalosti:</p>
+
+                <div class="relative">
+                    <div class="txt text-black prose max-w-none space-y-4">
+                        {!! $description !!}
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        @endif
+
 
         @if($photoLink)
             <a href="{{ $photoLink->url }}" class="block group mx-4" target="_blank">
@@ -66,7 +73,7 @@
                     </div>
 
                     <h2 class="h2 font-bold text-votum2 group-hover:text-votum-dark transition-colors">
-                        Fotky
+                        Fotky:
                     </h2>
                 </section>
             </a>
@@ -77,7 +84,7 @@
         <!-- Videos Section -->
         @if($videos->isNotEmpty())
             <section class="max-w-5xl mx-auto mb-12">
-                <h2 class="h2 font-bold text-votum-blue mb-6">Pozrite si video</h2>
+                <h2 class="h2 font-bold text-votum-blue mb-6">Pozrite si video:</h2>
 
                 <div class="space-y-6">
                     @foreach($videos as $video)
@@ -101,7 +108,7 @@
     <div class="bg-blue-100">
         @if($documents->isNotEmpty())
             <section class="max-w-5xl mx-auto pb-12 px-4 md:px-12 lg:px-0">
-                <h2 class="h2 font-bold text-votum-blue mb-6">Dokumenty na stiahnutie</h2>
+                <h2 class="h2 font-bold text-votum-blue mb-6">Dokumenty na stiahnutie:</h2>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                     @foreach($documents as $doc)

@@ -17,6 +17,8 @@ class File extends Model
         'type',
     ];
 
+    public $image_file;
+
     public function section()
     {
         return $this->belongsTo(Section::class);

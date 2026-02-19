@@ -42,7 +42,7 @@ switch ($title){
         $title = 'Ako inak sa dá pomôcť';
         break;
     case 'OtherType':
-        $title = 'Iné druhy podpory (podrobne)';
+        $title = 'Iné druhy podpory (možnosti)';
         $add = true;
         $icon = true;
         break;
