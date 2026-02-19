@@ -6,6 +6,8 @@
       <sourceFolder url="file://$MODULE_DIR$/web/tests/Unit" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/web/vendor/ezyang/htmlpurifier" />
       <excludeFolder url="file://$MODULE_DIR$/web/vendor/laravel/breeze" />
+      <excludeFolder url="file://$MODULE_DIR$/web/vendor/intervention/gif" />
+      <excludeFolder url="file://$MODULE_DIR$/web/vendor/intervention/image" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
