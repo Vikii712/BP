@@ -94,6 +94,11 @@ Route::middleware('auth')->group(function () {
         return view('pages.admin.support');
     })->name('admin.support');
 
+    Route::post('votumaci/support/percent-documents/store',
+        [SupportEditController::class, 'storePercentDocuments']
+    )->name('support.percent.documents.store');
+
+
     Route::prefix('votumaci/support')->group(function () {
         Route::get('{type}-edit', [SupportEditController::class, 'edit'])
             ->where('type', 'percent|financial|other')
@@ -121,6 +126,8 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{id}', [SectionEditController::class, 'destroy'])->name('section.destroy');
         Route::post('/{id}/restore', [SectionEditController::class, 'restore'])->name('section.restore');
     });
+
+
 
 
 });

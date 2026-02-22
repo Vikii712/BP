@@ -122,6 +122,7 @@
         );
         const existingDocuments = @json($documents ?? []);
         const existingColor = @json($isEdit && $event->color ? $event->color : null);
+        console.log(existingColor)
         const existingContentSK = @json($isEdit && $event->content_sk ? $event->content_sk : '');
         const existingContentEN = @json($isEdit && $event->content_en ? $event->content_en : '');
         const allSponsors = @json($allSponsors);
@@ -277,6 +278,7 @@
             const sponsorSection = document.getElementById('sponsorSection');
             const documentSection = document.getElementById('documentSection');
 
+
             function updateSectionsVisibility() {
                 const isHomeChecked = inHomeCheckbox.checked;
                 const isGalleryChecked = inGalleryCheckbox.checked;
@@ -371,10 +373,10 @@
                 label.className = 'block text-sm font-medium text-gray-700 mb-2';
                 label.textContent = 'URL adresa videa:';
                 const input = document.createElement('input');
-                input.type = 'url';
+                input.type = 'text';
                 input.name = 'video_url[]';
                 input.value = url;
-                input.placeholder = 'https://youtube.com/watch?v=...';
+                input.placeholder = 'https://youtube.com/embeded?v=...';
                 input.className = 'w-full border-2 border-gray-300 rounded-md px-3 py-2 bg-white';
                 inputWrapper.appendChild(label);
                 inputWrapper.appendChild(input);
@@ -533,6 +535,46 @@
                     createSponsorDiv(sponsor.name, sponsor.logo, sponsor.id)
                 );
             }
+
+
+            // ================= FARBY PRE KALENDÁR =================
+            const eventColors = {
+                'c1': '#FF0000', 'c2': '#FF7F00', 'c3': '#FFFF00', 'c4': '#00FF00',
+                'c5': '#0000FF', 'c6': '#4B0082', 'c7': '#8B00FF', 'c8': '#FF1493',
+            };
+
+            const colorWrapper = document.getElementById('calendarColorWrapper');
+
+            for (const [key, color] of Object.entries(eventColors)) {
+                const label = document.createElement('label');
+                label.className = 'cursor-pointer';
+
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = 'calendarColor';
+                input.value = key;
+                input.className = 'hidden peer';
+                if (existingColor === key) {
+                    input.checked = true;
+                }
+
+                const circle = document.createElement('div');
+                circle.className = 'w-10 h-10 rounded-full border-3 border-gray-300 transition-transform peer-checked:scale-110 peer-checked:border-black';
+                circle.style.backgroundColor = color;
+
+                label.appendChild(input);
+                label.appendChild(circle);
+                colorWrapper.appendChild(label);
+            }
+
+            const inCalendarCheckbox = document.getElementById('inCalendar');
+            inCalendarCheckbox.addEventListener('change', () => {
+                if (inCalendarCheckbox.checked) {
+                    colorWrapper.classList.remove('hidden');
+                } else {
+                    colorWrapper.classList.add('hidden');
+                }
+            });
 
 
             // ================= DOKUMENTY =================
@@ -772,9 +814,9 @@
                 docsWrapper.appendChild(div);
             }
 
-            addDocBtn.addEventListener('click', () => createDocument());
+            addDocBtn?.addEventListener('click', () => createDocument());
 
-            existingDocSelect.addEventListener('change', () => {
+            existingDocSelect?.addEventListener('change', () => {
                 const type = existingDocSelect.value;
                 if(!type) return;
                 createDocument(type);
@@ -786,46 +828,8 @@
                 existingDocuments.forEach(doc => createDocumentFromExisting(doc));
             }
 
-            // ================= FARBY PRE KALENDÁR =================
-            const eventColors = {
-                'c1': '#FF0000', 'c2': '#FF7F00', 'c3': '#FFFF00', 'c4': '#00FF00',
-                'c5': '#0000FF', 'c6': '#4B0082', 'c7': '#8B00FF', 'c8': '#FF1493',
-            };
-
-            const colorWrapper = document.getElementById('calendarColorWrapper');
-
-            for (const [key, color] of Object.entries(eventColors)) {
-                const label = document.createElement('label');
-                label.className = 'cursor-pointer';
-
-                const input = document.createElement('input');
-                input.type = 'radio';
-                input.name = 'calendarColor';
-                input.value = key;
-                input.className = 'hidden peer';
-                if (existingColor === key) {
-                    input.checked = true;
-                }
-
-                const circle = document.createElement('div');
-                circle.className = 'w-10 h-10 rounded-full border-3 border-gray-300 transition-transform peer-checked:scale-110 peer-checked:border-black';
-                circle.style.backgroundColor = color;
-
-                label.appendChild(input);
-                label.appendChild(circle);
-                colorWrapper.appendChild(label);
-            }
-
-            const inCalendarCheckbox = document.getElementById('inCalendar');
-            inCalendarCheckbox.addEventListener('change', () => {
-                if (inCalendarCheckbox.checked) {
-                    colorWrapper.classList.remove('hidden');
-                } else {
-                    colorWrapper.classList.add('hidden');
-                }
-            });
-
         });
+
     </script>
 
 @endsection

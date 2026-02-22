@@ -124,15 +124,21 @@ class EventsEditController extends Controller
 
         /* -------- VIDEOS -------- */
         if ($request->filled('video_url')) {
-            foreach ($request->video_url as $url) {
-                if (!$url) continue;
+            foreach ($request->video_url as $iframeHtml) {
+                if (!$iframeHtml) continue;
 
-                $event->files()->create([
-                    'type' => 'video',
-                    'url'  => $url,
-                ]);
+                // extrahujeme src z iframe
+                if (preg_match('/src="([^"]+)"/', $iframeHtml, $matches)) {
+                    $url = $matches[1]; // samotná URL z src
+
+                    $event->files()->create([
+                        'type' => 'video',
+                        'url'  => $url,
+                    ]);
+                }
             }
         }
+
 
         /* -------- DOCUMENTS -------- */
         if ($request->hasFile('documents')) {
@@ -298,13 +304,18 @@ class EventsEditController extends Controller
         }
 
         if ($request->filled('video_url')) {
-            foreach ($request->video_url as $url) {
-                if (!$url) continue;
+            foreach ($request->video_url as $iframeHtml) {
+                if (!$iframeHtml) continue;
 
-                $event->files()->create([
-                    'type' => 'video',
-                    'url'  => $url,
-                ]);
+                // extrahujeme src z iframe
+                if (preg_match('/src="([^"]+)"/', $iframeHtml, $matches)) {
+                    $url = $matches[1]; // toto je samotný link z src
+
+                    $event->files()->create([
+                        'type' => 'video',
+                        'url'  => $url,
+                    ]);
+                }
             }
         }
 

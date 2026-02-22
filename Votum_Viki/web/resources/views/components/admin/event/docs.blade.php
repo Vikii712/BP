@@ -15,14 +15,15 @@
             <i class="fa-solid fa-plus"></i>
         </button>
 
-        <select id="existingDocumentSelect"
-                class="flex-1 h-10 border-2 border-gray-300 rounded-md px-3">
-            <option value="">Pridať existujúci dokument</option>
-            <option value="2%">2%</option>
-            <option value="2022">2022</option>
-            <option value="GDPR">GDPR</option>
-            <option value="Prihláška">Prihláška</option>
-        </select>
+
+{{--        <select id="existingDocumentSelect"--}}
+{{--                class="flex-1 h-10 border-2 border-gray-300 rounded-md px-3">--}}
+{{--            <option value="">Pridať existujúci dokument</option>--}}
+{{--            <option value="2%">2%</option>--}}
+{{--            <option value="2022">2022</option>--}}
+{{--            <option value="GDPR">GDPR</option>--}}
+{{--            <option value="Prihláška">Prihláška</option>--}}
+{{--        </select>--}}
     </div>
 
 

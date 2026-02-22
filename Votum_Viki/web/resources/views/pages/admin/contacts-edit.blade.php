@@ -138,6 +138,9 @@
 
             anchor.before(newSection);
 
+            newSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+
             // init quill pre novú sekciu
             newSection.querySelectorAll('[data-quill]').forEach(el => {
                 const textarea = document.getElementById(el.dataset.textarea);

@@ -151,21 +151,11 @@
 
                     </div>
 
-                    {{-- BUTTONS --}}
-                    <div class="flex justify-between gap-4">
-                        <a href="{{route('admin')}}"
-                                class="px-6 py-3 bg-blue-950 text-white font-semibold rounded-md hover:bg-blue-800 shadow-md">
-                            Späť
-                        </a>
-                        <a href="{{route('home.edit')}}"
-                                class="px-6 py-3 bg-red-950 text-white font-semibold rounded-md hover:bg-red-800 shadow-md">
-                            vymazať zmeny
-                        </a>
-                        <button type="submit"
-                                class="px-6 py-3 bg-green-900 text-white rounded-md">
-                            Uložiť zmeny
-                        </button>
-                    </div>
+                    <button type="submit"
+                            class="fixed bottom-4 left-1/2 -translate-x-1/2 px-8 py-2 hover:bg-green-300 bg-green-200 border-2 3border-green-900 font-bold text-lg rounded-lg  transition-colors flex items-center gap-3 shadow-lg">
+                        Uložiť zmeny
+                    </button>
+
 
                 </div>
             </form>

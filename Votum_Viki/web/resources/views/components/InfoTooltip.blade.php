@@ -3,6 +3,8 @@
         'alt' => 'Alternatívny text čitajú čítačky pre ľudí so zrakovým znevýhodnením, alebo je vypísaný keď sa obrázok nezobrazí. Mal by stručne popísať obsah obrázka.',
         'hero' => 'Úvodný text je prvým viditeľným textom pri načítaní hlavnej stránky. Mal by mať rozsah asi 1-2 vety.',
         'motto' => 'Motto je prvá zvýraznená veta, ktorú uvidí používateľ pri navštívení hlavnej stránky.',
+        'video' => 'Otvorte Video na youtube => tlačidlo Zdieľať => možnosť <>Vložiť (Nie Skopírovať) => skopírovať (na spodku)',
+        'photo' => 'Otvorte Google fotky => albumy => otvorte konkrétny album => ak link už existuje tak sa tlačidlo zobrazí pod názvom, inak pravom hornom rohu zdieľať => vytvoriť odkaz => kopírovať odkaz'
     ];
 @endphp
 

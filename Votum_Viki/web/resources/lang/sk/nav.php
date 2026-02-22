@@ -4,7 +4,7 @@ return [
     'about' => 'O nás',
     'events' => 'Udalosti',
     'history' => 'História',
-    'support' => 'Podpora',
+    'support' => 'Podporte nás',
     'contacts' => 'Kontakty',
     'documents' => 'Dokumenty',
 
