@@ -112,7 +112,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::prefix('votumaci/documents')->group(function () {
-        Route::get('edit', [DocumentsEditController::class, 'edit'])->name('documents.edit');
+        Route::get('edit/{id}', [DocumentsEditController::class, 'edit'])->name('documents.edit');
         Route::put('update', [DocumentsEditController::class, 'update'])->name('documents.update');
     });
 

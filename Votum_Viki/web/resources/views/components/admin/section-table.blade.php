@@ -43,7 +43,16 @@
 
                 <td class="px-6 py-4 font-medium">{{ $item->title_sk }}</td>
                 <td class="px-6 py-4 text-right flex justify-end gap-3">
-                    <button class="toggle-edit" data-id="{{ $item->id }}"><i class="fas fa-pen"></i></button>
+
+                    @if($category === 'documentSection')
+                        <a href="{{ route('documents.edit', $item->id) }}">
+                            <i class="fas fa-pen"></i>
+                        </a>
+                    @else
+                        <button class="toggle-edit" data-id="{{ $item->id }}">
+                            <i class="fas fa-pen"></i>
+                        </button>
+                    @endif
                     <button
                         onclick="openSectionDeleteModal({{ $item->id }}, '{{ addslashes($item->title_sk) }}')"
                         class="text-red-600 hover:text-red-800">

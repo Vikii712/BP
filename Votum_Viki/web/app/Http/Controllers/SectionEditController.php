@@ -57,6 +57,7 @@ class SectionEditController extends Controller
             'history' => 'História',
             'about'   => 'O nás',
             'team'    => 'Tím',
+            'documentSection' => 'Dokumenty',
         ];
 
         $title = $titles[$this->category] ?? 'Sekcie';
@@ -76,6 +77,14 @@ class SectionEditController extends Controller
     {
         $hasYear = ($category === 'history');
 
+
+        if ($category === 'documentSection') {
+            $request->merge([
+                'sk' => array_merge($request->input('sk', []), ['content' => ' doc']),
+                'en' => array_merge($request->input('en', []), ['content' => ' doc']),
+            ]);
+        }
+
         $rules = [
             'sk.title' => ['required', 'string'],
             'en.title' => ['required', 'string'],
@@ -90,7 +99,9 @@ class SectionEditController extends Controller
             $rules['year'] = ['required', 'integer'];
         }
 
+
         $request->validate($rules);
+
 
         if ($hasYear) {
             // u history vložíme podľa year
@@ -120,6 +131,7 @@ class SectionEditController extends Controller
             'year' => $hasYear ? $request->year : null,
         ]);
 
+
         // upload obrázka
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store($this->category, 'public');
@@ -132,10 +144,6 @@ class SectionEditController extends Controller
                 'title_en' => $request->image_alt_en,
                 'created_at' => now(),
                 'updated_at' => now(),
-            ]);
-
-            DB::table('files')->insert([
-
             ]);
         }
 
@@ -194,7 +202,9 @@ class SectionEditController extends Controller
                 DB::table('files')->where('id', $existingImage->id)->delete();
             }
 
-            $path = $request->file('image')->store($category, 'public');
+            $uploadedFile = $request->file('image');
+            $filename = time() . '_' . $uploadedFile->getClientOriginalName();
+            $path = $uploadedFile->storeAs($category, $filename, 'public');
 
             File::create([
                 'section_id' => $item->id,

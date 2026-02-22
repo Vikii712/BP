@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\File;
-use Illuminate\Support\Facades\DB;
+use App\Models\Section;
 use Illuminate\Support\Facades\Storage;
 
 class DocumentsController extends Controller
@@ -12,8 +12,7 @@ class DocumentsController extends Controller
     {
         $locale = app()->getLocale();
 
-        $sections = DB::table('sections')
-            ->where('category', 'documentSection')
+        $sections = Section::where('category', 'documentSection')
             ->orderBy('position')
             ->get()
             ->map(function ($section) use ($locale) {

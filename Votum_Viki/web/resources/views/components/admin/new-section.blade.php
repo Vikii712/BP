@@ -6,6 +6,7 @@
 @php
     $isHistory = $category === 'history';
     $isTeam = $category === 'team';
+    $isDocs = $category === 'documentSection';
 @endphp
 
 <div class="space-y-6">
@@ -22,7 +23,7 @@
 
         {{-- HLAVNÝ NADPIS --}}
         <div class="bg-blue-950 text-lg -mx-6 px-6 py-4 text-white font-bold rounded-t-md">
-            {{ $isHistory ? 'Pridať udalosť' : ($isTeam ? 'Pridať nového člena' : 'Pridať sekciu o nás')  }}
+            {{ $isHistory ? 'Pridať udalosť' : ($isTeam ? 'Pridať nového člena' : ($isDocs ? 'Pridať sekciu dokumentov' : 'Pridať sekciu o nás'))  }}
         </div>
 
         <form method="POST"
@@ -74,6 +75,7 @@
                 </div>
             </div>
 
+            @if(!$isDocs)
             {{-- Text --}}
             <div class="flex items-center bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
                 Text sekcie
@@ -151,6 +153,7 @@
                     </div>
                 </div>
             </div>
+            @endif
 
             {{-- Tlačidlá --}}
             <div class="flex justify-end gap-3">
