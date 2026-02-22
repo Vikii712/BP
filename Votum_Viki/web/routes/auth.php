@@ -46,29 +46,26 @@ Route::middleware('auth')->group(function () {
         ->middleware('throttle:6,1')
         ->name('verification.send');
 
-    // Confirm password
     Route::get('votumaci/confirm-password', [ConfirmablePasswordController::class, 'show'])
         ->name('password.confirm');
     Route::post('votumaci/confirm-password', [ConfirmablePasswordController::class, 'store']);
 
-    // CHANGE PASSWORD
     Route::get('votumaci/password', [PasswordController::class, 'edit'])
         ->name('password.change');
     Route::put('votumaci/password', [PasswordController::class, 'update'])
         ->name('password.update');
 
-    //MANAGE ADMINS
-    Route::get('votumaci/manage-admins', [AdminController::class, 'manageAdmins'])
+    Route::get('votumaci/admins', [AdminController::class, 'manageAdmins'])
         ->name('admin.manage');
-    Route::post('votumaci/manage-admins/add', [AdminController::class, 'add'])
+    Route::post('votumaci/admins', [AdminController::class, 'add'])
         ->name('admin.add');
-    Route::delete('votumaci/admin/delete/{id}', [AdminController::class, 'delete'])->name('admin.delete');
+    Route::delete('votumaci/admins/{id}', [AdminController::class, 'delete'])
+        ->name('admin.delete');
 
-    // Logout
     Route::post('votumaci/logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 
-    //DOMOV
+    // DOMOV
     Route::get('votumaci/home', [HomeEditController::class, 'edit'])
         ->name('home.edit');
     Route::put('votumaci/home', [HomeEditController::class, 'update'])
@@ -78,56 +75,57 @@ Route::middleware('auth')->group(function () {
         return view('pages.admin.about');
     })->name('admin.about');
 
-    Route::prefix('votumaci/edit/events')->group(function () {
-        Route::get('/', [EventsEditController::class, 'index'])->name('admin.events');
-        Route::get('create', [EventsEditController::class, 'create'])->name('events.create');
-        Route::get('{event}/edit', [EventsEditController::class, 'edit'])->name('events.edit');
-        Route::post('store', [EventsEditController::class, 'store'])->name('events.store');
-        Route::put('{event}', [EventsEditController::class, 'update'])->name('events.update');
-        Route::post('{event}/archive', [EventsEditController::class, 'archive'])->name('events.archive');
-        Route::post('{event}/unarchive', [EventsEditController::class, 'unarchive'])->name('events.unarchive');
-        Route::post('{event}/restore', [EventsEditController::class, 'restore'])->name('events.restore');
-        Route::delete('{event}', [EventsEditController::class, 'destroy'])->name('events.destroy');
+    // EVENTS
+    Route::prefix('votumaci/events')->group(function () {
+        Route::get('/', [EventsEditController::class, 'index'])->name('events.index');
+        Route::get('/create', [EventsEditController::class, 'create'])->name('events.create');
+        Route::post('/', [EventsEditController::class, 'store'])->name('events.store');
+        Route::get('/{event}', [EventsEditController::class, 'edit'])->name('events.edit');
+        Route::put('/{event}', [EventsEditController::class, 'update'])->name('events.update');
+        Route::post('/{event}/archive', [EventsEditController::class, 'archive'])->name('events.archive');
+        Route::post('/{event}/unarchive', [EventsEditController::class, 'unarchive'])->name('events.unarchive');
+        Route::post('/{event}/restore', [EventsEditController::class, 'restore'])->name('events.restore');
+        Route::delete('/{event}', [EventsEditController::class, 'destroy'])->name('events.destroy');
     });
 
     Route::get('votumaci/support', function () {
         return view('pages.admin.support');
     })->name('admin.support');
 
-    Route::post('votumaci/support/percent-documents/store',
+    Route::post('votumaci/support/percent-documents',
         [SupportEditController::class, 'storePercentDocuments']
     )->name('support.percent.documents.store');
 
-
+    // SUPPORT
     Route::prefix('votumaci/support')->group(function () {
-        Route::get('{type}-edit', [SupportEditController::class, 'edit'])
+        Route::get('/{type}', [SupportEditController::class, 'edit'])
             ->where('type', 'percent|financial|other')
             ->name('support.edit');
-        Route::put('update/{id}', [SupportEditController::class, 'update'])->name('support.update');
+        Route::put('/{id}', [SupportEditController::class, 'update'])
+            ->name('support.update');
     });
 
+    // CONTACTS
     Route::prefix('votumaci/contacts')->group(function () {
-        Route::get('edit', [ContactsEditController::class, 'edit'])->name('contacts.edit');
-        Route::put('update/{id}', [ContactsEditController::class, 'update'])->name('contacts.update');
+        Route::get('/', [ContactsEditController::class, 'edit'])->name('contacts.edit');
+        Route::put('/{id}', [ContactsEditController::class, 'update'])->name('contacts.update');
     });
 
+    // DOCUMENTS
     Route::prefix('votumaci/documents')->group(function () {
-        Route::get('edit/{id}', [DocumentsEditController::class, 'edit'])->name('documents.edit');
-        Route::put('update', [DocumentsEditController::class, 'update'])->name('documents.update');
+        Route::get('/{id}', [DocumentsEditController::class, 'edit'])->name('documents.edit');
+        Route::put('/{id}', [DocumentsEditController::class, 'update'])->name('documents.update');
     });
 
-    //Sections
-    Route::prefix('votumaci/edit/{category}')->group(function () {
+    // SECTIONS - musí byť posledná, {category} je wildcard
+    Route::prefix('votumaci/sections/{category}')->group(function () {
         Route::get('/', [SectionEditController::class, 'index'])->name('section.index');
-        Route::post('/add', [SectionEditController::class, 'add'])->name('section.add');
+        Route::post('/', [SectionEditController::class, 'add'])->name('section.add');
         Route::put('/{id}', [SectionEditController::class, 'update'])->name('section.update');
         Route::post('/{id}/up', [SectionEditController::class, 'moveUp'])->name('section.up');
         Route::post('/{id}/down', [SectionEditController::class, 'moveDown'])->name('section.down');
         Route::delete('/{id}', [SectionEditController::class, 'destroy'])->name('section.destroy');
         Route::post('/{id}/restore', [SectionEditController::class, 'restore'])->name('section.restore');
     });
-
-
-
-
 });
+

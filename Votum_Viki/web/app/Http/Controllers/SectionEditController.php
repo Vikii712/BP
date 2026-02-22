@@ -66,7 +66,7 @@ class SectionEditController extends Controller
             'category' => $this->category,
             'items'    => $items,
             'title'    => $title,
-            'backRoute' => $this->category != 'history' ? route('admin.about') : route('admin'),
+            'backRoute' => $this->category == 'history' || $this->category == 'documentSection' ? route('admin') :  route('admin.about'),
         ]);
     }
 

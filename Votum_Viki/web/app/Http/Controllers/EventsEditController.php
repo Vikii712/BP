@@ -210,7 +210,7 @@ class EventsEditController extends Controller
 
         $event->sponsors()->sync(array_merge($existingIds, $newSponsorIds));
 
-        return redirect()->route('admin.events')
+        return redirect()->route('events.index')
             ->with('success', 'Udalosť bola úspešne vytvorená.');
     }
 
@@ -388,7 +388,7 @@ class EventsEditController extends Controller
 
         $event->sponsors()->sync(array_merge($existingIds, $newSponsorIds));
 
-        return redirect()->route('admin.events')
+        return redirect()->route('events.index')
             ->with('success', 'Udalosť bola úspešne uložená.');
     }
 
@@ -402,7 +402,7 @@ class EventsEditController extends Controller
         ]);
 
         return redirect()
-            ->route('admin.events')
+            ->route('events.index')
             ->with('success', 'Udalosť bola archivovaná.');
     }
 
@@ -412,7 +412,7 @@ class EventsEditController extends Controller
         $event->update(['archived' => false]);
 
         return redirect()
-            ->route('admin.events')
+            ->route('events.index')
             ->with('success', 'Udalosť bola obnovená.');
     }
 
@@ -426,7 +426,7 @@ class EventsEditController extends Controller
 
         $event->delete();
 
-        return redirect()->route('admin.events')
+        return redirect()->route('events.index')
             ->with('warning', 'Udalosť bola vymazaná.')
             ->with('deleted_event_id', $event->id);
     }
@@ -436,7 +436,7 @@ class EventsEditController extends Controller
         $event = Event::withTrashed()->findOrFail($id);
         $event->restore();
 
-        return redirect()->route('admin.events')
+        return redirect()->route('events.index')
             ->with('success', 'Udalosť bola obnovená.');
     }
 }

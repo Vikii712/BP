@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('back-url', route('admin.events'))
+@section('back-url', route('events.index'))
 
 @section('adminContent')
     <div class="min-h-[calc(100vh-5.5rem)] pt-20 bg-gray-100 px-4 py-10 flex justify-center">
@@ -92,7 +92,7 @@
                             {{ $isEdit ? 'Aktualizovať' : 'Uložiť' }}
                         </button>
 
-                        <a href="{{ route('admin.events') }}"
+                        <a href="{{ route('events.index') }}"
                            class="border-2 border-gray-400 px-6 py-2 rounded-md hover:bg-gray-100">
                             Zrušiť
                         </a>

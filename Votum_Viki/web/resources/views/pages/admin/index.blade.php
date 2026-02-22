@@ -28,7 +28,7 @@
 
                 <x-admin.card name="Domov" :route="route('home.edit')" icon="fa-home" image="domov.svg" />
                 <x-admin.card name="O nás" :route="route('admin.about')" icon="fa-users" image="Onas.svg" />
-                <x-admin.card name="Udalosti" :route="route('admin.events')" icon="fa-star" image="udalosti.svg" />
+                <x-admin.card name="Udalosti" :route="route('events.index')" icon="fa-star" image="udalosti.svg" />
                 <x-admin.card name="História" :route="route('section.index', 'history')" icon="fa-clock" image="historia.svg" />
                 <x-admin.card name="Podpora" :route="route('admin.support')" icon="fa-hand-holding-heart" image="podpora.svg" />
                 <x-admin.card name="Kontakty" :route="route('contacts.edit')" icon="fa-address-book" image="kontakty.svg" />
