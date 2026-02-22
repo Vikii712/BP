@@ -539,8 +539,14 @@
 
             // ================= FARBY PRE KALENDÁR =================
             const eventColors = {
-                'c1': '#FF0000', 'c2': '#FF7F00', 'c3': '#FFFF00', 'c4': '#00FF00',
-                'c5': '#0000FF', 'c6': '#4B0082', 'c7': '#8B00FF', 'c8': '#FF1493',
+                'c1': '#C0152A', // tmavá červená
+                'c2': '#C45E00', // tmavá oranžová
+                'c3': '#A07800', // tmavá zlatá
+                'c4': '#1A7A2E', // tmavá zelená
+                'c5': '#1040A0', // tmavá modrá
+                'c6': '#5B2D8E', // tmavá fialová
+                'c7': '#A0008A', // tmavá purpurová
+                'c8': '#B5006A', // tmavá ružová
             };
 
             const colorWrapper = document.getElementById('calendarColorWrapper');
