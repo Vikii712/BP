@@ -2,6 +2,7 @@
     'items',
     'title',
     'showYear' => false,
+    'isTeam' => false,
 ])
 
 @php
@@ -87,7 +88,7 @@
 
                         {{-- Nadpis --}}
                         <div class="flex items-center rounded-t-md bg-gray-100 -mx-6  {{$isHistory ? '' : '-mt-6 ' }} px-6 py-2 font-medium text-blue-950">
-                            Nadpis sekcie
+                            {{ $isHistory ? 'Nadpis udalosti' : ($isTeam ? 'Meno člena / názov skupiny' : 'Názov sekcie')  }}
                         </div>
 
                         <div class="space-y-3">
@@ -105,7 +106,7 @@
 
                         {{-- TEXT --}}
                         <div class="bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
-                            Text sekcie
+                            {{($isTeam ? 'Popis člena' : 'Text sekcie')}}
                         </div>
 
                         <div class="space-y-4">
@@ -147,7 +148,7 @@
 
                         {{-- IMAGE --}}
                         <div class="flex bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
-                            Obrázok sekcie
+                            {{($isTeam ? 'Fotka člena' : 'Obrázok sekcie')}}
                         </div>
 
                         <div class="flex gap-3 px-6">
@@ -200,8 +201,8 @@
 
                         {{-- TLAČIDLÁ --}}
                         <div class="flex justify-end gap-3">
-                            <button type="submit" class="bg-blue-200 border-2 border-blue-900 px-6 py-2 rounded-md font-semibold hover:bg-blue-300">
-                                Uložiť
+                            <button type="submit" class="bg-green-200 border-2 border-green-900 text-green-900 px-6 py-2 rounded-md font-semibold hover:bg-green-300">
+                                Uložiť zmeny
                             </button>
                             <button type="button" class="close-edit border-2 border-gray-400 px-6 py-2 rounded-md hover:bg-gray-100" data-id="{{ $item->id }}">
                                 Zrušiť

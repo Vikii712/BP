@@ -63,7 +63,7 @@
                            name="sk[title]"
                            required
                            class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2"
-                           placeholder="{{ $isHistory ? 'Nadpis v slovenčine' : 'Názov sekcie SK' }}">
+                           placeholder="{{ $isHistory ? 'Nadpis v slovenčine' : ($isTeam ? 'Meno člena' : 'Názov sekcie SK') }}">
                 </div>
                 <div class="flex items-center gap-3">
                     <span class="w-10 font-semibold text-blue-950">EN –</span>
@@ -71,14 +71,14 @@
                            name="en[title]"
                            required
                            class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2"
-                           placeholder="{{ $isHistory ? 'Title in English' : 'Názov sekcie EN' }}">
+                           placeholder="{{ $isHistory ? 'Title in English' : ($isTeam ? 'Name of member' : 'Title of section in EN') }}">
                 </div>
             </div>
 
             @if(!$isDocs)
             {{-- Text --}}
             <div class="flex items-center bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
-                Text sekcie
+                {{($isTeam ? 'Popis člena' : 'Text sekcie')}}
             </div>
 
             <div class="space-y-4">
@@ -117,7 +117,7 @@
 
             {{-- Obrázok --}}
             <div class="flex bg-gray-100 -mx-6 px-6 py-2 font-medium text-blue-950">
-                Obrázok sekcie
+                {{($isTeam ? 'Fotka člena' : 'Obrázok sekcie')}}
             </div>
             <div class="flex gap-3 px-6">
                 <input id="newImageFilename" readonly value="— žiadny obrázok —"
@@ -158,7 +158,7 @@
             {{-- Tlačidlá --}}
             <div class="flex justify-end gap-3">
                 <button type="submit" class="bg-green-200 border-2 border-green-900 text-green-900 px-6 py-2 rounded-md font-semibold hover:bg-green-300">
-                    Pridať sekciu
+                    {{($isTeam ? 'Pridať člena' : 'Pridať sekciu')}}
                 </button>
                 <button type="button" id="cancelAddForm"
                         class="border-2 border-gray-400 px-6 py-2 rounded-md hover:bg-gray-100">

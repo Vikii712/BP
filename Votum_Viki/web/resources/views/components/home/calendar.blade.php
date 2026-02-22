@@ -64,23 +64,7 @@
                     </button>
                 </div>
                 <div id="eventsList" class="space-y-4">
-                    @if($upcomingEvents->isEmpty())
-                        <p class="text-center txt">{{ __('nav.noEvents') }}</p>
-                    @else
-                        @foreach($upcomingEvents as $index => $event)
-                            <div class="event-item bg-votum2 p-4 rounded-lg flex flex-col gap-4 border-4 border-votum2" data-index="{{ $index }}" style="display: {{ $index < 2 ? 'flex' : 'none' }};">
-                                <div class="flex flex-col w-full gap-1 text-center">
-                                    <h4 class="font-bold text-votum-blue txt">{{ $event->title }}</h4>
-                                    <p class="txt font-semibold">{{ $event->dateLabel }}</p>
-                                @if($event->inGallery)
-                                        <a href="/event/{{ $event->id }}" class="txt-btn mt-3 rounded-xl bg-white text-votum-blue border-3 border-votum2 w-full text-center py-2">
-                                            {{ __('nav.more') }} <i class="pl-2 fas fa-arrow-right"></i>
-                                        </a>
-                                    @endif
-                                </div>
-                            </div>
-                        @endforeach
-                    @endif
+                    <!--JS render -->
                 </div>
             </div>
         </div>
@@ -90,6 +74,7 @@
 <script>
     // Calendar events - použiť len tie s inCalendar = true
     const calendarEvents = @json($calendarEvents);
+    const upcomingEvents = @json($upcomingEvents);
     let currentDate = new Date();
     let eventIndex = 0;
 
@@ -192,14 +177,55 @@
         document.getElementById('nextEvent').style.display = eventIndex + 2 < totalEvents ? 'block' : 'none';
     }
 
+    function renderEventsForMonth(year, month) {
+        const eventsList = document.getElementById('eventsList');
+        eventsList.innerHTML = '';
+        eventIndex = 0;
+
+        const filtered = upcomingEvents.filter(e => {
+            const eventDate = new Date(e.date);
+            return eventDate.getFullYear() === year &&
+                eventDate.getMonth() === month;
+        });
+
+        if (filtered.length === 0) {
+            eventsList.innerHTML = `<p class="text-center txt">{{ __('nav.noEvents') }}</p>`;
+            return;
+        }
+
+        filtered.forEach((event, index) => {
+            const div = document.createElement('div');
+            div.className = 'event-item bg-votum2 p-4 rounded-lg flex flex-col gap-4 border-4 border-votum2';
+            div.style.display = index < 2 ? 'flex' : 'none';
+
+            div.innerHTML = `
+            <div class="flex flex-col w-full gap-1 text-center">
+                <h4 class="font-bold text-votum-blue txt">${event.title}</h4>
+                <p class="txt font-semibold">${event.dateLabel}</p>
+                ${event.inGallery ? `
+                    <a href="/event/${event.id}" class="txt-btn mt-3 rounded-xl bg-white text-votum-blue border-3 border-votum2 w-full text-center py-2">
+                        {{ __('nav.more') }} <i class="pl-2 fas fa-arrow-right"></i>
+                    </a>
+                ` : ''}
+            </div>
+        `;
+
+            eventsList.appendChild(div);
+        });
+
+        updateEventsPagination();
+    }
+
     document.getElementById('prevMonth').addEventListener('click', () => {
         currentDate.setMonth(currentDate.getMonth() - 1);
         generateCalendar(currentDate.getFullYear(), currentDate.getMonth());
+        renderEventsForMonth(currentDate.getFullYear(), currentDate.getMonth());
     });
 
     document.getElementById('nextMonth').addEventListener('click', () => {
         currentDate.setMonth(currentDate.getMonth() + 1);
         generateCalendar(currentDate.getFullYear(), currentDate.getMonth());
+        renderEventsForMonth(currentDate.getFullYear(), currentDate.getMonth());
     });
 
     document.getElementById('prevEvent').addEventListener('click', () => {
@@ -216,5 +242,6 @@
 
     // Inicializácia
     generateCalendar(currentDate.getFullYear(), currentDate.getMonth());
+    renderEventsForMonth(currentDate.getFullYear(), currentDate.getMonth());
     updateEventsPagination();
 </script>

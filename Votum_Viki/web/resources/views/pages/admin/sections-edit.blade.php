@@ -43,6 +43,7 @@
                 :items="$items"
                 :title="$title"
                 :showYear="$category === 'history'"
+                :isTeam="$category === 'team'"
             />
 
         </div>

@@ -80,6 +80,7 @@
 
                     {{-- Submit --}}
                     <button
+                        id="loginBtn"
                         type="submit"
                         class="w-full bg-blue-950 text-white py-3.5
                            rounded-xl font-semibold tracking-wide text-lg
@@ -97,5 +98,18 @@
 
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.querySelector('form');
+            const btn = document.getElementById('loginBtn');
+
+            form.addEventListener('submit', function () {
+                btn.disabled = true;
+                btn.classList.add('opacity-60', 'cursor-not-allowed');
+                btn.innerText = 'Načítava sa...';
+            });
+        });
+    </script>
 
 @endsection

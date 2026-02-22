@@ -28,9 +28,9 @@
                 <form method="POST" action="{{ route('admin.add') }}" class="flex flex-col gap-3 w-full">
                     @csrf
                     <div class="flex flex-col sm:flex-row gap-3 w-full">
-                        <input type="email" name="email" placeholder="Email" required
+                        <input type="email" name="email" placeholder="Email nového admina" required
                                class="px-3 py-2 border-2 border-gray-300 rounded-md flex-1 w-full">
-                        <input type="password" name="password" placeholder="Heslo" required
+                        <input type="password" name="password" placeholder="Heslo nového admina" required
                                class="px-3 py-2 border-2 border-gray-300 rounded-md flex-1 w-full">
                     </div>
 
