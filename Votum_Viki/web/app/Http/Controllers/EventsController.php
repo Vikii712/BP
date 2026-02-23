@@ -67,9 +67,30 @@ class EventsController extends Controller
             ->groupBy('year')
             ->sortKeysDesc(); // Najnovšie roky najprv
 
+        $calendarEvents = Event::with('dates')->where('inCalendar', true)->get()->map(function ($event) use ($locale, $today) {
+            $dates = $event->dates
+                ->pluck('date')
+                ->map(fn ($d) => Carbon::parse($d)->startOfDay())
+                ->sort()
+                ->values();
+
+            $futureDates = $dates->filter(fn ($d) => $d->gte($today));
+
+            return (object)[
+                'id' => $event->id,
+                'title' => $locale === 'sk' ? $event->title_sk : $event->title_en,
+                'color' => $event->color,
+
+                'dates' => $dates->map(fn($d) => $d->format('Y-m-d')),  // Pre JS kalendár
+                'futureDates' => $futureDates,
+                'nextDate' => $futureDates->first(),
+            ];
+        });
+
         return view('pages.events', [
             'upcomingEvents' => $upcomingEvents,
             'pastEventsByYear' => $pastEventsByYear,
+            'calendarEvents' => $calendarEvents,
         ]);
     }
 

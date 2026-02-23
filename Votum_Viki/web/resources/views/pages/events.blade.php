@@ -3,25 +3,14 @@
 @section('content')
     <main class="py-12">
 
-        <h1 class="h1 md:text-5xl font-bold text-votum-blue text-center mb-12">{{ __('nav.events') }}</h1>
+        <h1 class="h1 md:text-5xl font-bold text-votum-blue text-center mb-5">{{ __('nav.events') }}</h1>
 
         @if($upcomingEvents->isNotEmpty())
-            <x-wave />
-            <section class="w-full bg-blue-100 py-12">
-                <div class="container max-w-6xl mx-auto sm:px-6">
-                    <h2 class=" h2 font-bold text-votum-blue mb-8 text-center flex items-center justify-center gap-3">
-                        <img src="{{asset('images/stars.svg')}}" alt="stars" width="30"/>
-                        {{__('nav.nextUp')}}
-                        <img src="{{asset('images/stars.svg')}}" alt="stars" width="30"/>
-                    </h2>
-                    <div class="grid md:grid-cols-2 gap-y-8">
-                        @foreach($upcomingEvents as $event)
-                            <x-event.event_card :color="false" :event="$event"/>
-                        @endforeach
-                    </div>
-                </div>
-            </section>
-            <x-wave :inverted="true" />
+            <x-home.calendar
+                :calendarEvents="$calendarEvents"
+                :upcomingEvents="$upcomingEvents"
+            />
+
         @endif
 
         <section class="w-full mt-16">

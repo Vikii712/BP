@@ -5,10 +5,12 @@
         ->implode('. ');
 @endphp
 
-<section class="bg-white py-12" id="events">
+<x-wave />
+
+<section class="bg-blue-100 py-12" id="events">
     <div class="w-full px-2 sm:px-8 lg:px-16">
         <div class="flex justify-center">
-            <div class="inline-flex items-center gap-3 mb-10">
+            <div class="inline-flex items-center gap-3 mb-10 ">
                 <h2 class="h2 font-bold text-votum-blue underline underline-offset-4 ">
                     {{ __('nav.nextUp') }}
                 </h2>
@@ -31,7 +33,7 @@
                     </button>
                 </div>
 
-                <div class="rounded-lg p-2 sm:p-4 border-4" style="border-color:#172554;background-color:#dbeafe;">
+                <div class="rounded-lg p-2 sm:p-4 border-4" style="border-color:#172554;background-color:#fff;">
                     <div class="grid grid-cols-7 gap-1 sm:gap-2 mb-4">
                         <div class="text-center font-bold text-lg">{{ __('nav.po') }}</div>
                         <div class="text-center font-bold text-lg">{{ __('nav.ut') }}</div>
@@ -74,6 +76,8 @@
         </div>
     </div>
 </section>
+
+<x-wave :inverted="true" />
 
 <script>
     const calendarEvents = @json($calendarEvents);
@@ -189,7 +193,7 @@
             const div = document.createElement('div');
             div.className = 'event-item p-5 rounded-lg flex flex-col gap-4';
             // Bledosivé pozadie + farebný border podľa farby v kalendári
-            div.style.cssText = `display:${index < 3 ? 'flex' : 'none'};background-color:#f3f4f6;border:8px solid ${color}`;
+            div.style.cssText = `display:${index < 3 ? 'flex' : 'none'};background-color:#fff;border:8px solid ${color}`;
             div.innerHTML = `
                 <div class="flex flex-col w-full gap-1 text-center">
                     <h4 class="font-bold text-votum-blue txt">${event.title}</h4>
