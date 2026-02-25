@@ -31,7 +31,7 @@ return [
     'save' => 'Add to my Google calendar',
     'more' => 'More',
 
-    'activities' => 'Our activities',
+    'activities' => 'Highlights',
     'seeMore' => 'Would you like to see more?',
 
     'write' => 'Write',

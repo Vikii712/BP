@@ -5,11 +5,29 @@
 
 <?php
 switch($category){
-    case 'address': $title = 'Adresa'; break;
-    case 'email': $title = 'Mailová adresa'; break;
-    case 'tel': $title = 'Telefónne číslo'; break;
-    case 'bank': $title = 'Bankové údaje'; break;
-    case 'map': $title = 'Link na mapu'; break;
+    case 'address':
+        $title = 'Adresa';
+        $title2 = 'Pomenovanie';
+        $title3 = $title;
+        break;
+    case 'email':
+        $title = 'Mailová adresa';
+        $title2 = 'Názov';
+        $title3 = $title;
+        break;
+    case 'tel':
+        $title = 'Telefónne číslo';
+        $title2 = 'Meno';
+        $title3 = $title;
+        break;
+    case 'bank':
+        $title = 'Bankové údaje';
+        $title2 = 'Typ údaju';
+        $title3 = 'Popis';
+        break;
+    case 'map':
+        $title = 'Link na mapu';
+        break;
 }
 ?>
 
@@ -49,7 +67,7 @@ switch($category){
                 </div>
 
                 {{-- NÁZOV --}}
-                <div class="w-full font-bold text-blue-950 text-lg">Názov</div>
+                <div class="w-full font-bold text-blue-950 text-lg">{{$title2}}</div>
 
                 <div class="flex gap-3 mb-2">
                     <span class="w-10 font-semibold text-gray-700 pt-2">SK –</span>
@@ -76,7 +94,7 @@ switch($category){
                 </div>
 
                 {{-- OBSAH --}}
-                <div class="w-full font-bold text-blue-950 text-lg">Obsah</div>
+                <div class="w-full font-bold text-blue-950 text-lg">{{$title3}}</div>
 
                 <div class="flex gap-3 mb-2">
                     <span class="w-10 font-semibold text-gray-700 pt-2">SK –</span>

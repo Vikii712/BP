@@ -67,7 +67,10 @@
                     {{-- ================= HERO IMAGE ================= --}}
                     <div class="bg-white border border-gray-200 shadow-md rounded-md p-6 pt-0 space-y-6">
                         <div class="bg-blue-950 text-lg -mx-6 px-6 py-4 text-white font-bold rounded-t-md">
-                            Úvodná fotka
+                            <div class="flex items-center">
+                                Úvodná fotka
+                                <x-InfoTooltip typ="uvodna_fotka" :white="true"/>
+                            </div>
                         </div>
 
                         <div class="flex gap-3">
@@ -110,7 +113,10 @@
                     {{-- ================= TEAM IMAGE ================= --}}
                     <div class="bg-white border border-gray-200 shadow-md rounded-md p-6 pt-0 space-y-6">
                         <div class="bg-blue-950 text-lg -mx-6 px-6 py-4 text-white font-bold rounded-t-md">
-                            Fotografia nášho tímu
+                            <div class="flex items-center">
+                                Fotografia nášho tímu
+                                <x-InfoTooltip typ="team_fotka" :white="true"/>
+                            </div>
                         </div>
 
                         <div class="flex gap-3">

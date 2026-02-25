@@ -68,12 +68,13 @@
                    mx-auto p-10 border-6 border-votum2 bg-votum2 max-w-4xl mb-8
                    rounded-2xl transition-all duration-300 txt-btn-block">
 
-                    <div class="p-6 mb-6">
+                    <div class="p-6 mb-6 flex items-end">
                         <img src="{{ asset('images/fotky.svg') }}" alt="fotky" width="100" class="mx-auto">
+                        <i class="fa-regular fa-hand-pointer text-votum2 mt-2 text-5xl -rotate-[25deg]"></i>
                     </div>
 
                     <h2 class="h2 font-bold text-votum2 group-hover:text-votum-dark transition-colors">
-                        Fotky:
+                        Kliknite pre zobrazenie fotiek
                     </h2>
                 </section>
             </a>

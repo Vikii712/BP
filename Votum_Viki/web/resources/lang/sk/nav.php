@@ -30,7 +30,7 @@ return [
     'ne' => 'Ne',
     'save' => 'Uložiť do môjho Google kalendára',
     'more' => 'Viac',
-    'activities' => 'Naše Aktivity',
+    'activities' => 'Naša nástenka',
 
     'write' => 'Napísať',
     'call' => 'Zavolať',

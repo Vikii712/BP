@@ -4,10 +4,20 @@
     <div class="min-h-[calc(100vh-5.5rem)] pt-20 bg-gray-100 px-4 py-10">
         <div class="max-w-6xl mx-auto space-y-10">
 
-            <h1 class="text-3xl font-bold text-blue-950 text-center">
-                Úprava kontaktov
-            </h1>
+            <div class="flex flex-col text-lg text-blue-950 items-center justify-center gap-3 text-center">
 
+                <h1 class="text-3xl font-bold ">
+                    Úprava kontaktov
+                </h1>
+
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-question-circle"></i>
+                    <p>
+                        Kontakt môže obsahovať aj viacriadkový text použitím tlačidla Enter.
+                    </p>
+                </div>
+
+            </div>
             @if(session('success'))
                 <div class="mb-4 rounded-md bg-green-100 border border-green-400 text-green-900 px-4 py-3">
                     {{ session('success') }}
