@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\Sponsor;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Storage;
 use App\Models\File;
 
@@ -24,21 +25,37 @@ class EventsEditController extends Controller
             'c8' => '#FF1493',
         ];
 
-        $events = Event::with('dates')
+        // Načítame všetky eventy s dátumami, vypočítame start/end a zoradíme
+        $allEvents = Event::with('dates')
             ->get()
             ->map(function ($event) {
                 if ($event->dates->isNotEmpty()) {
                     $min = $event->dates->min('date');
                     $max = $event->dates->max('date');
-
                     $event->start_date = $min->format('d.m.Y');
                     $event->end_date   = $max->format('d.m.Y');
+                    $event->_sort_date = $event->dates->max('date');
+                } else {
+                    $event->_sort_date = null;
                 }
-
                 return $event;
             })
-            ->sortByDesc(fn ($e) => $e->dates->max('date'))
+            ->sortByDesc('_sort_date')
             ->values();
+
+        // Manuálna paginácia
+        $perPage     = 10;
+        $currentPage = (int) request('page', 1);
+        $total       = $allEvents->count();
+        $items       = $allEvents->forPage($currentPage, $perPage);
+
+        $events = new LengthAwarePaginator(
+            $items,
+            $total,
+            $perPage,
+            $currentPage,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
 
         return view('pages.admin.events', compact('events', 'eventColors'));
     }

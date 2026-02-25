@@ -156,6 +156,43 @@
                 </div>
             </div>
 
+
+            {{-- PAGINÁCIA --}}
+            @if($events->lastPage() > 1)
+                <div class="flex items-center justify-center gap-2 pb-4">
+
+                    {{-- Predchádzajúca --}}
+                    @if($events->onFirstPage())
+                        <span class="px-4 py-2 rounded-md bg-gray-200 text-gray-400 font-semibold cursor-not-allowed select-none">
+                            ← Predchádzajúca
+                        </span>
+                    @else
+                        <a href="{{ $events->previousPageUrl() }}"
+                           class="px-4 py-2 rounded-md bg-blue-950 text-white font-semibold hover:bg-blue-800">
+                            ← Predchádzajúca
+                        </a>
+                    @endif
+
+                    {{-- Aktuálna / Celkovo --}}
+                    <span class="px-4 py-2 rounded-md  font-bold select-none">
+                        {{ $events->currentPage() }} / {{ $events->lastPage() }}
+                    </span>
+
+                    {{-- Nasledujúca --}}
+                    @if($events->hasMorePages())
+                        <a href="{{ $events->nextPageUrl() }}"
+                           class="px-4 py-2 rounded-md bg-blue-950 text-white font-semibold hover:bg-blue-800">
+                            Nasledujúca →
+                        </a>
+                    @else
+                        <span class="px-4 py-2 rounded-md bg-gray-200 text-gray-400 font-semibold cursor-not-allowed select-none">
+                            Nasledujúca →
+                        </span>
+                    @endif
+
+                </div>
+            @endif
+
         </div>
     </div>
 
