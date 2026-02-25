@@ -129,13 +129,18 @@ class SupportEditController extends Controller
                 $enItem = $enData[$index] ?? [];
                 $sectionId = $skItem['id'] ?? null;
                 $delete = ($skItem['_delete'] ?? 0) == 1;
+                $iconName = $skItem['iconName'] ?? null;
+
+                if (!$sectionId && $delete) {
+                    continue;
+                }
 
                 if ($sectionId && $delete) {
                     $section = Section::with('files')->find($sectionId);
 
                     if ($section) {
                         foreach ($section->files as $file) {
-                            if (Storage::disk('public')->exists($file->url)) {
+                            if ($file->type === 'image' && Storage::disk('public')->exists($file->url)) {
                                 Storage::disk('public')->delete($file->url);
                             }
                             $file->delete();
@@ -146,6 +151,7 @@ class SupportEditController extends Controller
                     continue;
                 }
 
+
                 if ($sectionId && isset($sections[$sectionId])) {
 
                     $section = $sections[$sectionId];
@@ -155,11 +161,13 @@ class SupportEditController extends Controller
                     $section->content_en = $enItem['content'] ?? $section->content_en;
                     $section->save();
 
-                } else {
+                }
+
+                else {
 
                     $maxPosition = Section::where('category', $id)->max('position') ?? 0;
 
-                    Section::create([
+                    $section = Section::create([
                         'category'   => $id,
                         'title_sk'   => $skItem['title'] ?? '',
                         'content_sk' => $skItem['content'] ?? '',
@@ -167,6 +175,28 @@ class SupportEditController extends Controller
                         'content_en' => $enItem['content'] ?? '',
                         'position'   => $maxPosition + 1,
                     ]);
+                }
+
+
+                if ($id === 'otherType') {
+
+                    DB::table('files')
+                        ->where('section_id', $section->id)
+                        ->where('type', 'image')
+                        ->delete();
+
+                    if ($iconName) {
+                        DB::table('files')->insert([
+                            'section_id' => $section->id,
+                            'url' => $iconName,
+                            'title_sk' => 'ikona',
+                            'title_en' => 'ikona',
+                            'type' => 'image',
+                            'event_id' => null,
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                        ]);
+                    }
                 }
             }
 

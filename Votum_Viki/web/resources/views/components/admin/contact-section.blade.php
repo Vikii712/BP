@@ -25,9 +25,6 @@ switch($category){
         $title2 = 'Typ údaju';
         $title3 = 'Popis';
         break;
-    case 'map':
-        $title = 'Link na mapu';
-        break;
 }
 ?>
 
@@ -37,12 +34,6 @@ switch($category){
     <div class="bg-blue-950 -mt-6 text-white text-lg -mx-6 px-6 py-4 font-medium rounded-t-md">
         {{ $title }}
     </div>
-
-    <button type="button"
-            class="h-10 px-4 font-bold flex items-center justify-center border-2 border-blue-950 rounded-md hover:bg-blue-100 text-blue-950"
-            onclick="addSection('{{ $category }}')">
-        <i class="fa-solid fa-plus pe-2"></i> Pridať novú položku na koniec
-    </button>
 
     <form method="POST"
           action="{{ route('support.update', ['id' => $category]) }}"
@@ -124,6 +115,12 @@ switch($category){
         @endforeach
 
         <div class="sections-anchor"></div>
+
+        <button type="button"
+                class="h-10 px-4 font-bold flex items-center justify-center border-2 border-blue-950 rounded-md hover:bg-blue-100 text-blue-950"
+                onclick="addSection('{{ $category }}')">
+            <i class="fa-solid fa-plus pe-2"></i> Pridať novú položku
+        </button>
 
         <div class="flex justify-end gap-3">
             <button type="submit"

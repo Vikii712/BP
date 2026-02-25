@@ -78,9 +78,33 @@
             });
         });
 
+        const categoryLabels = {
+            address: {
+                title2: 'Pomenovanie',
+                title3: 'Adresa'
+            },
+            email: {
+                title2: 'Názov',
+                title3: 'Mailová adresa'
+            },
+            tel: {
+                title2: 'Meno',
+                title3: 'Telefónne číslo'
+            },
+            bank: {
+                title2: 'Typ údaju',
+                title3: 'Popis'
+            },
+        };
+
         // ================= ADD SECTION =================
         function addSection(category) {
             const form = document.querySelector(`form[data-category="${category}"]`);
+            const labels = categoryLabels[category] ?? {
+                title2: 'Názov',
+                title3: 'Obsah'
+            };
+
             if (!form) {
                 console.warn('Form not found for category:', category);
                 return;
@@ -109,7 +133,7 @@
                 </button>
             </div>
 
-            <div class="w-full font-bold text-blue-950 text-lg">Názov</div>
+            <div class="w-full font-bold text-blue-950 text-lg">${labels.title2}</div>
 
             <div class="flex gap-3">
                 <span class="w-10 font-semibold text-gray-700 pt-2">SK –</span>
@@ -127,7 +151,7 @@
                 </div>
             </div>
 
-            <div class="w-full font-bold text-blue-950 text-lg">Obsah</div>
+            <div class="w-full font-bold text-blue-950 text-lg">${labels.title3}</div>
 
             <div class="flex gap-3">
                 <span class="w-10 font-semibold text-gray-700 pt-2">SK –</span>

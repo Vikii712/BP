@@ -18,7 +18,6 @@ class ContactsController extends Controller
             'phone' => Section::where('category', 'tel')->get(),
             'identification' => Section::where('category', 'identification')->get(),
             'bank' => Section::where('category', 'bank')->get(),
-            'map' => Section::where('category', 'map')->get(),
             'isSK' => $isSK,
         ]);
     }
