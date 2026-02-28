@@ -23,14 +23,9 @@ class SupportEditController extends Controller
                 $sections['percentHow']    = Section::where('category', 'percentHow')->orderBy('position')->get();
                 $sections['percentThanks'] = Section::where('category', 'percentThanks')->orderBy('position')->get();
 
-                // 👇 načítame aj dokumenty sekcie 2%
-                $percentSection = Section::where('category', 'percentDocuments')->first();
-                $sections['percentDocuments'] = $percentSection
-                    ? DB::table('files')
-                        ->where('section_id', $percentSection->id)
-                        ->where('type', 'document')
-                        ->get()
-                    : collect();
+                $percentDoc = Section::where('category', 'percentDocuments')->first();
+                $sections['percentDocuments'] = collect([$percentDoc]);
+                $percentDocId = $percentDoc?->id;
 
                 $type = 'Dve percentá';
                 break;
@@ -62,6 +57,7 @@ class SupportEditController extends Controller
             'type' => $type,
             'sections' => $sections,
             'qrImage' => $qrImage,
+            'percentDocId' => $percentDocId ?? null,
         ]);
     }
 

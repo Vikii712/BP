@@ -23,6 +23,7 @@
                     :title="ucfirst($sectionKey)"
                     :sections="$sectionItems"
                     :qrImage="$qrImage"
+                    :id="$percentDocId"
                 />
             @endforeach
 

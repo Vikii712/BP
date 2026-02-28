@@ -63,7 +63,7 @@ class SupportController extends Controller
             ])->first();
 
 
-        $two = Section::where('title_sk', 'Dve Percentá')->first();
+        $two = Section::where('category', 'percentDocuments')->first();
 
         $documents = File::where('type', 'document')
             ->where('section_id', $two->id)

@@ -169,7 +169,7 @@ class FileSeeder extends Seeder
             'content_en' => '',
             'year'       => null,
             'position'   => 2,
-            'category'   => 'documentSection',
+            'category'   => 'percentDocuments',
             'created_at' => now(),
             'updated_at' => now(),
         ]);

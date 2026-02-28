@@ -11,8 +11,7 @@ class DocumentsEditController extends Controller
 {
     public function edit($id)
     {
-        $section = Section::where('category', 'documentSection')
-            ->where('id', $id)
+        $section = Section::where('id', $id)
             ->firstOrFail();
 
         $section->documents = File::where('section_id', $section->id)

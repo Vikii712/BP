@@ -168,7 +168,7 @@
 
                             <button type="button"
                                     onclick="removeEditImage({{ $item->id }})"
-                                    class="px-4 py-2 border-2 border-red-600 text-red-600 rounded-md hover:bg-red-50 {{ $item->image ? '' : 'hidden' }}"
+                                    class="px-4 py-2  border-2 border-red-600 text-red-600 rounded-md hover:bg-red-50 {{ $item->image ? '' : 'hidden' }}"
                                     id="removeBtn-{{ $item->id }}">
                                 Odstrániť
                             </button>

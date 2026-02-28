@@ -11,7 +11,7 @@
     <div class="w-full px-2 sm:px-8 lg:px-16">
         <div class="flex justify-center">
             <div class="inline-flex items-center gap-3 mb-10 ">
-                <h2 class="h2 font-bold text-votum-blue underline underline-offset-4 ">
+                <h2 class="h2 font-bold text-votum-blue ">
                     {{ __('nav.nextUp') }}
                 </h2>
 

@@ -92,9 +92,6 @@ Route::middleware('auth')->group(function () {
         return view('pages.admin.support');
     })->name('admin.support');
 
-    Route::post('votumaci/support/percent-documents',
-        [SupportEditController::class, 'storePercentDocuments']
-    )->name('support.percent.documents.store');
 
     // SUPPORT
     Route::prefix('votumaci/support')->group(function () {
