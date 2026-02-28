@@ -14,6 +14,7 @@ class AdminUserSeeder extends Seeder
             'email' => 'zdruzenievotum@gmail.com',
             'name' => 'VOTUM Original Admin',
             'password' => Hash::make('heslo123'),
+            'protected' => true,
         ]);
     }
 }
