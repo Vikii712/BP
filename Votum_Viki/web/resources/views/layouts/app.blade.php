@@ -19,6 +19,8 @@
     @yield('content')
 </main>
 
+<x-a11yMenu />
+
 <x-footer />
 
 @stack('scripts')

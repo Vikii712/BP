@@ -57,7 +57,7 @@
                     <thead class="bg-blue-950">
                     <tr>
                         <th class="px-6 py-3 font-medium text-blue-50">Email</th>
-                        <th class="px-6 py-3 font-medium text-blue-50 text-right">Akcia</th>
+                        <th class="px-6 py-3 font-medium text-blue-50 text-right">Vymazať</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -70,8 +70,10 @@
                                 {{ $admin->email }}
                             </td>
                             <td class="px-6 py-4 text-right">
-                                @if($admin->id == Auth::id())
-                                    <span class="text-gray-400 font-medium">Aktuálny</span>
+                                @if($admin->protected)
+                                    <span class="text-gray-400 font-medium">Hlavný (nedá sa vymazať)</span>
+                                @elseif($admin->id == Auth::id())
+                                    <span class="text-gray-400 font-medium">Aktuálny (prihláste sa iným účtom pre vymazanie)</span>
                                 @else
                                     <form method="POST" action="{{ route('admin.delete', $admin->id) }}" class="inline">
                                         @csrf

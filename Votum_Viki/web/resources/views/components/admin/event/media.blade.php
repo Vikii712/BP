@@ -1,4 +1,4 @@
-@props(['isEdit', 'event'])
+@props(['isEdit', 'event', 'galleryUrl'])
 
 {{-- FOTKY --}}
 <div id="gallerySection" class="space-y-3 {{ old('inGallery', $event->inGallery ?? false) ? '' : 'hidden' }}">
@@ -9,7 +9,7 @@
     <div class="px-6">
         <input type="url"
                name="gallery_url"
-               value="{{ old('gallery_url', $event->gallery_url ?? '') }}"
+               value="{{ old('gallery_url', $galleryUrl ?? '') }}"
                placeholder="https://photos.google.com/..."
                class="w-full border-2 border-gray-300 rounded-md px-3 py-2">
     </div>

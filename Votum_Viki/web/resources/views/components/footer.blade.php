@@ -66,6 +66,12 @@
                             {{ __('nav.acc')}}
                         </a>
                     </div>
+                    <p class="my-4 text-neutral-300 text-center">
+                        &copy;
+                        2026{{ now()->year > 2026 ? ' - ' . now()->year : '' }}
+                        Združenie VOTUM, všetky práva vyhradené
+                        <br> Web: Viktória Latičová
+                    </p>
                 </div>
             </div>
         </div>

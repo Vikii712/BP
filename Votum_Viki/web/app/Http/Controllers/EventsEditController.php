@@ -80,7 +80,7 @@ class EventsEditController extends Controller
             'isEdit'      => true,
             'allSponsors' => $sponsors,
             'videoUrls'   => $event->files()->where('type', 'video')->pluck('url')->toArray(),
-            'galleryUrl'  => $event->files()->where('type', 'image')->value('url'),
+            'galleryUrl' => $event->files()->where('type', 'image')->value('url'),
             'documents'   => $event->files()->where('type', 'document')->get(),
         ]);
     }

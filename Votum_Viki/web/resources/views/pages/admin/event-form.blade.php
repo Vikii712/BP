@@ -72,6 +72,7 @@
                     <x-admin.event.media
                         :isEdit="$isEdit"
                         :event="$event"
+                        :galleryUrl="$galleryUrl"
                     />
 
                     <x-admin.event.sponsor

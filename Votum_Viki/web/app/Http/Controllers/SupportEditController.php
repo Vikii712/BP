@@ -197,7 +197,7 @@ class SupportEditController extends Controller
             }
 
             if ($request->hasFile('qr_image') || $request->input('remove_qr_image')) {
-                $this->handleQrImage($request, 'qrHow');
+                $this->handleQrImage($request);
             }
 
         });
@@ -207,31 +207,48 @@ class SupportEditController extends Controller
 
     // ======================================================
 
-    private function handleQrImage(Request $request, $category)
+    private function handleQrImage(Request $request)
     {
-        $qrSectionId = Section::where('category', $category)->value('id');
+        $qrSectionId = Section::where('category', 'qrHow')->value('id');
 
         if (!$qrSectionId) {
             return;
         }
 
+        $existingFiles = DB::table('files')
+            ->where('section_id', $qrSectionId)
+            ->where('type', 'image')
+            ->get();
+
         if ($request->input('remove_qr_image') == 1) {
-            $existingFile = DB::table('files')
+
+            foreach ($existingFiles as $file) {
+                if ($file->url && Storage::disk('public')->exists($file->url)) {
+                    Storage::disk('public')->delete($file->url);
+                }
+            }
+
+            DB::table('files')
                 ->where('section_id', $qrSectionId)
                 ->where('type', 'image')
-                ->first();
-
-            if ($existingFile) {
-                if (Storage::disk('public')->exists($existingFile->url)) {
-                    Storage::disk('public')->delete($existingFile->url);
-                }
-                DB::table('files')->where('id', $existingFile->id)->delete();
-            }
+                ->delete();
 
             return;
         }
 
+
         if ($request->hasFile('qr_image')) {
+
+            foreach ($existingFiles as $file) {
+                if ($file->url && Storage::disk('public')->exists($file->url)) {
+                    Storage::disk('public')->delete($file->url);
+                }
+            }
+
+            DB::table('files')
+                ->where('section_id', $qrSectionId)
+                ->where('type', 'image')
+                ->delete();
 
             $file = $request->file('qr_image');
             $path = $file->store('images/support', 'public');
