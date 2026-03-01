@@ -9,6 +9,13 @@
                 </div>
             @endif
 
+                @if(session('success'))
+                    <div class="bg-green-100 text-green-700 p-3 rounded mb-4">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+
             <div class="mb-12 text-center">
                 <h2 class="text-3xl font-bold text-blue-950 mb-4">
                     Administrátorský panel
@@ -18,6 +25,26 @@
                         bg-blue-50 text-blue-950 font-semibold tracking-wide shadow-sm">
                     {{ Auth::user()->email }}
                 </div>
+
+                @if($lastBackup && !$showWarning)
+                    <p>
+                        Posledná záloha:
+                        {{ \Carbon\Carbon::parse($lastBackup->created_at)->format('d.m.Y H:i') }}
+                    </p>
+                @endif
+
+                @if($showWarning)
+                    <div class="bg-red-100 text-red-700 p-3 rounded mt-3">
+                        Databáza nebola zálohovaná viac ako 6 mesiacov!
+                    </div>
+                @endif
+
+                <form method="POST" action="{{ route('backup.create') }}">
+                    @csrf
+                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">
+                        Vytvoriť zálohu
+                    </button>
+                </form>
 
                 <p class="text-gray-600 mt-4">
                     Vyberte sekciu, ktorú chcete upraviť

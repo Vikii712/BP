@@ -134,6 +134,11 @@
       <path value="$PROJECT_DIR$/web/vendor/ezyang/htmlpurifier" />
       <path value="$PROJECT_DIR$/web/vendor/intervention/image" />
       <path value="$PROJECT_DIR$/web/vendor/intervention/gif" />
+      <path value="$PROJECT_DIR$/web/vendor/spatie/laravel-backup" />
+      <path value="$PROJECT_DIR$/web/vendor/spatie/db-dumper" />
+      <path value="$PROJECT_DIR$/web/vendor/spatie/laravel-signal-aware-command" />
+      <path value="$PROJECT_DIR$/web/vendor/spatie/laravel-package-tools" />
+      <path value="$PROJECT_DIR$/web/vendor/spatie/temporary-directory" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.4">

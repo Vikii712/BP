@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminBackupController;
 use App\Http\Controllers\ContactsEditController;
 use App\Http\Controllers\DocumentsEditController;
 use App\Http\Controllers\EventsEditController;
@@ -36,6 +37,9 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('votumaci/panel', [AdminController::class, 'index'])->name('admin');
+
+    Route::post('backup', [AdminBackupController::class, 'create'])
+        ->name('backup.create');
 
     Route::get('votumaci/verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');
@@ -124,5 +128,6 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{id}', [SectionEditController::class, 'destroy'])->name('section.destroy');
         Route::post('/{id}/restore', [SectionEditController::class, 'restore'])->name('section.restore');
     });
+
 });
 

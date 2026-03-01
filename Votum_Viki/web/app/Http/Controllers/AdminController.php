@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Backup;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,7 +11,18 @@ use Illuminate\Support\Facades\Hash;
 class AdminController
 {
     public function index(){
-        return view('pages.admin.index');
+        $lastBackup = Backup::latest('created_at')->first();
+        $showWarning = false;
+
+        if ($lastBackup &&
+            \Carbon\Carbon::parse($lastBackup->created_at)->lt(now()->subMonths(6))) {
+            $showWarning = true;
+        }
+        if(!$lastBackup){
+            $showWarning = true;
+        }
+
+        return view('pages.admin.index', compact('showWarning', 'lastBackup'));
     }
     public function manageAdmins()
     {
@@ -18,7 +30,7 @@ class AdminController
             return $user->id == Auth::id();
         });
 
-        return view('pages.admin.manage-admins', compact('admins'));
+        return view('pages.admin.manage-admins', compact('admins', ));
     }
 
     public function add(Request $request)
