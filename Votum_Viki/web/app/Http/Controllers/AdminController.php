@@ -13,16 +13,24 @@ class AdminController
     public function index(){
         $lastBackup = Backup::latest('created_at')->first();
         $showWarning = false;
+        $showPassWarning = false;
 
         if ($lastBackup &&
             \Carbon\Carbon::parse($lastBackup->created_at)->lt(now()->subMonths(6))) {
             $showWarning = true;
         }
-        if(!$lastBackup){
+        if (!$lastBackup) {
             $showWarning = true;
         }
 
-        return view('pages.admin.index', compact('showWarning', 'lastBackup'));
+        $user = User::find(auth()->id());
+
+        $lastPasswordChange = $user->updated_at ?? $user->created_at;
+        if (\Carbon\Carbon::parse($lastPasswordChange)->lt(now()->subMonths(6))) {
+            $showPassWarning = true;
+        }
+
+        return view('pages.admin.index', compact('showWarning', 'lastBackup', 'showPassWarning'));
     }
     public function manageAdmins()
     {
