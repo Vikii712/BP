@@ -22,6 +22,7 @@
     @yield('adminContent')
 </main>
 
+
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 <script>
     window.addEventListener('load', function () {

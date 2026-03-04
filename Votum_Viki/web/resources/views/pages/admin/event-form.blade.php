@@ -21,8 +21,8 @@
 
                 <form method="POST"
                       action="{{ $isEdit ? route('events.update', $event) : route('events.store') }}"
-                      enctype="multipart/form-data"
-                      class="space-y-6">
+                      enctype="multipart/form-data" novalidate
+                      class="space-y-6 js-validate">
 
                     @csrf
                     @if($isEdit)
@@ -41,7 +41,7 @@
                                    name="title_sk"
                                    value="{{ old('title_sk', $event->title_sk ?? '') }}"
                                    required
-                                   class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">
+                                   class="validate-field flex-1 border-2 border-gray-300 rounded-md px-3 py-2">
                         </div>
 
                         <div class="flex items-center gap-3">
@@ -50,7 +50,7 @@
                                    name="title_en"
                                    value="{{ old('title_en', $event->title_en ?? '') }}"
                                    required
-                                   class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">
+                                   class="validate-field flex-1 border-2 border-gray-300 rounded-md px-3 py-2">
                         </div>
                     </div>
 
@@ -193,19 +193,47 @@
             });
 
             // ================= FORM SUBMIT =================
-
             const form = document.querySelector('form');
-            form.addEventListener('submit', function(e){
-                // Najprv skontroluj či existujú Quill editory
+            form.addEventListener('submit', function(e) {
+                // Naplň Quill obsahy
                 if (addFormEditors && addFormEditors.sk && addFormEditors.en) {
-                    const skContent = addFormEditors.sk.root.innerHTML;
-                    const enContent = addFormEditors.en.root.innerHTML;
+                    document.getElementById('content-new-sk').value = addFormEditors.sk.root.innerHTML;
+                    document.getElementById('content-new-en').value = addFormEditors.en.root.innerHTML;
+                }
 
-                    document.getElementById('content-new-sk').value = skContent;
-                    document.getElementById('content-new-en').value = enContent;
+                // Validácia title polí
+                const titleSk = form.querySelector('input[name="title_sk"]');
+                const titleEn = form.querySelector('input[name="title_en"]');
+                let isValid = true;
+                let firstInvalid = null;
 
-                    console.log('SK obsah:', skContent); // Pre debugging
-                    console.log('EN obsah:', enContent); // Pre debugging
+                [titleSk, titleEn].forEach(field => {
+                    if (!field) return;
+                    if (field.value.trim() === '') {
+                        field.classList.add('border-red-500', 'bg-red-50');
+                        field.classList.remove('border-gray-300');
+                        isValid = false;
+                        if (!firstInvalid) firstInvalid = field;
+                    } else {
+                        field.classList.remove('border-red-500', 'bg-red-50');
+                        field.classList.add('border-gray-300');
+                    }
+                });
+
+                if (!isValid) {
+                    e.preventDefault();
+                    firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    firstInvalid.focus();
+                }
+            });
+
+            // Live validácia
+            form.addEventListener('input', e => {
+                if (e.target.matches('input[name="title_sk"], input[name="title_en"]')) {
+                    if (e.target.value.trim() !== '') {
+                        e.target.classList.remove('border-red-500', 'bg-red-50');
+                        e.target.classList.add('border-gray-300');
+                    }
                 }
             });
 

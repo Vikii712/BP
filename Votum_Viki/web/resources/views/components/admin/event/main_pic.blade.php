@@ -50,14 +50,14 @@
                 <span class="w-10 font-semibold text-blue-950 pt-2">SK –</span>
                 <textarea name="image_alt_sk"
                           rows="3"
-                          class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ old('image_alt_sk', $event->image_alt_sk ?? '') }}</textarea>
+                          class="validate-field flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ old('image_alt_sk', $event->image_alt_sk ?? '') }}</textarea>
             </div>
 
             <div class="flex gap-3">
                 <span class="w-10 font-semibold text-blue-950 pt-2">EN –</span>
                 <textarea name="image_alt_en"
                           rows="3"
-                          class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ old('image_alt_en', $event->image_alt_en ?? '') }}</textarea>
+                          class="validate-field flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ old('image_alt_en', $event->image_alt_en ?? '') }}</textarea>
             </div>
         </div>
     </div>

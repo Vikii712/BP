@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Pre každý formulár, ktorý má triedu js-validate
     document.querySelectorAll('.js-validate').forEach(function (form) {
 
+        console.log("nacitalo ma")
         const fields = form.querySelectorAll('.validate-field');
 
         function validateField(field) {
