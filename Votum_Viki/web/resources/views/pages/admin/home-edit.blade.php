@@ -8,7 +8,12 @@
                 Úprava stránky – Domov
             </h1>
 
-            <form action="{{ route('home.update') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('home.update') }}"
+                  method="POST"
+                  enctype="multipart/form-data"
+                  class="js-validate"
+                  novalidate
+            >
                 @csrf
                 @method('PUT')
 
@@ -31,7 +36,7 @@
                                 <input type="text"
                                        name="sk[motto]"
                                        value="{{ old('sk.motto', $data['sk']['motto']) }}"
-                                       class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">
+                                       class="validate-field flex-1 border-2 border-gray-300 rounded-md px-3 py-2">
                             </div>
 
                             <div class="flex items-center gap-3">
@@ -39,7 +44,7 @@
                                 <input type="text"
                                        name="en[motto]"
                                        value="{{ old('en.motto', $data['en']['motto']) }}"
-                                       class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">
+                                       class="validate-field flex-1 border-2 border-gray-300 rounded-md px-3 py-2">
                             </div>
                         </div>
 
@@ -53,13 +58,13 @@
                             <div class="flex gap-3">
                                 <span class="w-10 font-semibold text-blue-950 pt-2">SK –</span>
                                 <textarea name="sk[intro]" rows="4"
-                                          class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ old('sk.intro', $data['sk']['intro']) }}</textarea>
+                                          class="validate-field flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ old('sk.intro', $data['sk']['intro']) }}</textarea>
                             </div>
 
                             <div class="flex gap-3">
                                 <span class="w-10 font-semibold pt-2">EN –</span>
                                 <textarea name="en[intro]" rows="4"
-                                          class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ old('en.intro', $data['en']['intro']) }}</textarea>
+                                          class="validate-field flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ old('en.intro', $data['en']['intro']) }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -78,7 +83,7 @@
                                    type="text"
                                    readonly
                                    value="{{ basename($data['sk']['hero_image']) }}"
-                                   class="border-2 border-gray-300 rounded-md px-3 py-2 bg-gray-100 w-1/3">
+                                   class="validate-field border-2 border-gray-300 rounded-md px-3 py-2 bg-gray-100 w-1/3">
 
                             <label class="px-4 py-2 border-2 border-blue-950 rounded-md cursor-pointer">
                                 Nahradiť
@@ -100,12 +105,12 @@
                             <div class="flex gap-3">
                                 <span class="w-10 font-semibold pt-2">SK –</span>
                                 <textarea name="sk[hero_alt]" rows="3"
-                                          class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ old('sk.hero_alt', $data['sk']['hero_alt']) }}</textarea>
+                                          class="validate-field flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ old('sk.hero_alt', $data['sk']['hero_alt']) }}</textarea>
                             </div>
                             <div class="flex gap-3">
                                 <span class="w-10 font-semibold pt-2">EN –</span>
                                 <textarea name="en[hero_alt]" rows="3"
-                                          class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ old('en.hero_alt', $data['en']['hero_alt']) }}</textarea>
+                                          class="validate-field flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ old('en.hero_alt', $data['en']['hero_alt']) }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -124,7 +129,7 @@
                                    type="text"
                                    readonly
                                    value="{{ basename($data['sk']['team_image']) }}"
-                                   class="border-2 border-gray-300 rounded-md px-3 py-2 bg-gray-100 w-1/3">
+                                   class="validate-field border-2 border-gray-300 rounded-md px-3 py-2 bg-gray-100 w-1/3">
 
                             <label class="px-4 py-2 border-2 border-blue-950 rounded-md cursor-pointer">
                                 Nahradiť
@@ -146,12 +151,12 @@
                             <div class="flex gap-3">
                                 <span class="w-10 font-semibold pt-2">SK –</span>
                                 <textarea name="sk[team_alt]" rows="3"
-                                          class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ old('sk.team_alt', $data['sk']['team_alt']) }}</textarea>
+                                          class="validate-field flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ old('sk.team_alt', $data['sk']['team_alt']) }}</textarea>
                             </div>
                             <div class="flex gap-3">
                                 <span class="w-10 font-semibold pt-2">EN –</span>
                                 <textarea name="en[team_alt]" rows="3"
-                                          class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ old('en.team_alt', $data['en']['team_alt']) }}</textarea>
+                                          class="validate-field flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ old('en.team_alt', $data['en']['team_alt']) }}</textarea>
                             </div>
                         </div>
 

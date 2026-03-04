@@ -80,7 +80,9 @@
                             <div class="space-y-3">
                                 <div class="flex items-center gap-3">
                                     <span class="w-10 font-semibold text-blue-950">Rok –</span>
-                                    <input type="number" name="year" value="{{ $item->year }}"
+                                    <input type="number" name="year"
+                                           value="{{ $item->year }}"
+                                           data-req
                                            class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">
                                 </div>
                             </div>
@@ -94,12 +96,16 @@
                         <div class="space-y-3">
                             <div class="flex items-center gap-3">
                                 <span class="w-10 font-semibold text-blue-950">SK –</span>
-                                <input name="title_sk" required value="{{ $item->title_sk }}"
+                                <input name="title_sk"
+                                       required data-req
+                                       value="{{ $item->title_sk }}"
                                        class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">
                             </div>
                             <div class="flex items-center gap-3">
                                 <span class="w-10 font-semibold text-blue-950">EN –</span>
-                                <input name="title_en" required value="{{ $item->title_en }}"
+                                <input name="title_en"
+                                       required data-req
+                                       value="{{ $item->title_en }}"
                                        class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">
                             </div>
                         </div>
@@ -114,12 +120,16 @@
                                 {{-- History: jednoduché textarea --}}
                                 <div class="flex items-center gap-3">
                                     <span class="w-10 font-semibold text-blue-950 pt-2">SK –</span>
-                                    <textarea name="content_sk" rows="4" required
+                                    <textarea name="content_sk"
+                                              rows="4"
+                                              required data-req
                                               class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ $item->content_sk }}</textarea>
                                 </div>
                                 <div class="flex items-center gap-3">
                                     <span class="w-10 font-semibold text-blue-950 pt-2">EN –</span>
-                                    <textarea name="content_en" rows="4" required
+                                    <textarea name="content_en"
+                                              rows="4"
+                                              required data-req
                                               class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ $item->content_en }}</textarea>
                                 </div>
                             @else
@@ -130,7 +140,12 @@
                                         <div class="quill-wrapper">
                                             <div id="editor-edit-{{ $item->id }}-sk"></div>
                                         </div>
-                                        <textarea name="content_sk" id="content-edit-{{ $item->id }}-sk" required class="hidden">{{ $item->content_sk }}</textarea>
+                                        <textarea name="content_sk"
+                                                  id="content-edit-{{ $item->id }}-sk"
+                                                  required
+                                                  class="hidden">
+                                            {{ $item->content_sk }}
+                                        </textarea>
                                     </div>
                                 </div>
 
@@ -140,7 +155,12 @@
                                         <div class="quill-wrapper">
                                             <div id="editor-edit-{{ $item->id }}-en"></div>
                                         </div>
-                                        <textarea name="content_en" id="content-edit-{{ $item->id }}-en" required class="hidden">{{ $item->content_en }}</textarea>
+                                        <textarea name="content_en"
+                                                  id="content-edit-{{ $item->id }}-en"
+                                                  required
+                                                  class="hidden">
+                                            {{ $item->content_en }}
+                                        </textarea>
                                     </div>
                                 </div>
                             @endif
@@ -186,14 +206,14 @@
                                 <div class="flex gap-3">
                                     <span class="w-10 font-semibold text-blue-950 pt-2">SK –</span>
                                     <textarea name="image_alt_sk" rows="3"
-                                              required
+                                              required data-req
                                               class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ old('image_alt_sk', $item->image?->alt_sk) }}</textarea>
                                 </div>
 
                                 <div class="flex gap-3">
                                     <span class="w-10 font-semibold text-blue-950 pt-2">EN –</span>
                                     <textarea name="image_alt_en" rows="3"
-                                              required
+                                              required data-req
                                               class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2">{{ old('image_alt_en', $item->image?->alt_en) }}</textarea>
                                 </div>
                             </div>
@@ -201,7 +221,9 @@
 
                         {{-- TLAČIDLÁ --}}
                         <div class="flex justify-end gap-3">
-                            <button type="submit" class="bg-green-200 border-2 border-green-900 text-green-900 px-6 py-2 rounded-md font-semibold hover:bg-green-300">
+                            <button type="button"
+                                    onclick="handleEditFormSubmit(this.closest('form'))"
+                                    class="bg-green-200 border-2 border-green-900 text-green-900 px-6 py-2 rounded-md font-semibold hover:bg-green-300">
                                 Uložiť zmeny
                             </button>
                             <button type="button" class="close-edit border-2 border-gray-400 px-6 py-2 rounded-md hover:bg-gray-100" data-id="{{ $item->id }}">

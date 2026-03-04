@@ -284,6 +284,15 @@
                 const isHomeChecked = inHomeCheckbox.checked;
                 const isGalleryChecked = inGalleryCheckbox.checked;
 
+                // ✅ Skryť alebo ukázať checkbox "Pridať medzi vybrané"
+                if (!isGalleryChecked) {
+                    inHomeCheckbox.checked = false;
+                    inHomeCheckbox.parentElement.classList.add('hidden'); // skryť úplne
+                } else {
+                    inHomeCheckbox.parentElement.classList.remove('hidden'); // ukázať
+                }
+
+                // ================= ZOBRAZENIE SEKCIÍ =================
                 if (isGalleryChecked) {
                     mainImageSection.classList.remove('hidden');
                     textSection.classList.remove('hidden');

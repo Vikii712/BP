@@ -210,42 +210,109 @@
         let currentOpenEdit = null;
         const isHistory = {{ $category === 'history' ? 'true' : 'false' }};
 
-        // ========== ADD FORM SUBMIT - HLAVNÝ FIX ==========
         function handleAddFormSubmit(e) {
-            console.log('=== ADD FORM SUBMIT ===');
-            e.preventDefault(); // ZASTAV DEFAULT PRE DEBUG
+            e.preventDefault();
 
-            // 1. Nájdi hidden polia
-            const skContentField = document.getElementById('content-new-sk') ||
-                document.querySelector('input[name="sk[content]"], input[name="sk.content"]');
-            const enContentField = document.getElementById('content-new-en') ||
-                document.querySelector('input[name="en[content]"], input[name="en.content"]');
-            const skTitleField = document.querySelector('input[name="sk[title]"], input[name="sk.title"]');
-            const enTitleField = document.querySelector('input[name="en[title]"], input[name="en.title"]');
+            // 1. Naplň Quill obsahy
+            const skContentField = document.getElementById('content-new-sk');
+            const enContentField = document.getElementById('content-new-en');
 
-            console.log('Polia:', { skContent: skContentField, enContent: enContentField, skTitle: skTitleField, enTitle: enTitleField });
-
-            // 2. Prepíš Quill obsah
             if (addFormEditors && skContentField && enContentField) {
-                const skContent = addFormEditors.sk.root.innerHTML.trim();
-                const enContent = addFormEditors.en.root.innerHTML.trim();
+                skContentField.value = addFormEditors.sk.root.innerHTML.trim();
+                enContentField.value = addFormEditors.en.root.innerHTML.trim();
+            }
 
-                console.log('Quill obsah:', { sk: skContent.substring(0, 100), en: enContent.substring(0, 100) });
+            // 2. Validácia - len viditeľné polia s data-req
+            const form = e.target;
+            const fields = [...form.querySelectorAll('[data-req]')].filter(f => f.offsetParent !== null);
 
-                skContentField.value = skContent;
-                enContentField.value = enContent;
+            let isValid = true;
+            let firstInvalid = null;
 
-                // 3. Validácia
-                if (!skContent || !enContent || !skTitleField?.value.trim() || !enTitleField?.value.trim()) {
-                    alert('Vyplňte všetky povinné polia (tituly + obsah)!');
-                    return false;
+            // Quill validácia osobitne (editor nie je input)
+            if (addFormEditors) {
+                const skText = addFormEditors.sk.getText().trim();
+                const enText = addFormEditors.en.getText().trim();
+
+                const skWrapper = document.getElementById('editor-new-sk');
+                const enWrapper = document.getElementById('editor-new-en');
+
+                if (!skText) {
+                    skWrapper.classList.add('border-2', 'border-red-500', 'bg-red-50', 'rounded-md');
+                    isValid = false;
+                    if (!firstInvalid) firstInvalid = skWrapper;
+                } else {
+                    skWrapper.classList.remove('border-red-500', 'bg-red-50');
+                }
+
+                if (!enText) {
+                    enWrapper.classList.add('border-2', 'border-red-500', 'bg-red-50', 'rounded-md');
+                    isValid = false;
+                    if (!firstInvalid) firstInvalid = enWrapper;
+                } else {
+                    enWrapper.classList.remove('border-red-500', 'bg-red-50');
                 }
             }
 
-            // 4. Odešli formulár
-            console.log('Odosielam formulár...');
+
+            // Bežné inputy/textarey
+            fields.forEach(function (field) {
+                if (field.value.trim() === '') {
+                    field.classList.add('border-red-500', 'bg-red-50');
+                    field.classList.remove('border-gray-300');
+                    isValid = false;
+                    if (!firstInvalid) firstInvalid = field;
+                } else {
+                    field.classList.remove('border-red-500', 'bg-red-50');
+                    field.classList.add('border-gray-300');
+                }
+            });
+
+            // ALT polia - len ak je obrázok nahraný
+            const altWrapper = document.getElementById('newAltWrapper');
+            if (altWrapper && altWrapper.offsetParent !== null) {
+                ['image_alt_sk', 'image_alt_en'].forEach(name => {
+                    const field = form.querySelector(`[name="${name}"]`);
+                    if (!field) return;
+                    if (field.value.trim() === '') {
+                        field.classList.add('border-red-500', 'bg-red-50');
+                        field.classList.remove('border-gray-300');
+                        isValid = false;
+                        if (!firstInvalid) firstInvalid = field;
+                    } else {
+                        field.classList.remove('border-red-500', 'bg-red-50');
+                        field.classList.add('border-gray-300');
+                    }
+                });
+            }
+
+            if (!isValid) {
+                firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                if (firstInvalid.focus) firstInvalid.focus();
+                return false;
+            }
+
             e.target.submit();
         }
+
+        // Live validácia pre data-req polia
+        document.addEventListener('input', e => {
+            if (e.target.closest('#addForm') && e.target.hasAttribute('data-req')) {
+                if (e.target.value.trim() !== '') {
+                    e.target.classList.remove('border-red-500', 'bg-red-50');
+                    e.target.classList.add('border-gray-300');
+                }
+            }
+        });
+
+        document.addEventListener('input', e => {
+            if (e.target.closest('[id^="editForm-"]') && e.target.hasAttribute('data-req')) {
+                if (e.target.value.trim() !== '') {
+                    e.target.classList.remove('border-red-500', 'bg-red-50');
+                    e.target.classList.add('border-gray-300');
+                }
+            }
+        });
 
         // ========== IMAGE HANDLING ==========
         function onNewImage(input) {
@@ -421,17 +488,80 @@
             });
         });
 
-        document.querySelectorAll('[id^="editForm-"]').forEach(form => {
-            form.addEventListener('submit', function() {
-                const id = this.id.replace('editForm-', '');
-                if (quillEditors[id]) {
-                    const skField = document.getElementById(`content-edit-${id}-sk`);
-                    const enField = document.getElementById(`content-edit-${id}-en`);
-                    if (skField) skField.value = quillEditors[id].sk.root.innerHTML;
-                    if (enField) enField.value = quillEditors[id].en.root.innerHTML;
+        function handleEditFormSubmit(form) {
+            const id = form.id.replace('editForm-', '');
+
+            if (quillEditors[id]) {
+                const skField = document.getElementById(`content-edit-${id}-sk`);
+                const enField = document.getElementById(`content-edit-${id}-en`);
+                if (skField) skField.value = quillEditors[id].sk.root.innerHTML;
+                if (enField) enField.value = quillEditors[id].en.root.innerHTML;
+            }
+
+            const fields = [...form.querySelectorAll('[data-req]')].filter(f => f.offsetParent !== null);
+            let isValid = true;
+            let firstInvalid = null;
+
+            if (quillEditors[id]) {
+                const skText = quillEditors[id].sk.getText().trim();
+                const enText = quillEditors[id].en.getText().trim();
+                const skWrapper = document.getElementById(`editor-edit-${id}-sk`);
+                const enWrapper = document.getElementById(`editor-edit-${id}-en`);
+
+                if (!skText) {
+                    skWrapper.classList.add('border-2', 'border-red-500', 'bg-red-50', 'rounded-md');
+                    isValid = false;
+                    if (!firstInvalid) firstInvalid = skWrapper;
+                } else {
+                    skWrapper.classList.remove('border-red-500', 'bg-red-50');
+                }
+
+                if (!enText) {
+                    enWrapper.classList.add('border-2', 'border-red-500', 'bg-red-50', 'rounded-md');
+                    isValid = false;
+                    if (!firstInvalid) firstInvalid = enWrapper;
+                } else {
+                    enWrapper.classList.remove('border-red-500', 'bg-red-50');
+                }
+            }
+
+            fields.forEach(field => {
+                if (field.value.trim() === '') {
+                    field.classList.add('border-red-500', 'bg-red-50');
+                    field.classList.remove('border-gray-300');
+                    isValid = false;
+                    if (!firstInvalid) firstInvalid = field;
+                } else {
+                    field.classList.remove('border-red-500', 'bg-red-50');
+                    field.classList.add('border-gray-300');
                 }
             });
-        });
+
+            const altWrapper = document.getElementById(`altWrapper-${id}`);
+            if (altWrapper && altWrapper.offsetParent !== null) {
+                ['image_alt_sk', 'image_alt_en'].forEach(name => {
+                    const field = form.querySelector(`[name="${name}"]`);
+                    if (!field) return;
+                    if (field.value.trim() === '') {
+                        field.classList.add('border-red-500', 'bg-red-50');
+                        field.classList.remove('border-gray-300');
+                        isValid = false;
+                        if (!firstInvalid) firstInvalid = field;
+                    } else {
+                        field.classList.remove('border-red-500', 'bg-red-50');
+                        field.classList.add('border-gray-300');
+                    }
+                });
+            }
+
+            if (!isValid) {
+                firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                if (firstInvalid.focus) firstInvalid.focus();
+                return false;
+            }
+
+            form.submit();
+        }
 
         // ===== EDIT IMAGE HANDLING =====
         function onEditImage(input, id) {
@@ -508,7 +638,7 @@
             const nameSpan = document.getElementById('sectionDeleteName');
 
             nameSpan.textContent = name;
-            form.action = `/votumaci/edit/{{ $category }}/${id}`;
+            form.action = `/votumaci/sections/{{ $category }}/${id}`;
             modal.classList.remove('hidden');
         }
 

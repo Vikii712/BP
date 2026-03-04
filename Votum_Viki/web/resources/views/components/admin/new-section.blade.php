@@ -30,6 +30,7 @@
               action="{{ route('section.add', ['category' => $category]) }}"
               enctype="multipart/form-data"
               class="space-y-6"
+              data-req-form
               id="addForm"
               >
 
@@ -45,7 +46,7 @@
                         <label class="block font-semibold text-gray-700 mb-2">Rok</label>
                         <input type="number"
                                name="year"
-                               required
+                               required data-req
                                class="w-full border-2 border-gray-300 rounded-md px-3 py-2 focus:border-blue-500 focus:outline-none"
                                placeholder="napr. 2002">
                     </div>
@@ -61,7 +62,7 @@
                     <span class="w-10 font-semibold text-blue-950">SK –</span>
                     <input type="text"
                            name="sk[title]"
-                           required
+                           required data-req
                            class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2"
                            placeholder="{{ $isHistory ? 'Nadpis v slovenčine' : ($isTeam ? 'Meno člena' : 'Názov sekcie SK') }}">
                 </div>
@@ -69,7 +70,7 @@
                     <span class="w-10 font-semibold text-blue-950">EN –</span>
                     <input type="text"
                            name="en[title]"
-                           required
+                           required data-req
                            class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2"
                            placeholder="{{ $isHistory ? 'Title in English' : ($isTeam ? 'Name of member' : 'Title of section in EN') }}">
                 </div>
@@ -85,12 +86,16 @@
                 @if($isHistory)
                     <div class="flex items-center gap-3">
                         <span class="w-10 font-semibold text-blue-950">SK –</span>
-                        <textarea name="sk[content]" rows="4" required
+                        <textarea name="sk[content]"
+                                  rows="4" required
+                                  data-req
                                   class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2"></textarea>
                     </div>
                     <div class="flex items-center gap-3">
                         <span class="w-10 font-semibold text-blue-950">EN –</span>
-                        <textarea name="en[content]" rows="4" required
+                        <textarea name="en[content]"
+                                  rows="4" required
+                                  data-req
                                   class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2"></textarea>
                     </div>
                 @else
@@ -157,7 +162,7 @@
 
             {{-- Tlačidlá --}}
             <div class="flex justify-end gap-3">
-                <button type="submit" class="bg-green-200 border-2 border-green-900 text-green-900 px-6 py-2 rounded-md font-semibold hover:bg-green-300">
+                <button type="button" onclick="handleAddFormSubmit({target: document.getElementById('addForm'), preventDefault: ()=>{}})" class="bg-green-200 border-2 border-green-900 text-green-900 px-6 py-2 rounded-md font-semibold hover:bg-green-300">
                     {{($isTeam ? 'Pridať člena' : 'Pridať sekciu')}}
                 </button>
                 <button type="button" id="cancelAddForm"

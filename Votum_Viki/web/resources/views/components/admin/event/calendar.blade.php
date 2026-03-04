@@ -71,14 +71,7 @@
         <!-- Radio buttons sa doplnia JS -->
     </div>
 
-    <label class="flex items-center gap-2">
-        <input type="checkbox"
-               id="inHome"
-               name="inHome"
-               class="rounded"
-            {{ old('inHome', $event->inHome ?? false) ? 'checked' : '' }}>
-        <span>Pridať medzi vybrané udalosti na domovskej stránke</span>
-    </label>
+
     <label class="flex items-center gap-2">
         <input type="checkbox"
                id="inGallery"
@@ -86,6 +79,15 @@
                class="rounded"
             {{ old('inGallery', $event->inGallery ?? false) ? 'checked' : '' }}>
         <span>Vytvoriť vlastnú stránku v časti udalosti s textom, fotkami alebo videom</span>
+    </label>
+
+    <label class="flex items-center gap-2">
+        <input type="checkbox"
+               id="inHome"
+               name="inHome"
+               class="rounded"
+            {{ old('inHome', $event->inHome ?? false) ? 'checked' : '' }}>
+        <span>Pridať medzi vybrané udalosti na domovskej stránke</span>
     </label>
 
     @if($isEdit)

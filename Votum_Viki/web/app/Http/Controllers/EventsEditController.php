@@ -67,6 +67,9 @@ class EventsEditController extends Controller
             'event'       => null,
             'isEdit'      => false,
             'allSponsors' => $sponsors,
+            'galleryUrl'  => '',
+            'videoUrls'   => [],
+            'documents'   => [],
         ]);
     }
 
