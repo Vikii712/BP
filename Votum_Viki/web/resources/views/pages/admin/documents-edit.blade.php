@@ -21,7 +21,11 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ route('documents.update', $section->id) }}" enctype="multipart/form-data" id="documentsForm">
+            <form method="POST"
+                  action="{{ route('documents.update', $section->id) }}"
+                  enctype="multipart/form-data"
+                  class="js-validate" novalidate
+                  id="documentsForm">
                 @csrf
                 @method('PUT')
 
@@ -44,7 +48,7 @@
                                        value="{{ $section->title_sk }}"
                                        placeholder="Zadajte názov sekcie"
                                        required
-                                       class="w-full border-2 border-gray-300 rounded-md px-3 py-2 focus:border-votum3 focus:outline-none transition-colors">
+                                       class="validate-field w-full border-2 border-gray-300 rounded-md px-3 py-2 focus:border-votum3 focus:outline-none transition-colors">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">EN – Názov sekcie:</label>
@@ -53,7 +57,7 @@
                                        value="{{ $section->title_en }}"
                                        placeholder="Enter section name"
                                        required
-                                       class="w-full border-2 border-gray-300 rounded-md px-3 py-2 focus:border-votum3 focus:outline-none transition-colors">
+                                       class="validate-field w-full border-2 border-gray-300 rounded-md px-3 py-2 focus:border-votum3 focus:outline-none transition-colors">
                             </div>
                         </div>
 
@@ -93,7 +97,7 @@
                                                            value="{{ $document->title_sk }}"
                                                            placeholder="Zadajte názov v slovenčine"
                                                            required
-                                                           class="w-full border-2 border-gray-300 rounded-md px-3 py-2 bg-white focus:border-votum3 focus:outline-none transition-colors">
+                                                           class="validate-field w-full border-2 border-gray-300 rounded-md px-3 py-2 bg-white focus:border-votum3 focus:outline-none transition-colors">
                                                 </div>
                                                 <div>
                                                     <label class="block text-sm font-medium text-gray-700 mb-1">EN – Názov dokumentu:</label>
@@ -102,7 +106,7 @@
                                                            value="{{ $document->title_en }}"
                                                            placeholder="Enter name in English"
                                                            required
-                                                           class="w-full border-2 border-gray-300 rounded-md px-3 py-2 bg-white focus:border-votum3 focus:outline-none transition-colors">
+                                                           class="validate-field w-full border-2 border-gray-300 rounded-md px-3 py-2 bg-white focus:border-votum3 focus:outline-none transition-colors">
                                                 </div>
                                             </div>
                                             <div>
@@ -191,7 +195,7 @@
                                        name="documents[${docIndex}][name_sk]"
                                        placeholder="Zadajte názov v slovenčine"
                                        required
-                                       class="w-full border-2 border-gray-300 rounded-md px-3 py-2 bg-white focus:border-votum3 focus:outline-none transition-colors">
+                                       class="validate-field w-full border-2 border-gray-300 rounded-md px-3 py-2 bg-white focus:border-votum3 focus:outline-none transition-colors">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">EN – Názov dokumentu:</label>
@@ -199,7 +203,7 @@
                                        name="documents[${docIndex}][name_en]"
                                        placeholder="Enter name in English"
                                        required
-                                       class="w-full border-2 border-gray-300 rounded-md px-3 py-2 bg-white focus:border-votum3 focus:outline-none transition-colors">
+                                       class="validate-field w-full border-2 border-gray-300 rounded-md px-3 py-2 bg-white focus:border-votum3 focus:outline-none transition-colors">
                             </div>
                         </div>
                         <div>

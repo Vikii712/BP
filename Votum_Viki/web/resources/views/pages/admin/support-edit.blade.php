@@ -57,44 +57,37 @@
             });
         }
 
-        @foreach($sections as $sectionKey => $sectionItems)
-        @foreach($sectionItems as $index => $section)
-        const quillSk{{ $sectionKey }}{{ $index }} = new Quill(
-            '#editor-{{ $sectionKey }}-sk-{{ $index }}',
-            { theme: 'snow', modules: { toolbar: toolbarOptions } }
-        );
+            @foreach($sections as $sectionKey => $sectionItems)
+            @foreach($sectionItems as $index => $section)
+        {
+            const editor1 = document.querySelector('#editor-{{ $sectionKey }}-sk-{{ $index }}');
+            const editor2 = document.querySelector('#editor-{{ $sectionKey }}-en-{{ $index }}');
 
-        const quillEn{{ $sectionKey }}{{ $index }} = new Quill(
-            '#editor-{{ $sectionKey }}-en-{{ $index }}',
-            { theme: 'snow', modules: { toolbar: toolbarOptions } }
-        );
+            if (editor1 && editor2) {
+                const quillSk = new Quill(editor1, { theme: 'snow', modules: { toolbar: toolbarOptions } });
+                const quillEn = new Quill(editor2, { theme: 'snow', modules: { toolbar: toolbarOptions } });
 
-        preventImagePaste(quillSk{{ $sectionKey }}{{ $index }});
-        preventImagePaste(quillEn{{ $sectionKey }}{{ $index }});
-        fixLinks(quillSk{{ $sectionKey }}{{ $index }});
-        fixLinks(quillEn{{ $sectionKey }}{{ $index }});
+                preventImagePaste(quillSk);
+                preventImagePaste(quillEn);
+                fixLinks(quillSk);
+                fixLinks(quillEn);
 
-        const skTextarea{{ $sectionKey }}{{ $index }} = document.getElementById('content-{{ $sectionKey }}-sk-{{ $index }}');
-        const enTextarea{{ $sectionKey }}{{ $index }} = document.getElementById('content-{{ $sectionKey }}-en-{{ $index }}');
+                const skTextarea = document.getElementById('content-{{ $sectionKey }}-sk-{{ $index }}');
+                const enTextarea = document.getElementById('content-{{ $sectionKey }}-en-{{ $index }}');
 
-        if (skTextarea{{ $sectionKey }}{{ $index }}?.value?.trim()) {
-            quillSk{{ $sectionKey }}{{ $index }}.clipboard.dangerouslyPasteHTML(skTextarea{{ $sectionKey }}{{ $index }}.value);
+                if (skTextarea?.value?.trim()) {
+                    quillSk.clipboard.dangerouslyPasteHTML(skTextarea.value);
+                }
+                if (enTextarea?.value?.trim()) {
+                    quillEn.clipboard.dangerouslyPasteHTML(enTextarea.value);
+                }
+
+                quillSk.on('text-change', () => { skTextarea.value = quillSk.root.innerHTML; });
+                quillEn.on('text-change', () => { enTextarea.value = quillEn.root.innerHTML; });
+            }
         }
-
-        if (enTextarea{{ $sectionKey }}{{ $index }}?.value?.trim()) {
-            quillEn{{ $sectionKey }}{{ $index }}.clipboard.dangerouslyPasteHTML(enTextarea{{ $sectionKey }}{{ $index }}.value);
-        }
-
-        quillSk{{ $sectionKey }}{{ $index }}.on('text-change', () => {
-            skTextarea{{ $sectionKey }}{{ $index }}.value = quillSk{{ $sectionKey }}{{ $index }}.root.innerHTML;
-        });
-
-        quillEn{{ $sectionKey }}{{ $index }}.on('text-change', () => {
-            enTextarea{{ $sectionKey }}{{ $index }}.value = quillEn{{ $sectionKey }}{{ $index }}.root.innerHTML;
-        });
         @endforeach
         @endforeach
-
         // Pole ikon, rovnaké ako v Blade
         const icons = [
             'fa-handshake-angle',
@@ -163,11 +156,11 @@
 
         <div class="flex gap-3 mb-2">
             <span class="w-10 font-semibold text-gray-700 pt-2">SK –</span>
-            <input type="text" name="sk[${index}][title]" required class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2" placeholder="Nadpis SK">
+            <input type="text" name="sk[${index}][title]" required class="validate-field  flex-1 border-2 border-gray-300 rounded-md px-3 py-2" placeholder="Nadpis SK">
         </div>
         <div class="flex gap-3 mb-2">
             <span class="w-10 font-semibold text-gray-700 pt-2">EN –</span>
-            <input type="text" name="en[${index}][title]" required class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2" placeholder="Title EN">
+            <input type="text" name="en[${index}][title]" required class="validate-field flex-1 border-2 border-gray-300 rounded-md px-3 py-2" placeholder="Title EN">
         </div>
 
         <div class="w-full font-bold text-blue-950 text-lg">Obsah</div>

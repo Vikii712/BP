@@ -1,57 +1,49 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    // Pre každý formulár, ktorý má triedu js-validate
+    function validateField(field) {
+        if (field.value.trim() === '') {
+            field.style.borderColor = '#ef4444';
+            field.style.backgroundColor = '#fef2f2';
+            return false;
+        } else {
+            field.style.borderColor = '';
+            field.style.backgroundColor = '';
+            return true;
+        }
+    }
+
     document.querySelectorAll('.js-validate').forEach(function (form) {
 
-        console.log("nacitalo ma")
-        const fields = form.querySelectorAll('.validate-field');
-
-        function validateField(field) {
-            if (field.value.trim() === '') {
-                field.classList.remove('border-gray-300');
-                field.classList.add('border-red-500', 'bg-red-50');
-                return false;
-            } else {
-                field.classList.remove('border-red-500', 'bg-red-50');
-                field.classList.add('border-gray-300');
-                return true;
+        // Live validácia cez event delegation - funguje aj pre dynamicky pridané polia
+        form.addEventListener('input', function (e) {
+            if (e.target.classList.contains('validate-field')) {
+                validateField(e.target);
             }
-        }
-
-        // Live kontrola pri písaní
-        fields.forEach(function (field) {
-            field.addEventListener('input', function () {
-                validateField(field);
-            });
         });
 
-        // Kontrola pri submit
+        // Validácia pri submit
         form.addEventListener('submit', function (e) {
+            // Dotaz vždy znova - zachytí aj dynamicky pridané polia
+            const fields = form.querySelectorAll('.validate-field:not([style*="display: none"])');
 
             let firstInvalid = null;
             let isValid = true;
 
             fields.forEach(function (field) {
+                // Preskočiť polia v skrytých sekciách (markForDelete)
+                if (field.closest('[style*="display: none"]')) return;
+
                 if (!validateField(field)) {
                     isValid = false;
-                    if (!firstInvalid) {
-                        firstInvalid = field;
-                    }
+                    if (!firstInvalid) firstInvalid = field;
                 }
             });
 
             if (!isValid) {
                 e.preventDefault();
-
-                firstInvalid.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'center'
-                });
-
+                firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 firstInvalid.focus();
             }
         });
-
     });
-
 });

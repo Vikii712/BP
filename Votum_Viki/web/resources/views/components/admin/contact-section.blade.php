@@ -37,8 +37,8 @@ switch($category){
 
     <form method="POST"
           action="{{ route('support.update', ['id' => $category]) }}"
-          data-category="{{ $category }}"
-          class="space-y-6">
+          data-category="{{ $category }}" novalidate
+          class="space-y-6 js-validate">
         @csrf
         @method('PUT')
 
@@ -64,7 +64,7 @@ switch($category){
                     <span class="w-10 font-semibold text-gray-700 pt-2">SK –</span>
                     <div class="flex-1">
                         <div class="quill-wrapper"
-                             data-quill
+                             data-quill data-required
                              data-textarea="title-sk-{{ $category }}-{{ $index }}"></div>
                         <textarea name="sk[{{ $index }}][title]"
                                   id="title-sk-{{ $category }}-{{ $index }}"
@@ -76,7 +76,7 @@ switch($category){
                     <span class="w-10 font-semibold text-gray-700 pt-2">EN –</span>
                     <div class="flex-1">
                         <div class="quill-wrapper"
-                             data-quill
+                             data-quill data-required
                              data-textarea="title-en-{{ $category }}-{{ $index }}"></div>
                         <textarea name="en[{{ $index }}][title]"
                                   id="title-en-{{ $category }}-{{ $index }}"
@@ -91,7 +91,7 @@ switch($category){
                     <span class="w-10 font-semibold text-gray-700 pt-2">SK –</span>
                     <div class="flex-1">
                         <div class="quill-wrapper"
-                             data-quill
+                             data-quill data-required
                              data-textarea="content-sk-{{ $category }}-{{ $index }}"></div>
                         <textarea name="sk[{{ $index }}][content]"
                                   id="content-sk-{{ $category }}-{{ $index }}"
@@ -103,7 +103,7 @@ switch($category){
                     <span class="w-10 font-semibold text-gray-700 pt-2">EN –</span>
                     <div class="flex-1">
                         <div class="quill-wrapper"
-                             data-quill
+                             data-quill data-required
                              data-textarea="content-en-{{ $category }}-{{ $index }}"></div>
                         <textarea name="en[{{ $index }}][content]"
                                   id="content-en-{{ $category }}-{{ $index }}"

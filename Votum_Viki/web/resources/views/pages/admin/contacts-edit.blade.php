@@ -138,7 +138,7 @@
             <div class="flex gap-3">
                 <span class="w-10 font-semibold text-gray-700 pt-2">SK –</span>
                 <div class="flex-1">
-                    <div class="quill-wrapper" data-quill data-textarea="title-sk-${category}-${index}"></div>
+                    <div class="quill-wrapper" data-quill data-required data-textarea="title-sk-${category}-${index}"></div>
                     <textarea name="sk[${index}][title]" id="title-sk-${category}-${index}" class="hidden"></textarea>
                 </div>
             </div>
@@ -146,7 +146,7 @@
             <div class="flex gap-3">
                 <span class="w-10 font-semibold text-gray-700 pt-2">EN –</span>
                 <div class="flex-1">
-                    <div class="quill-wrapper" data-quill data-textarea="title-en-${category}-${index}"></div>
+                    <div class="quill-wrapper" data-quill data-required data-textarea="title-en-${category}-${index}"></div>
                     <textarea name="en[${index}][title]" id="title-en-${category}-${index}" class="hidden"></textarea>
                 </div>
             </div>
@@ -156,7 +156,7 @@
             <div class="flex gap-3">
                 <span class="w-10 font-semibold text-gray-700 pt-2">SK –</span>
                 <div class="flex-1">
-                    <div class="quill-wrapper" data-quill data-textarea="content-sk-${category}-${index}"></div>
+                    <div class="quill-wrapper" data-quill data-required data-textarea="content-sk-${category}-${index}"></div>
                     <textarea name="sk[${index}][content]" id="content-sk-${category}-${index}" class="hidden"></textarea>
                 </div>
             </div>
@@ -164,7 +164,7 @@
             <div class="flex gap-3">
                 <span class="w-10 font-semibold text-gray-700 pt-2">EN –</span>
                 <div class="flex-1">
-                    <div class="quill-wrapper" data-quill data-textarea="content-en-${category}-${index}"></div>
+                    <div class="quill-wrapper" data-quill data-required data-textarea="content-en-${category}-${index}"></div>
                     <textarea name="en[${index}][content]" id="content-en-${category}-${index}" class="hidden"></textarea>
                 </div>
             </div>
@@ -188,6 +188,54 @@
                 });
             });
         }
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+            function validateQuillField(wrapper) {
+                const textareaId = wrapper.dataset.textarea;
+                const textarea = document.getElementById(textareaId);
+                const isEmpty = !textarea || textarea.value.trim() === '' || textarea.value.trim() === '<p><br></p>';
+
+                if (isEmpty) {
+                    wrapper.style.borderColor = '#ef4444';
+                    wrapper.style.backgroundColor = '#fef2f2';
+                    wrapper.style.borderWidth = '2px';
+                    wrapper.style.borderStyle = 'solid';
+                    wrapper.style.borderRadius = '6px';
+                    return false;
+                } else {
+                    wrapper.style.borderColor = '';
+                    wrapper.style.backgroundColor = '';
+                    return true;
+                }
+            }
+
+            document.querySelectorAll('.js-validate').forEach(function (form) {
+
+                form.addEventListener('submit', function (e) {
+                    // Dotaz vždy znova - zachytí aj dynamicky pridané sekcie
+                    const requiredWrappers = form.querySelectorAll('[data-required]:not([style*="display: none"])');
+
+                    let firstInvalid = null;
+                    let isValid = true;
+
+                    requiredWrappers.forEach(function (wrapper) {
+                        // Preskočiť polia v skrytých sekciách (markForDelete)
+                        if (wrapper.closest('[style*="display: none"]')) return;
+
+                        if (!validateQuillField(wrapper)) {
+                            isValid = false;
+                            if (!firstInvalid) firstInvalid = wrapper;
+                        }
+                    });
+
+                    if (!isValid) {
+                        e.preventDefault();
+                        firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                });
+            });
+        });
 
         // ================= DELETE =================
         function markForDelete(btn) {

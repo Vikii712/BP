@@ -99,8 +99,8 @@ $icons = [
         <form method="POST"
               action="{{ route('support.update', ['id' => $category]) }}"
               data-category="{{ $category }}"
-              enctype="multipart/form-data"
-              class="space-y-6">
+              enctype="multipart/form-data" novalidate
+              class="space-y-6 js-validate">
             @csrf
             @method('PUT')
 
@@ -132,7 +132,7 @@ $icons = [
                                name="sk[{{ $index }}][title]"
                                value="{{ $section->title_sk ?? '' }}"
                                required
-                               class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2"
+                               class="validate-field  flex-1 border-2 border-gray-300 rounded-md px-3 py-2"
                                placeholder="Nadpis SK">
                     </div>
                     <div class="flex gap-3 mb-2">
@@ -141,7 +141,7 @@ $icons = [
                                name="en[{{ $index }}][title]"
                                value="{{ $section->title_en ?? '' }}"
                                required
-                               class="flex-1 border-2 border-gray-300 rounded-md px-3 py-2"
+                               class="validate-field  flex-1 border-2 border-gray-300 rounded-md px-3 py-2"
                                placeholder="Title EN">
                     </div>
 
