@@ -75,6 +75,9 @@ return [
     'err' => 'Found an error?',
     'acc' => 'Accessibility Statement',
 
-    'noEvents' => 'There are currently no events here. :('
+    'noEvents' => 'There are currently no events here. :(',
 
+    'acc_read' => 'Reading',
+    'acc_text' => 'Text',
+    'acc_color' => 'Colors',
 ];
