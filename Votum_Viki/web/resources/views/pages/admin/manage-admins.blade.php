@@ -25,18 +25,21 @@
                     </h2>
                 </div>
 
-                <form method="POST" action="{{ route('admin.add') }}" class="flex flex-col gap-3 w-full">
+                <form method="POST"
+                      action="{{ route('admin.add') }}"  novalidate
+                      class="js-validate flex flex-col gap-3 w-full"
+                >
                     @csrf
                     <div class="flex flex-col sm:flex-row gap-3 w-full">
                         <input type="email" name="email" placeholder="Email nového admina" required
-                               class="px-3 py-2 border-2 border-gray-300 rounded-md flex-1 w-full">
+                               class="validate-field px-3 py-2 border-2 border-gray-300 rounded-md flex-1 w-full">
                         <input type="password" name="password" placeholder="Heslo nového admina" required
-                               class="px-3 py-2 border-2 border-gray-300 rounded-md flex-1 w-full">
+                               class="validate-field px-3 py-2 border-2 border-gray-300 rounded-md flex-1 w-full">
                     </div>
 
                     <div class="flex flex-col sm:flex-row gap-3 items-center mt-2 w-full">
                         <input type="password" name="current_password" placeholder="Heslo prihláseného admina" required
-                               class="px-3 py-2 border-2 border-gray-300 rounded-md flex-1 w-full">
+                               class="validate-field px-3 py-2 border-2 border-gray-300 rounded-md flex-1 w-full">
                         <button type="submit" class="bg-green-200 border-2 border-green-900 text-green-900 px-4 py-2 rounded-md font-semibold hover:bg-green-300 w-full sm:w-auto">
                             Pridať
                         </button>

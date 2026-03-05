@@ -449,6 +449,7 @@
                 headerTitle.className = 'flex items-center gap-3';
                 const numberBadge = document.createElement('span');
                 numberBadge.className = 'text-white px-3 py-1 rounded-md text-sm font-bold';
+                numberBadge.className = 'text-white px-3 py-1 rounded-md text-sm font-bold';
                 numberBadge.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
                 numberBadge.textContent = `#${sponsorCounter}`;
                 const headerText = document.createElement('span');
@@ -510,7 +511,7 @@
                     fileRow.appendChild(fileNameInput);
 
                     const fileLabel = document.createElement('label');
-                    fileLabel.className = 'px-4 py-2 bg-dark-votum3 text-white rounded-md cursor-pointer hover:opacity-90 transition-opacity';
+                    fileLabel.className = 'text-bold px-4 py-2 border-2 border-votum3 text-votum3 rounded-md cursor-pointer hover:opacity-90 transition-opacity';
                     fileLabel.textContent = 'Nahrať';
                     const fileInput = document.createElement('input');
                     fileInput.type = 'file';
@@ -707,7 +708,7 @@
                 fileRow.appendChild(fileNameInput);
 
                 const uploadLabel = document.createElement('label');
-                uploadLabel.className = 'px-4 py-2 bg-dark-votum3 text-white rounded-md cursor-pointer hover:opacity-90 transition-opacity';
+                uploadLabel.className = 'text-bold px-4 py-2 border-2 border-votum3 text-votum3 rounded-md cursor-pointer hover:opacity-90 transition-opacity';
                 uploadLabel.textContent = 'Nahrať';
                 const fileInput = document.createElement('input');
                 fileInput.type = 'file';

@@ -69,7 +69,7 @@
                                 </h3>
                                 <button type="button"
                                         id="addDocBtn"
-                                        class="px-4 py-2 font-semibold hover:cursor-pointer border-2 border-votum3 text-votum3 rounded-md hover:opacity-90 transition-opacity flex items-center gap-2">
+                                        class="px-4 py-2 bg-votum3 font-semibold hover:cursor-pointer border-2 border-votum3 text-votum3 rounded-md hover:opacity-90 transition-opacity flex items-center gap-2">
                                     <i class="fa-solid fa-plus"></i>
                                     Pridať dokument
                                 </button>
@@ -120,7 +120,7 @@
                                                            readonly
                                                            value="— žiadny nový súbor —"
                                                            class="file-name-display border-2 border-gray-300 bg-gray-100 px-3 py-2 flex-1 rounded-md text-sm">
-                                                    <label class="px-4 py-2 bg-dark-votum3 text-white rounded-md cursor-pointer hover:opacity-90 transition-opacity">
+                                                    <label class="px-4 py-2 border-2 border-votum3 text-votum3  rounded-md cursor-pointer hover:opacity-90 transition-opacity">
                                                         Nahradiť
                                                         <input type="file"
                                                                name="documents[{{ $docIndex }}][file]"
@@ -177,7 +177,7 @@
             docCounter++;
 
             const docHTML = `
-                <div class="border-2 border-votum3 rounded-lg bg-votum3 shadow-sm overflow-hidden document">
+                <div class="border-2 border-votum3 rounded-lg shadow-sm overflow-hidden document">
                     <div class="bg-dark-votum3 flex items-center justify-between px-4 py-3">
                         <div class="flex items-center gap-3">
                             <span class="text-white px-3 py-1 rounded-md text-sm font-bold" style="background-color: rgba(255, 255, 255, 0.2);">
@@ -213,7 +213,7 @@
                                        readonly
                                        value="— žiadny súbor —"
                                        class="file-name-display border-2 border-gray-300 bg-gray-100 px-3 py-2 flex-1 rounded-md text-sm">
-                                <label class="px-4 py-2 bg-dark-votum3 text-white rounded-md cursor-pointer hover:opacity-90 transition-opacity">
+                                <label class="px-4 py-2 border-2 border-votum3 text-votum3 rounded-md cursor-pointer hover:opacity-90 transition-opacity">
                                     Nahrať
                                     <input type="file"
                                            name="documents[${docIndex}][file]"
@@ -234,6 +234,13 @@
             `;
 
             wrapper.insertAdjacentHTML('beforeend', docHTML);
+
+            const newDoc = wrapper.lastElementChild;
+
+            newDoc.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
         });
 
         // ===== ODSTRÁNI DOKUMENT =====

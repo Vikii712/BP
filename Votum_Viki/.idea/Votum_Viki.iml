@@ -8,6 +8,8 @@
       <excludeFolder url="file://$MODULE_DIR$/web/vendor/laravel/breeze" />
       <excludeFolder url="file://$MODULE_DIR$/web/vendor/intervention/gif" />
       <excludeFolder url="file://$MODULE_DIR$/web/vendor/intervention/image" />
+      <excludeFolder url="file://$MODULE_DIR$/web/vendor/spatie/laravel-csp" />
+      <excludeFolder url="file://$MODULE_DIR$/web/vendor/spatie/laravel-package-tools" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
