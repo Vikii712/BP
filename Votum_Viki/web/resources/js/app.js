@@ -6,6 +6,7 @@ import './a11y/cursor-shadow.js';
 import './a11y/highlighter.js';
 import './a11y/spacing.js';
 import './a11y/cursor.js';
+import './a11y/font.js';
 import Alpine from 'alpinejs';
 
 window.Alpine = Alpine;

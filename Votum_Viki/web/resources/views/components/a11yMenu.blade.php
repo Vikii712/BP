@@ -4,13 +4,18 @@
             ['title' => 'Zvýraznenie čítaného textu', 'icon' => 'fa-highlighter', 'function' => 'highlightReading'],
             ['title' => 'Pravítko', 'icon' => 'fa-ruler-horizontal', 'function' => 'readingGuide'],
             ['title' => 'Tieň nad a pod kurzorom', 'icon' => 'fa-mouse-pointer', 'function' => 'cursorShadow'],
+            ['title' => 'Veľký kurzor', 'icon' => 'fa-arrow-pointer', 'function' => 'bigCursor'],
+
         ],
         'text' => [
             ['title' => 'Medzery medzi písmenami', 'icon' => 'fa-text-height', 'function' => 'letterSpacing', 'spectrum' => true],
             ['title' => 'Vzdialenosť medzi riadkami', 'icon' => 'fa-lines-leaning', 'function' => 'lineSpacing', 'spectrum' => true],
-            ['title' => 'Veľký kurzor', 'icon' => 'fa-arrow-pointer', 'function' => 'bigCursor'],
-            ['title' => 'Dyslexia font', 'icon' => 'fa-font', 'function' => 'dyslexiaFont'],
-
+        ],
+        'font' => [
+            ['title' => 'Arial', 'font' => 'Arial, sans-serif', 'key' => 'arial'],
+            ['title' => 'Comic Sans', 'font' => '"Comic Sans MS", cursive', 'key' => 'comic'],
+            ['title' => 'Atkinson', 'font' => '"Atkinson Hyperlegible", sans-serif', 'key' => 'atkinson'],
+            ['title' => 'Open Dyslexic', 'font' => 'OpenDyslexicRegular, sans-serif', 'key' => 'dyslexic'],
         ],
         'color' => [
             ['title' => 'Vysoký kontrast', 'icon' => 'fa-circle-half-stroke', 'function' => 'highContrast'],
@@ -18,7 +23,6 @@
             ['title' => 'Zvýrazniť odkazy', 'icon' => 'fa-link', 'function' => 'highlightLinks'],
             ['title' => 'Skryť obrázky', 'icon' => 'fa-image', 'function' => 'hideImages'],
         ],
-
     ];
 @endphp
 
@@ -36,16 +40,14 @@
     {{-- PANEL --}}
     <div
         id="a11y-panel"
-        class="hidden fixed rounded-xl bottom-24 right-6 z-[9999] w-96 max-h-[80vh]  border-2 border-black flex flex-col overflow-hidden"
+        class="hidden fixed rounded-xl bottom-24 right-6 z-[9999] w-96 max-h-[80vh] border-2 border-black flex flex-col overflow-hidden"
     >
-
         {{-- HEADER --}}
         <div class="bg-yellow-300 border-b-2 border-black px-4 py-3 flex items-center justify-between">
             <div class="flex items-center gap-2 font-bold text-lg">
                 <i class="fa-solid fa-universal-access text-xl"></i>
-                Prístupnosť
+                {{__('nav.a11y')}}
             </div>
-
             <button id="a11y-close" class="text-xl">
                 <i class="fa-solid fa-xmark"></i>
             </button>
@@ -56,45 +58,71 @@
 
             @foreach($options as $section => $items)
                 <div class="rounded-xl border-2 border-black bg-neutral-400 shadow-sm overflow-hidden">
+
                     {{-- Sekcia header --}}
                     <div class="px-4 py-2.5 bg-neutral-900 text-white font-bold uppercase tracking-widest">
                         {{ __('nav.acc_' . $section) }}
                     </div>
 
                     {{-- Položky --}}
-                    <div class="grid grid-cols-2 gap-2 p-3">
-                        @foreach($items as $item)
-                            <label class="group cursor-pointer">
-                                <input
-                                    type="checkbox"
-                                    class="peer hidden a11y-toggle"
-                                    data-feature="{{ $item['function'] }}"
-                                >
+                    @if($section === 'font')
+                        <div class="grid grid-cols-2 gap-2 p-3">
+                            @foreach($items as $item)
+                                <label class="group cursor-pointer">
+                                    <input
+                                        type="radio"
+                                        name="a11y-font"
+                                        class="peer hidden"
+                                        data-font="{{ $item['font'] }}"
+                                        data-font-key="{{ $item['key'] }}"
+                                    >
+                                    <div class="flex flex-col items-center justify-center gap-1 p-4 rounded-lg border-2 border-black bg-gray-50
+                                        peer-checked:bg-yellow-300 h-full
+                                        peer-checked:border-yellow-800
+                                        hover:bg-yellow-300">
+                                        <span class="text-2xl font-medium text-black"
+                                              style="font-family: {{ $item['font'] }}">
+                                            Aa
+                                        </span>
+                                        <span class="text-sm text-center text-black leading-tight">
+                                            {{ $item['title'] }}
+                                        </span>
+                                    </div>
+                                </label>
+                            @endforeach
+                        </div>
+                    @else
+                        <div class="grid grid-cols-2 gap-2 p-3">
+                            @foreach($items as $item)
+                                <label class="group cursor-pointer">
+                                    <input
+                                        type="checkbox"
+                                        class="peer hidden a11y-toggle"
+                                        data-feature="{{ $item['function'] }}"
+                                    >
+                                    <div class="flex flex-col items-center gap-2 p-4 rounded-lg border-2 border-black bg-gray-50
+                                        peer-checked:bg-yellow-300 h-full
+                                        peer-checked:border-yellow-800
+                                        hover:bg-yellow-300">
+                                        <span class="text-3xl text-black py-2">
+                                            <i class="fa-solid {{ $item['icon'] }}"></i>
+                                        </span>
+                                        <span class="text-md text-center font-medium text-black leading-tight">
+                                            {{ $item['title'] }}
+                                        </span>
+                                        @if(!empty($item['spectrum']))
+                                            <div class="flex w-full overflow-hidden gap-1" data-spectrum="{{ $item['function'] }}">
+                                                <div class="flex-1 h-2 bg-white border border-black" data-step="1"></div>
+                                                <div class="flex-1 h-2 bg-white border border-black" data-step="2"></div>
+                                                <div class="flex-1 h-2 bg-white border border-black" data-step="3"></div>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </label>
+                            @endforeach
+                        </div>
+                    @endif
 
-                                <div class="flex flex-col items-center gap-2 p-4 rounded-lg border-2 border-black bg-gray-50
-                                peer-checked:bg-yellow-300 h-full
-                                peer-checked:border-yellow-800
-                                hover:bg-yellow-300">
-
-                                <span class="text-3xl text-black py-2">
-                                    <i class="fa-solid {{ $item['icon'] }}"></i>
-                                </span>
-                                <span class="text-md text-center font-medium text-black leading-tight">
-                                    {{ $item['title'] }}
-                                </span>
-
-                                    {{-- Spectrum indikátor --}}
-                                    @if(!empty($item['spectrum']))
-                                        <div class="flex w-full overflow-hidden gap-1 " data-spectrum="{{ $item['function'] }}">
-                                            <div class="flex-1 h-2 bg-white border border-black" data-step="1"></div>
-                                            <div class="flex-1 h-2 bg-white border  border-black" data-step="2"></div>
-                                            <div class="flex-1 h-2 border bg-white" data-step="3"></div>
-                                        </div>
-                                    @endif
-                                </div>
-                            </label>
-                        @endforeach
-                    </div>
                 </div>
             @endforeach
 
@@ -103,16 +131,15 @@
 
 </div>
 
-<!--Reading Guide Pravítko -->
+{{-- Reading Guide --}}
 <div id="readingGuide"
      class="hidden fixed left-0 w-full h-[4px] bg-black shadow-[0_0_10px_rgba(0,0,0,0.5)] pointer-events-none z-[9999]">
 </div>
 
-<!-- Tieň okolo kurzora-->
+{{-- Tieň okolo kurzora --}}
 <div id="cursorShadowTop"
      class="hidden fixed left-0 top-0 w-full bg-black/60 pointer-events-none z-[9998]">
 </div>
-
 <div id="cursorShadowBottom"
      class="hidden fixed left-0 bottom-0 w-full bg-black/60 pointer-events-none z-[9998]">
 </div>
