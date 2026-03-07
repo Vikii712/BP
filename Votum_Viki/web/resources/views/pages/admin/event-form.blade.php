@@ -396,7 +396,7 @@
                 headerTitle.appendChild(headerText);
 
                 const trashIcon = document.createElement('i');
-                trashIcon.className = 'fa-solid fa-trash px-3 py-2 border-2 border-votum3 text-votum3 bg-white rounded-md cursor-pointer hover:bg-votum3 hover:text-white transition-colors';
+                trashIcon.className = 'fa-solid fa-trash px-3 py-2 border-2 border-votum3 text-votum3 bg-white rounded-md images-pointer hover:bg-votum3 hover:text-white transition-colors';
                 trashIcon.addEventListener('click', () => div.remove());
 
                 header.appendChild(headerTitle);
@@ -459,7 +459,7 @@
                 headerTitle.appendChild(headerText);
 
                 const trashIcon = document.createElement('i');
-                trashIcon.className = 'fa-solid fa-trash px-3 py-2 border-2 border-votum3 text-votum3 bg-white rounded-md cursor-pointer hover:bg-votum3 hover:text-white transition-colors';
+                trashIcon.className = 'fa-solid fa-trash px-3 py-2 border-2 border-votum3 text-votum3 bg-white rounded-md images-pointer hover:bg-votum3 hover:text-white transition-colors';
                 trashIcon.addEventListener('click', () => sponsorDiv.remove());
 
                 header.appendChild(headerTitle);
@@ -511,7 +511,7 @@
                     fileRow.appendChild(fileNameInput);
 
                     const fileLabel = document.createElement('label');
-                    fileLabel.className = 'text-bold px-4 py-2 border-2 border-votum3 text-votum3 rounded-md cursor-pointer hover:opacity-90 transition-opacity';
+                    fileLabel.className = 'text-bold px-4 py-2 border-2 border-votum3 text-votum3 rounded-md images-pointer hover:opacity-90 transition-opacity';
                     fileLabel.textContent = 'Nahrať';
                     const fileInput = document.createElement('input');
                     fileInput.type = 'file';
@@ -592,7 +592,7 @@
 
             for (const [key, color] of Object.entries(eventColors)) {
                 const label = document.createElement('label');
-                label.className = 'cursor-pointer';
+                label.className = 'images-pointer';
 
                 const input = document.createElement('input');
                 input.type = 'radio';
@@ -651,7 +651,7 @@
                 headerTitle.appendChild(headerText);
 
                 const trashIcon = document.createElement('i');
-                trashIcon.className = 'fa-solid fa-trash px-3 py-2 border-2 border-votum3 text-votum3 bg-white rounded-md cursor-pointer hover:bg-votum3 hover:text-white transition-colors';
+                trashIcon.className = 'fa-solid fa-trash px-3 py-2 border-2 border-votum3 text-votum3 bg-white rounded-md images-pointer hover:bg-votum3 hover:text-white transition-colors';
                 trashIcon.addEventListener('click', () => div.remove());
 
                 header.appendChild(headerTitle);
@@ -708,7 +708,7 @@
                 fileRow.appendChild(fileNameInput);
 
                 const uploadLabel = document.createElement('label');
-                uploadLabel.className = 'text-bold px-4 py-2 border-2 border-votum3 text-votum3 rounded-md cursor-pointer hover:opacity-90 transition-opacity';
+                uploadLabel.className = 'text-bold px-4 py-2 border-2 border-votum3 text-votum3 rounded-md images-pointer hover:opacity-90 transition-opacity';
                 uploadLabel.textContent = 'Nahrať';
                 const fileInput = document.createElement('input');
                 fileInput.type = 'file';
@@ -796,7 +796,7 @@
                 headerTitle.appendChild(headerText);
 
                 const trashIcon = document.createElement('i');
-                trashIcon.className = 'fa-solid fa-trash px-3 py-2 border-2 border-votum3 text-votum3 bg-white rounded-md cursor-pointer hover:bg-votum3 hover:text-white transition-colors';
+                trashIcon.className = 'fa-solid fa-trash px-3 py-2 border-2 border-votum3 text-votum3 bg-white rounded-md images-pointer hover:bg-votum3 hover:text-white transition-colors';
                 trashIcon.addEventListener('click', () => div.remove());
 
                 header.appendChild(headerTitle);

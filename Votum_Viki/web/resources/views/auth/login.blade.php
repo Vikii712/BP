@@ -106,7 +106,7 @@
 
             form.addEventListener('submit', function () {
                 btn.disabled = true;
-                btn.classList.add('opacity-60', 'cursor-not-allowed');
+                btn.classList.add('opacity-60', 'images-not-allowed');
                 btn.innerText = 'Načítava sa...';
             });
         });

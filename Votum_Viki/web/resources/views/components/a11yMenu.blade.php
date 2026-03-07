@@ -9,7 +9,7 @@
             ['title' => 'Medzery medzi písmenami', 'icon' => 'fa-text-height', 'function' => 'letterSpacing', 'spectrum' => true],
             ['title' => 'Vzdialenosť medzi riadkami', 'icon' => 'fa-lines-leaning', 'function' => 'lineSpacing', 'spectrum' => true],
             ['title' => 'Veľký kurzor', 'icon' => 'fa-arrow-pointer', 'function' => 'bigCursor'],
-            ['title' => 'Dyslexia font / Arial', 'icon' => 'fa-font', 'function' => 'dyslexiaFont'],
+            ['title' => 'Dyslexia font', 'icon' => 'fa-font', 'function' => 'dyslexiaFont'],
 
         ],
         'color' => [
@@ -55,9 +55,9 @@
         <div class="overflow-y-auto flex-1 p-4 pr-2 space-y-3 bg-white">
 
             @foreach($options as $section => $items)
-                <div class="rounded-xl border-2 border-black bg-gray-100 shadow-sm overflow-hidden">
+                <div class="rounded-xl border-2 border-black bg-neutral-400 shadow-sm overflow-hidden">
                     {{-- Sekcia header --}}
-                    <div class="px-4 py-2.5 bg-gray-900 text-white font-bold uppercase tracking-widest">
+                    <div class="px-4 py-2.5 bg-neutral-900 text-white font-bold uppercase tracking-widest">
                         {{ __('nav.acc_' . $section) }}
                     </div>
 
