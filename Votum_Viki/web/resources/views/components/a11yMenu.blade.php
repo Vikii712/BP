@@ -1,23 +1,23 @@
 @php
     $options = [
         'read' => [
-            ['title' => 'Zvýraznenie čítaného textu', 'icon' => 'fa-highlighter', 'function' => 'highlightReading()'],
-            ['title' => 'Pravítko', 'icon' => 'fa-ruler-horizontal', 'function' => 'readingGuide()'],
-            ['title' => 'Tieň nad a pod kurzorom', 'icon' => 'fa-mouse-pointer', 'function' => 'cursorShadow()'],
-            ['title' => 'Lupa textu', 'icon' => 'fa-magnifying-glass', 'function' => 'textMagnifier()'],
+            ['title' => 'Zvýraznenie čítaného textu', 'icon' => 'fa-highlighter', 'function' => 'highlightReading'],
+            ['title' => 'Pravítko', 'icon' => 'fa-ruler-horizontal', 'function' => 'readingGuide'],
+            ['title' => 'Tieň nad a pod kurzorom', 'icon' => 'fa-mouse-pointer', 'function' => 'cursorShadow'],
+            ['title' => 'Lupa textu', 'icon' => 'fa-magnifying-glass', 'function' => 'textMagnifier'],
         ],
         'text' => [
-            ['title' => 'Medzery medzi slovami', 'icon' => 'fa-text-height', 'function' => 'letterSpacing()'],
-            ['title' => 'Vzdialenosť medzi riadkami', 'icon' => 'fa-lines-leaning', 'function' => 'lineSpacing()'],
-            ['title' => 'Veľký kurzor', 'icon' => 'fa-arrow-pointer', 'function' => 'bigCursor()'],
-            ['title' => 'Dyslexia font / Arial', 'icon' => 'fa-font', 'function' => 'dyslexiaFont()'],
+            ['title' => 'Medzery medzi slovami', 'icon' => 'fa-text-height', 'function' => 'letterSpacing'],
+            ['title' => 'Vzdialenosť medzi riadkami', 'icon' => 'fa-lines-leaning', 'function' => 'lineSpacing'],
+            ['title' => 'Veľký kurzor', 'icon' => 'fa-arrow-pointer', 'function' => 'bigCursor'],
+            ['title' => 'Dyslexia font / Arial', 'icon' => 'fa-font', 'function' => 'dyslexiaFont'],
 
         ],
         'color' => [
-            ['title' => 'Vysoký kontrast', 'icon' => 'fa-circle-half-stroke', 'function' => 'highContrast()'],
-            ['title' => 'Farebná schéma', 'icon' => 'fa-palette', 'function' => 'colorScheme()'],
-            ['title' => 'Zvýrazniť odkazy', 'icon' => 'fa-link', 'function' => 'highlightLinks()'],
-            ['title' => 'Skryť obrázky', 'icon' => 'fa-image', 'function' => 'hideImages()'],
+            ['title' => 'Vysoký kontrast', 'icon' => 'fa-circle-half-stroke', 'function' => 'highContrast'],
+            ['title' => 'Farebná schéma', 'icon' => 'fa-palette', 'function' => 'colorScheme'],
+            ['title' => 'Zvýrazniť odkazy', 'icon' => 'fa-link', 'function' => 'highlightLinks'],
+            ['title' => 'Skryť obrázky', 'icon' => 'fa-image', 'function' => 'hideImages'],
         ],
 
     ];
@@ -65,21 +65,27 @@
                     {{-- Položky --}}
                     <div class="grid grid-cols-2 gap-2 p-3">
                         @foreach($items as $item)
-                            <button
-                                onclick="{{ $item['function'] }}"
-                                class="group flex flex-col items-center justify-start
-                                gap-2 p-4 rounded-lg border-2 border-black bg-gray-50
-                                 hover:bg-yellow-300 hover:border-yellow-800
-                                 hover:shadow-md  focus:outline-none focus:bg-yellow-200
-                                 focus:ring-2 focus:ring-yellow-400 focus:ring-offset-1
-                                 "
-                            >
-                        <span class="text-3xl text-black py-2">
-                            <i class="fa-solid {{ $item['icon'] }}"></i>
-                        </span>
-                                <span class="text-md text-center font-medium text-black leading-tight ">
-                            {{ $item['title'] }}</span>
-                            </button>
+                            <label class="group cursor-pointer">
+                                <input
+                                    type="checkbox"
+                                    class="peer hidden a11y-toggle"
+                                    data-feature="{{ $item['function'] }}"
+                                >
+
+                                <div class="flex flex-col items-center gap-2 p-4 rounded-lg border-2 border-black bg-gray-50
+                                peer-checked:bg-yellow-300 h-full
+                                peer-checked:border-yellow-800
+                                hover:bg-yellow-300">
+
+                                    <span class="text-3xl text-black py-2">
+                                        <i class="fa-solid {{ $item['icon'] }}"></i>
+                                    </span>
+
+                                    <span class="text-md text-center font-medium text-black leading-tight">
+                                        {{ $item['title'] }}
+                                    </span>
+                                </div>
+                            </label>
                         @endforeach
                     </div>
                 </div>
@@ -88,6 +94,20 @@
         </div>
     </div>
 
+</div>
+
+<!--Reading Guide Pravítko -->
+<div id="readingGuide"
+     class="hidden fixed left-0 w-full h-[4px] bg-black shadow-[0_0_10px_rgba(0,0,0,0.5)] pointer-events-none z-[9999]">
+</div>
+
+<!-- Tieň okolo kurzora-->
+<div id="cursorShadowTop"
+     class="hidden fixed left-0 top-0 w-full bg-black/60 pointer-events-none z-[9998]">
+</div>
+
+<div id="cursorShadowBottom"
+     class="hidden fixed left-0 bottom-0 w-full bg-black/60 pointer-events-none z-[9998]">
 </div>
 
 <script>
