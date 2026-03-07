@@ -4,11 +4,10 @@
             ['title' => 'Zvýraznenie čítaného textu', 'icon' => 'fa-highlighter', 'function' => 'highlightReading'],
             ['title' => 'Pravítko', 'icon' => 'fa-ruler-horizontal', 'function' => 'readingGuide'],
             ['title' => 'Tieň nad a pod kurzorom', 'icon' => 'fa-mouse-pointer', 'function' => 'cursorShadow'],
-            ['title' => 'Lupa textu', 'icon' => 'fa-magnifying-glass', 'function' => 'textMagnifier'],
         ],
         'text' => [
-            ['title' => 'Medzery medzi slovami', 'icon' => 'fa-text-height', 'function' => 'letterSpacing'],
-            ['title' => 'Vzdialenosť medzi riadkami', 'icon' => 'fa-lines-leaning', 'function' => 'lineSpacing'],
+            ['title' => 'Medzery medzi písmenami', 'icon' => 'fa-text-height', 'function' => 'letterSpacing', 'spectrum' => true],
+            ['title' => 'Vzdialenosť medzi riadkami', 'icon' => 'fa-lines-leaning', 'function' => 'lineSpacing', 'spectrum' => true],
             ['title' => 'Veľký kurzor', 'icon' => 'fa-arrow-pointer', 'function' => 'bigCursor'],
             ['title' => 'Dyslexia font / Arial', 'icon' => 'fa-font', 'function' => 'dyslexiaFont'],
 
@@ -77,13 +76,21 @@
                                 peer-checked:border-yellow-800
                                 hover:bg-yellow-300">
 
-                                    <span class="text-3xl text-black py-2">
-                                        <i class="fa-solid {{ $item['icon'] }}"></i>
-                                    </span>
+                                <span class="text-3xl text-black py-2">
+                                    <i class="fa-solid {{ $item['icon'] }}"></i>
+                                </span>
+                                <span class="text-md text-center font-medium text-black leading-tight">
+                                    {{ $item['title'] }}
+                                </span>
 
-                                    <span class="text-md text-center font-medium text-black leading-tight">
-                                        {{ $item['title'] }}
-                                    </span>
+                                    {{-- Spectrum indikátor --}}
+                                    @if(!empty($item['spectrum']))
+                                        <div class="flex w-full overflow-hidden gap-1 " data-spectrum="{{ $item['function'] }}">
+                                            <div class="flex-1 h-2 bg-white border border-black" data-step="1"></div>
+                                            <div class="flex-1 h-2 bg-white border  border-black" data-step="2"></div>
+                                            <div class="flex-1 h-2 border bg-white" data-step="3"></div>
+                                        </div>
+                                    @endif
                                 </div>
                             </label>
                         @endforeach
