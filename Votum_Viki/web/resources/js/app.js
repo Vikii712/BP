@@ -3,6 +3,7 @@ import './admin-validation.js';
 import './a11y/a11y-storage.js';
 import './a11y/reading-guide.js';
 import './a11y/cursor-shadow.js';
+import './a11y/highlighter.js';
 import Alpine from 'alpinejs';
 
 window.Alpine = Alpine;

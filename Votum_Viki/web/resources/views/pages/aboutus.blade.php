@@ -18,8 +18,8 @@
                         <div class="relative {{ $i % 2 == 1 ? 'lg:order-2' : 'lg:order-1' }}">
                             <x-listen text="{{ strip_tags($section['title'] . '. ' . $section['content']) }}" id="{{200 + $i }}" />
 
-                            <h2 class="h2 font-extrabold text-votum-blue mb-4 pe-12 lg:pe-16">{{ $section['title'] }}</h2>
-                            <div class="text-gray-700 txt prose max-w-none">
+                            <h2 class="sentence h2 font-extrabold text-votum-blue mb-4 pe-12 lg:pe-16">{{ $section['title'] }}</h2>
+                            <div class="divide-highlight text-gray-700 txt prose max-w-none">
                                 {!! $section['content'] !!}
                             </div>
                         </div>

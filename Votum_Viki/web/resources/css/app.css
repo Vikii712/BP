@@ -187,3 +187,13 @@ body {
 .url-modal-overlay.active .url-modal {
     transform: scale(1);
 }
+
+.sentence{
+    padding:2px 3px;
+    border-radius:3px;
+}
+
+body.highlight-reading .sentence:hover{
+    background:#fde047;
+    color:#000;
+}
