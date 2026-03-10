@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer class="bg-votum-blue text-white pt-5">
+<footer class="bg-votum-blue text-white pt-5 filter-container">
     <div class="">
         <!-- Top Section: Organization Name and Social Media -->
         <div class="text-center mb-8 pt-5 bg-blue-950">

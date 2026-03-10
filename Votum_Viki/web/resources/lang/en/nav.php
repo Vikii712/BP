@@ -80,7 +80,7 @@ return [
     'acc_read' => 'Reading',
     'acc_text' => 'Text',
     'acc_color' => 'Colors',
-    'acc_font' => 'Font for better readability',
+    'acc_font' => 'Font ',
     'a11y' => 'Accessibility',
 
 ];

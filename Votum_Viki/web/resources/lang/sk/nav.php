@@ -81,7 +81,7 @@ return [
     'acc_read' => 'Čítanie',
     'acc_text' => 'Text',
     'acc_color' => 'Farby',
-    'acc_font' => 'Font pre lepšiu čitateľnosť',
+    'acc_font' => 'Písmo',
     'a11y' => 'Prístupnosť',
 
 

@@ -1,15 +1,16 @@
 @php
     $options = [
         'read' => [
-            ['title' => 'Zvýraznenie čítaného textu', 'icon' => 'fa-highlighter', 'function' => 'highlightReading'],
-            ['title' => 'Pravítko', 'icon' => 'fa-ruler-horizontal', 'function' => 'readingGuide'],
-            ['title' => 'Tieň nad a pod kurzorom', 'icon' => 'fa-mouse-pointer', 'function' => 'cursorShadow'],
-            ['title' => 'Veľký kurzor', 'icon' => 'fa-arrow-pointer', 'function' => 'bigCursor'],
-
+            ['title' => 'Zvýraznenie čítaného textu', 'icon' => 'fa-solid fa-highlighter', 'function' => 'highlightReading'],
+            ['title' => 'Pravítko', 'icon' => 'fa-solid fa-ruler-horizontal', 'function' => 'readingGuide'],
+            ['title' => 'Tieň nad a pod kurzorom', 'icon' => 'fa-solid fa-pause rotate-90', 'function' => 'cursorShadow'],
+            ['title' => 'Veľký kurzor', 'icon' => 'fa-solid fa-arrow-pointer', 'function' => 'bigCursor'],
+            ['title' => 'Skryť obrázky', 'icon' => 'fa-solid fa-image', 'function' => 'disableImages'],
+            ['title' => 'Zvýrazniť odkazy', 'icon' => 'fa-solid fa-link', 'function' => 'highlightLinks'],
         ],
         'text' => [
-            ['title' => 'Medzery medzi písmenami', 'icon' => 'fa-text-height', 'function' => 'letterSpacing', 'spectrum' => true],
-            ['title' => 'Vzdialenosť medzi riadkami', 'icon' => 'fa-lines-leaning', 'function' => 'lineSpacing', 'spectrum' => true],
+            ['title' => 'Medzery medzi písmenami', 'icon' => 'fa-solid fa-text-height', 'function' => 'letterSpacing', 'spectrum' => true],
+            ['title' => 'Vzdialenosť medzi riadkami', 'icon' => 'fa-solid fa-lines-leaning', 'function' => 'lineSpacing', 'spectrum' => true],
         ],
         'font' => [
             ['title' => 'Arial', 'font' => 'Arial, sans-serif', 'key' => 'arial'],
@@ -18,10 +19,11 @@
             ['title' => 'Open Dyslexic', 'font' => 'OpenDyslexicRegular, sans-serif', 'key' => 'dyslexic'],
         ],
         'color' => [
-            ['title' => 'Vysoký kontrast', 'icon' => 'fa-circle-half-stroke', 'function' => 'highContrast'],
-            ['title' => 'Farebná schéma', 'icon' => 'fa-palette', 'function' => 'colorScheme'],
-            ['title' => 'Zvýrazniť odkazy', 'icon' => 'fa-link', 'function' => 'highlightLinks'],
-            ['title' => 'Skryť obrázky', 'icon' => 'fa-image', 'function' => 'hideImages'],
+            ['title' => 'Vysoký kontrast', 'icon' => 'fa-solid fa-circle-half-stroke', 'function' => 'highContrast'],
+            ['title' => 'Monochrome', 'icon' => 'fa-solid fa-palette', 'function' => 'monochrome'],
+            ['title' => 'Tmavý kontrast', 'icon' => ' fa-solid fa-moon', 'function' => 'darkMode'],
+            ['title' => 'Svetlý kontrast', 'icon' => 'fa-regular fa-moon', 'function' => 'lightMode'],
+
         ],
     ];
 @endphp
@@ -40,7 +42,7 @@
     {{-- PANEL --}}
     <div
         id="a11y-panel"
-        class="hidden fixed rounded-xl bottom-24 right-6 z-[9999] w-96 max-h-[80vh] border-2 border-black flex flex-col overflow-hidden"
+        class="hidden filter-container fixed rounded-xl bottom-24 right-6 z-[9999] w-96 max-h-[80vh] border-2 border-black flex flex-col overflow-hidden"
     >
         {{-- HEADER --}}
         <div class="bg-yellow-300 border-b-2 border-black px-4 py-3 flex items-center justify-between">
@@ -105,7 +107,7 @@
                                         peer-checked:border-yellow-800
                                         hover:bg-yellow-300">
                                         <span class="text-3xl text-black py-2">
-                                            <i class="fa-solid {{ $item['icon'] }}"></i>
+                                            <i class="{{ $item['icon'] }}"></i>
                                         </span>
                                         <span class="text-md text-center font-medium text-black leading-tight">
                                             {{ $item['title'] }}

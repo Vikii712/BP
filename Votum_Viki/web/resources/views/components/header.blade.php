@@ -1,65 +1,70 @@
-<header class="fixed top-0 left-0 right-0 z-50 bg-blue-950 backdrop-blur-md pb-2">
-    <div class=" sm:pr-6 flex w-full items-center justify-between bg-[var(--blackblue)]">
-        <!-- Logo -->
-        <a class="flex items-center gap-3" href="{{route('main')}}">
-            <img class="p-2 pr-0 sm:pr-2" alt="logo" src="{{ asset('images/logo.svg') }}" width="70">
-            <h1 class="text-2xl sm:text-3xl font-bold text-white logo-font">Združenie VOTUM</h1>
-        </a>
+<header class="fixed top-0 left-0 right-0 z-50 ">
+    <div class="bg-blue-950 backdrop-blur-md pb-2 filter-container">
+        <div class=" sm:pr-6 flex w-full items-center justify-between bg-[var(--blackblue)]">
+            <!-- Logo -->
+            <a class="flex items-center gap-3" href="{{route('main')}}">
+                <img class="p-2 pr-0 sm:pr-2" alt="logo" src="{{ asset('images/logo.svg') }}" width="70">
+                <h1 class="text-2xl sm:text-3xl font-bold text-white logo-font">Združenie VOTUM</h1>
+            </a>
 
-        <!-- Right controls -->
-        <div class="flex items-center gap-4">
-            <!-- Font controls (desktop only) -->
-            <div class="hidden md:flex items-center gap-2 border-1 border-blue-100 bg-blue-100 rounded-full">
-                <button id="decrease-font" type="button" class="txt-btn-block text-votum-blue hover:text-blue-300 font-bold text-2xl px-5 py-3 rounded-full">–</button>
-                <span class="text-lg text-votum-blue">aA</span>
-                <button id="increase-font" type="button" class="txt-btn-block text-votum-blue hover:text-blue-300 font-bold text-2xl px-5 py-3 rounded-full">+</button>
+            <!-- Right controls -->
+            <div class="flex items-center gap-4">
+                <!-- Font controls (desktop only) -->
+                <div class="hidden md:flex items-center gap-2 border-1 border-blue-100 bg-blue-100 rounded-full">
+                    <button id="decrease-font" type="button" class="txt-btn-block text-votum-blue hover:text-blue-300 font-bold text-2xl px-5 py-3 rounded-full">–</button>
+                    <span class="text-lg text-votum-blue">aA</span>
+                    <button id="increase-font" type="button" class="txt-btn-block text-votum-blue hover:text-blue-300 font-bold text-2xl px-5 py-3 rounded-full">+</button>
+                </div>
+
+                <!-- Language switch (desktop only) -->
+                <div class="hidden md:block">
+                    <x-locale-switch />
+                </div>
+
+                <!-- Mobile toggle -->
+                <button id="menu-toggle" aria-label="Toggle menu" class="hamburger md:hidden p-2 rounded-full text-[var(--cream)] hover:bg-blue-800 transition z-[60] relative">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
             </div>
-
-            <!-- Language switch (desktop only) -->
-            <div class="hidden md:block">
-                <x-locale-switch />
-            </div>
-
-            <!-- Mobile toggle -->
-            <button id="menu-toggle" aria-label="Toggle menu" class="hamburger md:hidden p-2 rounded-full text-[var(--cream)] hover:bg-blue-800 transition z-[60] relative">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                </svg>
-            </button>
         </div>
-    </div>
 
-    <!-- Desktop nav -->
-    <div class="mt-2 hidden md:block">
-        <x-nav />
+        <!-- Desktop nav -->
+        <div class="mt-2 hidden md:block">
+            <x-nav />
+        </div>
+
     </div>
 </header>
 
 <!-- Single full-screen mobile menu (one element only) -->
-<div id="mobile-menu" class="fixed left-0 w-full bg-blue-950 text-[var(--cream)] hidden z-40 overflow-y-auto">
-    <div class="flex flex-col items-center gap-8 px-6 pt-5">
+<div id="mobile-menu" class="fixed left-0 w-full  text-[var(--cream)]  hidden z-40 overflow-y-auto">
+    <div class="bg-blue-950 pb-4 filter-container h-full">
+        <div class="flex flex-col items-center gap-8 px-6 pt-5">
 
-        <!-- Mobile font + locale controls (visible only on mobile) -->
-        <div class="flex flex-row items-center gap-4  md:hidden ">
-            <div class="flex items-center gap-2 border-1 border-blue-100 bg-blue-100  rounded-full text-2xl">
-                <button id="decrease-font-mobile" type="button" class="txt-btn-block text-votum-blue hover:text-blue-300 font-bold px-6 py-4 rounded-full">–</button>
-                <span class="text-xl text-bold text-votum-blue">aA</span>
-                <button id="increase-font-mobile" type="button" class="txt-btn-block text-votum-blue hover:text-blue-300 font-bold px-6 py-4 rounded-full">+</button>
+            <!-- Mobile font + locale controls (visible only on mobile) -->
+            <div class="flex flex-row items-center gap-4  md:hidden ">
+                <div class="flex items-center gap-2 border-1 border-blue-100 bg-blue-100  rounded-full text-2xl">
+                    <button id="decrease-font-mobile" type="button" class="txt-btn-block text-votum-blue hover:text-blue-300 font-bold px-6 py-4 rounded-full">–</button>
+                    <span class="text-xl text-bold text-votum-blue">aA</span>
+                    <button id="increase-font-mobile" type="button" class="txt-btn-block text-votum-blue hover:text-blue-300 font-bold px-6 py-4 rounded-full">+</button>
+                </div>
+
+                <x-locale-switch mobile />
             </div>
 
-            <x-locale-switch mobile />
+            <!-- Links -->
+            <ul class="flex flex-col gap-6 text-center font-medium w-full text-xl">
+                <li><a href="{{route('main')}}" class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block"><img src="{{ asset('images/nav/domov.svg') }}" class="w-10 h-10" alt=""> {{ __('nav.home')}}</a></li>
+                <li><a href="{{route('about')}}" class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block"><img src="{{ asset('images/nav/Onas.svg') }}" class="w-10 h-10" alt=""> {{ __('nav.about')}}</a></li>
+                <li><a href="{{route('events')}}"  class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block"><img src="{{ asset('images/nav/udalosti.svg') }}" class="w-10 h-10" alt="">{{ __('nav.events')}}</a></li>
+                <li><a href="{{route('history')}}" class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block"><img src="{{ asset('images/nav/historia.svg') }}" class="w-10 h-10" alt="">{{ __('nav.history')}}</a></li>
+                <li><a href="{{route('support')}}" class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block"><img src="{{ asset('images/nav/podpora.svg') }}" class="w-10 h-10" alt="">{{ __('nav.support')}}</a></li>
+                <li><a href="{{route('contacts')}}" class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block"><img src="{{ asset('images/nav/kontakty.svg') }}" class="w-10 h-10" alt="">{{ __('nav.contacts')}}</a></li>
+                <li><a href="{{asset('documents')}}" class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block"><img src="{{ asset('images/nav/dokumenty.svg') }}" class="w-10 h-10" alt="">{{ __('nav.documents')}}</a></li>
+            </ul>
         </div>
-
-        <!-- Links -->
-        <ul class="flex flex-col gap-6 text-center font-medium w-full text-xl">
-            <li><a href="{{route('main')}}" class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block"><img src="{{ asset('images/nav/domov.svg') }}" class="w-10 h-10" alt=""> {{ __('nav.home')}}</a></li>
-            <li><a href="{{route('about')}}" class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block"><img src="{{ asset('images/nav/Onas.svg') }}" class="w-10 h-10" alt=""> {{ __('nav.about')}}</a></li>
-            <li><a href="{{route('events')}}"  class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block"><img src="{{ asset('images/nav/udalosti.svg') }}" class="w-10 h-10" alt="">{{ __('nav.events')}}</a></li>
-            <li><a href="{{route('history')}}" class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block"><img src="{{ asset('images/nav/historia.svg') }}" class="w-10 h-10" alt="">{{ __('nav.history')}}</a></li>
-            <li><a href="{{route('support')}}" class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block"><img src="{{ asset('images/nav/podpora.svg') }}" class="w-10 h-10" alt="">{{ __('nav.support')}}</a></li>
-            <li><a href="{{route('contacts')}}" class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block"><img src="{{ asset('images/nav/kontakty.svg') }}" class="w-10 h-10" alt="">{{ __('nav.contacts')}}</a></li>
-            <li><a href="{{asset('documents')}}" class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block"><img src="{{ asset('images/nav/dokumenty.svg') }}" class="w-10 h-10" alt="">{{ __('nav.documents')}}</a></li>
-        </ul>
     </div>
 </div>
 

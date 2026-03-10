@@ -18,7 +18,9 @@
 <x-header />
 
 <main id="site-main" role="main" class="">
-    @yield('content')
+    <div class="filter-container">
+        @yield('content')
+    </div>
 </main>
 
 <x-a11yMenu />
