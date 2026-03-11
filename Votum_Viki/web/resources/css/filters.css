@@ -1,0 +1,73 @@
+/*monochrome*/
+.filter-container.monochrome {
+    filter: grayscale(100%);
+}
+
+
+/*light mode*/
+.filter-container.lightMode,
+.filter-container.lightMode *
+{
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border-color: #000000 !important;
+}
+
+.filter-container.lightMode img {
+    filter: contrast(1.05);
+}
+
+/*dak mode*/
+.filter-container.darkMode,
+.filter-container.darkMode *
+{
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+.filter-container.darkMode img {
+    filter: brightness(0.9) contrast(1.1);
+}
+
+
+.filter-container.lightMode .wave {
+    fill: #ffffff;
+}
+
+.filter-container.darkMode .wave {
+    fill: #000000;
+}
+
+
+.filter-container.darkMode a,
+.filter-container.darkMode button
+{
+    border: 2px solid yellow !important;
+    background-color: black !important;
+}
+
+.filter-container.lightMode a,
+.filter-container.lightMode button
+{
+    border: 2px solid black !important;
+    background-color: #d1f0ff !important;
+
+}
+.filter-container.lightMode a *,
+.filter-container.lightMode button *
+{
+    background-color: #d1f0ff !important;
+}
+
+.filter-container.lightMode .icon-color path {
+    fill: #000000 !important;
+}
+
+.filter-container.lowSaturation {
+    filter: saturate(70%);
+}
+
+.filter-container.highSaturation {
+    filter: saturate(170%);
+}

@@ -10,8 +10,7 @@
                    'hover:text-blue-300' => !request()->routeIs('main')
                ])
                @if(request()->routeIs('main')) aria-current="page" @endif>
-                <img src="{{ asset('images/nav/domov.svg') }}" alt="ikona domov"
-                     class="w-10 h-10 object-contain">
+                <x-ikony.home class="w-10 h-10 object-contain" />
                 <span class="text-lg font-bold">{{ __('nav.home') }}</span>
             </a>
         </li>
@@ -24,8 +23,7 @@
                    'hover:text-blue-300' => !request()->routeIs('about')
                ])
                @if(request()->routeIs('about')) aria-current="page" @endif>
-                <img src="{{ asset('images/nav/Onas.svg') }}" alt="ikona o nás"
-                     class="w-10 h-10 object-contain">
+                <x-ikony.about class="w-10 h-10 object-contain" />
                 <span class="text-lg font-bold">{{ __('nav.about') }}</span>
             </a>
         </li>
@@ -38,8 +36,7 @@
                    'hover:text-blue-300' => !request()->routeIs('events')
                ])
                @if(request()->routeIs('events')) aria-current="page" @endif>
-                <img src="{{ asset('images/nav/udalosti.svg') }}" alt="ikona udalosti"
-                     class="w-10 h-10 object-contain">
+                <x-ikony.event class="w-10 h-10 object-contain" />
                 <span class="text-lg font-bold">{{ __('nav.events') }}</span>
             </a>
         </li>
@@ -52,8 +49,7 @@
                    'hover:text-blue-300' => !request()->routeIs('history')
                ])
                @if(request()->routeIs('history')) aria-current="page" @endif>
-                <img src="{{ asset('images/nav/historia.svg') }}" alt="ikona historie"
-                     class="w-10 h-10 object-contain">
+                <x-ikony.history class="w-10 h-10 object-contain" />
                 <span class="text-lg font-bold">{{ __('nav.history') }}</span>
             </a>
         </li>
@@ -74,8 +70,7 @@
                    aria-current="page"
                 @endif
             >
-                <img src="{{ asset('images/nav/podpora.svg') }}" alt="ikona podpory"
-                     class="w-10 h-10 object-contain">
+                <x-ikony.support class="w-10 h-10 object-contain" />
                 <span class="text-lg font-bold">{{ __('nav.support') }}</span>
             </a>
         </li>
@@ -88,8 +83,7 @@
                    'hover:text-blue-300' => !request()->routeIs('contacts')
                ])
                @if(request()->routeIs('contacts')) aria-current="page" @endif>
-                <img src="{{ asset('images/nav/kontakty.svg') }}" alt="ikona kontaktov"
-                     class="w-10 h-10 object-contain">
+                <x-ikony.contact class="w-10 h-10 object-contain" />
                 <span class="text-lg font-bold">{{ __('nav.contacts') }}</span>
             </a>
         </li>
@@ -102,8 +96,7 @@
                    'hover:text-blue-300' => !request()->is('documents*')
                ])
                @if(request()->is('documents*')) aria-current="page" @endif>
-                <img src="{{ asset('images/nav/dokumenty.svg') }}" alt="ikona dokumentov"
-                     class="w-10 h-10 object-contain">
+                <x-ikony.document class="w-10 h-10 object-contain" />
                 <span class="text-lg font-bold">{{ __('nav.documents') }}</span>
             </a>
         </li>

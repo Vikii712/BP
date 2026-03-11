@@ -13,14 +13,16 @@
             ['title' => 'Vzdialenosť medzi riadkami', 'icon' => 'fa-solid fa-lines-leaning', 'function' => 'lineSpacing', 'spectrum' => true],
         ],
         'font' => [
+            ['title' => 'Atkinson', 'font' => '"Atkinson Hyperlegible", sans-serif', 'key' => 'atkinson'],
             ['title' => 'Arial', 'font' => 'Arial, sans-serif', 'key' => 'arial'],
             ['title' => 'Comic Sans', 'font' => '"Comic Sans MS", cursive', 'key' => 'comic'],
-            ['title' => 'Atkinson', 'font' => '"Atkinson Hyperlegible", sans-serif', 'key' => 'atkinson'],
             ['title' => 'Open Dyslexic', 'font' => 'OpenDyslexicRegular, sans-serif', 'key' => 'dyslexic'],
         ],
         'color' => [
-            ['title' => 'Vysoký kontrast', 'icon' => 'fa-solid fa-circle-half-stroke', 'function' => 'highContrast'],
+            ['title' => 'Normálne', 'icon' => 'fa-solid fa-circle-half-stroke', 'function' => 'none'],
             ['title' => 'Monochrome', 'icon' => 'fa-solid fa-palette', 'function' => 'monochrome'],
+            ['title' => 'Znížiť saturáciu', 'icon' => ' fa-solid fa-droplet-slash', 'function' => 'lowSaturation'],
+            ['title' => 'Zvýšiť saturáciu', 'icon' => 'fa-solid fa-droplet', 'function' => 'highSaturation'],
             ['title' => 'Tmavý kontrast', 'icon' => ' fa-solid fa-moon', 'function' => 'darkMode'],
             ['title' => 'Svetlý kontrast', 'icon' => 'fa-regular fa-moon', 'function' => 'lightMode'],
 
@@ -42,7 +44,7 @@
     {{-- PANEL --}}
     <div
         id="a11y-panel"
-        class="hidden filter-container fixed rounded-xl bottom-24 right-6 z-[9999] w-96 max-h-[80vh] border-2 border-black flex flex-col overflow-hidden"
+        class="hidden fixed rounded-xl bottom-24 right-6 z-[9999] w-96 max-h-[80vh] border-2 border-black flex flex-col overflow-hidden"
     >
         {{-- HEADER --}}
         <div class="bg-yellow-300 border-b-2 border-black px-4 py-3 flex items-center justify-between">
@@ -67,28 +69,38 @@
                     </div>
 
                     {{-- Položky --}}
-                    @if($section === 'font')
+                    @if($section === 'font' || $section === 'color')
                         <div class="grid grid-cols-2 gap-2 p-3">
                             @foreach($items as $item)
                                 <label class="group cursor-pointer">
                                     <input
                                         type="radio"
-                                        name="a11y-font"
+                                        name="a11y-{{ $section }}"
                                         class="peer hidden"
-                                        data-font="{{ $item['font'] }}"
+                                        @if($section === 'font')
+                                            data-font="{{ $item['font'] }}"
                                         data-font-key="{{ $item['key'] }}"
-                                    >
-                                    <div class="flex flex-col items-center justify-center gap-1 p-4 rounded-lg border-2 border-black bg-gray-50
+                                        @else
+                                            data-filter="{{ $item['function'] }}"
+                                        @endif
+                                        >
+                                        <div class="flex flex-col items-center justify-center gap-2 p-4 rounded-lg border-2 border-black bg-gray-50
                                         peer-checked:bg-yellow-300 h-full
                                         peer-checked:border-yellow-800
                                         hover:bg-yellow-300">
-                                        <span class="text-2xl font-medium text-black"
-                                              style="font-family: {{ $item['font'] }}">
-                                            Aa
+
+                                        <span class="text-3xl text-black py-2">
+                                            @if(isset($item['icon']))
+                                                <i class="{{ $item['icon'] }}"></i>
+                                            @else
+                                                <span class="text-2xl font-medium" style="font-family: {{ $item['font'] }}">Aa</span>
+                                            @endif
                                         </span>
-                                        <span class="text-sm text-center text-black leading-tight">
+
+                                        <span class="text-md text-center font-medium text-black leading-tight">
                                             {{ $item['title'] }}
                                         </span>
+
                                     </div>
                                 </label>
                             @endforeach

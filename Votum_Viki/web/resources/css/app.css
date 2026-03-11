@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import "./filters.css";
 @plugin '@tailwindcss/typography';
 
 
@@ -200,13 +201,14 @@ body.disable-images picture {
     display:none !important;
 }
 
-body.highlight-links a:not(.no-highlight) {
+body.highlight-links a{
     background-color: black !important;
     color: yellow !important;
     border: 2px solid yellow !important;
     box-shadow: 0 0 0 4px black;
 }
 
-.filter-container.monochrome {
-    filter: grayscale(100%);
+.icon-color path {
+    fill: #ffffff !important;
 }
+
