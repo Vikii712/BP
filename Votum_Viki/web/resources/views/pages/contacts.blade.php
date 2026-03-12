@@ -2,12 +2,12 @@
 
 @section('content')
 <main class="container mx-auto  sm:px-4 py-12 items-center">
-    <h1 class="h1 md:text-5xl font-bold text-votum-blue text-center mb-4">
+    <h1 class="h1 md:text-5xl font-bold text-votum-blue sentence text-center mb-4">
         {{ __('nav.contacts')}}
     </h1>
 
     <div class="text-center mb-12">
-        <h2 class="h2 text-votum-blue font-semibold inline-block px-8 py-3">
+        <h2 class="h2 text-votum-blue sentence font-semibold inline-block px-8 py-3">
             {{ __('nav.inTouch')}}
         </h2>
     </div>

@@ -11,12 +11,12 @@
                 <div>
                     <div class="flex relative -mr-3">
                         <x-listen :text="$hero->title . $hero->content" :down="true" />
-                        <h1 class="h1 md:text-5xl font-bold text-votum-blue mb-6 mr-15 text-center lg:text-left min-h-[4.5rem]">
+                        <h1 class="h1 sentence md:text-5xl font-bold text-votum-blue mb-6 mr-15 text-center lg:text-left min-h-[4.5rem]">
                             {{ $hero->title }}
                         </h1>
                     </div>
 
-                    <p class="txt text-gray-700 mb-10 text-center lg:text-left leading-relaxed min-h-[6rem]">
+                    <p class="txt divide-highlight text-gray-700 mb-10 text-center lg:text-left leading-relaxed min-h-[6rem]">
                         {{ $hero->content }}
                     </p>
 

@@ -4,7 +4,7 @@
     <div class="container mx-auto px-4 py-12">
         <!-- Nadpis + tlačidlá -->
         <div class="flex flex-col sm:flex-row  justify-between items-center text-center md:text-left gap-6 mb-10">
-            <h1 class="h1 md:text-6xl font-extrabold text-votum-blue">{{ __('nav.history')}}</h1>
+            <h1 class="h1 md:text-6xl font-extrabold sentence text-votum-blue">{{ __('nav.history')}}</h1>
 
             <div class="flex justify-center md:justify-end gap-4 flex-wrap">
                 <x-share />
@@ -44,11 +44,11 @@
 
                         <x-listen :text="$entry['name'] . '. ' . $entry['text']" id="{{100 + $i}}" />
 
-                        <h2 class="h3 font-bold text-votum-blue mb-2 pe-12">
+                        <h2 class="h3 sentence font-bold text-votum-blue mb-2 pe-12">
                             {{ $entry['name'] }}
                         </h2>
 
-                        <p class="text-gray-700 leading-relaxed txt">
+                        <p class="text-gray-700 divide-highlight leading-relaxed txt">
                             {{ $entry['text'] }}
                         </p>
                     </div>

@@ -3,7 +3,7 @@
 @section('content')
     <main class="container mx-auto px-4 py-12">
 
-        <h1 class="h1 md:text-5xl font-bold text-votum-blue text-center mb-12">
+        <h1 class="h1 md:text-5xl sentence font-bold text-votum-blue text-center mb-12">
             {{ __('nav.docDown') }}
         </h1>
 
@@ -12,7 +12,7 @@
             @foreach ($sections as $section)
                 <section>
                     <div class="mb-6">
-                        <h2 class="text-3xl font-bold text-votum-blue mb-2">
+                        <h2 class="text-3xl font-bold sentence text-votum-blue mb-2">
                             {{ app()->getLocale() === 'sk' ? $section->title_sk : $section->title_en }}
                         </h2>
                         <div class="h-1 w-24 bg-votum-blue rounded"></div>

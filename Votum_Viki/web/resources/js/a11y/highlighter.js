@@ -1,68 +1,28 @@
-let highlightInitialized = false;
-
-window.highlightReading = function(active){
-
+document.addEventListener("DOMContentLoaded", () => {
     const blocks = document.querySelectorAll(".divide-highlight");
 
-    if(active){
+    blocks.forEach(block => {
+        if(block.dataset.highlighted) return;
 
-        document.body.classList.add("highlight-reading");
+        const walker = document.createTreeWalker(block, NodeFilter.SHOW_TEXT);
+        const nodes = [];
+        while(walker.nextNode()) nodes.push(walker.currentNode);
 
-        if(!highlightInitialized){
+        nodes.forEach(node => {
+            const text = node.nodeValue.trim();
+            if(!text) return;
 
-            blocks.forEach(block => {
-
-                const walker = document.createTreeWalker(
-                    block,
-                    NodeFilter.SHOW_TEXT,
-                    null,
-                    false
-                );
-
-                const nodes = [];
-
-                while(walker.nextNode()){
-                    nodes.push(walker.currentNode);
-                }
-
-                nodes.forEach(node => {
-
-                    const text = node.nodeValue;
-
-                    if(!text || !text.trim()) return;
-
-                    const sentences = text.split(/(?<=[.!?])\s+/);
-
-                    const fragment = document.createDocumentFragment();
-
-                    sentences.forEach(sentence => {
-
-                        const clean = sentence.trim();
-                        if(!clean) return;
-
-                        const span = document.createElement("span");
-                        span.className = "sentence";
-                        span.textContent = clean + " ";
-
-                        fragment.appendChild(span);
-
-                    });
-
-                    if(fragment.childNodes.length){
-                        node.parentNode.replaceChild(fragment, node);
-                    }
-
-                });
-
+            const fragment = document.createDocumentFragment();
+            text.split(/(?<=[.!?])\s+/).forEach(sentence => {
+                const span = document.createElement("span");
+                span.className = "sentence";
+                span.textContent = sentence + " ";
+                fragment.appendChild(span);
             });
 
-            highlightInitialized = true;
-        }
+            node.parentNode.replaceChild(fragment, node);
+        });
 
-    } else {
-
-        document.body.classList.remove("highlight-reading");
-
-    }
-
-}
+        block.dataset.highlighted = "true";
+    });
+});

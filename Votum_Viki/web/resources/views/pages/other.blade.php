@@ -4,7 +4,7 @@
 
     <!-- Page Header -->
     <div class="max-w-5xl mx-auto mb-12 text-center pt-16">
-        <h1 class="h1 md:text-5xl font-bold text-votum-blue mb-4">
+        <h1 class="h1 sentence md:text-5xl font-bold text-votum-blue mb-4">
             {{ __('nav.other') }}
         </h1>
         <x-share />
@@ -14,12 +14,12 @@
 
     <div class="bg-blue-100 py-6">
         <div class="p-4 max-w-5xl text-center mx-auto space-y-4 text-gray-800 txt">
-            <h2 class="h2 font-bold text-votum-blue mb-4 flex items-center justify-center gap-3">
+            <h2 class="h2 sentence font-bold text-votum-blue mb-4 flex items-center justify-center gap-3">
                 <i class="fas fa-heart"></i>
                 {{ $why['title'] }}
             </h2>
 
-            <div class="txt text-gray-800 space-y-4">
+            <div class="txt divide-highlight text-gray-800 space-y-4">
                 {!! $why['content'] !!}
             </div>
         </div>
@@ -49,11 +49,11 @@
                             <div class="icon-float">
                                 <i class="fas {{ $type['image'] }} text-6xl px-5"></i>
                             </div>
-                            <h2 class=" text-center h2 font-bold">{{ $type['title'] }}</h2>
+                            <h2 class="sentence text-center h2 font-bold">{{ $type['title'] }}</h2>
                         </div>
 
                         <div class="p-8 txt">
-                            <div class="text-gray-700 leading-relaxed">
+                            <div class="text-gray-700 leading-relaxed divide-highlight">
                                 {!! $type['content'] !!}
                             </div>
                         </div>
@@ -65,16 +65,16 @@
 
         <div class="max-w-4xl mx-auto mt-16 mb-12 text-center">
             <div class="bg-votum3 border-votum3 border-4 rounded-2xl shadow-xl p-8">
-                <h2 class="h3 font-bold text-votum-blue mb-4">
-                    <i class="fas fa-question-circle mr-2"></i>
+                <h2 class="h3 font-bold text-votum-blue mb-4 sentence">
+                    <i class="fas fa-question-circle mr-2 "></i>
                     {{ $idea['title'] }}
                 </h2>
-                <div class="txt text-gray-700 mb-6">
+                <div class="txt text-gray-700 mb-6 divide-highlight">
                     {!! $idea['content'] !!}
                 </div>
                 <div class="text-center mt-16">
                     <a href="{{ route('contacts') }}" class="inline-flex items-center gap-3 bg-votum-blue text-white px-10 py-8 rounded-lg font-semibold txt-btn shadow-lg">
-                        <img alt="" src="{{ asset('images/nav/kontakty.svg') }}" width="30">
+                        <img alt="" src="{{ asset('images/kontakty.svg') }}" width="30">
                         <span>{{ __('nav.contacts') }}</span>
                     </a>
                 </div>
@@ -87,8 +87,8 @@
     <div class="bg-blue-100 px-4">
         <section class="max-w-4xl mx-auto mb-12 text-center py-5">
             <i class="fas fa-heart text-6xl mb-4 text-red-600"></i>
-            <h2 class="h3 font-bold mb-4">{{ $thanks['title'] }}</h2>
-            <p class="text-lg">{{ $thanks['content'] }}</p>
+            <h2 class="h3 sentence font-bold mb-4">{{ $thanks['title'] }}</h2>
+            <p class="text-lg divide-highlight">{{ $thanks['content'] }}</p>
         </section>
 
         <div class="max-w-4xl mx-auto">

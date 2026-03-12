@@ -3,14 +3,14 @@
 @section('content')
 
     <main class="container mx-auto px-4 pt-16">
-        <h1 class="h1 mb-16 md:text-5xl font-bold text-votum-blue text-center">
+        <h1 class="h1 sentence mb-16 md:text-5xl font-bold text-votum-blue text-center">
             {{$why['title']}}
         </h1>
-        <p class="txt m-10 text-center">
+        <p class="txt divide-highlight m-10 text-center">
             {{$why['content']}}
         </p>
 
-        <h1 class="h1 mb-16 md:text-5xl font-bold text-votum-blue text-center">
+        <h1 class="h1 mb-16 md:text-5xl sentence font-bold text-votum-blue text-center">
             {{ __('nav.supportHow') }}
         </h1>
 

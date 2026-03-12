@@ -39,7 +39,7 @@
         </div>
 
         <div class="flex flex-col">
-            <h3 class="txt font-bold text-votum-blue mb-1">{{ $text }}</h3>
+            <h3 class="txt font-bold text-votum-blue sentence mb-1">{{ $text }}</h3>
 
             <div class="flex items-center gap-2 text-lg text-gray-600">
                 <span class="font-semibold">{{ strtoupper($type) }}</span>

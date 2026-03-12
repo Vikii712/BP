@@ -24,11 +24,11 @@
     {{-- CONTENT --}}
     <div class="pt-3 p-6 flex flex-col flex-1">
 
-        <h3 class="h3 font-bold text-votum-blue mb-2 text-center">
+        <h3 class="h3 sentence font-bold text-votum-blue mb-2 text-center">
             {{ $event->title }}
         </h3>
 
-        <p class="txt font-semibold text-votum-blue mb-4 text-lg text-center">
+        <p class="txt sentence font-semibold text-votum-blue mb-4 text-lg text-center">
             {{ $event->dateLabel }}
         </p>
 

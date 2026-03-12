@@ -38,24 +38,24 @@
 
 
         <div x-show="tab === 'fyzicke'">
-            <h3 class="h3 font-bold mb-6 flex items-center justify-center gap-3 text-votum-blue">
+            <h3 class="h3 sentence font-bold mb-6 flex items-center justify-center gap-3 text-votum-blue">
                 <i class="fas fa-user text-3xl"></i>
                 {{ __('nav.fyzHelp') }}
             </h3>
             <div class="border-3 border-votum2 bg-white p-6 rounded-lg txt font-medium shadow-inner">
-                <div class="prose prose-lg list-decimal list-inside space-y-3">
+                <div class="prose divide-highlight prose-lg list-decimal list-inside space-y-3">
                     {!! $fyzicke['content'] ?? '' !!}
                 </div>
             </div>
         </div>
 
         <div x-show="tab === 'pravnicke'">
-            <h3 class="h3 font-bold mb-6 flex items-center justify-center gap-3 text-votum-blue">
+            <h3 class="h3 font-bold sentence mb-6 flex items-center justify-center gap-3 text-votum-blue">
                 <i class="fas fa-building text-3xl"></i>
                 {{ __('nav.pravHelp') }}
             </h3>
             <div class="border-3 border-votum2 bg-white p-6 rounded-lg txt font-medium shadow-inner">
-                <div class="prose prose-lg list-decimal list-inside space-y-3">
+                <div class="prose prose-lg divide-highlight list-decimal list-inside space-y-3">
                     {!! $pravnicke['content'] ?? '' !!}
                 </div>
             </div>

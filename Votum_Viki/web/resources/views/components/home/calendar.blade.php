@@ -11,7 +11,7 @@
     <div class="w-full px-2 sm:px-8 lg:px-16">
         <div class="flex justify-center">
             <div class="inline-flex items-center gap-3 mb-10 ">
-                <h2 class="h2 font-bold text-votum-blue ">
+                <h2 class="h2 sentence font-bold text-votum-blue ">
                     {{ __('nav.nextUp') }}
                 </h2>
 
@@ -27,7 +27,7 @@
                     <button id="prevMonth" class="txt-btn-block p-4 bg-votum-blue text-white text-2xl md:text-3xl rounded-lg">
                         <i class="fas fa-chevron-left"></i>
                     </button>
-                    <h3 id="currentMonth" class="h3 font-bold text-votum-blue text-center flex-1"></h3>
+                    <h3 id="currentMonth" class="h3 sentence font-bold text-votum-blue text-center flex-1"></h3>
                     <button id="nextMonth" class="txt-btn-block p-4 bg-votum-blue text-white rounded-lg text-2xl md:text-3xl">
                         <i class="fas fa-chevron-right"></i>
                     </button>
@@ -56,7 +56,7 @@
 
             <!-- Events List -->
             <div>
-                <h3 id="eventsListTitle" class="h3 font-bold text-votum-blue text-center mb-4">{{ __('nav.next') }}</h3>
+                <h3 id="eventsListTitle" class="h3 sentence font-bold text-votum-blue text-center mb-4">{{ __('nav.next') }}</h3>
 
                 <div id="eventsList" class="space-y-4">
                     <!--JS render -->
@@ -134,7 +134,7 @@
 
             if (dayEvents.length > 0) {
                 const barsContainer = document.createElement('div');
-                barsContainer.className = 'flex-1 flex flex-col justify-between sm:gap-0.5 mt-1';
+                barsContainer.className = 'flex-1 flex flex-col justify-between sm:gap-0.5 mt-1 ';
                 dayEvents.forEach(e => {
                     const bar = document.createElement('div');
                     bar.style.cssText = `background-color:${eventColors[e.color] || '#999'};flex:1;min-height:4px`;
@@ -182,7 +182,7 @@
         const events = getEventsForMonth(year, month);
 
         if (events.length === 0) {
-            eventsList.innerHTML = `<p class="text-center txt">{{ __('nav.noEvents') }}</p>`;
+            eventsList.innerHTML = `<p class="text-center sentence txt">{{ __('nav.noEvents') }}</p>`;
             document.getElementById('prevEvent').style.display = 'none';
             document.getElementById('nextEvent').style.display = 'none';
             return;
@@ -196,7 +196,7 @@
             div.style.cssText = `display:${index < 3 ? 'flex' : 'none'};background-color:#fff;border:8px solid ${color}`;
             div.innerHTML = `
                 <div class="flex flex-col w-full gap-1 text-center">
-                    <h4 class="font-bold text-votum-blue txt">${event.title}</h4>
+                    <h4 class="font-bold text-votum-blue sentence txt">${event.title}</h4>
                     <p class="txt font-semibold">${event.dateLabel ?? event.date ?? ''}</p>
                     ${event.inGallery ? `
                         <a href="/event/${event.id}" class="txt-btn mt-3 rounded-xl bg-white text-votum-blue border-3 border-votum2 w-full text-center py-2">

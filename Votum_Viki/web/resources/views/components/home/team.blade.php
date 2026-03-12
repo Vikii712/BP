@@ -2,7 +2,7 @@
 
 <section class="bg-white py-12">
     <div class="container mx-auto px-4">
-        <h2 class="h2 font-bold text-votum-blue mb-8 text-center">{{ $team->title ?? __('nav.ourTeam') }}</h2>
+        <h2 class="h2 font-bold text-votum-blue sentence mb-8 text-center">{{ $team->title ?? __('nav.ourTeam') }}</h2>
 
         <div class="max-w-3xl mx-auto">
 

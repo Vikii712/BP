@@ -5,7 +5,7 @@
 <section class=" py-12">
     <div class="container mx-auto sm:px-4">
 
-        <h2 class="h2 font-bold text-votum-blue text-center mb-8">
+        <h2 class="h2 sentence font-bold text-votum-blue text-center mb-8">
             {{ __('nav.activities') }}
         </h2>
 
