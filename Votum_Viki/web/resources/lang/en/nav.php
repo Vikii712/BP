@@ -81,6 +81,7 @@ return [
     'acc_text' => 'Text',
     'acc_color' => 'Colors',
     'acc_font' => 'Font ',
+    'acc_size' => 'Font size',
     'a11y' => 'Accessibility',
 
 ];

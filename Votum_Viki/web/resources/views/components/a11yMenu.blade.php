@@ -1,5 +1,9 @@
 @php
     $options = [
+        'size' => [
+            ['title' => 'Menšie písmo', 'icon' => 'fa-solid fa-minus', 'function' => 'decreaseFont'],
+            ['title' => 'Väčšie písmo', 'icon' => 'fa-solid fa-plus', 'function' => 'increaseFont'],
+        ],
         'read' => [
             ['title' => 'Zvýraznenie čítaného textu', 'icon' => 'fa-solid fa-highlighter', 'function' => 'highlightReading'],
             ['title' => 'Pravítko', 'icon' => 'fa-solid fa-ruler-horizontal', 'function' => 'readingGuide'],
@@ -19,8 +23,8 @@
             ['title' => 'Open Dyslexic', 'font' => 'OpenDyslexicRegular, sans-serif', 'key' => 'dyslexic'],
         ],
         'color' => [
-            ['title' => 'Normálne', 'icon' => 'fa-solid fa-circle-half-stroke', 'function' => 'none'],
-            ['title' => 'Monochrome', 'icon' => 'fa-solid fa-palette', 'function' => 'monochrome'],
+            ['title' => 'Normálne', 'icon' => 'fa-solid fa-palette', 'function' => 'none'],
+            ['title' => 'Monochrome', 'icon' => 'fa-solid fa-circle-half-stroke', 'function' => 'monochrome'],
             ['title' => 'Znížiť saturáciu', 'icon' => ' fa-solid fa-droplet-slash', 'function' => 'lowSaturation'],
             ['title' => 'Zvýšiť saturáciu', 'icon' => 'fa-solid fa-droplet', 'function' => 'highSaturation'],
             ['title' => 'Tmavý kontrast', 'icon' => ' fa-solid fa-moon', 'function' => 'darkMode'],

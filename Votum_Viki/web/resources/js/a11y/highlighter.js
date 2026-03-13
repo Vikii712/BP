@@ -26,3 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
         block.dataset.highlighted = "true";
     });
 });
+
+window.highlightReading = function(enabled){
+    document.body.classList.toggle("highlight-reading", enabled);
+}

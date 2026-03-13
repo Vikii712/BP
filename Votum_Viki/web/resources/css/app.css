@@ -20,7 +20,16 @@
     --about1: #BAD4E4;
     --about2: #E8B5BE;
     --about3: #F0AE75;
+    --a11y-font-scale: 1;
 }
+
+html.a11y-scale-lg     { font-size: 110% !important; }
+html.a11y-scale-xl     { font-size: 120% !important; }
+html.a11y-scale-xxl    { font-size: 130% !important; }
+html.a11y-scale-xxxl   { font-size: 140% !important; }
+html.a11y-scale-xxxxl  { font-size: 150% !important; }
+html.a11y-scale-xxxxxl { font-size: 160% !important; }
+
 
 .logo-font {
     font-optical-sizing: auto;
@@ -57,11 +66,11 @@
 .text-votum2 { color: #404087;}
 .text-votum3 { color: #713B7D;}
 
-.h1{font-size: 45px;}
-.h2{font-size: 34px;}
-.h3{font-size: 24px;}
+.h1 { font-size: 2.8125rem; }
+.h2 { font-size: 2.125rem; }
+.h3 { font-size: 1.5rem; }
 
-.txt{font-size: 20px;}
+.txt { font-size: 1.25rem; }
 
 .prose p {
     display: block;
@@ -87,7 +96,7 @@
 
 
 .txt-btn {
-    font-size: 20px;
+    font-size: 1.25rem;
     justify-content: center;
     gap: 0.75rem;
     padding: 1.25rem 2.5rem;
@@ -118,7 +127,7 @@
 }
 
 .txt-btn-block {
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 600;
     cursor: pointer;
     outline: none;

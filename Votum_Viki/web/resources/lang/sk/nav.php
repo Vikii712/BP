@@ -82,6 +82,7 @@ return [
     'acc_text' => 'Text',
     'acc_color' => 'Farby',
     'acc_font' => 'Písmo',
+    'acc_size' => 'Veľkosť písma',
     'a11y' => 'Prístupnosť',
 
 

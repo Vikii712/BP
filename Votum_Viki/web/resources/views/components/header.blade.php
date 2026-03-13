@@ -9,12 +9,6 @@
 
             <!-- Right controls -->
             <div class="flex items-center gap-4">
-                <!-- Font controls (desktop only) -->
-                <div class="hidden md:flex items-center gap-2 border-1 border-blue-100 bg-blue-100 rounded-full">
-                    <button id="decrease-font" type="button" class="txt-btn-block text-votum-blue hover:text-blue-300 font-bold text-2xl px-5 py-3 rounded-full">–</button>
-                    <span class="text-lg text-votum-blue">aA</span>
-                    <button id="increase-font" type="button" class="txt-btn-block text-votum-blue hover:text-blue-300 font-bold text-2xl px-5 py-3 rounded-full">+</button>
-                </div>
 
                 <!-- Language switch (desktop only) -->
                 <div class="hidden md:block">
@@ -45,12 +39,6 @@
 
             <!-- Mobile font + locale controls (visible only on mobile) -->
             <div class="flex flex-row items-center gap-4  md:hidden ">
-                <div class="flex items-center gap-2 border-1 border-blue-100 bg-blue-100  rounded-full text-2xl">
-                    <button id="decrease-font-mobile" type="button" class="txt-btn-block text-votum-blue hover:text-blue-300 font-bold px-6 py-4 rounded-full">–</button>
-                    <span class="text-xl text-bold text-votum-blue">aA</span>
-                    <button id="increase-font-mobile" type="button" class="txt-btn-block text-votum-blue hover:text-blue-300 font-bold px-6 py-4 rounded-full">+</button>
-                </div>
-
                 <x-locale-switch mobile />
             </div>
 
@@ -85,30 +73,6 @@
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Font-size logic - robust + persistent
-            const HTML = document.documentElement;
-            const STORAGE_KEY = 'votum:font';
-            const MIN = 1, MAX = 1.5, STEP = 0.1;
-
-            function getSize() { return parseFloat(localStorage.getItem(STORAGE_KEY) || '1'); }
-            function applySize() { HTML.style.fontSize = getSize() + 'rem'; }
-            function setSize(newSize) {
-                newSize = Math.round(newSize*100)/100;
-                newSize = Math.min(Math.max(newSize, MIN), MAX);
-                localStorage.setItem(STORAGE_KEY, String(newSize));
-                applySize();
-                adjustLayout();
-            }
-            applySize();
-
-            // Attach buttons if present (desktop + mobile)
-            const inc = document.getElementById('increase-font');
-            const dec = document.getElementById('decrease-font');
-            const incM = document.getElementById('increase-font-mobile');
-            const decM = document.getElementById('decrease-font-mobile');
-
-            [inc, incM].forEach(btn => btn?.addEventListener('click', e => { e.preventDefault(); setSize(getSize() + STEP); }));
-            [dec, decM].forEach(btn => btn?.addEventListener('click', e => { e.preventDefault(); setSize(getSize() - STEP); }));
 
             // Mobile menu toggle + position adjustment
             const toggle = document.getElementById('menu-toggle');

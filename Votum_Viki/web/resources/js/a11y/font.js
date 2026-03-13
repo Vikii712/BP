@@ -1,6 +1,6 @@
 
 document.addEventListener('DOMContentLoaded', () => {
-    const savedKey = localStorage.getItem('a11y_font');
+    const savedKey = localStorage.getItem('a11y_font') || 'atkinson';
 
     if (savedKey) {
         const radio = document.querySelector(`input[data-font-key="${savedKey}"]`);

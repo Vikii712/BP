@@ -1,6 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    // CHECKBOX funkcie
+    const savedScale = localStorage.getItem('a11y_fontScaleIndex');
+
+    if (savedScale !== null) {
+        applyFontScale(parseInt(savedScale));
+        document.querySelector('[data-feature="increaseFont"]')
+    }
+
     document.querySelectorAll(".a11y-toggle").forEach(input => {
         const feature = input.dataset.feature;
 
@@ -20,7 +26,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    // COLOR FILTRE (radio)
     const savedFilter = localStorage.getItem("colorFilter");
 
     document.querySelectorAll('input[name="a11y-color"]').forEach(input => {
