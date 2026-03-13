@@ -1,32 +1,45 @@
 document.addEventListener("DOMContentLoaded", () => {
 
     // ----------------------------
-    // FONT SCALE BUTTON
+    // FONT SELECTION
     // ----------------------------
-    const fontBtn = document.getElementById("fontScaleButton");
+    const savedFontKey = localStorage.getItem('a11y_font') || 'atkinson';
+    const fontRadios = document.querySelectorAll('input[name="a11y-font"]');
 
-    // načítanie uloženého scale
-    const savedScale = localStorage.getItem('a11y_fontScaleIndex');
-    if(savedScale !== null){
-        applyFontScale(parseInt(savedScale));
-        updateFontSpectrum();
-    }
+    fontRadios.forEach(radio => {
+        if (radio.dataset.fontKey === savedFontKey) {
+            radio.checked = true;
+            document.body.style.fontFamily = radio.dataset.font;
+        }
 
-    if(fontBtn){
-        fontBtn.addEventListener("click", () => {
-            let next = scaleIndex + 1;
-
-            if(next >= SCALES.length){
-                next = 0; // reset na začiatok
-            }
-
-            applyFontScale(next);
-            updateFontSpectrum();
+        radio.addEventListener('change', () => {
+            document.body.style.fontFamily = radio.dataset.font;
+            localStorage.setItem('a11y_font', radio.dataset.fontKey);
         });
-    }
+    });
 
     // ----------------------------
-    // A11Y TOGGLE CHECKBOXY
+    // COLOR FILTER RADIO
+    // ----------------------------
+    const savedFilter = localStorage.getItem("colorFilter") || "none";
+    const filterRadios = document.querySelectorAll('input[name="a11y-color"]');
+
+    filterRadios.forEach(input => {
+        const filter = input.dataset.filter;
+
+        if (savedFilter === filter) {
+            input.checked = true;
+            if (window[filter]) window[filter](true);
+        }
+
+        input.addEventListener("change", () => {
+            localStorage.setItem("colorFilter", filter);
+            if (window[filter]) window[filter](true);
+        });
+    });
+
+    // ----------------------------
+    // A11Y TOGGLE CHECKBOXES
     // ----------------------------
     document.querySelectorAll(".a11y-toggle").forEach(input => {
         const feature = input.dataset.feature;
@@ -36,32 +49,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const saved = localStorage.getItem(feature) === "true";
         input.checked = saved;
 
-        if (saved) {
-            window[feature]?.(true);
-        }
+        if (saved) window[feature]?.(true);
 
         input.addEventListener("change", () => {
             localStorage.setItem(feature, input.checked);
             window[feature]?.(input.checked);
-        });
-    });
-
-    // ----------------------------
-    // COLOR FILTER RADIO
-    // ----------------------------
-    const savedFilter = localStorage.getItem("colorFilter");
-
-    document.querySelectorAll('input[name="a11y-color"]').forEach(input => {
-        const filter = input.dataset.filter;
-
-        if (savedFilter === filter) {
-            input.checked = true;
-            window[filter]?.(true);
-        }
-
-        input.addEventListener("change", () => {
-            localStorage.setItem("colorFilter", filter);
-            window[filter]?.(true);
         });
     });
 

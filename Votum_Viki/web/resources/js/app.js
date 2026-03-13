@@ -10,8 +10,8 @@ import './a11y/obrazky.js';
 import './a11y/filtre.js';
 import './a11y/font.js';
 import './a11y/size.js';
-import './a11y/reset.js';
 import Alpine from 'alpinejs';
+import './a11y/reset.js';
 
 window.Alpine = Alpine;
 

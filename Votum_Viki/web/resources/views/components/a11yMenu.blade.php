@@ -1,7 +1,6 @@
 @php
     $options = [
         'size' => [
-            ['title' => 'Menšie písmo', 'icon' => 'fa-solid fa-minus', 'function' => 'decreaseFont'],
             ['title' => 'Väčšie písmo', 'icon' => 'fa-solid fa-plus', 'function' => 'increaseFont'],
         ],
         'read' => [
