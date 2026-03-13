@@ -14,6 +14,43 @@ function applyFontScale(index) {
     localStorage.setItem('a11y_fontScaleIndex', scaleIndex);
 }
 
-window.increaseFont = function() { applyFontScale(scaleIndex + 1); };
-window.decreaseFont = function() { applyFontScale(scaleIndex - 1); };
+function updateFontSpectrum() {
+    document.querySelectorAll("[data-font-scale]").forEach(el => {
+        const step = parseInt(el.dataset.fontScale);
+        if(step <= scaleIndex){
+            el.classList.add("bg-yellow-300");
+        } else {
+            el.classList.remove("bg-yellow-300");
+        }
+    });
+}
 
+// ----------------------------
+// INIT
+// ----------------------------
+document.addEventListener("DOMContentLoaded", () => {
+
+    const fontBtn = document.getElementById("fontScaleButton");
+
+    // načítanie uloženého scale
+    const savedScale = localStorage.getItem('a11y_fontScaleIndex');
+    if(savedScale !== null){
+        applyFontScale(parseInt(savedScale));
+        updateFontSpectrum();
+    }
+
+    // klik na celý button
+    if(fontBtn){
+        fontBtn.addEventListener("click", () => {
+            let next = scaleIndex + 1;
+
+            if(next >= SCALES.length){
+                next = 0; // reset na začiatok
+            }
+
+            applyFontScale(next);
+            updateFontSpectrum();
+        });
+    }
+
+});

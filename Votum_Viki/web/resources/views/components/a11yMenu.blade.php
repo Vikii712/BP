@@ -48,7 +48,7 @@
     {{-- PANEL --}}
     <div
         id="a11y-panel"
-        class="hidden fixed rounded-xl bottom-24 right-6 z-[9999] w-96 max-h-[80vh] border-2 border-black flex flex-col overflow-hidden"
+        class="hidden fixed rounded-xl bottom-20 right-6 z-[9999] w-96 max-h-[80vh] border-2 border-black flex flex-col overflow-hidden"
     >
         {{-- HEADER --}}
         <div class="bg-yellow-300 border-b-2 border-black px-4 py-3 flex items-center justify-between">
@@ -64,6 +64,11 @@
         {{-- Scrollable body --}}
         <div class="overflow-y-auto flex-1 p-4 pr-2 space-y-3 bg-white">
 
+            {{-- RESET BUTTON --}}
+            <div class="px-4 py-3 bg-gray-200 border-2 border-black rounded-md text-black font-bold text-center cursor-pointer hover:bg-red-300">
+                <button id="a11y-reset" class="w-full">Vypnúť všetko</button>
+            </div>
+
             @foreach($options as $section => $items)
                 <div class="rounded-xl border-2 border-black bg-neutral-400 shadow-sm overflow-hidden">
 
@@ -72,8 +77,32 @@
                         {{ __('nav.acc_' . $section) }}
                     </div>
 
-                    {{-- Položky --}}
-                    @if($section === 'font' || $section === 'color')
+                    @if($section === 'size')
+
+                        <div class="p-3">
+                            <button
+                                id="fontScaleButton"
+                                class="w-full flex flex-col items-center gap-3 p-4 rounded-lg border-2 border-black bg-gray-50 hover:bg-yellow-300">
+
+                                <div class="flex flex-col items-center gap-3">
+                                    <i class="fa-solid text-3xl fa-text-height"></i>
+                                    <span class="font-medium">Veľkosť písma</span>
+                                </div>
+
+                                <div id="fontScaleSpectrum" class="flex w-full gap-1">
+                                    @for($i = 0; $i < 7; $i++)
+                                        <div
+                                            class="flex-1 h-3 border border-black bg-white"
+                                            data-font-scale="{{ $i }}">
+                                        </div>
+                                    @endfor
+                                </div>
+
+                            </button>
+                        </div>
+
+
+                    @elseif($section === 'font' || $section === 'color')
                         <div class="grid grid-cols-2 gap-2 p-3">
                             @foreach($items as $item)
                                 <label class="group cursor-pointer">

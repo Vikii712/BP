@@ -1,12 +1,33 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    const savedScale = localStorage.getItem('a11y_fontScaleIndex');
+    // ----------------------------
+    // FONT SCALE BUTTON
+    // ----------------------------
+    const fontBtn = document.getElementById("fontScaleButton");
 
-    if (savedScale !== null) {
+    // načítanie uloženého scale
+    const savedScale = localStorage.getItem('a11y_fontScaleIndex');
+    if(savedScale !== null){
         applyFontScale(parseInt(savedScale));
-        document.querySelector('[data-feature="increaseFont"]')
+        updateFontSpectrum();
     }
 
+    if(fontBtn){
+        fontBtn.addEventListener("click", () => {
+            let next = scaleIndex + 1;
+
+            if(next >= SCALES.length){
+                next = 0; // reset na začiatok
+            }
+
+            applyFontScale(next);
+            updateFontSpectrum();
+        });
+    }
+
+    // ----------------------------
+    // A11Y TOGGLE CHECKBOXY
+    // ----------------------------
     document.querySelectorAll(".a11y-toggle").forEach(input => {
         const feature = input.dataset.feature;
 
@@ -25,11 +46,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-
+    // ----------------------------
+    // COLOR FILTER RADIO
+    // ----------------------------
     const savedFilter = localStorage.getItem("colorFilter");
 
     document.querySelectorAll('input[name="a11y-color"]').forEach(input => {
-
         const filter = input.dataset.filter;
 
         if (savedFilter === filter) {
@@ -41,7 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.setItem("colorFilter", filter);
             window[filter]?.(true);
         });
-
     });
 
 });
