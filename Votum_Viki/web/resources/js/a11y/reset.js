@@ -1,18 +1,16 @@
 document.getElementById("a11y-reset")?.addEventListener("click", () => {
 
     // --- Letter spacing ---
-    letterSpacingIndex = 0;
+    window.letterSpacingIndex = 0;
     localStorage.setItem('letterSpacingIndex', letterSpacingIndex);
     document.body.style.letterSpacing = letterSpacingLevels[0];
     updateSpectrum('letterSpacing', 0);
-    syncSpectrumCheckbox('letterSpacing', 0);
 
     // --- Line spacing ---
-    lineSpacingIndex = 0;
+    window.lineSpacingIndex = 0;
     localStorage.setItem('lineSpacingIndex', lineSpacingIndex);
     applyLineSpacing(0);
     updateSpectrum('lineSpacing', 0);
-    syncSpectrumCheckbox('lineSpacing', 0);
 
     // --- Font scale ---
     applyFontScale(0);
@@ -40,4 +38,7 @@ document.getElementById("a11y-reset")?.addEventListener("click", () => {
         localStorage.removeItem(feature);
         window[feature]?.(false);
     });
+
+    window.updateA11yButtonState();
+
 });

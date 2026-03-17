@@ -44,6 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             window.applyFontScale(next);
             window.updateFontSpectrum();
+            window.updateA11yButtonState();
         });
     }
 });

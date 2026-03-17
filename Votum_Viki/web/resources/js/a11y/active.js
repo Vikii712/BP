@@ -68,5 +68,5 @@ if (window.scaleIndex !== undefined) {
 
 // Po načítaní DOM
 document.addEventListener("DOMContentLoaded", () => {
-    updateA11yButtonState();
+    window.updateA11yButtonState();
 });
