@@ -160,7 +160,7 @@
                                         </span>
                                         @if(!empty($item['spectrum']))
                                             <div class="flex w-full overflow-hidden gap-1" data-spectrum="{{ $item['function'] }}">
-                                                <div class="flex-1 h-2 bg-black border border-black" data-step="1"></div>
+                                                <div class="flex-1 h-2 bg-white border border-black" data-step="1"></div>
                                                 <div class="flex-1 h-2 bg-white border border-black" data-step="2"></div>
                                                 <div class="flex-1 h-2 bg-white border border-black" data-step="3"></div>
                                             </div>

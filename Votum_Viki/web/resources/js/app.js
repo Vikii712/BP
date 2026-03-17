@@ -1,5 +1,4 @@
 import './bootstrap';
-import './a11y/active.js';
 import './admin-validation.js';
 import './a11y/a11y-storage.js';
 import './a11y/reading-guide.js';
@@ -11,6 +10,7 @@ import './a11y/obrazky.js';
 import './a11y/filtre.js';
 import './a11y/size.js';
 import './a11y/reset.js';
+import './a11y/active.js';
 import Alpine from 'alpinejs';
 
 window.Alpine = Alpine;

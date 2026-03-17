@@ -3,41 +3,40 @@
 // ----------------------------
 const a11yButton = document.getElementById("a11y-toggle");
 
-window.updateA11yButtonState = function() {
+function updateA11yButtonState() {
+    // predpokladáme default hodnoty
     let isDefault = true;
-    console.log('updateA11yButtonState called', { letterSpacingIndex: window.letterSpacingIndex, lineSpacingIndex: window.lineSpacingIndex, scaleIndex: window.scaleIndex });
 
-    // --- LETTER & LINE SPACING ---
-    if ((window.letterSpacingIndex || 0) > 0) isDefault = false;
-    if ((window.lineSpacingIndex || 0) > 0) isDefault = false;
+    // --- letter spacing ---
+    if(letterSpacingIndex > 0) isDefault = false;
 
-    // --- FONT SCALE ---
-    if ((window.scaleIndex || 0) > 0) isDefault = false;
+    // --- line spacing ---
+    if(lineSpacingIndex > 0) isDefault = false;
 
-    // --- FONT FAMILY ---
+    // --- font scale ---
+    if(scaleIndex > 0) isDefault = false;
+
+    // --- font family ---
     const selectedFont = document.querySelector('input[name="a11y-font"]:checked');
-    if (selectedFont && selectedFont.dataset.fontKey !== 'atkinson') {
+    if(selectedFont && selectedFont.dataset.fontKey !== 'atkinson'){
         isDefault = false;
     }
 
-    // --- COLOR FILTER ---
+    // --- color filter ---
     const selectedFilter = document.querySelector('input[name="a11y-color"]:checked');
-    if (selectedFilter && selectedFilter.dataset.filter !== 'none') {
+    if(selectedFilter && selectedFilter.dataset.filter !== 'none'){
         isDefault = false;
     }
 
-    // --- OSTATNÉ TOGGLY ---
+    // --- ostatné toggly ---
     document.querySelectorAll('.a11y-toggle').forEach(input => {
         const feature = input.dataset.feature;
-
-        // preskočíme spacing (ten sa kontroluje cez index)
-        if (feature === 'letterSpacing' || feature === 'lineSpacing') return;
-
-        if (input.checked) isDefault = false;
+        if(feature === 'letterSpacing' || feature === 'lineSpacing') return;
+        if(input.checked) isDefault = false;
     });
 
-    // --- ZMENA FARBY POZADIA TLAČIDLA ---
-    if (isDefault) {
+    // zmena farby pozadia tlačidla
+    if(isDefault){
         a11yButton.classList.remove('bg-yellow-300');
         a11yButton.classList.add('bg-gray-300');
     } else {
@@ -46,27 +45,22 @@ window.updateA11yButtonState = function() {
     }
 }
 
-// ----------------------------
-// EVENT LISTENERY
-// ----------------------------
-
-// Checkbox toggly
+// volanie vždy po zmene niektorej funkcie
 document.querySelectorAll('.a11y-toggle').forEach(input => {
     input.addEventListener('change', updateA11yButtonState);
 });
 
-// Radio pre font a color
-document.querySelectorAll('input[name="a11y-font"], input[name="a11y-color"]').forEach(input => {
-    input.addEventListener('change', updateA11yButtonState);
-});
-
-// Font scale pozorujeme cez triedy na <html>
-if (window.scaleIndex !== undefined) {
+// volanie po zmene font scale
+if(window.scaleIndex !== undefined){
     const observer = new MutationObserver(updateA11yButtonState);
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 }
 
-// Po načítaní DOM
+// volanie po zmene fontu a filter
+document.querySelectorAll('input[name="a11y-font"], input[name="a11y-color"]').forEach(input => {
+    input.addEventListener('change', updateA11yButtonState);
+});
+
 document.addEventListener("DOMContentLoaded", () => {
     updateA11yButtonState();
 });
