@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
         radio.addEventListener('change', () => {
             document.body.style.fontFamily = radio.dataset.font;
             localStorage.setItem('a11y_font', radio.dataset.fontKey);
+            updateA11yButtonState();
         });
     });
 
@@ -35,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
         input.addEventListener("change", () => {
             localStorage.setItem("colorFilter", filter);
             if (window[filter]) window[filter](true);
+            updateA11yButtonState();
         });
     });
 

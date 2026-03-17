@@ -8,10 +8,10 @@ import './a11y/spacing.js';
 import './a11y/cursor.js';
 import './a11y/obrazky.js';
 import './a11y/filtre.js';
-import './a11y/font.js';
 import './a11y/size.js';
-import Alpine from 'alpinejs';
 import './a11y/reset.js';
+import './a11y/active.js';
+import Alpine from 'alpinejs';
 
 window.Alpine = Alpine;
 

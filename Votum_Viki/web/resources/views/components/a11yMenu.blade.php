@@ -23,7 +23,7 @@
         ],
         'color' => [
             ['title' => 'Normálne', 'icon' => 'fa-solid fa-palette', 'function' => 'none'],
-            ['title' => 'Monochrome', 'icon' => 'fa-solid fa-circle-half-stroke', 'function' => 'monochrome'],
+            ['title' => 'Čierno/biele', 'icon' => 'fa-solid fa-circle-half-stroke', 'function' => 'monochrome'],
             ['title' => 'Znížiť saturáciu', 'icon' => ' fa-solid fa-droplet-slash', 'function' => 'lowSaturation'],
             ['title' => 'Zvýšiť saturáciu', 'icon' => 'fa-solid fa-droplet', 'function' => 'highSaturation'],
             ['title' => 'Tmavý kontrast', 'icon' => ' fa-solid fa-moon', 'function' => 'darkMode'],
@@ -64,9 +64,11 @@
         <div class="overflow-y-auto flex-1 p-4 pr-2 space-y-3 bg-white">
 
             {{-- RESET BUTTON --}}
-            <div class="px-4 py-3 bg-gray-200 border-2 border-black rounded-md text-black font-bold text-center cursor-pointer hover:bg-red-300">
-                <button id="a11y-reset" class="w-full">Vypnúť všetko</button>
-            </div>
+
+                <button id="a11y-reset" class="flex justify-center items-center w-full px-4 py-5 bg-gray-200 border-2 border-black rounded-md text-black font-bold text-center cursor-pointer hover:bg-red-300">
+                    <i class="fa-solid text-3xl fa-xmark px-2"></i>
+                    Vypnúť všetko
+                </button>
 
             @foreach($options as $section => $items)
                 <div class="rounded-xl border-2 border-black bg-neutral-400 shadow-sm overflow-hidden">
