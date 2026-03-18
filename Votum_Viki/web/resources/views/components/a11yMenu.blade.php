@@ -4,16 +4,16 @@
             ['title' => 'Väčšie písmo', 'icon' => 'fa-solid fa-plus', 'function' => 'increaseFont'],
         ],
         'read' => [
-            ['title' => 'Zvýraznenie čítaného textu', 'icon' => 'fa-solid fa-highlighter', 'function' => 'highlightReading'],
+            ['title' => 'Zvýrazniť text', 'icon' => 'fa-solid fa-highlighter', 'function' => 'highlightReading'],
             ['title' => 'Pravítko', 'icon' => 'fa-solid fa-ruler-horizontal', 'function' => 'readingGuide'],
-            ['title' => 'Tieň nad a pod kurzorom', 'icon' => 'fa-solid fa-pause rotate-90', 'function' => 'cursorShadow'],
+            ['title' => 'Tieň kurzora', 'icon' => 'fa-solid fa-pause rotate-90', 'function' => 'cursorShadow'],
             ['title' => 'Veľký kurzor', 'icon' => 'fa-solid fa-arrow-pointer', 'function' => 'bigCursor'],
             ['title' => 'Skryť obrázky', 'icon' => 'fa-solid fa-image', 'function' => 'disableImages'],
             ['title' => 'Zvýrazniť odkazy', 'icon' => 'fa-solid fa-link', 'function' => 'highlightLinks'],
         ],
         'text' => [
-            ['title' => 'Medzery medzi písmenami', 'icon' => 'fa-solid fa-text-height', 'function' => 'letterSpacing', 'spectrum' => true],
-            ['title' => 'Vzdialenosť medzi riadkami', 'icon' => 'fa-solid fa-lines-leaning', 'function' => 'lineSpacing', 'spectrum' => true],
+            ['title' => 'Medzery písmen', 'icon' => 'fa-solid fa-text-height', 'function' => 'letterSpacing', 'spectrum' => true],
+            ['title' => 'Medzery riadkov', 'icon' => 'fa-solid fa-lines-leaning', 'function' => 'lineSpacing', 'spectrum' => true],
         ],
         'font' => [
             ['title' => 'Atkinson', 'font' => '"Atkinson Hyperlegible", sans-serif', 'key' => 'atkinson'],
@@ -23,7 +23,7 @@
         ],
         'color' => [
             ['title' => 'Normálne', 'icon' => 'fa-solid fa-palette', 'function' => 'none'],
-            ['title' => 'Čierno/biele', 'icon' => 'fa-solid fa-circle-half-stroke', 'function' => 'monochrome'],
+            ['title' => 'Čierno/ biele', 'icon' => 'fa-solid fa-circle-half-stroke', 'function' => 'monochrome'],
             ['title' => 'Znížiť saturáciu', 'icon' => ' fa-solid fa-droplet-slash', 'function' => 'lowSaturation'],
             ['title' => 'Zvýšiť saturáciu', 'icon' => 'fa-solid fa-droplet', 'function' => 'highSaturation'],
             ['title' => 'Tmavý kontrast', 'icon' => ' fa-solid fa-moon', 'function' => 'darkMode'],
@@ -47,7 +47,11 @@
     {{-- PANEL --}}
     <div
         id="a11y-panel"
-        class="hidden fixed rounded-xl bottom-20 right-6 z-[9999] w-96 max-h-[80vh] border-2 border-black flex flex-col overflow-hidden"
+        class="hidden fixed rounded-xl bottom-20 right-6 z-[9999]
+           w-[320px] max-w-[90vw]
+           max-h-[80vh]
+           border-2 border-black flex flex-col overflow-hidden
+           text-base"
     >
         {{-- HEADER --}}
         <div class="bg-yellow-300 border-b-2 border-black px-4 py-3 flex items-center justify-between">
@@ -61,12 +65,12 @@
         </div>
 
         {{-- Scrollable body --}}
-        <div class="overflow-y-auto flex-1 p-4 pr-2 space-y-3 bg-white">
+        <div class="overflow-y-auto flex-1 p-2 space-y-3 bg-white">
 
             {{-- RESET BUTTON --}}
 
-                <button id="a11y-reset" class="flex justify-center items-center w-full px-4 py-5 bg-gray-200 border-2 border-black rounded-md text-black font-bold text-center cursor-pointer hover:bg-red-300">
-                    <i class="fa-solid text-3xl fa-xmark px-2"></i>
+                <button id="a11y-reset" class="flex justify-center items-center w-full px-2 py-3 bg-gray-200 border-2 border-black rounded-md text-black font-bold text-center cursor-pointer hover:bg-red-300">
+                    <i class="fa-solid text-3xl fa-xmark pr-2"></i>
                     Vypnúť všetko
                 </button>
 
@@ -74,19 +78,19 @@
                 <div class="rounded-xl border-2 border-black bg-neutral-400 shadow-sm overflow-hidden">
 
                     {{-- Sekcia header --}}
-                    <div class="px-4 py-2.5 bg-neutral-900 text-white font-bold uppercase tracking-widest">
+                    <div class="px-4 py-2 bg-neutral-900 text-white font-bold uppercase tracking-widest">
                         {{ __('nav.acc_' . $section) }}
                     </div>
 
                     @if($section === 'size')
 
-                        <div class="p-3">
+                        <div class="p-2">
                             <button
                                 id="fontScaleButton"
-                                class="w-full flex flex-col items-center gap-3 p-4 rounded-lg border-2 border-black bg-gray-50 hover:bg-yellow-300">
+                                class=" w-full flex flex-col items-center gap-1 p-4 rounded-lg border-2 border-black bg-gray-50 hover:bg-yellow-300">
 
-                                <div class="flex flex-col items-center gap-3">
-                                    <i class="fa-solid text-3xl fa-text-height"></i>
+                                <div class="flex flex-col items-center gap-1">
+                                    <i class="fa-solid text-2xl fa-text-height"></i>
                                     <span class="font-medium">Veľkosť písma</span>
                                 </div>
 
@@ -104,7 +108,7 @@
 
 
                     @elseif($section === 'font' || $section === 'color')
-                        <div class="grid grid-cols-2 gap-2 p-3">
+                        <div class="grid grid-cols-2 gap-2 p-2">
                             @foreach($items as $item)
                                 <label class="group cursor-pointer">
                                     <input
@@ -118,7 +122,7 @@
                                             data-filter="{{ $item['function'] }}"
                                         @endif
                                         >
-                                        <div class="flex flex-col items-center justify-center gap-2 p-4 rounded-lg border-2 border-black bg-gray-50
+                                        <div class="flex flex-col items-center justify-center p-2 rounded-lg border-2 border-black bg-gray-50
                                         peer-checked:bg-yellow-300 h-full
                                         peer-checked:border-yellow-800
                                         hover:bg-yellow-300">
@@ -131,7 +135,7 @@
                                             @endif
                                         </span>
 
-                                        <span class="text-md text-center font-medium text-black leading-tight">
+                                        <span class="text-sm text-center font-medium text-black leading-tight">
                                             {{ $item['title'] }}
                                         </span>
 
@@ -140,7 +144,7 @@
                             @endforeach
                         </div>
                     @else
-                        <div class="grid grid-cols-2 gap-2 p-3">
+                        <div class="grid grid-cols-2 gap-2 p-2">
                             @foreach($items as $item)
                                 <label class="group cursor-pointer">
                                     <input
@@ -155,7 +159,7 @@
                                         <span class="text-3xl text-black py-2">
                                             <i class="{{ $item['icon'] }}"></i>
                                         </span>
-                                        <span class="text-md text-center font-medium text-black leading-tight">
+                                        <span class="text-sm text-center font-medium text-black leading-tight">
                                             {{ $item['title'] }}
                                         </span>
                                         @if(!empty($item['spectrum']))

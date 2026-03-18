@@ -96,12 +96,16 @@ html.a11y-scale-xxxxxl { font-size: 160% !important; }
 
 
 .txt-btn {
-    font-size: 1.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     justify-content: center;
-    gap: 0.75rem;
-    padding: 1.25rem 2.5rem;
+    text-align: center;
+
+    font-size: 1.25rem;
+    padding: 20px 30px;
+    gap: 8px;
     font-weight: 600;
-    outline: none;
     cursor: pointer;
 }
 
@@ -136,7 +140,6 @@ html.a11y-scale-xxxxxl { font-size: 160% !important; }
     justify-content: center;
 
 }
-
 
 
 

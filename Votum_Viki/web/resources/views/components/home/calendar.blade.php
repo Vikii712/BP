@@ -50,8 +50,10 @@
 
                 <a href="https://calendar.google.com/calendar/render?cid={{ urlencode(route('calendar.ics', absolute: true)) }}"
                    target="_blank"
-                   class="mt-4 w-full bg-votum-blue text-white py-2 rounded-lg txt-btn-block">
-                    <i class="fas fa-calendar-plus mr-2 py-6"></i>{{ __('nav.save') }}
+                   class="mt-4 w-full bg-votum-blue text-white rounded-lg txt-btn flex flex-wrap items-center justify-center text-center"
+                >
+                    <i class="fas fa-calendar-plus"></i>
+                    <span>{{ __('nav.save') }}</span>
                 </a>
             </div>
 
@@ -129,8 +131,17 @@
         for (let day = 1; day <= lastDay.getDate(); day++) {
             const dateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
             const dayCell = document.createElement('div');
-            dayCell.className = 'calendar-day text-center sm:text-lg sm:p-1 rounded border-2 border-votum2 bg-white flex flex-col';
-            dayCell.style.cssText = 'position:relative;min-height:60px';
+            dayCell.className = `
+                calendar-day
+                text-center
+                text-xs sm:text-sm md:text-lg
+                p-0.5 sm:p-1
+                rounded
+                border-2 border-votum2
+                bg-white
+                flex flex-col
+                min-h-[40px] sm:min-h-[50px] md:min-h-[60px]
+            `;
 
             const dayNumber = document.createElement('div');
             dayNumber.textContent = day;
