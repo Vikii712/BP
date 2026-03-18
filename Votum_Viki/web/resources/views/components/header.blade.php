@@ -131,13 +131,9 @@
             // ========== LOCALE SWITCHING FIX ==========
             // Use event delegation on document to catch form submits from mobile menu
             document.addEventListener('submit', (e) => {
-                console.log('Form submitted:', e.target);
-                console.log('Form ID:', e.target?.id);
-                console.log('Is mobile form?', e.target?.id === 'locale-form-mobile');
 
                 // Check if submitted form is the mobile locale form
                 if (e.target && e.target.id === 'locale-form-mobile') {
-                    console.log('Saving mobile menu state!');
                     // Remember that menu was open
                     sessionStorage.setItem('votum:mobile-menu-open', 'true');
                 }

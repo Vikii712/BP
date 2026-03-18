@@ -23,12 +23,13 @@
         <div class="grid lg:grid-cols-2 gap-8">
             <!-- Calendar -->
             <div>
+
                 <div class="flex items-center justify-between mb-4">
-                    <button id="prevMonth" class="txt-btn-block p-4 bg-votum-blue text-white text-2xl md:text-3xl rounded-lg">
+                    <button id="prevMonth" aria-label="Predchádzajúci mesiac" class="txt-btn-block p-4 bg-votum-blue text-white text-2xl md:text-3xl rounded-lg">
                         <i class="fas fa-chevron-left"></i>
                     </button>
                     <h3 id="currentMonth" class="h3 sentence font-bold text-votum-blue text-center flex-1"></h3>
-                    <button id="nextMonth" class="txt-btn-block p-4 bg-votum-blue text-white rounded-lg text-2xl md:text-3xl">
+                    <button id="nextMonth" aria-label="Nasledujúci mesiac" class="txt-btn-block p-4 bg-votum-blue text-white rounded-lg text-2xl md:text-3xl">
                         <i class="fas fa-chevron-right"></i>
                     </button>
                 </div>
@@ -64,12 +65,18 @@
 
                 <!-- Pagination arrows – dole pod udalosťami -->
                 <div class="flex justify-between items-center mt-4">
-                    <button id="prevEvent" class="txt-btn-block p-4 bg-votum-blue text-white rounded-lg text-2xl md:text-3xl" style="display:none;">
-                        <i class="fas fa-chevron-left"></i>
+                    <button
+                        id="prevEvent"
+                        class="txt-btn-block p-4 bg-votum-blue text-white text-2xl md:text-3xl rounded-lg"
+                        aria-label="Predchádzajúce udalosti">
+                        <i class="fas fa-chevron-left" aria-hidden="true"></i>
                     </button>
-                    <span class="flex-1"></span>
-                    <button id="nextEvent" class="txt-btn-block p-4 bg-votum-blue text-white rounded-lg text-2xl md:text-3xl" style="display:none;">
-                        <i class="fas fa-chevron-right"></i>
+
+                    <button
+                        id="nextEvent"
+                        class="txt-btn-block p-4 bg-votum-blue text-white rounded-lg text-2xl md:text-3xl"
+                        aria-label="Nasledujúce udalosti">
+                        <i class="fas fa-chevron-right" aria-hidden="true"></i>
                     </button>
                 </div>
             </div>

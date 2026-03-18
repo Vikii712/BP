@@ -379,7 +379,6 @@
                             const enContainer = document.getElementById('editor-new-en');
 
                             if (skContainer && enContainer && !skContainer.__quill) {
-                                console.log('Inicializujem nové Quill editory');
                                 addFormEditors = {
                                     sk: new Quill('#editor-new-sk', {
                                         theme: 'snow',

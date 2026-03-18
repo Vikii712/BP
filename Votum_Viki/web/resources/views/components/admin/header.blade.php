@@ -41,6 +41,8 @@
           z-50 cursor-pointer"
    aria-label="VOTUM main page"
    title="Otvoriť stránku Združenie VOTUM v novom okne">
-    <img src="{{ asset('images/logo.svg') }}" alt="VOTUM logo" class="w-8 h-8 p-1 mb-1">
+    <img src="{{ asset('images/logo.svg') }}"
+         loading="lazy"
+         alt="VOTUM logo" class="w-8 h-8 p-1 mb-1">
 </a>
 

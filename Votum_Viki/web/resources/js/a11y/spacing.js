@@ -41,7 +41,6 @@ window.letterSpacing = function() {
     document.body.style.letterSpacing = window.letterSpacingLevels[window.letterSpacingIndex];
     window.updateSpectrum('letterSpacing', window.letterSpacingIndex);
 
-    console.log('teraz hodnoty po update: ', { letterSpacingIndex: window.letterSpacingIndex, lineSpacingIndex: window.lineSpacingIndex });
 
     window.updateA11yButtonState();
 };

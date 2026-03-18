@@ -15,6 +15,7 @@
         @else
             <div class="bg-neutral-100 w-full h-full flex justify-center items-center">
                 <img src="{{ asset('images/logoB.svg') }}"
+                     loading="lazy"
                      alt="Logo Združenia Votum"
                      class="w-40 h-40">
             </div>

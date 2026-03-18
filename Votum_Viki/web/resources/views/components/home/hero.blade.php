@@ -10,7 +10,7 @@
                 <!-- Left: Content -->
                 <div>
                     <div class="flex relative -mr-3">
-                        <x-listen :text="$hero->title . $hero->content" :down="true" />
+                        <x-listen :text="$hero->title . $hero->content" :down="true" :id="2"/>
                         <h1 class="h1 sentence md:text-5xl font-bold text-votum-blue mb-6 mr-15 text-center lg:text-left min-h-[4.5rem]">
                             {{ $hero->title }}
                         </h1>
@@ -28,6 +28,7 @@
                                     md:w-50  md:h-50
                                     lg:-top-15 lg:right-0">
                             <img src="{{ asset('images/votumaci.png') }}" alt=""
+                                 loading="lazy"
                                  class="w-full h-full object-contain">
                         </div>
 

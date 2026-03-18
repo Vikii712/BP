@@ -15,8 +15,8 @@
             @endforeach
         </div>
 
-        <div class="text-center p-4">
-            <a href="{{route('events')}}" class="bg-votum-blue text-white px-8 py-5 rounded-lg  font-semibold txt-btn">
+        <div class="text-center p-2">
+            <a href="{{route('events')}}" class="bg-votum-blue text-white rounded-lg  font-semibold txt-btn">
                 {{ __('nav.seeMore') }}
                 <i class="fas fa-arrow-right mr-2"></i>
             </a>

@@ -5,7 +5,6 @@ const a11yButton = document.getElementById("a11y-toggle");
 
 window.updateA11yButtonState = function() {
     let isDefault = true;
-    console.log('updateA11yButtonState called', { letterSpacingIndex: window.letterSpacingIndex, lineSpacingIndex: window.lineSpacingIndex, scaleIndex: window.scaleIndex });
 
     // --- LETTER & LINE SPACING ---
     if ((window.letterSpacingIndex || 0) > 0) isDefault = false;
