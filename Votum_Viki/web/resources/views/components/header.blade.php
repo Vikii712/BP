@@ -1,5 +1,5 @@
-<header class="fixed top-0 left-0 right-0 z-50 ">
-    <div class="bg-blue-950 backdrop-blur-md pb-2 filter-container">
+<header id="main-header" class="fixed top-0 left-0 right-0 z-50">
+<div class="bg-blue-950 backdrop-blur-md pb-2 filter-container">
         <div class=" sm:pr-6 flex w-full items-center justify-between bg-[var(--blackblue)]">
             <!-- Logo -->
             <a class="flex items-center gap-3" href="{{route('main')}}">
@@ -11,12 +11,12 @@
             <div class="flex items-center gap-4">
 
                 <!-- Language switch (desktop only) -->
-                <div class="hidden md:block">
+                <div class="desktop-locale">
                     <x-locale-switch />
                 </div>
 
                 <!-- Mobile toggle -->
-                <button id="menu-toggle" aria-label="Toggle menu" class="hamburger md:hidden p-2 rounded-full text-[var(--cream)] hover:bg-blue-800 transition z-[60] relative">
+                <button id="menu-toggle" aria-label="Toggle menu" class="hamburger p-2 rounded-full text-[var(--cream)] hover:bg-blue-800 transition z-[60] relative">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                     </svg>
@@ -25,7 +25,7 @@
         </div>
 
         <!-- Desktop nav -->
-        <div class="mt-2 hidden md:block">
+        <div class="mt-2 desktop-nav-wrapper">
             <x-nav />
         </div>
 

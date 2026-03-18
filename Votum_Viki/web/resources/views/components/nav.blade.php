@@ -1,6 +1,6 @@
 <nav aria-label="Primary navigation" id="main-nav" class="relative z-40 bg-blue-950">
 
-    <ul class="hidden md:flex justify-evenly text-white">
+    <ul class="flex justify-evenly text-white">
 
         <li>
             <a href="{{ route('main') }}"

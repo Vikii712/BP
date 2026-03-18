@@ -9,14 +9,17 @@ window.applyFontScale = function(index) {
     window.scaleIndex = Math.min(window.SCALES.length - 1, Math.max(0, index));
     document.documentElement.classList.remove(...window.SCALE_CLASSES.filter(Boolean));
     const cls = window.SCALE_CLASSES[window.scaleIndex];
-    if(cls) document.documentElement.classList.add(cls);
+    if (cls) document.documentElement.classList.add(cls);
     localStorage.setItem('a11y_fontScaleIndex', window.scaleIndex);
+
+    // Aktualizuj nav po každej zmene zoomu
+    window.updateNavMode();
 };
 
 window.updateFontSpectrum = function() {
     document.querySelectorAll("[data-font-scale]").forEach(el => {
         const step = parseInt(el.dataset.fontScale);
-        if(step <= window.scaleIndex){
+        if (step <= window.scaleIndex) {
             el.classList.add("bg-yellow-300");
         } else {
             el.classList.remove("bg-yellow-300");
@@ -24,23 +27,59 @@ window.updateFontSpectrum = function() {
     });
 };
 
+// ============================================================
+// NAV MODE — hamburger vs desktop nav
+// ============================================================
+// Prah (px) pod ktorým sa zobrazí hamburger namiesto desktop navu.
+// Zodpovedá Tailwind "md" breakpointu = 768px.
+// Efektívna šírka = reálna šírka viewportu / zoom faktor —
+// teda pri väčšom zoome sa nav skôr prepne na hamburger.
+var NAV_BREAKPOINT = 768;
+
+window.updateNavMode = function() {
+    const scale  = window.SCALES[window.scaleIndex] ?? 1.0;
+    const vw     = window.visualViewport ? window.visualViewport.width : window.innerWidth;
+    const effectiveVw = vw / scale;
+
+    const showDesktop = effectiveVw >= NAV_BREAKPOINT;
+
+    document.getElementById('main-header')
+        ?.classList.toggle('show-desktop-nav', showDesktop);
+};
+
+// Resize — desktop
+window.addEventListener('resize', window.updateNavMode);
+
+// visualViewport — spoľahlivejšie na mobile (iOS Safari, Android Chrome)
+if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', window.updateNavMode);
+}
+
+// orientationchange — iOS fallback (reportuje starú šírku, preto timeout)
+window.addEventListener('orientationchange', function() {
+    setTimeout(window.updateNavMode, 100);
+});
+
 // ----------------------------
 // INIT
 // ----------------------------
 document.addEventListener("DOMContentLoaded", () => {
     const fontBtn = document.getElementById("fontScaleButton");
 
-    // načítanie uloženého scale
+    // Načítanie uloženého scale + init nav
     window.applyFontScale(window.scaleIndex);
     window.updateFontSpectrum();
+    // updateNavMode sa zavolal už v applyFontScale vyššie,
+    // ale voláme znova pre istotu (DOM je teraz plne načítaný)
+    window.updateNavMode();
 
-    if(fontBtn){
+    if (fontBtn) {
         fontBtn.addEventListener("click", (e) => {
             e.preventDefault();
-            e.stopPropagation(); // zabráni duplikovanému volaniu
+            e.stopPropagation();
 
             let next = window.scaleIndex + 1;
-            if(next >= window.SCALES.length) next = 0;
+            if (next >= window.SCALES.length) next = 0;
 
             window.applyFontScale(next);
             window.updateFontSpectrum();

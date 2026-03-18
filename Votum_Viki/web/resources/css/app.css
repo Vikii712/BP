@@ -36,6 +36,7 @@ html.a11y-scale-xxxxxl { font-size: 160% !important; }
     font-style: normal;
 }
 
+
 @keyframes fadeInOut {
     0% { opacity: 0; transform: translateY(20px); }
     10%, 90% { opacity: 1; transform: translateY(0); }
@@ -224,3 +225,28 @@ body.highlight-links a{
     fill: #ffffff !important;
 }
 
+
+
+/* Hamburger — default viditeľný, skryje sa keď show-desktop-nav */
+.hamburger {
+    display: block;
+}
+.show-desktop-nav .hamburger {
+    display: none;
+}
+
+/* Desktop nav ul — default hidden, zobrazí sa keď show-desktop-nav */
+.desktop-nav-wrapper {
+    display: none;
+}
+.show-desktop-nav .desktop-nav-wrapper {
+    display: block;
+}
+
+/* Locale switch desktop — rovnako */
+.desktop-locale {
+    display: none;
+}
+.show-desktop-nav .desktop-locale {
+    display: block;
+}
