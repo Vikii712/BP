@@ -74,7 +74,7 @@
                 </div>
                 <div class="text-center mt-16">
                     <a href="{{ route('contacts') }}" class="inline-flex items-center gap-3 bg-votum-blue text-white px-10 py-8 rounded-lg font-semibold txt-btn shadow-lg">
-                        <img alt="" src="{{ asset('images/kontakty.svg') }}" width="30">
+                        <x-ikony.contact  class="w-8 h-8"/>
                         <span>{{ __('nav.contacts') }}</span>
                     </a>
                 </div>
@@ -96,7 +96,7 @@
                 <div class="text-center mt-16">
                     <a href="{{ route('support') }}"
                        class="txt-btn inline-flex items-center gap-3 bg-gray-600 text-white px-10 py-8 rounded-lg font-semibold text-xl shadow-lg">
-                        <img src="{{ asset('images/podpora.svg') }}" width="30" alt="">
+                        <x-ikony.support  class="w-8 h-8"/>
                         <span>{{ __('nav.other') }}</span>
                     </a>
                 </div>

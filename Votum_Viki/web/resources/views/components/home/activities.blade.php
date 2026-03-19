@@ -9,7 +9,7 @@
             {{ __('nav.activities') }}
         </h2>
 
-        <div class="grid md:grid-cols-2 gap-y-8 mb-5">
+        <div class="grid lg:grid-cols-2 gap-y-8 mb-5">
             @foreach($events as $event)
                 <x-event.event_card :color='false' :event="$event"/>
             @endforeach

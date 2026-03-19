@@ -84,4 +84,7 @@ return [
     'acc_size' => '',
     'a11y' => 'Accessibility',
 
+    'click' => 'Click to view photos',
+
+
 ];

@@ -76,14 +76,25 @@ class EventsController extends Controller
 
             $futureDates = $dates->filter(fn ($d) => $d->gte($today));
 
+            // 👉 DOPLŇ TOTO
+            $displayDates = $futureDates->isNotEmpty() ? $futureDates : $dates;
+
+            $dateLabel = $displayDates->count() === 1
+                ? $displayDates->first()->format('j. n. Y')
+                : ($displayDates->count() > 1
+                    ? $displayDates->first()->format('j. n. Y') . ' – ' . $displayDates->last()->format('j. n. Y')
+                    : '');
+
             return (object)[
                 'id' => $event->id,
                 'title' => $locale === 'sk' ? $event->title_sk : $event->title_en,
                 'color' => $event->color,
 
-                'dates' => $dates->map(fn($d) => $d->format('Y-m-d')),  // Pre JS kalendár
+                'dates' => $dates->map(fn($d) => $d->format('Y-m-d')),
                 'futureDates' => $futureDates,
                 'nextDate' => $futureDates->first(),
+
+                'dateLabel' => $dateLabel,
             ];
         });
 

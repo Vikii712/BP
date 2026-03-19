@@ -1,8 +1,8 @@
 @props(['calendarEvents', 'upcomingEvents'])
 @php
     $titles = $upcomingEvents
-        ->pluck('title')
-        ->implode('. ');
+    ->map(fn($e) => $e->dateLabel . ' ' . $e->title)
+    ->implode('. ');
 @endphp
 
 <x-wave />
@@ -214,8 +214,8 @@
             div.style.cssText = `display:${index < 3 ? 'flex' : 'none'};background-color:#fff;border:8px solid ${color}`;
             div.innerHTML = `
                 <div class="flex flex-col w-full gap-1 text-center">
-                    <h4 class="font-bold text-votum-blue sentence txt">${event.title}</h4>
                     <p class="txt font-semibold">${event.dateLabel ?? event.date ?? ''}</p>
+                    <h4 class="font-bold text-votum-blue sentence txt">${event.title}</h4>
                     ${event.inGallery ? `
                         <a href="/event/${event.id}" class="txt-btn mt-3 rounded-xl bg-white text-votum-blue border-3 border-votum2 w-full text-center py-2">
                             {{ __('nav.more') }} <i class="pl-2 fas fa-arrow-right"></i>

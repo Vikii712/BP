@@ -18,7 +18,15 @@
             @endif
 
             <div class="w-full flex gap-3 justify-center">
-                <x-listen :text="$title . $description" :event="true"/>
+                <x-listen
+                    :text="
+                        $title . '. ' .
+                        $dateLabel . '. ' .
+                        $description . '. ' .
+                        ($photoLink ? __('nav.click') : '')
+                    "
+                    :event="true"
+                />
                 <x-share />
             </div>
 
@@ -74,7 +82,7 @@
                     </div>
 
                     <h2 class="h2 font-bold text-votum2 group-hover:text-votum-dark transition-colors">
-                        Kliknite pre zobrazenie fotiek
+                        {{__('nav.click')}}
                     </h2>
                 </section>
             </a>

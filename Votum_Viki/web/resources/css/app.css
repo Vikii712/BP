@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 @import "./filters.css";
+@import '@fortawesome/fontawesome-free/css/all.css';
+@import "./fonts.css";
 @plugin '@tailwindcss/typography';
 
 
@@ -7,8 +9,6 @@
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
 @source '../**/*.js';
-
-
 
 @theme {
     --font-sans: Roboto, Arial, Verdana, sans-serif;

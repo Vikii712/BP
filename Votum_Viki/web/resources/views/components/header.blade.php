@@ -33,7 +33,7 @@
 </header>
 
 <!-- Single full-screen mobile menu (one element only) -->
-<div id="mobile-menu" class="fixed left-0 w-full  text-[var(--cream)]  hidden z-40 overflow-y-auto">
+<div id="mobile-menu" class="fixed bg-blue-950 left-0 w-full  text-[var(--cream)]  hidden z-40 overflow-y-auto">
     <div class="bg-blue-950 pb-4 filter-container h-full">
         <div class="flex flex-col items-center gap-8 px-6 pt-5">
 
@@ -99,6 +99,10 @@
 
             adjustLayout();
             window.addEventListener('resize', adjustLayout);
+
+            if (window.ResizeObserver) {
+                new ResizeObserver(adjustLayout).observe(header);
+            }
 
             if (toggle && menu) {
                 toggle.addEventListener('click', e => {

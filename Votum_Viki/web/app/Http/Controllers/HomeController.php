@@ -106,9 +106,12 @@ class HomeController extends Controller
             ->map(function ($event) {
                 // Formátovanie dátumu pre zobrazenie
                 $dates = $event->futureDates->map(fn($d) => Carbon::parse($d));
+
                 $dateLabel = $dates->count() === 1
-                    ? $dates->first()->format('j. n.')
-                    : $dates->first()->format('j. n.') . ' – ' . $dates->last()->format('j. n.');
+                    ? $dates->first()->format('j. n. Y')
+                    : ($dates->count() > 1
+                        ? $dates->first()->format('j. n. Y') . ' – ' . $dates->last()->format('j. n. Y')
+                        : '');
 
                 return (object)[
                     'id' => $event->id,

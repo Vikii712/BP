@@ -7,7 +7,7 @@
 ])
 
 <button
-    onclick="toggleListen({{ json_encode($text) }}, '{{ $id }}')"
+    onclick="window.toggleListen({{ json_encode($text) }}, '{{ $id }}')"
     class="
         {{ $event
             ? 'relative flex-shrink-0 rounded-md p-5'

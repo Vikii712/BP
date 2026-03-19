@@ -85,5 +85,5 @@ return [
     'acc_size' => '',
     'a11y' => 'Prístupnosť',
 
-
+    'click' => 'Kliknite pre zobrazenie fotiek',
 ];

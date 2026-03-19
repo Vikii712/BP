@@ -108,7 +108,7 @@
                     <div class="text-center mt-16">
                         <a href="{{ route('support') }}"
                            class="txt-btn inline-flex items-center gap-3 bg-gray-600 text-white px-10 py-8 rounded-lg font-semibold text-xl shadow-lg">
-                            <img src="{{ asset('images/podpora.svg') }}" width="30" alt="">
+                            <x-ikony.support  class="w-8 h-8"/>
                             <span>{{ __('nav.other') }}</span>
                         </a>
                     </div>

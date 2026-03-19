@@ -104,7 +104,7 @@ function speak(text, id) {
     speechSynthesis.speak(utter);
 }
 
-function toggleListen(text, id) {
+window.toggleListen = function(text, id) {
     if (!text || text.trim().length === 0) return;
 
     // Ak už hovoríme a klikneme na to isté ID → stop

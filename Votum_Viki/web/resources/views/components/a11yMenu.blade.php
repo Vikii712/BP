@@ -16,10 +16,9 @@
             ['title' => 'Medzery riadkov', 'icon' => 'fa-solid fa-lines-leaning', 'function' => 'lineSpacing', 'spectrum' => true],
         ],
         'font' => [
-            ['title' => 'Atkinson', 'font' => '"Atkinson Hyperlegible", sans-serif', 'key' => 'atkinson'],
+            ['title' => 'Atkinson', 'font' => '"Atkinson Hyperlegible"', 'key' => 'atkinson'],
             ['title' => 'Arial', 'font' => 'Arial, sans-serif', 'key' => 'arial'],
             ['title' => 'Comic Sans', 'font' => '"Comic Sans MS", cursive', 'key' => 'comic'],
-            ['title' => 'Open Dyslexic', 'font' => 'OpenDyslexicRegular, sans-serif', 'key' => 'dyslexic'],
         ],
         'color' => [
             ['title' => 'Normálne', 'icon' => 'fa-solid fa-palette', 'function' => 'none'],
