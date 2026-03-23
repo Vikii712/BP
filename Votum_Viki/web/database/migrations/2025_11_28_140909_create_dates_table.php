@@ -11,6 +11,7 @@ return new class extends Migration
         Schema::create('dates', function (Blueprint $table) {
             $table->id();
             $table->foreignId('event_id')->constrained()->onDelete('cascade');
+            $table->boolean('exact')->default(false);
             $table->date('date');
             $table->timestamps();
         });

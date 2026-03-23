@@ -306,7 +306,9 @@
             const videoSection = document.getElementById('videoSection');
             const sponsorSection = document.getElementById('sponsorSection');
             const documentSection = document.getElementById('documentSection');
-
+            const yearWrapper = document.getElementById('yearWrapper');
+            const inCalendarCheckbox = document.getElementById('inCalendar');
+            const colorWrapper = document.getElementById('calendarColorWrapper');
 
             function updateSectionsVisibility() {
                 const isHomeChecked = inHomeCheckbox.checked;
@@ -355,13 +357,43 @@
 
             function updateDatesWrapper() {
                 const selected = document.querySelector('input[name="dateOption"]:checked');
-                if (selected && selected.value === 'add') {
+
+                if (!selected) return;
+
+                const value = selected.value;
+
+                if (value === 'exact') {
                     datesWrapper.style.display = 'flex';
-                } else {
+                    yearWrapper.classList.add('hidden');
+
+                    // povoliť kalendár checkbox
+                    inCalendarCheckbox.disabled = false;
+
+                } else if (value === 'year') {
                     datesWrapper.style.display = 'none';
+                    yearWrapper.classList.remove('hidden');
+
+                    // reset dátumov
                     datesList.innerHTML = '';
                     datesInput.value = '';
                     fp.clear();
+
+                    // zakázať kalendár
+                    inCalendarCheckbox.checked = false;
+                    inCalendarCheckbox.disabled = true;
+                    colorWrapper.classList.add('hidden');
+
+                } else { // none
+                    datesWrapper.style.display = 'none';
+                    yearWrapper.classList.add('hidden');
+
+                    datesList.innerHTML = '';
+                    datesInput.value = '';
+                    fp.clear();
+
+                    inCalendarCheckbox.checked = false;
+                    inCalendarCheckbox.disabled = true;
+                    colorWrapper.classList.add('hidden');
                 }
             }
 
@@ -588,7 +620,6 @@
                 'c8': '#B5006A', // tmavá ružová
             };
 
-            const colorWrapper = document.getElementById('calendarColorWrapper');
 
             for (const [key, color] of Object.entries(eventColors)) {
                 const label = document.createElement('label');
@@ -612,8 +643,15 @@
                 colorWrapper.appendChild(label);
             }
 
-            const inCalendarCheckbox = document.getElementById('inCalendar');
             inCalendarCheckbox.addEventListener('change', () => {
+                const selected = document.querySelector('input[name="dateOption"]:checked');
+
+                if (selected?.value !== 'exact') {
+                    inCalendarCheckbox.checked = false;
+                    colorWrapper.classList.add('hidden');
+                    return;
+                }
+
                 if (inCalendarCheckbox.checked) {
                     colorWrapper.classList.remove('hidden');
                 } else {

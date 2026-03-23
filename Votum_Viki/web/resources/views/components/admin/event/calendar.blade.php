@@ -8,19 +8,30 @@
 {{-- RADIO BUTTONY pre výber dátumu --}}
 <div class="flex gap-6 px-6 py-3">
     <label class="flex items-center gap-2">
-        <input type="radio"
-               name="dateOption"
-               value="none"
+        <input type="radio" name="dateOption" value="none"
             {{ ($isEdit && $event->dates->isEmpty()) || !$isEdit ? 'checked' : '' }}>
         Bez dátumu
     </label>
+
     <label class="flex items-center gap-2">
-        <input type="radio"
-               name="dateOption"
-               value="add"
-            {{ ($isEdit && $event->dates->isNotEmpty()) ? 'checked' : '' }}>
-        Pridať dátum
+        <input type="radio" name="dateOption" value="year">
+        Len rok
     </label>
+
+    <label class="flex items-center gap-2">
+        <input type="radio" name="dateOption" value="exact"
+            {{ ($isEdit && $event->dates->isNotEmpty()) ? 'checked' : '' }}>
+        Presný dátum
+    </label>
+</div>
+
+<div id="yearWrapper" class="px-6 hidden flex items-center">
+    <label class="block text-md font-medium mr-3">
+        Rok udalosti:
+    </label>
+    <input type="number" name="year" min="1900" max="2100"
+           class="border-2 border-gray-300 rounded-md px-3 py-2 w-40"
+           value="{{ old('year', $event->year ?? '') }}">
 </div>
 
 <div id="datesWrapper" class="flex flex-col sm:flex-row gap-6">

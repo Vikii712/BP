@@ -15,13 +15,14 @@
 
     <div class="w-20 h-20 rounded-full flex items-center justify-center transition-colors duration-300
                 {{ $inverted ? 'bg-white' : 'bg-blue-950' }}">
-        @if($image)
-            <img src="{{ asset('images/nav/' . $image) }}"
-                 loading="lazy"
-                 alt="{{ $name }}" class="w-10 h-10 object-contain">
-        @else
-            <i class="fas {{ $icon }} text-3xl {{ $inverted ? 'text-blue-950' : 'group-hover:text-white' }}"></i>
-        @endif
+            @if(Str::startsWith($icon, 'fa'))
+                <i class="fas {{ $icon }} text-3xl {{ $inverted ? 'text-blue-950' : 'group-hover:text-white' }}"></i>
+            @else
+                <x-dynamic-component
+                    :component="'ikony.' . $icon"
+                    class="w-10 h-10 {{ $inverted ? 'text-blue-950' : 'group-hover:text-white' }} object-contain"
+                />
+            @endif
     </div>
 
     <h3 class="text-xl font-bold">

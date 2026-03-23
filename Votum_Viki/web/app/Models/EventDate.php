@@ -10,6 +10,7 @@ class EventDate extends Model
 
     protected $fillable = [
         'event_id',
+        'exact',
         'date',
     ];
 

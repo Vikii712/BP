@@ -44,13 +44,13 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
 
-                <x-admin.card name="Domov" :route="route('home.edit')" icon="fa-home" image="domov.svg" />
-                <x-admin.card name="O nás" :route="route('admin.about')" icon="fa-users" image="Onas.svg" />
-                <x-admin.card name="Udalosti" :route="route('events.index')" icon="fa-star" image="udalosti.svg" />
-                <x-admin.card name="História" :route="route('section.index', 'history')" icon="fa-clock" image="historia.svg" />
-                <x-admin.card name="Podpora" :route="route('admin.support')" icon="fa-hand-holding-heart" image="podpora.svg" />
-                <x-admin.card name="Kontakty" :route="route('contacts.edit')" icon="fa-address-book" image="kontakty.svg" />
-                <x-admin.card name="Dokumenty" :route="route('section.index', 'documentSection')" icon="fa-file-alt" image="dokumenty.svg" />
+                <x-admin.card name="Domov" :route="route('home.edit')" icon="home"  />
+                <x-admin.card name="O nás" :route="route('admin.about')" icon="about"  />
+                <x-admin.card name="Udalosti" :route="route('events.index')" icon="event" />
+                <x-admin.card name="História" :route="route('section.index', 'history')" icon="history" />
+                <x-admin.card name="Podpora" :route="route('admin.support')" icon="support" />
+                <x-admin.card name="Kontakty" :route="route('contacts.edit')" icon="contact"  />
+                <x-admin.card name="Dokumenty" :route="route('section.index', 'documentSection')" icon="document"/>
 
                 <x-admin.card name="Zmena hesla" :route="route('password.change')" icon="fa-lock" inverted />
                 <x-admin.card name="Správa adminov" :route="route('admin.manage')" icon="fa-user-cog" inverted />
