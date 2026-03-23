@@ -68,7 +68,9 @@ class HomeController extends Controller
 
         // EVENTS
         $events = Event::with('dates')->get()->map(function ($event) use ($locale, $today) {
-            $dates = $event->dates
+            $datesRaw = $event->dates; // Zachovať pre hasExact – PRED pluck
+
+            $dates = $datesRaw
                 ->pluck('date')
                 ->map(fn ($d) => Carbon::parse($d)->startOfDay())
                 ->sort()
@@ -83,8 +85,10 @@ class HomeController extends Controller
                 'color' => $event->color,
 
                 'dates' => $dates->map(fn($d) => $d->format('Y-m-d')),  // Pre JS kalendár
+                'dates_parsed' => $dates,                                 // Carbon objekty pre dateLabel
                 'futureDates' => $futureDates,
                 'nextDate' => $futureDates->first(),
+                'datesRaw' => $datesRaw,                                  // Pre hasExact
 
                 'main_pic' => $event->main_pic,
                 'pic_alt' => $locale === 'sk' ? $event->pic_alt_sk : $event->pic_alt_en,
@@ -104,14 +108,18 @@ class HomeController extends Controller
             ->sortBy('nextDate')
             ->values()
             ->map(function ($event) {
-                // Formátovanie dátumu pre zobrazenie
-                $dates = $event->futureDates->map(fn($d) => Carbon::parse($d));
+                $futureDates = $event->futureDates;
+                $hasExact = $event->datesRaw->contains('exact', true);
 
-                $dateLabel = $dates->count() === 1
-                    ? $dates->first()->format('j. n. Y')
-                    : ($dates->count() > 1
-                        ? $dates->first()->format('j. n. Y') . ' – ' . $dates->last()->format('j. n. Y')
-                        : '');
+                if (!$hasExact) {
+                    $dateLabel = $futureDates->first()?->format('Y') ?? '';
+                } else {
+                    $dateLabel = $futureDates->count() === 1
+                        ? $futureDates->first()->format('j. n. Y')
+                        : ($futureDates->count() > 1
+                            ? $futureDates->first()->format('j. n. Y') . ' – ' . $futureDates->last()->format('j. n. Y')
+                            : '');
+                }
 
                 return (object)[
                     'id' => $event->id,
@@ -125,15 +133,20 @@ class HomeController extends Controller
         $homeEvents = $events
             ->filter(fn ($e) => $e->inHome && $e->inGallery)
             ->values()
-            ->map(function ($event) use ($locale) {
-                // Formátovanie dátumu pre home eventy
-                $dates = $event->futureDates->isNotEmpty()
-                    ? $event->futureDates->map(fn($d) => Carbon::parse($d))
-                    : collect($event->dates)->map(fn($d) => Carbon::parse($d));
+            ->map(function ($event) {
+                $displayDates = $event->futureDates->isNotEmpty()
+                    ? $event->futureDates
+                    : $event->dates_parsed;
 
-                $dateLabel = $dates->count() === 1
-                    ? $dates->first()->format('j. n. Y')
-                    : $dates->first()->format('j. n. Y') . ' – ' . $dates->last()->format('j. n. Y');
+                $hasExact = $event->datesRaw->contains('exact', true);
+
+                if (!$hasExact) {
+                    $dateLabel = $displayDates->first()?->format('Y') ?? '';
+                } else {
+                    $dateLabel = $displayDates->count() === 1
+                        ? $displayDates->first()->format('j. n. Y')
+                        : $displayDates->first()->format('j. n. Y') . ' – ' . $displayDates->last()->format('j. n. Y');
+                }
 
                 return (object)[
                     'id' => $event->id,
@@ -142,7 +155,6 @@ class HomeController extends Controller
                     'dateLabel' => $dateLabel,
                     'main_pic' => $event->main_pic,
                     'pic_alt' => $event->pic_alt,
-
                 ];
             });
 
@@ -178,7 +190,6 @@ class HomeController extends Controller
         $ics .= "X-WR-CALNAME:VOTUM{$CRLF}";
         $ics .= "X-WR-TIMEZONE:Europe/Bratislava{$CRLF}";
 
-        // Pridanie VTIMEZONE (voliteľné, ale pomáha s kompatibilitou)
         $ics .= "BEGIN:VTIMEZONE{$CRLF}";
         $ics .= "TZID:Europe/Bratislava{$CRLF}";
         $ics .= "X-LIC-LOCATION:Europe/Bratislava{$CRLF}";
@@ -198,12 +209,11 @@ class HomeController extends Controller
         $ics .= "END:STANDARD{$CRLF}";
         $ics .= "END:VTIMEZONE{$CRLF}";
 
-        // Debug: Spočítaj počet eventov
         $eventCount = 0;
 
         foreach ($events as $event) {
             if (!$event->dates || $event->dates->isEmpty()) {
-                continue; // Preskočiť eventy bez dátumov
+                continue;
             }
 
             foreach ($event->dates as $eventDate) {
@@ -229,14 +239,13 @@ class HomeController extends Controller
                 }
 
                 $ics .= "STATUS:CONFIRMED{$CRLF}";
-                $ics .= "TRANSP:TRANSPARENT{$CRLF}"; // Pridané ako vo FIIT kalendári
+                $ics .= "TRANSP:TRANSPARENT{$CRLF}";
                 $ics .= "END:VEVENT{$CRLF}";
             }
         }
 
         $ics .= "END:VCALENDAR{$CRLF}";
 
-        // Debug log
         \Log::info("Generated ICS with {$eventCount} events, size: " . strlen($ics) . " bytes");
 
         return response($ics)
@@ -250,12 +259,10 @@ class HomeController extends Controller
     private function escapeIcsText($text)
     {
         $text = strip_tags($text);
-        // Najprv escapovať backslashe, potom ostatné
         $text = str_replace('\\', '\\\\', $text);
         $text = str_replace([';', ','], ['\\;', '\\,'], $text);
         $text = str_replace(["\r\n", "\n", "\r"], '\\n', $text);
 
-        // Zalamovanie dlhých riadkov (ICS limit je 75 znakov)
         return $this->foldLine($text);
     }
 

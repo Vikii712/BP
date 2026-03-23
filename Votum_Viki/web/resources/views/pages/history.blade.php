@@ -42,7 +42,7 @@
                             </div>
                         @endif
 
-                        <x-listen :text="$entry['name'] . '. ' . $entry['text']" id="{{100 + $i}}" />
+                        <x-listen :text="$entry['year'] . $entry['name'] . '. ' . $entry['text']" id="{{100 + $i}}" />
 
                         <h2 class="h3 sentence font-bold text-votum-blue mb-2 pe-12">
                             {{ $entry['name'] }}

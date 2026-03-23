@@ -109,19 +109,6 @@ class EventSeeder extends Seeder
                 'exact' => true,
                 'dates' => ['2026-07-06','2026-07-07','2026-07-08','2026-07-09','2026-07-10'],
             ],
-            [
-                'title_sk' => 'Leto 2022 v Tučepy',
-                'title_en' => 'Leto 2022 v Tučepy',
-                'content_sk' => 'Spoločná letná dovolenka v Chorvátskom Tučepi',
-                'content_en' => '',
-                'inCalendar' => false,
-                'inHome' => true,
-                'inGallery' => true,
-                'archived' => false,
-                'color' => 'c6',
-                'exact' => true,
-                'dates' => ['2026-05-31'],
-            ],
 
 
 
@@ -137,9 +124,11 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2017-01-01'],
+                'files' => ['https://photos.app.goo.gl/5y1wGPGBe1XV6HCF7'],
+
             ],
             [
                 'title_sk' => 'Tučepi',
@@ -148,9 +137,11 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2017-01-01'],
+                'files' => ['https://photos.app.goo.gl/nrUApVe8FShAKHhA7'],
+
             ],
             [
                 'title_sk' => 'Tučepi',
@@ -159,9 +150,11 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2018-01-01'],
+                'files' => ['https://photos.app.goo.gl/BjjwdDZuWVrYHNuD6'],
+
             ],
             [
                 'title_sk' => 'Vianoce v Rafaeli',
@@ -170,20 +163,24 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2018-01-01'],
+                'files' => ['https://photos.app.goo.gl/EDreT2xA4dQWZogd6'],
+
             ],
             [
-                'title_sk' => 'Ples',
+                'title_sk' => 'Farský ples',
                 'title_en' => 'Ball',
                 'content_sk' => '',
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2019-01-01'],
+                'files' => ['https://photos.app.goo.gl/nB5TRMTFGHmf9wpaA'],
+
             ],
             [
                 'title_sk' => 'Tučepi',
@@ -192,9 +189,11 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2019-01-01'],
+                'files' => ['https://photos.app.goo.gl/u1NPMbYdjcxa6BNv8'],
+
             ],
             [
                 'title_sk' => 'Letný camp',
@@ -203,9 +202,11 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2020-01-01'],
+                'files' => ['https://photos.app.goo.gl/QNTYethc7bE7KaGx9'],
+
             ],
             [
                 'title_sk' => 'Hudba v Medickej záhrade',
@@ -214,9 +215,11 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2020-01-01'],
+                'files' => ['https://photos.app.goo.gl/rQC1uEPyHpgJjYFC6'],
+
             ],
             [
                 'title_sk' => 'Dóm sv. Martina, podpora cez stream',
@@ -225,9 +228,11 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2020-01-01'],
+                'files' => ['https://photos.app.goo.gl/GJ69t7JUv8VcDUrFA'],
+
             ],
             [
                 'title_sk' => 'Výroba darčekov pre Európske sociálne dni',
@@ -236,9 +241,11 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2021-01-01'],
+                'files' => ['https://photos.app.goo.gl/HKnYwAZVLHbRQxvw5'],
+
             ],
             [
                 'title_sk' => 'Koncert V-klub',
@@ -247,9 +254,11 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2021-01-01'],
+                'files' => ['https://photos.app.goo.gl/mPmXyNBj75Co2ZMWA'],
+
             ],
             [
                 'title_sk' => 'Letný camp',
@@ -258,9 +267,11 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2021-01-01'],
+                'files' => ['https://photos.app.goo.gl/WukhkxivtXBYWBNHA'],
+
             ],
             [
                 'title_sk' => 'Tučepi',
@@ -269,9 +280,11 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2021-01-01'],
+                'files' => ['https://photos.app.goo.gl/DPHgxNgGoEL21Q3G8'],
+
             ],
             [
                 'title_sk' => 'Výroba adventných vencov',
@@ -280,9 +293,11 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2022-01-01'],
+                'files' => ['https://photos.app.goo.gl/xpfvNzZ9ZAzPM6Hi6'],
+
             ],
             [
                 'title_sk' => 'Adventné vystúpenie: Nereálna realita?',
@@ -291,9 +306,11 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2022-01-01'],
+                'files' => ['https://photos.app.goo.gl/susNhHWKENhsCUuG8'],
+
             ],
             [
                 'title_sk' => 'Stretnutie s pracovníkmi sekretariátu KBS',
@@ -302,9 +319,11 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2022-01-01'],
+                'files' => ['https://photos.app.goo.gl/n2SrzT5tqyhfPPey8'],
+
             ],
             [
                 'title_sk' => 'Komunitné stretnutie v Medickej záhrade',
@@ -313,9 +332,11 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2022-01-01'],
+                'files' => ['https://photos.app.goo.gl/jEB18WJgVZsdajTx7'],
+
             ],
             [
                 'title_sk' => 'Koncert V-klub',
@@ -324,9 +345,11 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2022-01-01'],
+                'files' => ['https://photos.app.goo.gl/Gv3UjQohsSw4DLg49'],
+
             ],
             [
                 'title_sk' => 'Letný camp',
@@ -335,20 +358,24 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2022-01-01'],
+                'files' => ['https://photos.app.goo.gl/nZvmVZVsqVMmzPiF8'],
+
             ],
             [
-                'title_sk' => 'Muziko',
-                'title_en' => 'Muziko',
+                'title_sk' => 'Muzikoterapia',
+                'title_en' => 'Music therapy',
                 'content_sk' => '',
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2022-01-01'],
+                'files' => ['https://photos.app.goo.gl/hxm2pFMmAzozLiE3A'],
+
             ],
             [
                 'title_sk' => 'Tučepi',
@@ -357,9 +384,11 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2022-01-01'],
+                'files' => ['https://photos.app.goo.gl/eLVwWVom7a3niq2f8'],
+
             ],
 
             [
@@ -369,20 +398,24 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2023-01-01'],
+                'files' => ['https://photos.app.goo.gl/WPmS6DtQ72cK4zv4A'],
+
             ],
             [
-                'title_sk' => 'Ples',
+                'title_sk' => 'Farský ples',
                 'title_en' => 'Ball',
                 'content_sk' => '',
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2023-01-01'],
+                'files' => ['https://photos.app.goo.gl/eJLkmZ3hDdzXcLUd8'],
+
             ],
             [
                 'title_sk' => 'Gala koncert, 30 rokov VOTUMu',
@@ -391,9 +424,11 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2023-01-01'],
+                'files' => ['https://photos.app.goo.gl/quNCkJZPQyQ5nUui6'],
+
             ],
             [
                 'title_sk' => 'Koncert V-klub',
@@ -402,9 +437,11 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2023-01-01'],
+                'files' => ['https://photos.app.goo.gl/Nq1w6yj6kRZ9xxzg8'],
+
             ],
             [
                 'title_sk' => 'Letný camp',
@@ -413,20 +450,24 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2023-01-01'],
+                'files' => ['https://photos.app.goo.gl/TaY4hp7CgsrVsM9u6'],
+
             ],
             [
-                'title_sk' => 'Muziko',
-                'title_en' => 'Muziko',
+                'title_sk' => 'Muzikoterapia',
+                'title_en' => 'Music therapy',
                 'content_sk' => '',
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2023-01-01'],
+                'files' => ['https://photos.app.goo.gl/FpUfUuW2uqDCNVje7'],
+
             ],
             [
                 'title_sk' => 'Slávnostná svätá omša 30 rokov VOTUMu',
@@ -435,9 +476,11 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2023-01-01'],
+                'files' => ['https://photos.app.goo.gl/6tTTmZ7KvmSZkq5e7'],
+
             ],
             [
                 'title_sk' => 'Tučepi',
@@ -446,9 +489,11 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2023-01-01'],
+                'files' => ['https://photos.app.goo.gl/m5zYQBdqzD1XdaZw7'],
+
             ],
             [
                 'title_sk' => 'Tvorba vianočných darčekov',
@@ -457,9 +502,11 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2023-01-01'],
+                'files' => ['https://photos.app.goo.gl/1REYwJvmzzKK7pHSA'],
+
             ],
             [
                 'title_sk' => 'Komunita v Medickej záhrade',
@@ -468,9 +515,11 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2023-01-01'],
+                'files' => ['https://photos.app.goo.gl/6gVhRfFcExmMmtjS9'],
+
             ],
             [
                 'title_sk' => 'Noc hudby',
@@ -479,9 +528,11 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2024-01-01'],
+                'files' => ['https://photos.app.goo.gl/RZshJ9eDmET98RPG6'],
+
             ],
             [
                 'title_sk' => 'Jubileum Janky Hodekovej',
@@ -490,9 +541,11 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2024-01-01'],
+                'files' => ['https://photos.app.goo.gl/7wD58EAXMNMbozYy8'],
+
             ],
             [
                 'title_sk' => 'Koncert Primaciálny palác',
@@ -501,9 +554,11 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2024-01-01'],
+                'files' => ['https://photos.app.goo.gl/fknzMfTMPeqzL1KQ8'],
+
             ],
             [
                 'title_sk' => 'Koncert V-klub',
@@ -512,9 +567,11 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2024-01-01'],
+                'files' => ['https://photos.app.goo.gl/BbkPWgMqEwfbqUbt5'],
+
             ],
             [
                 'title_sk' => 'Letný camp',
@@ -523,31 +580,37 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2024-01-01'],
+                'files' => ['https://photos.app.goo.gl/6PqTsuD6qbat5freA'],
+
             ],
             [
-                'title_sk' => 'Muziko',
-                'title_en' => 'Muziko',
+                'title_sk' => 'Muzikoterapia',
+                'title_en' => 'Music therapy',
                 'content_sk' => '',
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2024-01-01'],
+                'files' => ['https://photos.app.goo.gl/rNLt3jcGyDUncyzf8'],
+
             ],
             [
-                'title_sk' => 'Ples',
+                'title_sk' => 'Farský ples',
                 'title_en' => 'Ball',
                 'content_sk' => '',
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2024-01-01'],
+                'files' => ['https://photos.app.goo.gl/qMDF18JuMSDfSkECA'],
+
             ],
             [
                 'title_sk' => 'Koncert, Sviatky na Františkánskom',
@@ -556,9 +619,11 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2024-01-01'],
+                'files' => ['https://photos.app.goo.gl/Mx1MT5HRQXZ3TJpG8'],
+
             ],
             [
                 'title_sk' => 'Tučepi',
@@ -567,9 +632,11 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2024-01-01'],
+                'files' => ['https://photos.app.goo.gl/LrFj6PE1PjV23veaA'],
+
             ],
             [
                 'title_sk' => 'Adventný večierok',
@@ -578,9 +645,11 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2024-01-01'],
+                'files' => ['https://photos.app.goo.gl/6NVWRmvtHJiMjjMX9'],
+
             ],
             [
                 'title_sk' => 'Stretká na teplickej',
@@ -589,20 +658,26 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2025-01-01'],
+                'main_pic' => 'images/events/teplicka2025.jpg',
+                'files' => ['https://photos.app.goo.gl/F7HMErrxW15t1sNR8'],
+
             ],
             [
-                'title_sk' => 'Ples',
+                'title_sk' => 'Farský ples',
                 'title_en' => 'Ball',
                 'content_sk' => '',
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2025-01-01'],
+                'main_pic' => 'images/events/ples2025.jpg',
+                'files' => ['https://photos.app.goo.gl/YP1roP15e5tCvsrW9'],
+
             ],
             [
                 'title_sk' => 'Koncert, Festival zo srdca',
@@ -611,9 +686,12 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2025-01-01'],
+                'main_pic' => 'images/events/zosrdca2025.jpg',
+                'files' => ['https://photos.app.goo.gl/doJf4ZoZWK4H2s486'],
+
             ],
             [
                 'title_sk' => 'Koncert V-klub',
@@ -622,9 +700,12 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2025-01-01'],
+                'main_pic' => 'images/events/vklub2025.jpg',
+                'files' => ['https://photos.app.goo.gl/v9pnBG16MLaccWVW9'],
+
             ],
             [
                 'title_sk' => 'Letný camp',
@@ -632,21 +713,27 @@ class EventSeeder extends Seeder
                 'content_sk' => '',
                 'content_en' => '',
                 'inCalendar' => false,
-                'inHome' => false,
-                'inGallery' => false,
+                'inHome' => true,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2025-01-01'],
+                'main_pic' => 'images/events/kemp2025.jpg',
+                'files' => ['https://photos.app.goo.gl/79jbdCDyapobCXkB6'],
+
             ],
             [
-                'title_sk' => 'Muziko',
-                'title_en' => 'Muziko',
+                'title_sk' => 'Muzikoterapia',
+                'title_en' => 'Music therapy',
                 'content_sk' => '',
                 'content_en' => '',
                 'inCalendar' => false,
-                'inHome' => false,
-                'inGallery' => false,
+                'inHome' => true,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2025-01-01'],
+                'main_pic' => 'images/events/muziko2025.jpg',
+                'files' => ['https://photos.app.goo.gl/8AYfQwpou6UGTEZX9'],
+
             ],
             [
                 'title_sk' => 'Plávanie',
@@ -655,9 +742,12 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2025-01-01'],
+                'main_pic' => 'images/events/plávanie2025.jpg',
+                'files' => ['https://photos.app.goo.gl/UM8RJmzmDMTPTPt48'],
+
             ],
             [
                 'title_sk' => 'Koncert, Sviatky na Františkánskom',
@@ -666,9 +756,12 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2025-01-01'],
+                'main_pic' => 'images/events/frantiskarske2025.jpg',
+                'files' => ['https://photos.app.goo.gl/c5834kNTqoEgLqHp9'],
+
             ],
             [
                 'title_sk' => 'Adventný večierok',
@@ -677,9 +770,12 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2025-01-01'],
+                'main_pic' => 'images/events/advent2025.jpg',
+                'files' => ['https://photos.app.goo.gl/hGscYh4zkaMHfBbdA'],
+
             ],
             [
                 'title_sk' => 'Korčulovanie na ľade',
@@ -688,20 +784,25 @@ class EventSeeder extends Seeder
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
                 'dates' => ['2025-01-01'],
+                'main_pic' => 'images/events/korčulovanie2025.jpg',
+                'files' => ['https://photos.app.goo.gl/tjf2EknoaQ2qZDFLA'],
+
             ],
             [
-                'title_sk' => 'Ples',
+                'title_sk' => 'Farský ples',
                 'title_en' => 'Ball',
                 'content_sk' => '',
                 'content_en' => '',
                 'inCalendar' => false,
                 'inHome' => false,
-                'inGallery' => false,
+                'inGallery' => true,
                 'archived' => false,
+                'main_pic' => 'images/events/ples2026.jpg',
                 'dates' => ['2026-01-01'],
+                'files' => ['https://photos.app.goo.gl/MtegKRwmDR8nmfzt7'],
             ],
         ];
 
@@ -715,6 +816,7 @@ class EventSeeder extends Seeder
                 'inHome' => $data['inHome'],
                 'inGallery' => $data['inGallery'],
                 'archived' => $data['archived'],
+                'main_pic' => $data['main_pic'] ?? null,
                 'color' => $data['color'] ?? null,
             ]);
 
@@ -724,6 +826,14 @@ class EventSeeder extends Seeder
                     'date' => $date,
                     'exact' => $data['exact'] ?? false,
                 ]);
+            }
+            if (!empty($data['files'])) {
+                foreach ($data['files'] as $file) {
+                    $event->files()->create([
+                        'url' => $file,
+                        'type' => 'image',
+                    ]);
+                }
             }
         }
     }

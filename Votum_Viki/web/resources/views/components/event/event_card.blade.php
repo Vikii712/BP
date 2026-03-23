@@ -1,11 +1,11 @@
-@props(['event','color' => true])
+@props(['event'])
 
-<div class="{{ $color ? 'bg-votum3 border-votum3' : 'bg-white border-votum1' }}
+<div class="bg-votum1 border-votum1
             mx-3 sm:mx-5 rounded-lg overflow-hidden shadow-lg border-3
             flex flex-col h-full">
 
     {{-- IMAGE --}}
-    <div class="h-64 overflow-hidden m-5 mb-0">
+    <div class="h-64 overflow-hidden m-5 mb-0 border-2 rounded-sm border-votum1">
         @if($event->main_pic)
             <img src="{{ asset('storage/'. $event->main_pic) }}"
                  alt="{{ $event->pic_alt }}"
@@ -36,7 +36,7 @@
         {{-- Button vždy dole --}}
         <a href="{{ route('event', $event->id) }}"
            class="mt-auto w-full text-center txt-btn text-bold
-                  {{ $color ? 'bg-dark-votum3' : 'bg-dark-votum1' }}
+                   bg-dark-votum1
                   text-white px-7 py-4 rounded-lg">
             {{ __('nav.more') }} <i class="pl-2 fas fa-arrow-right"></i>
         </a>

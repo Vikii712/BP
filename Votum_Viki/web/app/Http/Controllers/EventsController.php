@@ -19,7 +19,9 @@ class EventsController extends Controller
             ->where('inGallery', true)
             ->get()
             ->map(function ($event) use ($locale, $today) {
-                $dates = $event->dates
+                $datesRaw = $event->dates; // Zachovať pre hasExact
+
+                $dates = $datesRaw
                     ->pluck('date')
                     ->map(fn ($d) => Carbon::parse($d)->startOfDay())
                     ->sort()
@@ -34,11 +36,18 @@ class EventsController extends Controller
                 // Pre upcoming použiť futureDates, pre past použiť pastDates
                 $displayDates = $isUpcoming ? $futureDates : $pastDates;
 
-                $dateLabel = $displayDates->count() === 1
-                    ? $displayDates->first()->format('j. n. Y')
-                    : ($displayDates->count() > 1
-                        ? $displayDates->first()->format('j. n. Y') . ' – ' . $displayDates->last()->format('j. n. Y')
-                        : '');
+                // hasExact z RAW dát – nie z Carbon kolekcie
+                $hasExact = $datesRaw->contains('exact', true);
+
+                if (!$hasExact) {
+                    // iba rok (žiadny rozsah)
+                    $dateLabel = $displayDates->first()?->format('Y') ?? '';
+                } else {
+                    // presné dátumy (môže byť rozsah)
+                    $dateLabel = $displayDates->count() === 1
+                        ? $displayDates->first()->format('j. n. Y')
+                        : $displayDates->first()->format('j. n. Y') . ' – ' . $displayDates->last()->format('j. n. Y');
+                }
 
                 // Rok pre past eventy (použiť posledný dátum)
                 $year = $dates->isNotEmpty() ? $dates->last()->year : null;
@@ -61,14 +70,28 @@ class EventsController extends Controller
         // Rozdeliť na upcoming a past
         $upcomingEvents = $allEvents->filter(fn($e) => $e->isUpcoming)->values();
 
-        // Past eventy zoskupiť podľa rokov
-        $pastEventsByYear = $allEvents
-            ->filter(fn($e) => !$e->isUpcoming)
+        $eventsPerPage = 20; // max udalostí na stránku
+
+        $allPastEvents = $allEvents->filter(fn($e) => !$e->isUpcoming);
+
+        $totalEvents = $allPastEvents->count();
+        $currentPage = max(1, (int) request('page', 1));
+        $totalPages  = (int) ceil($totalEvents / $eventsPerPage);
+        $currentPage = min($currentPage, $totalPages ?: 1);
+
+        $pagedEvents = $allPastEvents
+            ->sortByDesc('year')
+            ->slice(($currentPage - 1) * $eventsPerPage, $eventsPerPage)
+            ->values();
+
+        $pastEventsByYear = $pagedEvents
             ->groupBy('year')
-            ->sortKeysDesc(); // Najnovšie roky najprv
+            ->sortKeysDesc();
 
         $calendarEvents = Event::with('dates')->where('inCalendar', true)->get()->map(function ($event) use ($locale, $today) {
-            $dates = $event->dates
+            $datesRaw = $event->dates; // Zachovať pre hasExact
+
+            $dates = $datesRaw
                 ->pluck('date')
                 ->map(fn ($d) => Carbon::parse($d)->startOfDay())
                 ->sort()
@@ -76,14 +99,22 @@ class EventsController extends Controller
 
             $futureDates = $dates->filter(fn ($d) => $d->gte($today));
 
-            // 👉 DOPLŇ TOTO
             $displayDates = $futureDates->isNotEmpty() ? $futureDates : $dates;
 
-            $dateLabel = $displayDates->count() === 1
-                ? $displayDates->first()->format('j. n. Y')
-                : ($displayDates->count() > 1
-                    ? $displayDates->first()->format('j. n. Y') . ' – ' . $displayDates->last()->format('j. n. Y')
-                    : '');
+            // hasExact z RAW dát – nie z Carbon kolekcie
+            $hasExact = $datesRaw->contains('exact', true);
+
+            if (!$hasExact) {
+                // iba rok (žiadny rozsah)
+                $dateLabel = $displayDates->first()?->format('Y') ?? '';
+            } else {
+                // presné dátumy (môže byť rozsah)
+                $dateLabel = $displayDates->count() === 1
+                    ? $displayDates->first()->format('j. n. Y')
+                    : ($displayDates->count() > 1
+                        ? $displayDates->first()->format('j. n. Y') . ' – ' . $displayDates->last()->format('j. n. Y')
+                        : '');
+            }
 
             return (object)[
                 'id' => $event->id,
@@ -102,6 +133,8 @@ class EventsController extends Controller
             'upcomingEvents' => $upcomingEvents,
             'pastEventsByYear' => $pastEventsByYear,
             'calendarEvents' => $calendarEvents,
+            'currentPage' => $currentPage,
+            'totalPages'  => $totalPages,
         ]);
     }
 
@@ -115,18 +148,28 @@ class EventsController extends Controller
             'files'
         ])->findOrFail($id);
 
-        // dátumy
-        $dates = $event->dates
-            ->pluck('date')
-            ->map(fn ($d) => Carbon::parse($d)->startOfDay())
-            ->sort()
-            ->values();
+        // dátumy – $event->dates sú Eloquent modely, exact je dostupný priamo
+        $datesRaw = $event->dates->sort()->values();
 
-        $dateLabel = $dates->count() === 1
-            ? $dates->first()->format('j. n. Y')
-            : ($dates->count() > 1
-                ? $dates->first()->format('j. n. Y') . ' – ' . $dates->last()->format('j. n. Y')
-                : '');
+        $hasExact = $datesRaw->contains('exact', true);
+
+        if (!$hasExact) {
+            // iba rok (žiadny rozsah)
+            $dateLabel = $datesRaw->first()?->date ? Carbon::parse($datesRaw->first()->date)->format('Y') : '';
+        } else {
+            // presné dátumy (môže byť rozsah)
+            $parsedDates = $datesRaw
+                ->pluck('date')
+                ->map(fn ($d) => Carbon::parse($d)->startOfDay())
+                ->sort()
+                ->values();
+
+            $dateLabel = $parsedDates->count() === 1
+                ? $parsedDates->first()->format('j. n. Y')
+                : ($parsedDates->count() > 1
+                    ? $parsedDates->first()->format('j. n. Y') . ' – ' . $parsedDates->last()->format('j. n. Y')
+                    : '');
+        }
 
         $photoLink = $event->files->firstWhere('type', 'image');
         $videos    = $event->files->where('type', 'video');
@@ -151,7 +194,6 @@ class EventsController extends Controller
             return $doc;
         });
 
-
         return view('pages.event', [
             'event'       => $event,
             'title'       => $locale === 'sk' ? $event->title_sk : $event->title_en,
@@ -164,6 +206,4 @@ class EventsController extends Controller
             'documents'   => $documents,
         ]);
     }
-
-
 }
