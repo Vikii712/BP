@@ -8,7 +8,19 @@
                 {{ __('nav.financialHow') }}
             </h1>
 
-           <x-share />
+            <div class="w-full flex gap-3 justify-center">
+                <x-listen
+                    :text="
+                        __('nav.financialHow') . ' ' .
+                        $why['title'] . '. ' .
+                        $why['content'] . '. ' .
+                        $thanks['title'] . '. ' .
+                        $thanks['content'] . '. '
+                    "
+                    :event="true"
+                />
+                <x-share />
+            </div>
         </div>
 
         <x-wave />

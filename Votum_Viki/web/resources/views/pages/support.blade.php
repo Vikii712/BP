@@ -3,10 +3,24 @@
 @section('content')
 
     <main class="container mx-auto px-4 pt-16">
-        <h1 class="h1 sentence mb-16 md:text-5xl font-bold text-votum-blue text-center">
+        <h1 class="h1 sentence md:text-5xl mb-5 font-bold text-votum-blue text-center">
             {{$why['title']}}
         </h1>
-        <p class="txt divide-highlight m-10 text-center">
+        <div class="w-full flex gap-3 justify-center">
+            <x-listen
+                :text="
+                        $why['title'] . '. ' .
+                        $why['content'] . '. ' .
+                        __('nav.supportHow') . ' ' .
+                        __('nav.2percent') . '. ' .
+                        __('nav.financial') . '. ' .
+                        __('nav.otherSupport') . '. '
+                    "
+                :event="true"
+            />
+            <x-share />
+        </div>
+        <p class="txt divide-highlight m-10 text-center mb-10">
             {{$why['content']}}
         </p>
 
@@ -22,10 +36,8 @@
 
 
         </div>
+        <x-home />
     </main>
 
-
-
-        <x-home />
 
 @endsection

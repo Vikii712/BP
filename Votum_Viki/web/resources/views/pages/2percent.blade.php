@@ -6,7 +6,18 @@
         <h1 class="h1 sentence md:text-5xl font-bold text-votum-blue mb-4 pt-16">
             {{ __('nav.percent') }}
         </h1>
-        <x-share />
+        <div class="w-full flex gap-3 justify-center">
+            <x-listen
+                :text="
+                        $why['title'] . '. ' .
+                        $why['content'] . '. ' .
+                        $thanks['title'] . '. ' .
+                        $thanks['content'] . '. '
+                    "
+                :event="true"
+            />
+            <x-share />
+        </div>
     </div>
 
     <x-wave />

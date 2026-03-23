@@ -7,7 +7,19 @@
         <h1 class="h1 sentence md:text-5xl font-bold text-votum-blue mb-4">
             {{ __('nav.other') }}
         </h1>
-        <x-share />
+        <div class="w-full flex gap-3 justify-center">
+            <x-listen
+                :text="
+                        __('nav.other') . '. ' .
+                        $why['title'] . '. ' .
+                        $why['content'] . '. ' .
+                        $thanks['title'] . '. ' .
+                        $thanks['content'] . '. '
+                    "
+                :event="true"
+            />
+            <x-share />
+        </div>
     </div>
 
     <x-wave />

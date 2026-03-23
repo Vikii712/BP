@@ -107,6 +107,11 @@ function speak(text, id) {
 window.toggleListen = function(text, id) {
     if (!text || text.trim().length === 0) return;
 
+    // Extrahujeme plain text – funguje aj pre HTML aj pre čistý text
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = text;
+    const plainText = tempDiv.textContent || tempDiv.innerText || '';
+
     // Ak už hovoríme a klikneme na to isté ID → stop
     if (isSpeaking && currentActiveId === id) {
         speechSynthesis.cancel();
@@ -124,5 +129,5 @@ window.toggleListen = function(text, id) {
     currentActiveId = id;
 
     updateIcon(id, true);
-    speak(text, id);
+    speak(plainText, id);
 }
