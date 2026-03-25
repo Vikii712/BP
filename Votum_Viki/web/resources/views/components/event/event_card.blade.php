@@ -1,11 +1,11 @@
 @props(['event'])
 
 <div class="bg-votum1 border-votum1
-            mx-3 sm:mx-5 rounded-lg overflow-hidden shadow-lg border-3
+            mx-2 sm:mx-5 rounded-lg overflow-hidden shadow-lg border-3
             flex flex-col h-full">
 
     {{-- IMAGE --}}
-    <div class="h-64 overflow-hidden m-5 mb-0 border-2 rounded-sm border-votum1">
+    <div class="h-64 overflow-hidden m-2 sm:m-5 mb-0 border-2 rounded-sm border-votum1">
         @if($event->main_pic)
             <img src="{{ asset('storage/'. $event->main_pic) }}"
                  alt="{{ $event->pic_alt }}"
@@ -13,7 +13,7 @@
                  width="400" height="250"
                  class="w-full h-full object-cover">
         @else
-            <div class="bg-neutral-100 w-full h-full flex justify-center items-center">
+            <div class="bg-white w-full h-full flex justify-center items-center">
                 <img src="{{ asset('images/logoB.svg') }}"
                      loading="lazy"
                      alt="Logo Združenia Votum"
@@ -23,9 +23,9 @@
     </div>
 
     {{-- CONTENT --}}
-    <div class="pt-3 p-6 flex flex-col flex-1">
+    <div class="pt-3 p-3 sm:p-6 flex flex-col flex-1">
 
-        <h3 class="h3 sentence font-bold text-votum-blue mb-2 text-center">
+        <h3 class="h3 sentence break-all font-bold text-votum-blue mb-2 text-center">
             {{ $event->title }}
         </h3>
 

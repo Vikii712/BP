@@ -11,7 +11,7 @@
 @endphp
 
 <section class="max-w-5xl mx-auto mb-12" x-data="{ tab: 'fyzicke' }">
-    <div class="bg-votum2 border-4 border-votum2 rounded-2xl p-5 sm:p-10 text-votum-blue shadow-lg">
+    <div class="bg-votum2 border-4 border-votum2 rounded-2xl p-2 sm:p-5 md:p-10 text-votum-blue shadow-lg">
 
         <!-- TABS -->
         <div class="txt flex flex-wrap justify-center gap-4 mb-10">
@@ -20,7 +20,7 @@
                 :class="tab === 'fyzicke'
                     ? 'bg-dark-votum2 text-white font-bold shadow'
                     : 'bg-white text-votum-blue border border-votum-blue font-semibold'"
-                class="px-6 py-3 rounded-md transition-colors duration-200 txt-btn"
+                class="px-2  py-3 rounded-md transition-colors duration-200 txt-btn"
             >
                 {{ __('nav.fyz') }}
             </button>
@@ -30,7 +30,7 @@
                 :class="tab === 'pravnicke'
                     ? 'bg-dark-votum2 text-white font-bold shadow'
                     : 'bg-white text-votum-blue border border-votum-blue font-semibold'"
-                class="px-6 py-3 rounded-md transition-colors duration-200 txt-btn"
+                class="px-2  rounded-md transition-colors duration-200 txt-btn"
             >
                 {{ __('nav.prav') }}
             </button>
@@ -42,7 +42,7 @@
                 <i class="fas fa-user text-3xl"></i>
                 {{ __('nav.fyzHelp') }}
             </h3>
-            <div class="border-3 border-votum2 bg-white p-6 rounded-lg txt font-medium shadow-inner">
+            <div class="border-3 border-votum2 bg-white p-2 sm:p-6 rounded-lg txt font-medium shadow-inner">
                 <div class="prose divide-highlight prose-lg list-decimal list-inside space-y-3">
                     {!! $fyzicke['content'] ?? '' !!}
                 </div>
@@ -54,7 +54,7 @@
                 <i class="fas fa-building text-3xl"></i>
                 {{ __('nav.pravHelp') }}
             </h3>
-            <div class="border-3 border-votum2 bg-white p-6 rounded-lg txt font-medium shadow-inner">
+            <div class="border-3 border-votum2 bg-white p-2 sm:p-6 rounded-lg txt font-medium shadow-inner">
                 <div class="prose prose-lg divide-highlight list-decimal list-inside space-y-3">
                     {!! $pravnicke['content'] ?? '' !!}
                 </div>

@@ -11,10 +11,9 @@
     class="
         {{ $event
             ? 'relative flex-shrink-0 rounded-md p-5'
-            : 'right-0 rounded-full w-14 h-14'
+            : 'rounded-full w-14 h-14'
         }}
-        {{$relative ? 'relative' : 'absolute' }}
-        {{!$down ?? '-top-6'}}
+        {{ $relative ? 'absolute -top-7 -right-2' : '' }}
         txt-btn-block
         bg-votum-blue text-white
         flex items-center justify-center

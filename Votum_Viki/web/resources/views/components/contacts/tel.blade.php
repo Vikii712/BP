@@ -3,21 +3,21 @@
 <div class="support-option-card border-4 {{$color ? 'border-votum3 bg-votum3' : 'border-votum2 bg-votum2'}} rounded-xl shadow-xl overflow-hidden">
     <div class="lg:grid lg:grid-cols-2 gap-0">
 
-        <div class="{{$color ? 'bg-dark-votum3' : 'bg-dark-votum2'}} p-4 sm:p-8 flex flex-col justify-center items-center text-white">
+        <div class="{{$color ? 'bg-dark-votum3' : 'bg-dark-votum2'}} p-2 sm:p-8 flex flex-col justify-center items-center text-white">
             <div class="icon-float">
                 <i class="fas fa-phone-volume text-4xl lg:text-6xl"></i>
             </div>
             <h2 class="text-center h2 font-bold mb-2">{{ __('nav.phone') }}</h2>
         </div>
 
-        <div class="space-y-3 p-4 sm:p-8">
+        <div class="space-y-3 p-2 sm:p-8">
             @foreach($data as $phone)
                 <x-contacts.input name="{{$isSK ? $phone->title_sk : $phone->title_en}}" value="{{$isSK ? $phone->content_sk : $phone->content_en}}" color="{{$color ? 3 : 2}}"/>
                 <div class="flex flex-wrap gap-2">
-                    <a href="tel:{{$isSK ? $phone->content_sk : $phone->content_en}}" class="flex-1 bg-votum-blue text-white py-2 px-4 rounded text-center txt-btn">
+                    <a href="tel:{{$isSK ? $phone->content_sk : $phone->content_en}}" class="w-full  sm:flex-1 bg-votum-blue text-white py-2 px-4 rounded text-center txt-btn">
                         <i class="fas fa-phone mr-2"></i>{{ __('nav.call') }}
                     </a>
-                    <a href="sms:{{$isSK ? $phone->content_sk : $phone->content_en}}" class="flex-1 bg-dark-votum3 text-white py-2 px-4 rounded text-center txt-btn">
+                    <a href="sms:{{$isSK ? $phone->content_sk : $phone->content_en}}" class="w-full sm:flex-1 bg-dark-votum3 text-white py-2 px-4 rounded text-center txt-btn">
                         <i class="fas fa-sms mr-2"></i>SMS
                     </a>
                 </div>

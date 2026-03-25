@@ -3,7 +3,7 @@
         <div class=" sm:pr-6 flex w-full items-center justify-between bg-[var(--blackblue)]">
             <!-- Logo -->
             <a class="flex items-center gap-3" href="{{route('main')}}">
-                <x-ikony.logo class="w-[70px] p-2 pr-0 sm:pr-2" />
+                <x-ikony.logo class="w-[45px] sm:w-[70px] shrink-0 p-2 pr-0 sm:pr-2" />
                 <h1 class="text-2xl sm:text-3xl font-bold text-white logo-font">Združenie VOTUM</h1>
             </a>
 
@@ -33,7 +33,7 @@
 </header>
 
 <!-- Single full-screen mobile menu (one element only) -->
-<div id="mobile-menu" class="fixed bg-blue-950 left-0 w-full  text-[var(--cream)]  hidden z-40 overflow-y-auto">
+<div id="mobile-menu" class="fixed bg-blue-950 left-0 w-full  text-white  hidden z-40 overflow-y-auto">
     <div class="bg-blue-950 pb-4 filter-container h-full">
         <div class="flex flex-col items-center gap-8 px-6 pt-5">
 

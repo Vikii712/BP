@@ -51,6 +51,7 @@ class EventsController extends Controller
 
                 // Rok pre past eventy (použiť posledný dátum)
                 $year = $dates->isNotEmpty() ? $dates->last()->year : null;
+                $sortDate = $dates->isNotEmpty() ? $dates->last() : null;
 
                 return (object)[
                     'id' => $event->id,
@@ -60,6 +61,7 @@ class EventsController extends Controller
                     'pic_alt' => $locale === 'sk' ? $event->pic_alt_sk : $event->pic_alt_en,
                     'dateLabel' => $dateLabel,
                     'year' => $year,
+                    'sortDate' => $sortDate,
                     'isUpcoming' => $isUpcoming,
                     'inGallery' => (bool) $event->inGallery,
                     'inCalendar' => (bool) $event->inCalendar,
@@ -80,7 +82,7 @@ class EventsController extends Controller
         $currentPage = min($currentPage, $totalPages ?: 1);
 
         $pagedEvents = $allPastEvents
-            ->sortByDesc('year')
+            ->sortByDesc('sortDate')
             ->slice(($currentPage - 1) * $eventsPerPage, $eventsPerPage)
             ->values();
 

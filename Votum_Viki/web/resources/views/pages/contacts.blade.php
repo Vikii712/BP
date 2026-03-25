@@ -14,7 +14,7 @@
 
     <div class="mx-auto grid gap-8">
 
-        <div class="space-y-6 p-4">
+        <div class="space-y-6 p-2 sm:p-4">
             @php $colorToggle = true; @endphp
 
             @if($address && $address->isNotEmpty())

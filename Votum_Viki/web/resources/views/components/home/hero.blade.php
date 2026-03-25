@@ -8,10 +8,10 @@
             <div class="grid lg:grid-cols-2 gap-12 items-center">
 
                 <!-- Left: Content -->
-                <div>
-                    <div class="flex relative -mr-3">
-                        <x-listen :text="$hero->title . $hero->content" :down="true" :id="2"/>
-                        <h1 class="h1 sentence md:text-5xl font-bold text-votum-blue mb-6 mr-15 text-center lg:text-left min-h-[4.5rem]">
+                <div class="min-w-0">
+                    <div class="flex relative">
+                        <x-listen relative="true" :text="$hero->title . $hero->content" :down="true" :id="2"/>
+                        <h1 class="h1 sentence  font-bold text-votum-blue mb-6  text-center lg:text-left min-h-[4.5rem]">
                             {{ $hero->title }}
                         </h1>
                     </div>
@@ -58,7 +58,7 @@
                 </div>
 
                 <!-- Right: Image -->
-                <div class="relative">
+                <div class="relative min-w-0">
                     <div class="rounded-2xl overflow-hidden shadow-xl aspect-[8/5] w-full">
                         <img
                             src="{{ asset('storage/' . $image->url) }}"
@@ -67,7 +67,7 @@
                             fetchpriority="high"
                             width="800"
                             height="500"
-                            class="w-full h-full object-cover"
+                            class="w-full h-full object-cover max-w-full"
                         >
                     </div>
                 </div>

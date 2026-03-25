@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <main class="container mx-auto px-4 py-12">
+    <main class="container mx-auto px-2 sm:px:4 py-12">
 
         <h1 class="h1 md:text-5xl sentence font-bold text-votum-blue text-center mb-12">
             {{ __('nav.docDown') }}

@@ -2,11 +2,11 @@
 
 @section('content')
 
-    <div class="max-w-4xl mx-auto mb-12 text-center">
+    <div class="max-w-4xl mx-auto pt-5 sm:pt-10 mb-12 p-2 sm:p-5 text-center">
         <h1 class="h1 sentence md:text-5xl font-bold text-votum-blue mb-4 pt-16">
             {{ __('nav.percent') }}
         </h1>
-        <div class="w-full flex gap-3 justify-center">
+        <div class="w-full flex-wrap flex gap-3 justify-center">
             <x-listen
                 :text="
                         $why['title'] . '. ' .
@@ -24,7 +24,7 @@
 
     <div class="bg-blue-100">
         <div class="max-w-5xl mx-auto py-5">
-            <div class="p-5 rounded-lg text-center">
+            <div class="p-2 sm:p-5 rounded-lg text-center">
 
                 <h2 class="h2 font-bold sentence text-votum-blue mb-4 flex items-center justify-center gap-3">
                     <i class="fas fa-lightbulb"></i>
@@ -52,9 +52,9 @@
 
     <x-wave :inverted="true" />
 
-    <main class="container mx-auto px-4 py-12 mt-16">
+    <main class="container mx-auto px-2 sm:px-4 py-12 mt-16">
 
-        <section class="max-w-5xl mx-auto mb-12 p-6 rounded-xl border-4 border-votum3 bg-votum3">
+        <section class="max-w-5xl mx-auto mb-12 p-2  sm:p-6 rounded-xl border-4 border-votum3 bg-votum3">
 
             <h2 class="h3 text-center font-bold sentence text-votum-blue mb-6">
                 {{ __('nav.importantInfo') }}
@@ -71,7 +71,7 @@
         <x-support.help :how="$how"/>
 
         <section class="rounded-xl max-w-5xl mx-auto mb-12 bg-blue-100 border-4 border-votum1">
-            <div class="rounded-2xl p-4">
+            <div class="rounded-2xl p-2 sm:p-4">
 
                 <h2 class="h3 p-4 sentence font-bold text-votum-blue mb-6 flex items-center gap-3">
                     <i class="fas fa-download"></i>

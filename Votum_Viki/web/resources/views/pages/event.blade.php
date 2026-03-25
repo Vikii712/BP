@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <main class="container mx-auto px-4 py-12">
+    <main class="container mx-auto px-2 sm:px-4 py-12">
 
         <!-- Event Header -->
         <div class="max-w-5xl mx-auto mb-8">
@@ -17,7 +17,7 @@
                 </div>
             @endif
 
-            <div class="w-full flex gap-3 justify-center">
+            <div class="w-full flex flex-wrap gap-3 justify-center">
                 <x-listen
                     :text="
                         $title . '. ' .
@@ -70,13 +70,13 @@
 
 
         @if($photoLink)
-            <a href="{{ $photoLink->url }}" class="block group mx-4" target="_blank">
+            <a href="{{ $photoLink->url }}" class="block group sm:mx-4" target="_blank">
                 <section
                     class="flex flex-col items-center justify-center text-center
-                   mx-auto p-10 border-6 border-votum2 bg-votum2 max-w-4xl mb-8
+                   mx-auto p-2 sm:p-5 md:p-10 border-6 border-votum2 bg-votum2 max-w-4xl mb-8
                    rounded-2xl transition-all duration-300 txt-btn-block">
 
-                    <div class="p-6 mb-6 flex items-end">
+                    <div class="p-2 sm:p-6 mb-6 flex items-end">
                         <img src="{{ asset('images/fotky.svg') }}" alt="fotky" width="100" class="mx-auto">
                         <i class="fa-regular fa-hand-pointer text-votum2 mt-2 text-5xl -rotate-[25deg]"></i>
                     </div>
@@ -116,7 +116,7 @@
     <x-wave />
     <div class="bg-blue-100">
         @if($documents->isNotEmpty())
-            <section class="max-w-5xl mx-auto pb-12 px-4 md:px-12 lg:px-0">
+            <section class="max-w-5xl mx-auto pb-12 px-2 sm:px-4 md:px-12 lg:px-0">
                 <h2 class="h2 font-bold text-votum-blue mb-6">Dokumenty na stiahnutie:</h2>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -134,7 +134,7 @@
         @endif
 
             <!-- Navigation Buttons -->
-            <div class="flex flex-col md:flex-row justify-between px-10 max-w-5xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between px-2 sm:px-5 md:px-10 max-w-5xl mx-auto">
                 <div class="text-center mt-16 mb-3">
                     <a href="{{route('events')}}" class="txt-btn inline-flex items-center gap-3 bg-gray-600 text-white px-10 py-8 rounded-lg font-semibold text-xl shadow-lg">
                         <i class="fas fa-calendar-days"></i>

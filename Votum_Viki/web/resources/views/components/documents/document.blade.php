@@ -31,9 +31,9 @@
 
 
 
-<div class="border-2 border-votum1 {{ $color ? 'bg-blue-100' : 'bg-white' }} rounded-lg shadow-lg p-6 mb-auto">
+<div class="border-2 border-votum1 {{ $color ? 'bg-blue-100' : 'bg-white' }} rounded-lg shadow-lg p-2 sm:p-6 mb-auto">
 
-    <div class="flex items-start gap-4 mb-4">
+    <div class="flex flex-col sm:flex-row items-center text-center sm:text-start sm:items-start gap-4 mb-4">
         <div class="{{ $color ? 'bg-white' : 'bg-blue-100' }} w-16 h-16 rounded-lg border border-votum1 flex justify-center items-center flex-shrink-0">
             <i class="fas {{ $icons[strtolower($type)] ?? 'fa-file' }} text-blue-600 text-3xl"></i>
         </div>
@@ -41,7 +41,7 @@
         <div class="flex flex-col">
             <h3 class="txt font-bold text-votum-blue sentence mb-1">{{ $text }}</h3>
 
-            <div class="flex items-center gap-2 text-lg text-gray-600">
+            <div class="flex justify-center text-center sm:justify-start sm:text-start gap-2 text-lg text-gray-600">
                 <span class="font-semibold">{{ strtoupper($type) }}</span>
                 <span>•</span>
                 <span>{{ $size }} KB</span>

@@ -24,14 +24,21 @@
             <!-- Calendar -->
             <div>
 
-                <div class="flex items-center justify-between mb-4">
-                    <button id="prevMonth" aria-label="Predchádzajúci mesiac" class="txt-btn-block p-4 bg-votum-blue text-white text-2xl md:text-3xl rounded-lg">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <h3 id="currentMonth" class="h3 sentence font-bold text-votum-blue text-center flex-1"></h3>
-                    <button id="nextMonth" aria-label="Nasledujúci mesiac" class="txt-btn-block p-4 bg-votum-blue text-white rounded-lg text-2xl md:text-3xl">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
+                <div class="flex flex-col sm:flex-row items-center justify-between mb-4 gap-2">
+                    <!-- Current Month -->
+                    <h3 id="currentMonth" class="h3 sentence font-bold text-votum-blue text-center w-full sm:flex-1">
+                        <!-- Tu sa bude dynamicky vypisovať mesiac -->
+                    </h3>
+
+                    <!-- Šípky -->
+                    <div class="flex justify-between w-full sm:w-auto gap-2 mt-2 sm:mt-0">
+                        <button id="prevMonth" aria-label="Predchádzajúci mesiac" class="txt-btn-block p-4 bg-votum-blue text-white text-2xl md:text-3xl rounded-lg">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button id="nextMonth" aria-label="Nasledujúci mesiac" class="txt-btn-block p-4 bg-votum-blue text-white rounded-lg text-2xl md:text-3xl">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
                 </div>
 
                 <div class="rounded-lg p-2 sm:p-4 border-4" style="border-color:#172554;background-color:#fff;">

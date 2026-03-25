@@ -46,8 +46,8 @@
     {{-- PANEL --}}
     <div
         id="a11y-panel"
-        class="hidden fixed rounded-xl bottom-20 right-6 z-[9999]
-           w-[320px] max-w-[90vw]
+        class="hidden fixed rounded-xl bottom-20 sm:right-6 z-[9999]
+           w-[320px] max-w-[100vw]
            max-h-[80vh]
            border-2 border-black flex flex-col overflow-hidden
            text-base"

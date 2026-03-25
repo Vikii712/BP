@@ -8,7 +8,7 @@
                 {{ __('nav.financialHow') }}
             </h1>
 
-            <div class="w-full flex gap-3 justify-center">
+            <div class="w-full flex gap-3 flex-wrap justify-center">
                 <x-listen
                     :text="
                         __('nav.financialHow') . ' ' .
@@ -27,7 +27,7 @@
 
         <div class="bg-blue-100">
             <div class="max-w-5xl mx-auto py-5">
-                <div class="p-5 rounded-lg text-center">
+                <div class="p-2 sm:p-5 rounded-lg text-center">
 
                     <h2 class="h2 sentence font-bold text-votum-blue mb-4 flex items-center justify-center gap-3">
                         <i class="fas fa-lightbulb"></i>
@@ -44,7 +44,7 @@
 
         <x-wave :inverted="true" />
 
-    <main class="container mx-auto px-4 py-12">
+    <main class="container mx-auto px-2 sm:px-4 py-12">
 
 
         <!-- Obsah -->
@@ -52,7 +52,7 @@
 
             @isset($qrImage)
             <!-- QR sekcia -->
-            <div class="border-4 border-votum1 bg-blue-100 p-6 rounded-lg shadow-lg w-full max-w-4xl">
+            <div class="border-4 border-votum1 bg-blue-100 p-2 sm:p-6 rounded-lg shadow-lg w-full max-w-4xl">
                 <div class="flex flex-col lg:flex-row items-start gap-6 text-lg text-gray-800 leading-relaxed">
 
                     <!-- Text -->
@@ -72,7 +72,7 @@
                             <img
                                 src="{{ asset('storage/'. $qrImage) }}"
                                 alt="QR kód na podporu"
-                                class="w-56 h-56 sm:w-72 sm:h-72 object-contain"
+                                class=" max-w-56 max-h-56 aspect-square sm:max-w-72 sm:max-h-72 object-contain"
                             >
                         </div>
                     </div>
@@ -81,10 +81,10 @@
             @endisset
 
             <!-- Bankové údaje -->
-            <div class="border-4 border-votum1 bg-blue-100 p-6 rounded-lg shadow-lg self-center">
+            <div class="border-4 border-votum1 bg-blue-100 p-2 sm:p-6 rounded-lg shadow-lg self-center">
                 <div class="flex flex-col gap-6">
                     <!-- Nadpis s ikonou -->
-                    <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-4 flex-wrap">
                         <div class="bg-votum-blue text-white p-4 rounded-full flex items-center justify-center">
                             <i class="fas fa-envelope text-2xl"></i>
                         </div>
@@ -104,7 +104,7 @@
 
     <x-wave />
 
-        <div class="bg-blue-100 px-4">
+        <div class="bg-blue-100 px-2 sm:px-4">
             <section class="max-w-4xl mx-auto mb-12 text-center py-5">
 
                 <i class="fas fa-heart text-6xl mb-4 text-red-600"></i>

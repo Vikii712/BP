@@ -1,7 +1,7 @@
 <div class="flex gap-3 justify-center">
-    <button id="shareBtn" class="bg-dark-votum3 text-white px-3 rounded-lg font-semibold flex items-center gap-2 txt-btn">
-        <i class="fas fa-share-alt text-lg"></i>
-        <span>{{ __('nav.share') }}</span>
+    <button id="shareBtn" class="bg-dark-votum3 text-white p-5 rounded-md flex items-center gap-2 txt-btn">
+        <i class="fas fa-share-alt"></i>
+        <span class="px-4 text-lg font-bold">{{ __('nav.share') }}</span>
     </button>
 </div>
 <!-- Dialog -->

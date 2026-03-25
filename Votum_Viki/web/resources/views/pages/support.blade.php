@@ -6,7 +6,7 @@
         <h1 class="h1 sentence md:text-5xl mb-5 font-bold text-votum-blue text-center">
             {{$why['title']}}
         </h1>
-        <div class="w-full flex gap-3 justify-center">
+        <div class="w-full flex flex-wrap gap-3 justify-center">
             <x-listen
                 :text="
                         $why['title'] . '. ' .
@@ -20,7 +20,7 @@
             />
             <x-share />
         </div>
-        <p class="txt divide-highlight m-10 text-center mb-10">
+        <p class="txt divide-highlight my-5 sm:m-5 md:m-10 text-center mb-10">
             {{$why['content']}}
         </p>
 
