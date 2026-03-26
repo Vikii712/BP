@@ -10,12 +10,12 @@
 <section class="bg-blue-100 py-12" id="events">
     <div class="w-full px-2 sm:px-8 lg:px-16">
         <div class="flex justify-center">
-            <div class="inline-flex items-center gap-3 mb-10 ">
+            <div class="inline-flex items-center gap-3 mb-10 flex-wrap">
                 <h2 class="h2 sentence font-bold text-votum-blue ">
                     {{ __('nav.nextUp') }}
                 </h2>
 
-                <x-listen text="{{ __('nav.nextUp') . $titles }}" :down="true" :relative="true"/>
+                <x-listen text="{{ __('nav.nextUp') . $titles }}" :down="true"/>
             </div>
         </div>
 
@@ -24,21 +24,28 @@
             <!-- Calendar -->
             <div>
 
-                <div class="flex flex-col sm:flex-row items-center justify-between mb-4 gap-2">
-                    <!-- Current Month -->
-                    <h3 id="currentMonth" class="h3 sentence font-bold text-votum-blue text-center w-full sm:flex-1">
-                        <!-- Tu sa bude dynamicky vypisovať mesiac -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 items-center mb-4">
+
+                    <!-- Ľavá šípka -->
+                    <button id="prevMonth"
+                            aria-label="Predchádzajúci mesiac"
+                            class="order-2 sm:order-1 justify-self-start txt-btn-block p-4 bg-votum-blue text-white text-2xl md:text-3xl rounded-lg">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+
+                    <!-- Mesiac -->
+                    <h3 id="currentMonth"
+                        class="order-1 sm:order-2 col-span-2 sm:col-span-1 h3 sentence font-bold text-votum-blue text-center">
+                        <!-- dynamický mesiac -->
                     </h3>
 
-                    <!-- Šípky -->
-                    <div class="flex justify-between w-full sm:w-auto gap-2 mt-2 sm:mt-0">
-                        <button id="prevMonth" aria-label="Predchádzajúci mesiac" class="txt-btn-block p-4 bg-votum-blue text-white text-2xl md:text-3xl rounded-lg">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button id="nextMonth" aria-label="Nasledujúci mesiac" class="txt-btn-block p-4 bg-votum-blue text-white rounded-lg text-2xl md:text-3xl">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                    </div>
+                    <!-- Pravá šípka -->
+                    <button id="nextMonth"
+                            aria-label="Nasledujúci mesiac"
+                            class="order-3 justify-self-end sm:justify-self-end txt-btn-block p-4 bg-votum-blue text-white text-2xl md:text-3xl rounded-lg">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+
                 </div>
 
                 <div class="rounded-lg p-2 sm:p-4 border-4" style="border-color:#172554;background-color:#fff;">

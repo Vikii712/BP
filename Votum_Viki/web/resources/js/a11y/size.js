@@ -34,7 +34,7 @@ window.updateFontSpectrum = function() {
 // Zodpovedá Tailwind "md" breakpointu = 768px.
 // Efektívna šírka = reálna šírka viewportu / zoom faktor —
 // teda pri väčšom zoome sa nav skôr prepne na hamburger.
-var NAV_BREAKPOINT = 768;
+var NAV_BREAKPOINT = 850;
 
 window.updateNavMode = function() {
     const scale  = window.SCALES[window.scaleIndex] ?? 1.0;

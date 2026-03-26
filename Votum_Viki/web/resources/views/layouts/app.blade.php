@@ -15,13 +15,15 @@
 
 <x-header />
 
+<x-a11yMenu />
+
+
 <main id="site-main" role="main" class="">
     <div class="filter-container">
         @yield('content')
     </div>
 </main>
 
-<x-a11yMenu />
 
 <x-footer />
 

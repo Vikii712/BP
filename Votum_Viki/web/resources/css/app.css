@@ -119,6 +119,12 @@ html.a11y-scale-xxxxxl { font-size: 160% !important; }
 
 }
 
+.txt-btn-a11y{
+    cursor: pointer;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
 .txt-btn span {
     min-width: 0;
     overflow-wrap: break-word;
@@ -128,6 +134,7 @@ html.a11y-scale-xxxxxl { font-size: 160% !important; }
 
 .txt-btn:focus,
 .txt-btn-block:focus,
+.txt-btn-a11y:focus,
 .hamburger:focus{
     box-shadow:
         0 0 0 3px rgb(255, 241, 183),
@@ -136,6 +143,7 @@ html.a11y-scale-xxxxxl { font-size: 160% !important; }
 
 .txt-btn:hover,
 .txt-btn-block:hover,
+.txt-btn-a11y:hover,
 .hamburger:hover{
     box-shadow:
         0 0 0 3px rgb(255, 241, 183),

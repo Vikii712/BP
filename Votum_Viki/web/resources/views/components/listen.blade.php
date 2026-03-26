@@ -14,6 +14,7 @@
             : 'rounded-full w-14 h-14'
         }}
         {{ $relative ? 'absolute -top-7 -right-2' : '' }}
+        {{$down ? '-bottom-10' : ''}}
         txt-btn-block
         bg-votum-blue text-white
         flex items-center justify-center

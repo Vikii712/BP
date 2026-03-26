@@ -2,7 +2,7 @@
 <div class="bg-blue-950 backdrop-blur-md pb-2 filter-container">
         <div class=" sm:pr-6 flex w-full items-center justify-between bg-[var(--blackblue)]">
             <!-- Logo -->
-            <a class="flex items-center gap-3" href="{{route('main')}}">
+            <a class="flex txt-btn-block items-center gap-3" href="{{route('main')}}">
                 <x-ikony.logo class="w-[45px] sm:w-[70px] shrink-0 p-2 pr-0 sm:pr-2" />
                 <h1 class="text-2xl sm:text-3xl font-bold text-white logo-font">Združenie VOTUM</h1>
             </a>
