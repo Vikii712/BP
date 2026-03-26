@@ -37,7 +37,7 @@
     {{-- Trigger Button --}}
     <button
         id="a11y-toggle"
-        class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-yellow-300 border-2 border-black shadow-[3px_3px_0_#000] flex items-center justify-center text-2xl cursor-pointer"
+        class="fixed bottom-6 right-6 txt-btn-block z-50 w-14 h-14 rounded-full bg-yellow-300 border-2 border-black shadow-[3px_3px_0_#000] flex items-center justify-center text-2xl cursor-pointer"
         aria-label="Otvoriť panel prístupnosti"
     >
         <i class="fa-solid fa-universal-access"></i>
@@ -58,7 +58,7 @@
                 <i class="fa-solid fa-universal-access text-xl"></i>
                 {{__('nav.a11y')}}
             </div>
-            <button id="a11y-close" class="text-xl">
+            <button id="a11y-close" class="text-xl txt-btn-block">
                 <i class="fa-solid fa-xmark"></i>
             </button>
         </div>
@@ -68,7 +68,7 @@
 
             {{-- RESET BUTTON --}}
 
-                <button id="a11y-reset" class="flex justify-center items-center w-full px-2 py-3 bg-gray-200 border-2 border-black rounded-md text-black font-bold text-center cursor-pointer hover:bg-red-300">
+                <button id="a11y-reset" class="flex txt-btn-block justify-center items-center w-full px-2 py-3 bg-gray-200 border-2 border-black rounded-md text-black font-bold text-center cursor-pointer hover:bg-red-300">
                     <i class="fa-solid text-3xl fa-xmark pr-2"></i>
                     Vypnúť všetko
                 </button>
@@ -86,7 +86,7 @@
                         <div class="p-2">
                             <button
                                 id="fontScaleButton"
-                                class=" w-full flex flex-col items-center gap-1 p-4 rounded-lg border-2 border-black bg-gray-50 hover:bg-yellow-300">
+                                class=" w-full flex txt-btn-a11y flex-col items-center gap-1 p-4 rounded-lg border-2 border-black bg-gray-50 hover:bg-yellow-300">
 
                                 <div class="flex flex-col items-center gap-1">
                                     <i class="fa-solid text-2xl fa-text-height"></i>
@@ -107,7 +107,7 @@
 
 
                     @elseif($section === 'font' || $section === 'color')
-                        <div class="grid grid-cols-2 gap-2 p-2">
+                        <div class="grid grid-cols-2 gap-2 p-1">
                             @foreach($items as $item)
                                 <label class="group cursor-pointer">
                                     <input
@@ -121,7 +121,9 @@
                                             data-filter="{{ $item['function'] }}"
                                         @endif
                                         >
-                                        <div class="flex flex-col items-center justify-center p-2 rounded-lg border-2 border-black bg-gray-50
+                                        <div
+                                            tabindex="0" role="button"
+                                            class="flex txt-btn-a11y flex-col items-center justify-center p-1 rounded-lg border-2 border-black bg-gray-50
                                         peer-checked:bg-yellow-300 h-full
                                         peer-checked:border-yellow-800
                                         hover:bg-yellow-300">
@@ -143,7 +145,7 @@
                             @endforeach
                         </div>
                     @else
-                        <div class="grid grid-cols-2 gap-2 p-2">
+                        <div class="grid grid-cols-2 gap-2 p-1">
                             @foreach($items as $item)
                                 <label class="group cursor-pointer">
                                     <input
@@ -151,7 +153,9 @@
                                         class="peer hidden a11y-toggle"
                                         data-feature="{{ $item['function'] }}"
                                     >
-                                    <div class="flex flex-col items-center gap-2 p-4 rounded-lg border-2 border-black bg-gray-50
+                                    <div
+                                        tabindex="0" role="button"
+                                        class="flex txt-btn-a11y flex-col items-center gap-2 p-2 rounded-lg border-2 border-black bg-gray-50
                                         peer-checked:bg-yellow-300 h-full
                                         peer-checked:border-yellow-800
                                         hover:bg-yellow-300">
@@ -196,24 +200,80 @@
 </div>
 
 <script>
-    const toggle = document.getElementById("a11y-toggle");
-    const panel = document.getElementById("a11y-panel");
-    const closeBtn = document.getElementById("a11y-close");
+    (() => {
+        const toggle   = document.getElementById('a11y-toggle');
+        const panel    = document.getElementById('a11y-panel');
+        const closeBtn = document.getElementById('a11y-close');
 
-    toggle.addEventListener("click", (e) => {
-        e.stopPropagation();
-        panel.classList.toggle("hidden");
-    });
+        const FOCUSABLE = `button:not([disabled]), [tabindex="0"]`;
 
-    closeBtn.addEventListener("click", () => {
-        panel.classList.add("hidden");
-    });
+        let firstEl, lastEl;
 
-    panel.addEventListener("click", (e) => {
-        e.stopPropagation();
-    });
+        function openPanel() {
+            panel.classList.remove('hidden');
 
-    document.addEventListener("click", () => {
-        panel.classList.add("hidden");
-    });
+            const els = panel.querySelectorAll(FOCUSABLE);
+            firstEl = els[0];
+            lastEl  = els[els.length - 1];
+            firstEl?.focus();
+
+            document.addEventListener('keydown', onKeydown);
+        }
+
+        function closePanel() {
+            if (panel.contains(document.activeElement)) {
+                toggle.focus();
+            }
+            panel.classList.add('hidden');
+            document.removeEventListener('keydown', onKeydown);
+        }
+
+        function onKeydown(e) {
+            if (e.key === 'Escape') {
+                closePanel();
+                return;
+            }
+
+            if (e.key === 'Tab') {
+                if (e.shiftKey && document.activeElement === firstEl) {
+                    e.preventDefault();
+                    lastEl.focus();
+                } else if (!e.shiftKey && document.activeElement === lastEl) {
+                    e.preventDefault();
+                    firstEl.focus();
+                }
+            }
+
+            if (e.key === 'Enter' || e.key === ' ') {
+                const active = document.activeElement;
+                if (active.hasAttribute('tabindex')) {
+                    e.preventDefault();
+                    active.closest('label')?.querySelector('input')?.click();
+                }
+            }
+        }
+
+        toggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openPanel();
+        });
+
+        closeBtn.addEventListener('click', closePanel);
+
+        // Zatvoriť pri kliku mimo panelu
+        document.addEventListener('click', (e) => {
+            if (!panel.classList.contains('hidden') && !panel.contains(e.target)) {
+                closePanel();
+            }
+        });
+
+        panel.addEventListener('click', (e) => e.stopPropagation());
+
+        // Klik na div[tabindex] = klik na jeho input
+        panel.querySelectorAll('[tabindex="0"]').forEach(el => {
+            el.addEventListener('click', () => {
+                el.closest('label')?.querySelector('input')?.click();
+            });
+        });
+    })();
 </script>
