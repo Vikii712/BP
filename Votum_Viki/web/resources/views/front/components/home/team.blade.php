@@ -1,3 +1,6 @@
+@php
+    $locale = app()->getLocale();
+@endphp
 @props(['team', 'image'])
 
 <section class="bg-white py-12">
@@ -15,7 +18,7 @@
             </div>
 
             <div class="text-center">
-                <a href="{{ route('about') }}"
+                <a href="{{ route('about', ['locale' => $locale]) }}"
                    class="bg-votum-blue text-white px-8 py-5 rounded-lg font-semibold txt-btn inline-flex items-center gap-3">
                     <i class="fas fa-users"></i>
                     <span>{{ __('nav.getToKnowTeam') }}</span>

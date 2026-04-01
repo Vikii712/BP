@@ -11,7 +11,7 @@ class EventsController extends Controller
 {
     public function index()
     {
-        $locale = session('locale', 'sk');
+        $locale = app()->getLocale();
         $today = Carbon::today();
 
         // --- VŠETKY GALLERY EVENTS ---
@@ -113,9 +113,9 @@ class EventsController extends Controller
         ]);
     }
 
-    public function event($id)
+    public function event(string $locale,int $id)
     {
-        $locale = session('locale', 'sk');
+        $locale = app()->getLocale();
 
         $event = Event::with([
             'dates',

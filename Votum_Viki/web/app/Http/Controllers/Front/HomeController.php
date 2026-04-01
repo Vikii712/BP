@@ -12,7 +12,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $locale = session('locale', 'sk');
+        $locale = app()->getLocale();
         $isSK = $locale === 'sk';
         $today = Carbon::today();
 

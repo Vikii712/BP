@@ -1,5 +1,7 @@
 @extends('front.layouts.app')
-
+@php
+$locale = app()->getLocale()
+@endphp
 @section('content')
 
     <!-- Page Header -->
@@ -86,7 +88,7 @@
                     {!! $idea['content'] !!}
                 </div>
                 <div class="text-center mt-16">
-                    <a href="{{ route('contacts') }}"
+                    <a href="{{ route('contacts', ['locale' => $locale]) }}"
                        class="inline-flex items-center gap-3 bg-votum-blue text-white px-10 py-8 rounded-lg font-semibold txt-btn shadow-lg">
                         <x-front::ikony.contact class="w-8 h-8"/>
                         <span>{{ __('nav.contacts') }}</span>
@@ -108,7 +110,7 @@
         <div class="max-w-4xl mx-auto">
             <div class="flex flex-col sm:flex-row justify-between gap-4">
                 <div class="text-center mt-16">
-                    <a href="{{ route('support') }}"
+                    <a href="{{ route('support', ['locale' => $locale]) }}"
                        class="txt-btn inline-flex items-center gap-3 bg-gray-600 text-white px-10 py-8 rounded-lg font-semibold text-xl shadow-lg">
                         <x-front::ikony.support class="w-8 h-8"/>
                         <span>{{ __('nav.other') }}</span>

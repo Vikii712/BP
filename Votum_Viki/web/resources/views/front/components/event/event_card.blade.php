@@ -1,4 +1,7 @@
 @props(['event'])
+@php
+    $locale = app()->getLocale();
+@endphp
 
 <div class="bg-votum1 border-votum1
             mx-2 sm:mx-5 rounded-lg overflow-hidden shadow-lg border-3
@@ -34,7 +37,7 @@
         </p>
 
         {{-- Button vždy dole --}}
-        <a href="{{ route('event', $event->id) }}"
+        <a href="{{route('event', ['locale' => app()->getLocale(), 'id' => $event->id]) }}"
            class="mt-auto w-full text-center txt-btn text-bold
                    bg-dark-votum1
                   text-white px-7 py-4 rounded-lg">

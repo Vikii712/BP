@@ -14,10 +14,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->web([
-            SetLocale::class,
-        ]);
         $middleware->alias([
+            'setLocale' => SetLocale::class,
             'csp.front' => FrontCspMiddleware::class,
             'csp.admin' => AdminCspMiddleware::class,
         ]);

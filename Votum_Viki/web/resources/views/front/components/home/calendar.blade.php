@@ -1,4 +1,7 @@
 @props(['calendarEvents', 'calendarTitles'])
+@php
+    $locale = app()->getLocale();
+@endphp
 
 <x-front::wave/>
 
@@ -58,8 +61,8 @@
                     <div id="calendarGrid" class="grid grid-cols-7 gap-1 sm:gap-2"></div>
                 </div>
 
-                <a href="https://calendar.google.com/calendar/render?cid={{ urlencode(route('calendar.ics', absolute: true)) }}"
-                   target="_blank"
+                <a href="https://calendar.google.com/calendar/render?cid={{ urlencode(route('calendar.ics', ['locale' => app()->getLocale()], absolute: true)) }}"
+                    target="_blank"
                    class="mt-4 w-full bg-votum-blue text-white rounded-lg txt-btn flex flex-wrap items-center justify-center text-center"
                 >
                     <i class="fas fa-calendar-plus"></i>

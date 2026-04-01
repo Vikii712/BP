@@ -12,7 +12,7 @@ class SupportController extends Controller
 {
     public function index()
     {
-        $locale = session('locale', 'sk');
+        $locale = app()->getLocale();
 
         $why = Section::where('category', 'support')
             ->get()
@@ -28,7 +28,7 @@ class SupportController extends Controller
 
     public function percent()
     {
-        $locale = session('locale', 'sk');
+        $locale = app()->getLocale();
 
         $why = Section::where('category', 'percentWhy')
             ->orderBy('position')
@@ -98,7 +98,7 @@ class SupportController extends Controller
 
     public function financial()
     {
-        $locale = session('locale', 'sk');
+        $locale = app()->getLocale();
 
         $qrHowSectionId = Section::where('category', 'qrHow')->value('id');
 
@@ -150,7 +150,7 @@ class SupportController extends Controller
 
     public function other()
     {
-        $locale = session('locale', 'sk');
+        $locale = app()->getLocale();
 
         $thanks = Section::where('category', 'otherThanks')
             ->orderBy('position')

@@ -9,18 +9,16 @@ use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\SupportController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['csp.front'])->group(function () {
+Route::redirect('/', '/sk');
+
+Route::prefix('{locale}')
+    ->where(['locale' => 'sk|en'])
+    ->middleware(['setLocale', 'csp.front'])
+    ->group(function () {
+
     Route::get('/', [HomeController::class, 'index'])->name('main');
 
     Route::get('/calendar.ics', [HomeController::class, 'ics'])->name('calendar.ics');
-
-
-    Route::post('/set-locale', function (Illuminate\Http\Request $request) {
-        $locale = $request->input('locale', 'sk');
-        session(['locale' => $locale]);
-        app()->setLocale($locale);
-        return back();
-    })->name('setLocale');
 
     Route::get('/about', [AboutController::class, 'index'])->name('about');
 
@@ -44,7 +42,7 @@ Route::middleware(['csp.front'])->group(function () {
     Route::get('/support/other', [SupportController::class, 'other'])->name('other');
 
     Route::get('/a11y', function () {
-        return view('pages.a11y');
+        return view('front.pages.a11y');
     })->name('a11y');
 
 });

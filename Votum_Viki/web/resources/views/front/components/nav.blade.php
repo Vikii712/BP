@@ -1,9 +1,13 @@
+@php
+    $locale = app()->getLocale();
+@endphp
+
 <nav aria-label="Primary navigation" id="main-nav" class="relative z-40 bg-blue-950">
 
     <ul class="flex text-white items-stretch">
 
         <li class="flex flex-1">
-            <a href="{{ route('main') }}"
+            <a href="{{ route('main', ['locale' => $locale]) }}"
                @class([
                    'flex flex-1 flex-col mx-1 items-center pb-0.5 rounded-lg txt-btn-block',
                    'border-b-4 border-blue-300 text-blue-200 font-extrabold aria-current-page' => request()->routeIs('main'),
@@ -16,7 +20,7 @@
         </li>
 
         <li class="flex flex-1">
-            <a href="{{ route('about') }}"
+            <a href="{{ route('about', ['locale' => $locale]) }}"
                @class([
                    'flex flex-1 flex-col mx-1 items-center pb-0.5 rounded-lg txt-btn-block',
                    'border-b-4 border-blue-300 text-blue-200 font-extrabold aria-current-page' => request()->routeIs('about'),
@@ -29,7 +33,7 @@
         </li>
 
         <li class="flex flex-1">
-            <a href="{{ route('events') }}"
+            <a href="{{ route('events', ['locale' => $locale]) }}"
                @class([
                    'flex flex-1 flex-col mx-1 items-center pb-0.5 rounded-lg txt-btn-block',
                    'border-b-4 border-blue-300 text-blue-200 font-extrabold aria-current-page' => request()->routeIs('events'),
@@ -42,7 +46,7 @@
         </li>
 
         <li class="flex flex-1">
-            <a href="{{ route('history') }}"
+            <a href="{{ route('history', ['locale' => $locale]) }}"
                @class([
                    'flex flex-1 flex-col mx-1 items-center pb-0.5 rounded-lg txt-btn-block',
                    'border-b-4 border-blue-300 text-blue-200 font-extrabold aria-current-page' => request()->routeIs('history'),
@@ -55,15 +59,21 @@
         </li>
 
         <li class="flex flex-1">
-            <a href="{{ route('support') }}"
+            <a href="{{ route('support', ['locale' => $locale]) }}"
                @class([
                    'flex flex-1 flex-col mx-1 items-center pb-0.5 rounded-lg txt-btn-block',
                    'border-b-4 border-blue-300 text-blue-200 font-extrabold aria-current-page'
-                       => request()->is('support*') || request()->routeIs('financial') || request()->routeIs('2percent') || request()->routeIs('other'),
+                       => request()->is($locale . '/support*')
+                       || request()->routeIs('financial')
+                       || request()->routeIs('2percent')
+                       || request()->routeIs('other'),
                    'hover:text-blue-300'
-                       => !(request()->is('support*') || request()->routeIs('financial') || request()->routeIs('2percent') || request()->routeIs('other')),
+                       => !(request()->is($locale . '/support*')
+                       || request()->routeIs('financial')
+                       || request()->routeIs('2percent')
+                       || request()->routeIs('other')),
                ])
-               @if(request()->is('support*') || request()->routeIs('financial') || request()->routeIs('2percent') || request()->routeIs('other'))
+               @if(request()->is($locale . '/support*') || request()->routeIs('financial') || request()->routeIs('2percent') || request()->routeIs('other'))
                    aria-current="page"
                 @endif>
                 <x-front::ikony.support class="w-10 h-10 object-contain" />
@@ -72,7 +82,7 @@
         </li>
 
         <li class="flex flex-1">
-            <a href="{{ route('contacts') }}"
+            <a href="{{ route('contacts', ['locale' => $locale]) }}"
                @class([
                    'flex flex-1 flex-col mx-1 items-center pb-0.5 rounded-lg txt-btn-block',
                    'border-b-4 border-blue-300 text-blue-200 font-extrabold aria-current-page' => request()->routeIs('contacts'),
@@ -85,13 +95,13 @@
         </li>
 
         <li class="flex flex-1">
-            <a href="{{ asset('documents') }}"
+            <a href="{{ route('documents', ['locale' => $locale]) }}"
                @class([
                    'flex flex-1 flex-col mx-1 items-center pb-0.5 rounded-lg txt-btn-block',
-                   'border-b-4 border-blue-300 text-blue-200 font-extrabold aria-current-page' => request()->is('documents*'),
-                   'hover:text-blue-300' => !request()->is('documents*')
+                   'border-b-4 border-blue-300 text-blue-200 font-extrabold aria-current-page' => request()->is($locale . '/documents*'),
+                   'hover:text-blue-300' => !request()->is($locale . '/documents*')
                ])
-               @if(request()->is('documents*')) aria-current="page" @endif>
+               @if(request()->is($locale . '/documents*')) aria-current="page" @endif>
                 <x-front::ikony.document class="w-10 h-10 object-contain" />
                 <span class="text-lg font-bold">{{ __('nav.documents') }}</span>
             </a>

@@ -9,7 +9,7 @@ class ContactsController extends Controller
 {
     public function index()
     {
-        $locale = session('locale', 'sk');
+        $locale = app()->getLocale();
         $isSK = $locale === 'sk';
 
         return view('front::pages.contacts', [

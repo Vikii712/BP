@@ -1,7 +1,9 @@
 @extends('front.layouts.app')
-
+@php
+$locale = app()->getLocale()
+@endphp
 @section('content')
-    <section class="max-w-4xl mx-auto py-12 px-6 txt">
+    <section class="max-w-4xl mx-auto py-12 px-6 txt divide-highlight">
 
         <h1 class="h2 font-bold text-votum-blue mb-4">Vyhlásenie o prístupnosti</h1>
 
@@ -55,7 +57,7 @@
 
         <ul class="list-disc pl-6 mb-4">
             <li><strong>E-mail:</strong> <em>zdruzenie.votum@gmail.com</em></li>
-            <li><a href="{{ route('contacts') }}" class="text-votum-blue underline">Kontakty</a></li>
+            <li><a href="{{ route('contacts', ['locale' => $locale]) }}" class="text-votum-blue underline">Kontakty</a></li>
         </ul>
 
         <h2 class="h3 font-semibold mt-6 mb-2">Ako nahlásiť problém</h2>

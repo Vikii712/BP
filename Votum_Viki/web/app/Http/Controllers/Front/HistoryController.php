@@ -10,7 +10,7 @@ class HistoryController extends Controller
 {
     public function index()
     {
-        $locale = session('locale', 'sk');
+        $locale = app()->getLocale();
 
         $sections = Section::where('category', 'history')
             ->orderBy('year')

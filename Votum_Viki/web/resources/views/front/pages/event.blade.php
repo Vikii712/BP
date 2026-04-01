@@ -1,5 +1,7 @@
 @extends('front.layouts.app')
-
+@php
+$locale = app()->getLocale()
+@endphp
 @section('content')
     <main class="container mx-auto px-2 sm:px-4 py-12">
 
@@ -77,7 +79,7 @@
                    rounded-2xl transition-all duration-300 txt-btn-block">
 
                     <div class="p-2 sm:p-6 mb-6 flex items-end">
-                        <img src="{{ asset('storage/images/fotky.svg') }}" alt="fotky" width="100" class="mx-auto">
+                        <img src="{{ asset('storage/images/icons/fotky.svg') }}" alt="fotky" width="100" class="mx-auto">
                         <i class="fa-regular fa-hand-pointer text-votum2 mt-2 text-5xl -rotate-[25deg]"></i>
                     </div>
 
@@ -136,7 +138,7 @@
         <!-- Navigation Buttons -->
         <div class="flex flex-col md:flex-row justify-between px-2 sm:px-5 md:px-10 max-w-5xl mx-auto">
             <div class="text-center mt-16 mb-3">
-                <a href="{{route('events')}}"
+                <a href="{{route('events', ['locale' => $locale])}}"
                    class="txt-btn inline-flex items-center gap-3 bg-gray-600 text-white px-10 py-8 rounded-lg font-semibold text-xl shadow-lg">
                     <i class="fas fa-calendar-days"></i>
                     <span>Udalosti</span>

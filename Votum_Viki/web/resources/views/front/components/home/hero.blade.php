@@ -1,4 +1,7 @@
 @props(['hero', 'image'])
+@php
+    $locale = app()->getLocale();
+@endphp
 
 <div class="relative">
 
@@ -33,7 +36,7 @@
                         </div>
 
                         <!-- 1. button hore – Viac o nás -->
-                        <a href="{{ route('about') }}"
+                        <a href="{{ route('about', ['locale' => $locale]) }}"
                            class="w-full sm:w-auto relative z-10 flex items-center justify-center gap-3 bg-dark-votum2 text-white px-10 py-5 rounded-xl txt-btn font-semibold shadow-md hover:bg-votum-blue/90 focus:ring-4 focus:ring-blue-300 focus:outline-none transition">
                             <i class="fas fa-user-group text-2xl"></i>
                             <span>{{ __('nav.aboutUs') }}</span>

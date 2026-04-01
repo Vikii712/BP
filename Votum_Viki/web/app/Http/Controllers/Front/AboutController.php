@@ -10,7 +10,7 @@ class AboutController extends Controller
 {
     public function index()
     {
-        $locale = session('locale', 'sk');
+        $locale = app()->getLocale();
 
         $sections = Section::where('category', 'about')
             ->orderBy('position')

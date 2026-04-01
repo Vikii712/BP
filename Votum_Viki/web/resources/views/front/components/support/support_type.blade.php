@@ -1,7 +1,8 @@
 @props(['type'])
 
 @php
-    $route = $type == 'p' ? route('2percent') : ($type == 'f' ? route('financial') : route('other'));
+    $locale = app()->getLocale();
+    $route = $type == 'p' ? route('2percent', ['locale' => $locale]) : ($type == 'f' ? route('financial', ['locale' => $locale]) : route('other', ['locale' => $locale]));
 
     $text = $type == 'p'
         ? __('nav.2percent')
