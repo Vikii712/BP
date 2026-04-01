@@ -23,7 +23,7 @@
                     <!-- Rok -->
                     <div
                         class="ml-8 inline-block bg-votum-blue text-white px-4 py-1.5 rounded-full text-lg sm:text-xl font-semibold
-                                md:absolute md:right-[calc(100%+1rem)] md:ml-0">
+           md:absolute md:right-[calc(100%+1rem)] md:ml-0 whitespace-nowrap">
                         {{ $entry['year'] }}
                     </div>
 

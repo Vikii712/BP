@@ -18,7 +18,9 @@
         'font' => [
             ['title' => 'Atkinson', 'font' => '"Atkinson Hyperlegible"', 'key' => 'atkinson'],
             ['title' => 'Arial', 'font' => 'Arial, sans-serif', 'key' => 'arial'],
-            ['title' => 'Comic Sans', 'font' => '"Comic Sans MS", cursive', 'key' => 'comic'],
+            ['title' => 'Comic Sans', 'font' => '"Comic Sans MS", sans-serif', 'key' => 'comic'],
+            ['title' => 'Dyslexic', 'font' => '"OpenDyslexic"', 'key' => 'dyslexic'],
+
         ],
         'color' => [
             ['title' => 'Normálne', 'icon' => 'fa-solid fa-palette', 'function' => 'none'],
@@ -37,11 +39,24 @@
     {{-- Trigger Button --}}
     <button
         id="a11y-toggle"
-        class="fixed bottom-6 right-6 txt-btn-block z-50 w-14 h-14 rounded-full bg-yellow-300 border-2 border-black shadow-[3px_3px_0_#000] flex items-center justify-center text-2xl cursor-pointer"
+        class="fixed bottom-6 right-6 a11y-toggle-btns txt-btn-block z-50 w-14 h-14 rounded-full bg-yellow-300 border-2 border-black shadow-[3px_3px_0_#000] flex items-center justify-center text-2xl cursor-pointer"
         aria-label="Otvoriť panel prístupnosti"
     >
-        <i class="fa-solid fa-universal-access"></i>
+        <i class="fa-solid fa-universal-access text-4xl"></i>
     </button>
+
+    <div
+        id="a11y-toast"
+        class="fixed bottom-21 right-6 z-[9999] hidden
+           bg-yellow-100 border-2 border-black rounded-lg shadow-[3px_3px_0_#000]
+           px-4 py-2 text-lg max-w-[220px]"
+        role="status"
+        aria-live="polite"
+    >
+        <i class="fa-solid fa-lightbulb"></i>
+        Nastavenia stránky, textu a pomôcok na čítanie nájdete tu
+        <i class="fa-solid fa-arrow-down"></i>
+    </div>
 
     {{-- PANEL --}}
     <div
@@ -201,9 +216,10 @@
 
 <script>
     (() => {
-        const toggle   = document.getElementById('a11y-toggle');
+        const toggles = document.querySelectorAll('.a11y-toggle-btns');
         const panel    = document.getElementById('a11y-panel');
         const closeBtn = document.getElementById('a11y-close');
+        let lastTrigger = null;
 
         const FOCUSABLE = `button:not([disabled]), [tabindex="0"]`;
 
@@ -222,7 +238,7 @@
 
         function closePanel() {
             if (panel.contains(document.activeElement)) {
-                toggle.focus();
+                lastTrigger?.focus();
             }
             panel.classList.add('hidden');
             document.removeEventListener('keydown', onKeydown);
@@ -235,45 +251,90 @@
             }
 
             if (e.key === 'Tab') {
-                if (e.shiftKey && document.activeElement === firstEl) {
-                    e.preventDefault();
-                    lastEl.focus();
-                } else if (!e.shiftKey && document.activeElement === lastEl) {
-                    e.preventDefault();
-                    firstEl.focus();
+                if (!firstEl || !lastEl) return;
+
+                if (e.shiftKey) {
+                    // SHIFT + TAB (späť)
+                    if (document.activeElement === firstEl) {
+                        e.preventDefault();
+                        lastEl.focus();
+                    }
+                } else {
+                    // TAB (dopredu)
+                    if (document.activeElement === lastEl) {
+                        e.preventDefault();
+                        firstEl.focus();
+                    }
                 }
             }
 
             if (e.key === 'Enter' || e.key === ' ') {
                 const active = document.activeElement;
-                if (active.hasAttribute('tabindex')) {
+                if (active.getAttribute('role') === 'button') {
                     e.preventDefault();
                     active.closest('label')?.querySelector('input')?.click();
                 }
             }
         }
 
-        toggle.addEventListener('click', (e) => {
-            e.stopPropagation();
-            openPanel();
+        toggles.forEach(toggle => {
+            toggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                lastTrigger = e.currentTarget;
+
+                if (panel.classList.contains('hidden')) {
+                    openPanel();
+                } else {
+                    closePanel();
+                }
+            });
         });
 
         closeBtn.addEventListener('click', closePanel);
 
         // Zatvoriť pri kliku mimo panelu
         document.addEventListener('click', (e) => {
-            if (!panel.classList.contains('hidden') && !panel.contains(e.target)) {
+            if (
+                !panel.classList.contains('hidden') &&
+                !panel.contains(e.target) &&
+                !e.target.closest('.a11y-toggle-btns')
+            ) {
                 closePanel();
             }
         });
 
         panel.addEventListener('click', (e) => e.stopPropagation());
 
-        // Klik na div[tabindex] = klik na jeho input
-        panel.querySelectorAll('[tabindex="0"]').forEach(el => {
-            el.addEventListener('click', () => {
-                el.closest('label')?.querySelector('input')?.click();
-            });
-        });
     })();
+
+
+    // ===== A11Y TOAST =====
+    const toast = document.getElementById('a11y-toast');
+
+    // zobraz len ak ešte nebol zobrazený
+    if (!localStorage.getItem('a11yToastShown')) {
+
+        setTimeout(() => {
+            toast.classList.remove('hidden');
+            toast.classList.add('opacity-0', 'translate-y-2');
+
+            // animácia
+            requestAnimationFrame(() => {
+                toast.classList.add('transition', 'duration-300');
+                toast.classList.remove('opacity-0', 'translate-y-2');
+            });
+
+            // skry po 6s
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+
+                setTimeout(() => {
+                    toast.classList.add('hidden');
+                }, 300);
+            }, 5000);
+
+        }, 2000);
+
+        localStorage.setItem('a11yToastShown', 'true');
+    }
 </script>

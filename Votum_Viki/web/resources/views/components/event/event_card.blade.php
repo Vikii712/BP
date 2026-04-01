@@ -25,7 +25,7 @@
     {{-- CONTENT --}}
     <div class="pt-3 p-3 sm:p-6 sm:pt-3 flex flex-col flex-1">
 
-        <h3 class="h3 sentence break-all font-bold text-votum-blue mb-2 text-center">
+        <h3 class="h3 sentence font-bold text-votum-blue mb-2 text-center">
             {{ $event->title }}
         </h3>
 

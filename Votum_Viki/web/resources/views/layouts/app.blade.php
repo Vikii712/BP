@@ -29,5 +29,8 @@
 
 @stack('scripts')
 <script src="//unpkg.com/alpinejs" defer></script>
+<script>
+    window.appLocale = "{{ app()->getLocale() }}";
+</script>
 </body>
 </html>

@@ -37,7 +37,7 @@
             </div>
 
             @if($totalPages > 1)
-                <div class="flex items-center justify-center gap-3 mt-10">
+                <div class="flex items-center flex-wrap justify-center gap-3 mt-10">
                     @if($currentPage > 1)
                         <a href="{{ request()->fullUrlWithQuery(['page' => $currentPage - 1]) }}"
                            class="txt-btn-block px-10 py-4 bg-blue-950 text-white rounded-md border border-votum-blue text-votum-blue hover:bg-votum-blue hover:text-white transition">

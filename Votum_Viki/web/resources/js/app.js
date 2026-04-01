@@ -57,8 +57,15 @@ let currentUtterance = null;
 let currentActiveId = null;
 
 
-function getSlovakVoice() {
+
+function getVoiceByLocale(locale) {
     const voices = speechSynthesis.getVoices();
+
+    if (locale === 'en') {
+        return voices.find(v => v.lang.startsWith("en")) || null;
+    }
+
+    // default slovenčina
     return voices.find(v => v.lang === "sk-SK") || null;
 }
 
@@ -83,11 +90,15 @@ function updateIcon(id, speaking) {
 }
 
 function speak(text, id) {
-    const voice = getSlovakVoice();
+    const locale = window.appLocale || 'sk';
+    const voice = getVoiceByLocale(locale);
+
     const utter = new SpeechSynthesisUtterance(text);
 
-    utter.lang = "sk-SK";
+    utter.lang = locale === 'en' ? "en-US" : "sk-SK";
+
     if (voice) utter.voice = voice;
+
     utter.rate = 1;
     utter.pitch = 1;
     utter.volume = 1;
@@ -103,6 +114,10 @@ function speak(text, id) {
     currentUtterance = utter;
     speechSynthesis.speak(utter);
 }
+
+speechSynthesis.onvoiceschanged = () => {
+    console.log("Voices loaded:", speechSynthesis.getVoices());
+};
 
 window.toggleListen = function(text, id) {
     if (!text || text.trim().length === 0) return;
