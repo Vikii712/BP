@@ -5,7 +5,7 @@
     <x-front::home.activities :events="$homeEvents"/>
     <x-front::home.calendar
         :calendarEvents="$calendarEvents"
-        :upcomingEvents="$upcomingEvents"
+        :calendarTitles="$calendarTitles"
     />
     <x-front::home.team :team="$team" :image="$teamImage"/>
 @endsection

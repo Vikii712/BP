@@ -3,7 +3,11 @@ import '../bootstrap.js';
 import './clipboard.js';
 import './tts.js';
 import './support-tabs.js';
+import './header.js';
+import './share.js';
+import './calendar.js';
 
+import './a11y/a11y-menu.js';
 import './a11y/active.js';
 import './a11y/a11y-storage.js';
 import './a11y/reading-guide.js';
