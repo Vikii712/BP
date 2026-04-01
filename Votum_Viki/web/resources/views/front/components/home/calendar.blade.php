@@ -2,7 +2,9 @@
 
 <x-front::wave/>
 
-<section class="bg-blue-100 py-12" id="events">
+<section class="bg-blue-100 py-12" id="events"
+         data-events='@json($calendarEvents)'
+>
     <div class="w-full px-2 sm:px-8 lg:px-16">
         <div class="flex justify-center">
             <div class="inline-flex items-center gap-3 mb-10 flex-wrap">
@@ -126,7 +128,6 @@
     <div class="calendar-bar" style="flex:1; min-height:4px;"></div>
 </template>
 
-<script>
-    window.calendarEvents = @json($calendarEvents);
-    window.appLocale = @json(session('locale', 'sk'));
-</script>
+<div id="events-data" hidden>
+    {{ json_encode($calendarEvents) }}
+</div>

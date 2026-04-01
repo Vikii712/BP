@@ -7,11 +7,14 @@
     @vite(['resources/css/app.css', 'resources/js/front/app.js'])
     <link rel="icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
     <meta name="description" content="VOTUM je združenie s viac ako 30-ročnou tradíciou, ktoré vytvára komunitu založenú na podpore, porozumení a kresťanských hodnotách. Spájame mladých ľudí a prinášame radosť do života.">
-    <meta http-equiv="Content-Security-Policy" content="frame-src https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com https://maps.google.com;">
 </head>
 
 
 <body>
+
+<div id="locale-div" hidden>
+    {{ app()->getLocale() ?? 'sk' }}
+</div>
 
 <x-front::header />
 
@@ -27,9 +30,5 @@
 
 <x-front::footer />
 
-@stack('scripts')
-<script>
-    window.appLocale = "{{ app()->getLocale() }}";
-</script>
 </body>
 </html>

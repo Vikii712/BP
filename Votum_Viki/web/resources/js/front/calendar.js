@@ -2,8 +2,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const root = document.getElementById('events');
     if (!root) return;
 
-    const calendarEvents = window.calendarEvents || [];
-    const locale = window.appLocale || 'sk';
+    const calendarEvents = JSON.parse(root.dataset.events || '[]');
+
+    const localeDiv = document.getElementById('locale-div');
+    const locale = localeDiv.textContent.trim() || 'sk';
 
     const eventItemTemplate = document.getElementById('eventItemTemplate');
     const noEventsTemplate = document.getElementById('noEventsTemplate');
