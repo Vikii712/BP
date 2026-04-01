@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Http\Controllers\Front;
+
+use App\Http\Controllers\Controller;
+use App\Models\File;
+use App\Models\Section;
+use Illuminate\Support\Facades\Storage;
+
+class DocumentsController extends Controller
+{
+    public function index()
+    {
+        $locale = app()->getLocale();
+
+        $sections = Section::where('category', 'documentSection')
+            ->orderBy('position')
+            ->get()
+            ->map(function ($section) use ($locale) {
+
+                $section->documents = File::where('section_id', $section->id)
+                    ->where('type', 'document')
+                    ->get()
+                    ->map(function ($doc) use ($locale) {
+
+                        $doc->title = $locale === 'sk'
+                            ? $doc->title_sk
+                            : $doc->title_en;
+
+                        $doc->size_kb = $doc->url && Storage::disk('public')->exists($doc->url)
+                            ? round(Storage::disk('public')->size($doc->url) / 1024)
+                            : null;
+
+                        $doc->download_url = asset('storage/' . $doc->url);
+
+                        $doc->file_type = $doc->url
+                            ? strtolower(pathinfo($doc->url, PATHINFO_EXTENSION))
+                            : null;
+
+                        return $doc;
+                    });
+
+                return $section;
+            });
+
+        return view('front::pages.documents', compact('sections'));
+    }
+}

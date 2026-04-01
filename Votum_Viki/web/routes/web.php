@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\AboutController;
-use App\Http\Controllers\ContactsController;
-use App\Http\Controllers\DocumentsController;
-use App\Http\Controllers\EventsController;
-use App\Http\Controllers\HistoryController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\SupportController;
+use App\Http\Controllers\Front\AboutController;
+use App\Http\Controllers\Front\ContactsController;
+use App\Http\Controllers\Front\DocumentsController;
+use App\Http\Controllers\Front\EventsController;
+use App\Http\Controllers\Front\HistoryController;
+use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Front\SupportController;
 use App\Models\Event;
 use Illuminate\Support\Facades\Route;
 

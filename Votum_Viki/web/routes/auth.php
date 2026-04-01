@@ -1,11 +1,13 @@
 <?php
 
-use App\Http\Controllers\AdminBackupController;
-use App\Http\Controllers\ContactsEditController;
-use App\Http\Controllers\DocumentsEditController;
-use App\Http\Controllers\EventsEditController;
-use App\Http\Controllers\HomeEditController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\AdminBackupController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\ContactsEditController;
+use App\Http\Controllers\Admin\DocumentsEditController;
+use App\Http\Controllers\Admin\EventsEditController;
+use App\Http\Controllers\Admin\HomeEditController;
+use App\Http\Controllers\Admin\SectionEditController;
+use App\Http\Controllers\Admin\SupportEditController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -14,8 +16,6 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\VerifyEmailController;
-use App\Http\Controllers\SectionEditController;
-use App\Http\Controllers\SupportEditController;
 use Illuminate\Support\Facades\Route;
 
 

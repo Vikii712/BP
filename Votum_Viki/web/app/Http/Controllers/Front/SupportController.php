@@ -1,0 +1,196 @@
+<?php
+
+namespace App\Http\Controllers\Front;
+
+use App\Models\File;
+use App\Models\Section;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+
+class SupportController extends Controller
+{
+    public function index()
+    {
+        $locale = session('locale', 'sk');
+
+        $why = Section::where('category', 'support')
+            ->get()
+            ->map(fn($item) => [
+                'title' => $locale === 'sk' ? $item->title_sk : $item->title_en,
+                'content' => $locale === 'sk' ? $item->content_sk : $item->content_en,
+            ])->first();
+
+        return view('front::pages.support', [
+            'why' => $why,
+            ]);
+    }
+
+    public function percent()
+    {
+        $locale = session('locale', 'sk');
+
+        $why = Section::where('category', 'percentWhy')
+            ->orderBy('position')
+            ->get()
+            ->map(fn($item) => [
+                'title'   => $locale === 'sk' ? $item->title_sk : $item->title_en,
+                'content' => $locale === 'sk' ? $item->content_sk : $item->content_en,
+            ])->first();
+
+        $info = Section::where('category', 'percentInfo')
+            ->orderBy('position')
+            ->get()
+            ->map(fn($item) => [
+                'name'  => $locale === 'sk' ? $item->title_sk : $item->title_en,
+                'value' => $locale === 'sk' ? $item->content_sk : $item->content_en,
+            ]);
+
+        $how = Section::where('category', 'percentHow')
+            ->orderBy('position')
+            ->get()
+            ->map(fn($item) => [
+                'title'   => $locale === 'sk' ? $item->title_sk : $item->title_en,
+                'content' => $locale === 'sk' ? $item->content_sk : $item->content_en,
+            ]);
+
+        $thanks = Section::where('category', 'percentThanks')
+            ->orderBy('position')
+            ->get()
+            ->map(fn($item) => [
+                'title'   => $locale === 'sk' ? $item->title_sk : $item->title_en,
+                'content' => $locale === 'sk' ? $item->content_sk : $item->content_en,
+            ])->first();
+
+
+        $two = Section::where('category', 'percentDocuments')->first();
+
+        $documents = File::where('type', 'document')
+            ->where('section_id', $two->id)
+            ->get()
+            ->map(function ($doc) use ($locale) {
+
+                $doc->title = $locale === 'sk'
+                    ? $doc->title_sk
+                    : $doc->title_en;
+
+                $doc->size_kb = $doc->url && Storage::disk('public')->exists($doc->url)
+                    ? round(Storage::disk('public')->size($doc->url) / 1024)
+                    : null;
+
+                $doc->download_url = asset('storage/' . $doc->url);
+
+                $doc->file_type = $doc->url
+                    ? strtolower(pathinfo($doc->url, PATHINFO_EXTENSION))
+                    : null;
+
+                return $doc;
+            });
+
+        return view('front::pages.2percent', [
+            'why'       => $why,
+            'info'      => $info,
+            'how'       => $how,
+            'thanks'    => $thanks,
+            'documents' => $documents,
+        ]);
+    }
+
+    public function financial()
+    {
+        $locale = session('locale', 'sk');
+
+        $qrHowSectionId = Section::where('category', 'qrHow')->value('id');
+
+        $qrImage = $qrHowSectionId
+            ? DB::table('files')
+                ->where('section_id', $qrHowSectionId)
+                ->where('type', 'image')
+                ->value('url')
+            : null;
+
+        $qrhow = Section::where('category', 'qrHow')
+            ->get()
+            ->map(fn($item) => [
+                'title' => $locale === 'sk' ? $item->title_sk : $item->title_en,
+                'content' => $locale === 'sk' ? $item->content_sk : $item->content_en,
+            ])->first();
+
+        $bank = Section::where('category', 'bank')
+            ->get()
+            ->map(fn($item) => [
+                'title' => $locale === 'sk' ? $item->title_sk : $item->title_en,
+                'content' => $locale === 'sk' ? $item->content_sk : $item->content_en,
+            ]);
+
+        $thanks = Section::where('category', 'financialThanks')
+            ->orderBy('position')
+            ->get()
+            ->map(fn($item) => [
+                'title'   => $locale === 'sk' ? $item->title_sk : $item->title_en,
+                'content' => $locale === 'sk' ? $item->content_sk : $item->content_en,
+            ])->first();
+
+        $why = Section::where('category', 'financialWhy')
+            ->orderBy('position')
+            ->get()
+            ->map(fn($item) => [
+                'title'   => $locale === 'sk' ? $item->title_sk : $item->title_en,
+                'content' => $locale === 'sk' ? $item->content_sk : $item->content_en,
+            ])->first();
+
+        return view('front::pages.financial', [
+            'qrHow'   => $qrhow,
+            'qrImage' => $qrImage,
+            'bank'    => $bank,
+            'thanks'  => $thanks,
+            'why'     => $why,
+        ]);
+    }
+
+    public function other()
+    {
+        $locale = session('locale', 'sk');
+
+        $thanks = Section::where('category', 'otherThanks')
+            ->orderBy('position')
+            ->get()
+            ->map(fn($item) => [
+                'title'   => $locale === 'sk' ? $item->title_sk : $item->title_en,
+                'content' => $locale === 'sk' ? $item->content_sk : $item->content_en,
+            ])->first();
+
+        $why = Section::where('category', 'otherWhy')
+            ->orderBy('position')
+            ->get()
+            ->map(fn($item) => [
+                'title'   => $locale === 'sk' ? $item->title_sk : $item->title_en,
+                'content' => $locale === 'sk' ? $item->content_sk : $item->content_en,
+            ])->first();
+
+        $types = Section::where('category', 'otherType')
+            ->orderBy('position')
+            ->get()
+            ->map(fn($item) => [
+                'title'   => $locale === 'sk' ? $item->title_sk : $item->title_en,
+                'content' => $locale === 'sk' ? $item->content_sk : $item->content_en,
+                'image' => $item->files->first()?->url,
+            ]);
+
+        $otherIdea = Section::where('category', 'otherIdea')
+            ->orderBy('position')
+            ->get()
+            ->map(fn($item) => [
+                'title'   => $locale === 'sk' ? $item->title_sk : $item->title_en,
+                'content' => $locale === 'sk' ? $item->content_sk : $item->content_en,
+            ])->first();
+
+        return view('front::pages.other', [
+            'thanks' => $thanks,
+            'why'     => $why,
+            'types'   => $types,
+            'idea' => $otherIdea,
+        ]);
+    }
+
+}

@@ -1,0 +1,49 @@
+<!-- Team Section -->
+<div class="bg-blue-100 py-12">
+    <h2 class="h2 font-bold text-votum-blue mb-8 text-center sentence py-5">{{__('nav.ourTeam')}}</h2>
+
+    <div class="flex flex-col gap-8 mx-2 sm:mx-10">
+
+        @foreach($team as $i => $member)
+            <div class="bg-white rounded-2xl shadow-lg border-2 border-votum1">
+
+                @if($member['image'])
+                    <div class="p-2 sm:p-6 w-full relative">
+                        <x-front::listen
+                            :relative="true"
+                            text="{{ strip_tags($member['title'] . '. ' . $member['content']) }}"
+                            id="{{ 250 + $i }}"
+                        />
+                        <h3 class="h3 mr-2 sentence font-bold text-votum-blue mb-4">{{ $member['title'] }}</h3>
+
+                        <img src="{{ asset('storage/' .$member['image']) }}" alt="{{ $member['title'] }}"
+                             loading="lazy"
+                             class="w-60 h-80 object-cover mb-4 sm:float-left sm:mr-6 sm:mb-4 mx-auto sm:mx-0 block">
+
+                        <div class="text-lg divide-highlight  prose max-w-none [&>p]:mb-6 [&>ul]:mb-6 [&>ol]:mb-6 [&>h1]:mb-6 [&>h2]:mb-6 [&>h3]:mb-6 [&>h4]:mb-6">
+                            {!! $member['content'] !!}
+                        </div>
+
+                        <div class="clear-both"></div>
+                    </div>
+                @else
+                    <div class="p-6 relative flex flex-col">
+                        <h3 class="h3 font-bold text-votum-blue sentence mb-4">{{ $member['title'] }}</h3>
+                        <x-front::listen
+                            :relative="true"
+                            text="{{ strip_tags($member['title'] . '. ' . $member['content']) }}"
+                            id="{{ 250 + $i }}"
+                        />
+                        <div class="text-lg divide-highlight  prose max-w-none [&>p]:mb-6 [&>ul]:mb-6 [&>ol]:mb-6 [&>h1]:mb-6 [&>h2]:mb-6 [&>h3]:mb-6 [&>h4]:mb-6">
+                            {!! $member['content'] !!}
+                        </div>
+                    </div>
+                @endif
+
+            </div>
+        @endforeach
+
+        <x-front::home />
+
+    </div>
+</div>

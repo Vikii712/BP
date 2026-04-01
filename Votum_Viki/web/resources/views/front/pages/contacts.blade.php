@@ -1,0 +1,51 @@
+@extends('front.layouts.app')
+
+@section('content')
+    <main class="container mx-auto  sm:px-4 py-12 items-center">
+        <h1 class="h1 md:text-5xl font-bold text-votum-blue sentence text-center mb-4">
+            {{ __('nav.contacts')}}
+        </h1>
+
+        <div class="text-center mb-12">
+            <h2 class="h2 text-votum-blue sentence font-semibold inline-block px-8 py-3">
+                {{ __('nav.inTouch')}}
+            </h2>
+        </div>
+
+        <div class="mx-auto grid gap-8">
+
+            <div class="space-y-6 p-2 sm:p-4">
+                @php $colorToggle = true; @endphp
+
+                @if($address && $address->isNotEmpty())
+                    <x-front::contacts.address :data="$address" :isSK="$isSK" :color="$colorToggle"/>
+                    @php $colorToggle = !$colorToggle; @endphp
+                @endif
+
+                @if($mail && $mail->isNotEmpty())
+                    <x-front::contacts.mail :data="$mail" :isSK="$isSK" :color="$colorToggle"/>
+                    @php $colorToggle = !$colorToggle; @endphp
+                @endif
+
+                @if($phone && $phone->isNotEmpty())
+                    <x-front::contacts.tel :data="$phone" :isSK="$isSK" :color="$colorToggle"/>
+                    @php $colorToggle = !$colorToggle; @endphp
+                @endif
+
+                @if($bank && $bank->isNotEmpty())
+                    <x-front::contacts.bank :data="$bank" :isSK="$isSK" :color="$colorToggle"/>
+                    @php $colorToggle = !$colorToggle; @endphp
+                @endif
+
+                @if($identification && $identification->isNotEmpty())
+                    <x-front::contacts.identification :data="$identification" :isSK="$isSK" :color="$colorToggle"/>
+                    @php $colorToggle = !$colorToggle; @endphp
+                @endif
+            </div>
+
+        </div>
+
+        <x-front::home/>
+    </main>
+
+@endsection

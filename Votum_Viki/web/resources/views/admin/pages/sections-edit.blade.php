@@ -1,0 +1,657 @@
+@extends('admin.layouts.admin')
+
+@section('back-url', $backRoute)
+
+@section('adminContent')
+    <div class="min-h-[calc(100vh-5.5rem)] pt-20 bg-gray-100 px-4 py-10 flex justify-center">
+        <div class="w-full max-w-5xl space-y-10">
+
+            <h1 class="text-3xl font-bold text-blue-950 text-center">
+                Úprava stránky – {{ $title }}
+            </h1>
+
+            @if(session('success'))
+                <div class="mb-4 rounded-md bg-green-100 border border-green-400 text-green-900 px-4 py-3">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if(session('warning'))
+                <div
+                    class="mb-4 rounded-md bg-yellow-100 border border-yellow-400 text-yellow-900 px-4 py-3 flex justify-between items-center">
+                    <span>{{ session('warning') }}</span>
+
+                    @if(session('deleted_section_id'))
+                        <form
+                            action="{{ route('section.restore', ['category' => $category, 'id' => session('deleted_section_id')]) }}"
+                            method="POST">
+                            @csrf
+                            <button type="submit"
+                                    class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
+                                Vrátiť späť
+                            </button>
+                        </form>
+                    @endif
+                </div>
+            @endif
+
+
+            <x-admin.new-section
+                :category="$category"
+                :title="$title"
+            />
+
+            <x-admin.section-table
+                :items="$items"
+                :title="$title"
+                :showYear="$category === 'history'"
+                :isTeam="$category === 'team'"
+            />
+
+        </div>
+    </div>
+
+    {{-- Custom URL Modal --}}
+    <div id="urlModal" class="url-modal-overlay">
+        <div class="url-modal">
+            <div class="bg-blue-950 text-white px-6 py-4 rounded-t-md">
+                <h3 class="text-lg font-semibold">Pridať odkaz</h3>
+            </div>
+            <div class="p-6 space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        URL adresa
+                    </label>
+                    <input type="text"
+                           id="urlInput"
+                           placeholder="napr. google.com alebo https://example.com"
+                           class="w-full border-2 border-gray-300 rounded-md px-3 py-2 focus:border-blue-500 focus:outline-none">
+                    <p class="text-xs text-gray-500 mt-1">Ak nezadáte https://, bude pridané automaticky</p>
+                </div>
+                <div class="flex justify-end gap-3 pt-2">
+                    <button type="button"
+                            id="urlCancel"
+                            class="border-2 border-gray-400 px-6 py-2 rounded-md hover:bg-gray-100">
+                        Zrušiť
+                    </button>
+                    <button type="button"
+                            id="urlConfirm"
+                            class="bg-blue-200 border-2 border-blue-900 text-blue-900 px-6 py-2 rounded-md font-semibold hover:bg-blue-300">
+                        Pridať odkaz
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section Delete Confirmation Modal -->
+    <div id="sectionDeleteModal"
+         class="hidden fixed inset-0 bg-transparent bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-gray-200 p-6 rounded-md shadow-md space-y-4 w-96">
+            <p class="mb-6 text-blue-950">
+                Naozaj chcete vymazať sekciu:
+                <span id="sectionDeleteName" class="font-bold"></span>?
+            </p>
+
+            <div class="flex justify-end gap-3">
+                <button onclick="closeSectionDeleteModal()"
+                        class="px-4 py-2 bg-white rounded-md hover:bg-gray-300">
+                    Zrušiť
+                </button>
+
+                <form id="sectionDeleteForm" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit"
+                            class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">
+                        Vymazať
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ================= TOOLBAR =================
+        const toolbarOptions = [
+            [{header: [1, 2, 3, false]}],
+            ['bold', 'italic', 'underline'],
+            [{list: 'ordered'}, {list: 'bullet'}],
+            ['link']
+        ];
+
+        // ================= LINK MODAL =================
+        let currentQuillInstance = null;
+        let currentLinkRange = null;
+
+        function showUrlModal(quill, range) {
+            currentQuillInstance = quill;
+            currentLinkRange = range;
+            const modal = document.getElementById('urlModal');
+            const input = document.getElementById('urlInput');
+            const format = quill.getFormat(range);
+            input.value = format.link ?? '';
+            modal.classList.add('active');
+            input.focus();
+        }
+
+        function hideUrlModal() {
+            document.getElementById('urlModal').classList.remove('active');
+            document.getElementById('urlInput').value = '';
+            currentQuillInstance = null;
+            currentLinkRange = null;
+        }
+
+        function confirmUrl() {
+            const input = document.getElementById('urlInput');
+            let href = input.value.trim();
+            if (href && currentQuillInstance && currentLinkRange) {
+                if (!href.match(/^https?:\/\//i) && !href.match(/^mailto:/i)) {
+                    href = 'https://' + href;
+                }
+                currentQuillInstance.format('link', href);
+                setTimeout(() => {
+                    currentQuillInstance.root.querySelectorAll('a').forEach(link => {
+                        link.setAttribute('target', '_blank');
+                        link.setAttribute('rel', 'noopener noreferrer');
+                    });
+                }, 10);
+            }
+            hideUrlModal();
+        }
+
+        ['urlCancel', 'urlConfirm', 'urlInput', 'urlModal'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                if (id === 'urlCancel') el.addEventListener('click', hideUrlModal);
+                if (id === 'urlConfirm') el.addEventListener('click', confirmUrl);
+                if (id === 'urlInput') {
+                    el.addEventListener('keydown', e => {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            confirmUrl();
+                        } else if (e.key === 'Escape') hideUrlModal();
+                    });
+                }
+                if (id === 'urlModal') {
+                    el.addEventListener('click', e => {
+                        if (e.target.id === 'urlModal') hideUrlModal();
+                    });
+                }
+            }
+        });
+
+        // ================= HELPERS =================
+        function preventImagePaste(quill) {
+            quill.clipboard.addMatcher('IMG', () => ({ops: []}));
+        }
+
+        function fixLinks(quill) {
+            quill.on('text-change', (delta, oldDelta, source) => {
+                if (source !== 'user') return;
+                quill.root.querySelectorAll('a').forEach(link => {
+                    let href = link.getAttribute('href');
+                    if (href && !href.match(/^https?:\/\//i) && !href.match(/^mailto:/i)) {
+                        link.setAttribute('href', 'https://' + href);
+                    }
+                    link.setAttribute('target', '_blank');
+                    link.setAttribute('rel', 'noopener noreferrer');
+                });
+            });
+            const toolbar = quill.getModule('toolbar');
+            if (toolbar) {
+                toolbar.addHandler('link', value => {
+                    if (!value) {
+                        quill.format('link', false);
+                        return;
+                    }
+                    const range = quill.getSelection();
+                    if (range && range.length > 0) showUrlModal(quill, range);
+                });
+            }
+        }
+
+        // ========== GLOBÁLNE PREMENNÉ ==========
+        let quillEditors = {};
+        let addFormEditors = null;
+        let currentOpenEdit = null;
+        const isHistory = {{ $category === 'history' ? 'true' : 'false' }};
+
+        function handleAddFormSubmit(e) {
+            e.preventDefault();
+
+            // 1. Naplň Quill obsahy
+            const skContentField = document.getElementById('content-new-sk');
+            const enContentField = document.getElementById('content-new-en');
+
+            if (addFormEditors && skContentField && enContentField) {
+                skContentField.value = addFormEditors.sk.root.innerHTML.trim();
+                enContentField.value = addFormEditors.en.root.innerHTML.trim();
+            }
+
+            // 2. Validácia - len viditeľné polia s data-req
+            const form = e.target;
+            const fields = [...form.querySelectorAll('[data-req]')].filter(f => f.offsetParent !== null);
+
+            let isValid = true;
+            let firstInvalid = null;
+
+            // Quill validácia osobitne (editor nie je input)
+            if (addFormEditors) {
+                const skText = addFormEditors.sk.getText().trim();
+                const enText = addFormEditors.en.getText().trim();
+
+                const skWrapper = document.getElementById('editor-new-sk');
+                const enWrapper = document.getElementById('editor-new-en');
+
+                if (!skText) {
+                    skWrapper.classList.add('border-2', 'border-red-500', 'bg-red-50', 'rounded-md');
+                    isValid = false;
+                    if (!firstInvalid) firstInvalid = skWrapper;
+                } else {
+                    skWrapper.classList.remove('border-red-500', 'bg-red-50');
+                }
+
+                if (!enText) {
+                    enWrapper.classList.add('border-2', 'border-red-500', 'bg-red-50', 'rounded-md');
+                    isValid = false;
+                    if (!firstInvalid) firstInvalid = enWrapper;
+                } else {
+                    enWrapper.classList.remove('border-red-500', 'bg-red-50');
+                }
+            }
+
+
+            // Bežné inputy/textarey
+            fields.forEach(function (field) {
+                if (field.value.trim() === '') {
+                    field.classList.add('border-red-500', 'bg-red-50');
+                    field.classList.remove('border-gray-300');
+                    isValid = false;
+                    if (!firstInvalid) firstInvalid = field;
+                } else {
+                    field.classList.remove('border-red-500', 'bg-red-50');
+                    field.classList.add('border-gray-300');
+                }
+            });
+
+            // ALT polia - len ak je obrázok nahraný
+            const altWrapper = document.getElementById('newAltWrapper');
+            if (altWrapper && altWrapper.offsetParent !== null) {
+                ['image_alt_sk', 'image_alt_en'].forEach(name => {
+                    const field = form.querySelector(`[name="${name}"]`);
+                    if (!field) return;
+                    if (field.value.trim() === '') {
+                        field.classList.add('border-red-500', 'bg-red-50');
+                        field.classList.remove('border-gray-300');
+                        isValid = false;
+                        if (!firstInvalid) firstInvalid = field;
+                    } else {
+                        field.classList.remove('border-red-500', 'bg-red-50');
+                        field.classList.add('border-gray-300');
+                    }
+                });
+            }
+
+            if (!isValid) {
+                firstInvalid.scrollIntoView({behavior: 'smooth', block: 'center'});
+                if (firstInvalid.focus) firstInvalid.focus();
+                return false;
+            }
+
+            e.target.submit();
+        }
+
+        // Live validácia pre data-req polia
+        document.addEventListener('input', e => {
+            if (e.target.closest('#addForm') && e.target.hasAttribute('data-req')) {
+                if (e.target.value.trim() !== '') {
+                    e.target.classList.remove('border-red-500', 'bg-red-50');
+                    e.target.classList.add('border-gray-300');
+                }
+            }
+        });
+
+        document.addEventListener('input', e => {
+            if (e.target.closest('[id^="editForm-"]') && e.target.hasAttribute('data-req')) {
+                if (e.target.value.trim() !== '') {
+                    e.target.classList.remove('border-red-500', 'bg-red-50');
+                    e.target.classList.add('border-gray-300');
+                }
+            }
+        });
+
+        // ========== IMAGE HANDLING ==========
+        function onNewImage(input) {
+            if (!input.files?.[0]) return;
+            const filenameEl = document.getElementById('newImageFilename');
+            if (filenameEl) filenameEl.value = input.files[0].name;
+            const altWrapper = document.getElementById('newAltWrapper');
+            const removeBtn = document.getElementById('removeNewBtn');
+            if (altWrapper) altWrapper.classList.remove('hidden');
+            if (removeBtn) removeBtn.classList.remove('hidden');
+            document.querySelectorAll('#newAltWrapper input').forEach(t => t.setAttribute('required', 'required'));
+        }
+
+        function removeNewImage() {
+            const fileInput = document.querySelector('#addForm input[name="image"]');
+            if (fileInput) fileInput.value = '';
+            const filenameEl = document.getElementById('newImageFilename');
+            if (filenameEl) filenameEl.textContent = '— žiadny obrázok —';
+            const altWrapper = document.getElementById('newAltWrapper');
+            const removeBtn = document.getElementById('removeNewBtn');
+            if (altWrapper) altWrapper.classList.add('hidden');
+            if (removeBtn) removeBtn.classList.add('hidden');
+            document.querySelectorAll('#newAltWrapper input').forEach(t => t.removeAttribute('required'));
+        }
+
+        // ========== ADD FORM FUNCTIONS ==========
+        function openAddForm() {
+            const formWrapper = document.getElementById('addFormWrapper');
+            if (!formWrapper) return;
+            formWrapper.style.display = 'block';
+        }
+
+        function closeAddForm() {
+            const formWrapper = document.getElementById('addFormWrapper');
+            if (!formWrapper) return;
+            formWrapper.style.display = 'none';
+
+            const addForm = document.getElementById('addForm');
+            if (addForm) addForm.reset();
+
+            if (addFormEditors) {
+                addFormEditors.sk.setText('');
+                addFormEditors.en.setText('');
+                addFormEditors = null;
+            }
+            removeNewImage();
+        }
+
+        // Toggle add form
+        const toggleBtn = document.getElementById('toggleAddFormBtn');
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', () => {
+                const formWrapper = document.getElementById('addFormWrapper');
+                if (!formWrapper) return;
+
+                const isHidden = getComputedStyle(formWrapper).display === 'none';
+                if (isHidden) {
+                    openAddForm();
+
+                    // Inicializuj Quill LEN AK NEEXISTUJE
+                    if (!addFormEditors && !isHistory) {
+                        setTimeout(() => {
+                            const skContainer = document.getElementById('editor-new-sk');
+                            const enContainer = document.getElementById('editor-new-en');
+
+                            if (skContainer && enContainer && !skContainer.__quill) {
+                                addFormEditors = {
+                                    sk: new Quill('#editor-new-sk', {
+                                        theme: 'snow',
+                                        modules: {toolbar: toolbarOptions}
+                                    }),
+                                    en: new Quill('#editor-new-en', {
+                                        theme: 'snow',
+                                        modules: {toolbar: toolbarOptions}
+                                    })
+                                };
+                                preventImagePaste(addFormEditors.sk);
+                                preventImagePaste(addFormEditors.en);
+                                fixLinks(addFormEditors.sk);
+                                fixLinks(addFormEditors.en);
+                            }
+                        }, 200);
+                    }
+                } else {
+                    closeAddForm();
+                }
+            });
+        }
+
+        const cancelBtn = document.getElementById('cancelAddForm');
+        if (cancelBtn) cancelBtn.addEventListener('click', closeAddForm);
+
+        // ADD FORM SUBMIT - NASTAV LISTENER LEN RAZ
+        const addForm = document.getElementById('addForm');
+        if (addForm && !addForm.hasAttribute('data-submit-handler')) {
+            addForm.setAttribute('data-submit-handler', 'true');
+            addForm.addEventListener('submit', handleAddFormSubmit);
+        }
+
+        // Image listeners
+        document.addEventListener('change', e => {
+            if (e.target.matches('#addForm input[name="image"]')) onNewImage(e.target);
+        });
+
+        // ========== EDIT FORMS (zostáva rovnaké) ==========
+        function initEditEditors(id) {
+            if (quillEditors[id]) return;
+            const textareaSk = document.getElementById(`content-edit-${id}-sk`);
+            const textareaEn = document.getElementById(`content-edit-${id}-en`);
+            if (!textareaSk || !textareaEn) return;
+
+            const contentSk = textareaSk.value;
+            const contentEn = textareaEn.value;
+
+            if (!textareaSk.defaultValue) textareaSk.defaultValue = contentSk;
+            if (!textareaEn.defaultValue) textareaEn.defaultValue = contentEn;
+
+            quillEditors[id] = {
+                sk: new Quill(`#editor-edit-${id}-sk`, {theme: 'snow', modules: {toolbar: toolbarOptions}}),
+                en: new Quill(`#editor-edit-${id}-en`, {theme: 'snow', modules: {toolbar: toolbarOptions}})
+            };
+
+            preventImagePaste(quillEditors[id].sk);
+            preventImagePaste(quillEditors[id].en);
+            fixLinks(quillEditors[id].sk);
+            fixLinks(quillEditors[id].en);
+
+            if (contentSk?.trim()) quillEditors[id].sk.clipboard.dangerouslyPasteHTML(contentSk);
+            if (contentEn?.trim()) quillEditors[id].en.clipboard.dangerouslyPasteHTML(contentEn);
+        }
+
+        // Ostatné edit funkcie zostávajú rovnaké...
+        document.querySelectorAll('.toggle-edit').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = btn.dataset.id;
+                const row = document.getElementById(`edit-row-${id}`);
+                const wasHidden = row.classList.contains('hidden');
+
+                const addFormWrapper = document.getElementById('addFormWrapper');
+                if (addFormWrapper && getComputedStyle(addFormWrapper).display !== 'none') {
+                    closeAddForm();
+                }
+
+                document.querySelectorAll('[id^="edit-row-"]').forEach(r => {
+                    if (r.id !== `edit-row-${id}`) r.classList.add('hidden');
+                });
+
+                row.classList.toggle('hidden');
+                if (wasHidden) {
+                    currentOpenEdit = id;
+                    if (!isHistory) setTimeout(() => initEditEditors(id), 200);
+                } else {
+                    currentOpenEdit = null;
+                }
+            });
+        });
+
+        document.querySelectorAll('.close-edit').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = btn.dataset.id;
+                const row = document.getElementById(`edit-row-${id}`);
+                row.classList.add('hidden');
+                currentOpenEdit = null;
+
+                if (quillEditors[id]) {
+                    const originalSk = document.getElementById(`content-edit-${id}-sk`)?.defaultValue;
+                    const originalEn = document.getElementById(`content-edit-${id}-en`)?.defaultValue;
+                    if (originalSk) quillEditors[id].sk.clipboard.dangerouslyPasteHTML(originalSk);
+                    if (originalEn) quillEditors[id].en.clipboard.dangerouslyPasteHTML(originalEn);
+                }
+                document.getElementById(`editForm-${id}`)?.reset();
+            });
+        });
+
+        function handleEditFormSubmit(form) {
+            const id = form.id.replace('editForm-', '');
+
+            if (quillEditors[id]) {
+                const skField = document.getElementById(`content-edit-${id}-sk`);
+                const enField = document.getElementById(`content-edit-${id}-en`);
+                if (skField) skField.value = quillEditors[id].sk.root.innerHTML;
+                if (enField) enField.value = quillEditors[id].en.root.innerHTML;
+            }
+
+            const fields = [...form.querySelectorAll('[data-req]')].filter(f => f.offsetParent !== null);
+            let isValid = true;
+            let firstInvalid = null;
+
+            if (quillEditors[id]) {
+                const skText = quillEditors[id].sk.getText().trim();
+                const enText = quillEditors[id].en.getText().trim();
+                const skWrapper = document.getElementById(`editor-edit-${id}-sk`);
+                const enWrapper = document.getElementById(`editor-edit-${id}-en`);
+
+                if (!skText) {
+                    skWrapper.classList.add('border-2', 'border-red-500', 'bg-red-50', 'rounded-md');
+                    isValid = false;
+                    if (!firstInvalid) firstInvalid = skWrapper;
+                } else {
+                    skWrapper.classList.remove('border-red-500', 'bg-red-50');
+                }
+
+                if (!enText) {
+                    enWrapper.classList.add('border-2', 'border-red-500', 'bg-red-50', 'rounded-md');
+                    isValid = false;
+                    if (!firstInvalid) firstInvalid = enWrapper;
+                } else {
+                    enWrapper.classList.remove('border-red-500', 'bg-red-50');
+                }
+            }
+
+            fields.forEach(field => {
+                if (field.value.trim() === '') {
+                    field.classList.add('border-red-500', 'bg-red-50');
+                    field.classList.remove('border-gray-300');
+                    isValid = false;
+                    if (!firstInvalid) firstInvalid = field;
+                } else {
+                    field.classList.remove('border-red-500', 'bg-red-50');
+                    field.classList.add('border-gray-300');
+                }
+            });
+
+            const altWrapper = document.getElementById(`altWrapper-${id}`);
+            if (altWrapper && altWrapper.offsetParent !== null) {
+                ['image_alt_sk', 'image_alt_en'].forEach(name => {
+                    const field = form.querySelector(`[name="${name}"]`);
+                    if (!field) return;
+                    if (field.value.trim() === '') {
+                        field.classList.add('border-red-500', 'bg-red-50');
+                        field.classList.remove('border-gray-300');
+                        isValid = false;
+                        if (!firstInvalid) firstInvalid = field;
+                    } else {
+                        field.classList.remove('border-red-500', 'bg-red-50');
+                        field.classList.add('border-gray-300');
+                    }
+                });
+            }
+
+            if (!isValid) {
+                firstInvalid.scrollIntoView({behavior: 'smooth', block: 'center'});
+                if (firstInvalid.focus) firstInvalid.focus();
+                return false;
+            }
+
+            form.submit();
+        }
+
+        // ===== EDIT IMAGE HANDLING =====
+        function onEditImage(input, id) {
+            if (!input.files || !input.files[0]) return;
+
+            // názov súboru
+            const filenameInput = document.getElementById(`aboutFilename-${id}`);
+            if (filenameInput) {
+                filenameInput.value = input.files[0].name;
+            }
+
+            // zobraz ALT sekciu
+            const altWrapper = document.getElementById(`altWrapper-${id}`);
+            if (altWrapper) {
+                altWrapper.classList.remove('hidden');
+            }
+
+            // zobraz tlačidlo odstrániť
+            const removeBtn = document.getElementById(`removeBtn-${id}`);
+            if (removeBtn) {
+                removeBtn.classList.remove('hidden');
+            }
+
+            // zruš remove flag
+            const removeFlag = document.getElementById(`removeFlag-${id}`);
+            if (removeFlag) {
+                removeFlag.value = 0;
+            }
+
+            // ALT povinné
+            document
+                .querySelectorAll(`#altWrapper-${id} textarea`)
+                .forEach(t => t.setAttribute('required', 'required'));
+        }
+
+        function removeEditImage(id) {
+            // vyčisti file input
+            const fileInput = document.querySelector(`#editForm-${id} input[name="image"]`);
+            if (fileInput) fileInput.value = '';
+
+            // nastav remove flag
+            const removeFlag = document.getElementById(`removeFlag-${id}`);
+            if (removeFlag) {
+                removeFlag.value = 1;
+            }
+
+            // reset názvu
+            const filenameInput = document.getElementById(`aboutFilename-${id}`);
+            if (filenameInput) {
+                filenameInput.value = '— žiadny obrázok —';
+            }
+
+            // skry ALT sekciu
+            const altWrapper = document.getElementById(`altWrapper-${id}`);
+            if (altWrapper) {
+                altWrapper.classList.add('hidden');
+            }
+
+            // skry tlačidlo odstrániť
+            const removeBtn = document.getElementById(`removeBtn-${id}`);
+            if (removeBtn) {
+                removeBtn.classList.add('hidden');
+            }
+
+            // ALT už netreba
+            document
+                .querySelectorAll(`#altWrapper-${id} textarea`)
+                .forEach(t => t.removeAttribute('required'));
+        }
+
+        function openSectionDeleteModal(id, name) {
+            const modal = document.getElementById('sectionDeleteModal');
+            const form = document.getElementById('sectionDeleteForm');
+            const nameSpan = document.getElementById('sectionDeleteName');
+
+            nameSpan.textContent = name;
+            form.action = `/votumaci/sections/{{ $category }}/${id}`;
+            modal.classList.remove('hidden');
+        }
+
+        function closeSectionDeleteModal() {
+            document.getElementById('sectionDeleteModal').classList.add('hidden');
+        }
+
+    </script>
+
+@endsection

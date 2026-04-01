@@ -1,0 +1,158 @@
+<header id="main-header" class="fixed top-0 left-0 right-0 z-50">
+<div class="bg-blue-950 backdrop-blur-md pb-2 filter-container">
+        <div class=" sm:pr-6 flex w-full items-center justify-between bg-[var(--blackblue)]">
+            <!-- Logo -->
+            <a class="flex txt-btn-block items-center gap-3" href="{{route('main')}}">
+                <x-front::ikony.logo class="w-[45px] sm:w-[70px] shrink-0 p-2 pr-0 sm:pr-2" />
+                <h1 class="text-2xl sm:text-3xl font-bold text-white logo-font">Združenie VOTUM</h1>
+            </a>
+
+            <!-- Right controls -->
+            <div class="flex items-center gap-4">
+
+                <!-- Language switch (desktop only) -->
+                <div class="desktop-locale">
+                    <x-front::locale-switch />
+                </div>
+
+                <!-- Mobile toggle -->
+                <button id="menu-toggle" aria-label="Toggle menu" class="hamburger p-2 rounded-full text-[var(--cream)] hover:bg-blue-800 transition z-[60] relative">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Desktop nav -->
+        <div class="mt-2 desktop-nav-wrapper">
+            <x-front::nav />
+        </div>
+
+    </div>
+</header>
+
+<!-- Single full-screen mobile menu (one element only) -->
+<div id="mobile-menu" class="fixed bg-blue-950 left-0 w-full  text-white  hidden z-40 overflow-y-auto">
+    <div class="bg-blue-950 pb-4 filter-container h-full">
+        <div class="flex flex-col items-center gap-8 px-6 pt-5">
+
+            <!-- Mobile font + locale controls (visible only on mobile) -->
+            <div class="flex flex-row items-center gap-4  md:hidden ">
+                <x-front::locale-switch mobile />
+            </div>
+
+            <!-- Links -->
+            <ul class="flex flex-col gap-6 text-center font-medium w-full text-xl">
+                <li><a href="{{route('main')}}" class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block">
+                        <x-front::ikony.home class="w-10 h-10" />
+                        {{ __('nav.home')}}</a></li>
+                <li><a href="{{route('about')}}" class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block">
+                        <x-front::ikony.about class="w-10 h-10" />
+                        {{ __('nav.about')}}</a></li>
+                <li><a href="{{route('events')}}"  class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block">
+                        <x-front::ikony.event class="w-10 h-10" />
+                        {{ __('nav.events')}}</a></li>
+                <li><a href="{{route('history')}}" class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block">
+                        <x-front::ikony.history class="w-10 h-10" />
+                        {{ __('nav.history')}}</a></li>
+                <li><a href="{{route('support')}}" class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block">
+                        <x-front::ikony.support class="w-10 h-10" />
+                        {{ __('nav.support')}}</a></li>
+                <li><a href="{{route('contacts')}}" class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block">
+                        <x-front::ikony.contact class="w-10 h-10" />
+                        {{ __('nav.contacts')}}</a></li>
+                <li><a href="{{asset('documents')}}" class="flex justify-center items-center gap-3 hover:text-blue-300 txt-btn-block">
+                        <x-front::ikony.document class="w-10 h-10" />
+                        {{ __('nav.documents')}}</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Mobile menu toggle + position adjustment
+            const toggle = document.getElementById('menu-toggle');
+            const menu = document.getElementById('mobile-menu');
+            const header = document.querySelector('header');
+            const main = document.getElementById('site-main');
+            let open = false;
+
+            // Make sure menu is attached to body (avoids z-index/transform problems)
+            if (menu && menu.parentElement !== document.body) document.body.appendChild(menu);
+
+            function adjustLayout() {
+                const headerHeight = header ? header.offsetHeight : 0;
+
+                // move main down
+                if (main) main.style.marginTop = headerHeight + 'px';
+
+                // position mobile menu
+                if (menu) {
+                    menu.style.top = headerHeight - 1 + 'px';
+                    menu.style.height = `calc(100vh - ${headerHeight}px)`;
+                }
+            }
+
+            adjustLayout();
+            window.addEventListener('resize', adjustLayout);
+
+            if (window.ResizeObserver) {
+                new ResizeObserver(adjustLayout).observe(header);
+            }
+
+            if (toggle && menu) {
+                toggle.addEventListener('click', e => {
+                    e.stopPropagation();
+                    open = !open;
+                    menu.classList.toggle('hidden', !open);
+                    document.body.style.overflow = open ? 'hidden' : '';
+                    if (open) adjustLayout();
+                });
+
+                // close when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (open && !menu.contains(e.target) && e.target !== toggle) {
+                        open = false;
+                        menu.classList.add('hidden');
+                        document.body.style.overflow = '';
+                    }
+                });
+
+                // close with Escape
+                document.addEventListener('keydown', (e) => {
+                    if (open && e.key === 'Escape') {
+                        open = false;
+                        menu.classList.add('hidden');
+                        document.body.style.overflow = '';
+                    }
+                });
+            }
+
+            // ========== LOCALE SWITCHING FIX ==========
+            // Use event delegation on document to catch form submits from mobile menu
+            document.addEventListener('submit', (e) => {
+
+                // Check if submitted form is the mobile locale form
+                if (e.target && e.target.id === 'locale-form-mobile') {
+                    // Remember that menu was open
+                    sessionStorage.setItem('votum:mobile-menu-open', 'true');
+                }
+            });
+
+            // Restore mobile menu state after page reload
+            if (sessionStorage.getItem('votum:mobile-menu-open') === 'true') {
+                sessionStorage.removeItem('votum:mobile-menu-open');
+                if (toggle && menu) {
+                    open = true;
+                    menu.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                    adjustLayout();
+                }
+            }
+        });
+    </script>
+@endpush
