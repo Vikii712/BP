@@ -162,7 +162,7 @@
 
             </form>
         </div>
-        <x-admin.modal/>
+        <x-admin::.modal/>
     </div>
 
     <script>

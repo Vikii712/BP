@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>VOTUM</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/front/app.js'])
     <link rel="icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
     <meta name="description" content="VOTUM je združenie s viac ako 30-ročnou tradíciou, ktoré vytvára komunitu založenú na podpore, porozumení a kresťanských hodnotách. Spájame mladých ľudí a prinášame radosť do života.">
     <meta http-equiv="Content-Security-Policy" content="frame-src https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com https://maps.google.com;">

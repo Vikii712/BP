@@ -54,34 +54,34 @@
                         </div>
                     </div>
 
-                    <x-admin.event.calendar
+                    <x-admin::.event.calendar
                         :isEdit="$isEdit"
                         :event="$event"
 
                     />
 
-                    <x-admin.event.main_pic
+                    <x-admin::.event.main_pic
                         :isEdit="$isEdit"
                         :event="$event"
                     />
 
-                    <x-admin.event.text
+                    <x-admin::.event.text
                         :event="$event"
                     />
 
-                    <x-admin.event.media
+                    <x-admin::.event.media
                         :isEdit="$isEdit"
                         :event="$event"
                         :galleryUrl="$galleryUrl"
                     />
 
-                    <x-admin.event.sponsor
+                    <x-admin::.event.sponsor
                         :isEdit="$isEdit"
                         :event="$event"
                         :allSponsors="$allSponsors"
                     />
 
-                    <x-admin.event.docs
+                    <x-admin::.event.docs
                         :event="$event"
                     />
 

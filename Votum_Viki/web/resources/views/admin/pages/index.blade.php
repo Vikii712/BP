@@ -45,16 +45,16 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
 
-                <x-admin.card name="Domov" :route="route('home.edit')" icon="home"/>
-                <x-admin.card name="O nás" :route="route('admin.about')" icon="about"/>
-                <x-admin.card name="Udalosti" :route="route('events.index')" icon="event"/>
-                <x-admin.card name="História" :route="route('section.index', 'history')" icon="history"/>
-                <x-admin.card name="Podpora" :route="route('admin.support')" icon="support"/>
-                <x-admin.card name="Kontakty" :route="route('contacts.edit')" icon="contact"/>
-                <x-admin.card name="Dokumenty" :route="route('section.index', 'documentSection')" icon="document"/>
+                <x-admin::.card name="Domov" :route="route('home.edit')" icon="home"/>
+                <x-admin::.card name="O nás" :route="route('admin.about')" icon="about"/>
+                <x-admin::.card name="Udalosti" :route="route('events.index')" icon="event"/>
+                <x-admin::.card name="História" :route="route('section.index', 'history')" icon="history"/>
+                <x-admin::.card name="Podpora" :route="route('admin.support')" icon="support"/>
+                <x-admin::.card name="Kontakty" :route="route('contacts.edit')" icon="contact"/>
+                <x-admin::.card name="Dokumenty" :route="route('section.index', 'documentSection')" icon="document"/>
 
-                <x-admin.card name="Zmena hesla" :route="route('password.change')" icon="fa-lock" inverted/>
-                <x-admin.card name="Správa adminov" :route="route('admin.manage')" icon="fa-user-cog" inverted/>
+                <x-admin::.card name="Zmena hesla" :route="route('password.change')" icon="fa-lock" inverted/>
+                <x-admin::.card name="Správa adminov" :route="route('admin.manage')" icon="fa-user-cog" inverted/>
             </div>
 
             <div class="my-12 text-center flex items-center flex-col">

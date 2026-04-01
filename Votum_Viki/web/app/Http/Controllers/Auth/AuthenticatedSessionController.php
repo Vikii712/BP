@@ -20,7 +20,7 @@ class AuthenticatedSessionController extends Controller
             return redirect()->route('admin');
         }
 
-        return view('auth.login');
+        return view('auth::pages.login');
     }
 
     /**

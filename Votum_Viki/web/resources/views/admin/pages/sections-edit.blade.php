@@ -36,12 +36,12 @@
             @endif
 
 
-            <x-admin.new-section
+            <x-admin::.new-section
                 :category="$category"
                 :title="$title"
             />
 
-            <x-admin.section-table
+            <x-admin::.section-table
                 :items="$items"
                 :title="$title"
                 :showYear="$category === 'history'"

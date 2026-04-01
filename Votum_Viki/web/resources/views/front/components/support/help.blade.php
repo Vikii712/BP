@@ -8,48 +8,62 @@
     $pravnicke = $how
         ->whereIn('title', ['Právnická osoba', 'Legal person'])
         ->first();
+
+    $tabId = 'support-tabs-' . uniqid();
 @endphp
 
-<section class="max-w-5xl mx-auto mb-12" x-data="{ tab: 'fyzicke' }">
+<section class="max-w-5xl mx-auto mb-12" data-tabs-root>
     <div class="bg-votum2 border-4 border-votum2 rounded-2xl p-2 sm:p-5 md:p-10 text-votum-blue shadow-lg">
 
         <!-- TABS -->
-        <div class="txt flex flex-wrap justify-center gap-4 mb-10">
+        <div class="txt flex flex-wrap justify-center gap-4 mb-10" role="tablist" aria-label="{{ __('nav.support') }}">
             <button
-                @click="tab = 'fyzicke'"
-                :class="tab === 'fyzicke'
-                    ? 'bg-dark-votum2 text-white font-bold shadow'
-                    : 'bg-white text-votum-blue border border-votum-blue font-semibold'"
-                class="px-2  py-3 rounded-md transition-colors duration-200 txt-btn"
+                type="button"
+                data-tab-button="fyzicke"
+                aria-selected="true"
+                aria-controls="{{ $tabId }}-panel-fyzicke"
+                id="{{ $tabId }}-tab-fyzicke"
+                class="px-2 py-3 rounded-md transition-colors duration-200 txt-btn bg-dark-votum2 text-white font-bold shadow"
             >
                 {{ __('nav.fyz') }}
             </button>
 
             <button
-                @click="tab = 'pravnicke'"
-                :class="tab === 'pravnicke'
-                    ? 'bg-dark-votum2 text-white font-bold shadow'
-                    : 'bg-white text-votum-blue border border-votum-blue font-semibold'"
-                class="px-2  rounded-md transition-colors duration-200 txt-btn"
+                type="button"
+                data-tab-button="pravnicke"
+                aria-selected="false"
+                aria-controls="{{ $tabId }}-panel-pravnicke"
+                id="{{ $tabId }}-tab-pravnicke"
+                class="px-2 rounded-md transition-colors duration-200 txt-btn bg-white text-votum-blue border border-votum-blue font-semibold"
             >
                 {{ __('nav.prav') }}
             </button>
         </div>
 
-
-        <div x-show="tab === 'fyzicke'">
+        <div
+            data-tab-panel="fyzicke"
+            id="{{ $tabId }}-panel-fyzicke"
+            role="tabpanel"
+            aria-labelledby="{{ $tabId }}-tab-fyzicke"
+        >
             <h3 class="h3 sentence font-bold mb-6 flex items-center justify-center gap-3 text-votum-blue">
                 <i class="fas fa-user text-3xl"></i>
                 {{ __('nav.fyzHelp') }}
             </h3>
             <div class="border-3 border-votum2 bg-white p-2 sm:p-6 rounded-lg txt font-medium shadow-inner">
                 <div class="prose divide-highlight prose-lg list-decimal list-inside space-y-3">
-                    {!! $fyzicke['content'] ?? '' !!}
+                    {!! $fyzicke['content']  ?? '' !!}
                 </div>
             </div>
         </div>
 
-        <div x-show="tab === 'pravnicke'">
+        <div
+            data-tab-panel="pravnicke"
+            id="{{ $tabId }}-panel-pravnicke"
+            role="tabpanel"
+            aria-labelledby="{{ $tabId }}-tab-pravnicke"
+            class="hidden"
+        >
             <h3 class="h3 font-bold sentence mb-6 flex items-center justify-center gap-3 text-votum-blue">
                 <i class="fas fa-building text-3xl"></i>
                 {{ __('nav.pravHelp') }}

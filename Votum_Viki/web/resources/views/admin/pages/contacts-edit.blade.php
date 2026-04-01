@@ -26,7 +26,7 @@
 
             {{-- Renderovanie každej sekcie cez komponent --}}
             @foreach ($sections as $sectionKey => $sectionItems)
-                <x-admin.contact-section
+                <x-admin::.contact-section
                     :category="$sectionKey"
                     :sections="$sectionItems"/>
             @endforeach

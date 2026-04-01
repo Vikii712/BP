@@ -200,5 +200,5 @@
         </div>
     </div>
 
-    <x-admin.modal/>
+    <x-admin::.modal/>
 @endsection

@@ -18,7 +18,7 @@
 
             {{-- Renderovanie každej sekcie cez komponent --}}
             @foreach ($sections as $sectionKey => $sectionItems)
-                <x-admin.quill-section
+                <x-admin::.quill-section
                     :category="$sectionKey"
                     :title="ucfirst($sectionKey)"
                     :sections="$sectionItems"
