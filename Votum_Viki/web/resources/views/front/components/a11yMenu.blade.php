@@ -83,10 +83,11 @@
 
             {{-- RESET BUTTON --}}
 
-                <button id="a11y-reset" class="flex txt-btn-block justify-center items-center w-full px-2 py-3 bg-gray-200 border-2 border-black rounded-md text-black font-bold text-center cursor-pointer hover:bg-red-300">
-                    <i class="fa-solid text-3xl fa-xmark pr-2"></i>
-                    Vypnúť všetko
-                </button>
+            <button id="a11y-reset"
+                    class="flex txt-btn-block justify-center items-center w-full px-2 py-3 bg-gray-200 border-2 border-black rounded-md text-black font-bold text-center cursor-pointer hover:bg-red-300">
+                <i class="fa-solid text-3xl fa-xmark pr-2"></i>
+                Vypnúť všetko
+            </button>
 
             @foreach($options as $section => $items)
                 <div class="rounded-xl border-2 border-black bg-neutral-400 shadow-sm overflow-hidden">
@@ -120,7 +121,6 @@
                             </button>
                         </div>
 
-
                     @elseif($section === 'font' || $section === 'color')
                         <div class="grid grid-cols-2 gap-2 p-1">
                             @foreach($items as $item)
@@ -135,10 +135,10 @@
                                         @else
                                             data-filter="{{ $item['function'] }}"
                                         @endif
-                                        >
-                                        <div
-                                            tabindex="0" role="button"
-                                            class="flex txt-btn-a11y flex-col items-center justify-center p-1 rounded-lg border-2 border-black bg-gray-50
+                                    >
+                                    <div
+                                        tabindex="0" role="button"
+                                        class="flex txt-btn-a11y flex-col items-center justify-center p-1 rounded-lg border-2 border-black bg-gray-50
                                         peer-checked:bg-yellow-300 h-full
                                         peer-checked:border-yellow-800
                                         hover:bg-yellow-300">
@@ -147,7 +147,18 @@
                                             @if(isset($item['icon']))
                                                 <i class="{{ $item['icon'] }}"></i>
                                             @else
-                                                <span class="text-2xl font-medium" style="font-family: {{ $item['font'] }}">Aa</span>
+                                                @php
+                                                    $fontClass = match($item['key']) {
+                                                        'arial' => 'font-arial',
+                                                        'comic' => 'font-comic',
+                                                        'dyslexic' => 'font-dyslexic',
+                                                        default => 'font-atkinson',
+                                                    };
+                                                @endphp
+
+                                                <span class="text-2xl font-medium {{ $fontClass }}">
+                                                    Aa
+                                                </span>
                                             @endif
                                         </span>
 
@@ -181,10 +192,14 @@
                                             {{ $item['title'] }}
                                         </span>
                                         @if(!empty($item['spectrum']))
-                                            <div class="flex w-full overflow-hidden gap-1" data-spectrum="{{ $item['function'] }}">
-                                                <div class="flex-1 h-2 bg-black border border-black" data-step="1"></div>
-                                                <div class="flex-1 h-2 bg-white border border-black" data-step="2"></div>
-                                                <div class="flex-1 h-2 bg-white border border-black" data-step="3"></div>
+                                            <div class="flex w-full overflow-hidden gap-1"
+                                                 data-spectrum="{{ $item['function'] }}">
+                                                <div class="flex-1 h-2 bg-black border border-black"
+                                                     data-step="1"></div>
+                                                <div class="flex-1 h-2 bg-white border border-black"
+                                                     data-step="2"></div>
+                                                <div class="flex-1 h-2 bg-white border border-black"
+                                                     data-step="3"></div>
                                             </div>
                                         @endif
                                     </div>

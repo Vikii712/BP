@@ -20,3 +20,11 @@ function showCopyNotification(message) {
     // zmizne po 2 sekundách
     setTimeout(() => notif.remove(), 2000);
 }
+
+document.addEventListener('click', function (e) {
+    const btn = e.target.closest('[data-copy-text]');
+    if (!btn) return;
+
+    const text = JSON.parse(btn.dataset.copyText);
+    copyToClipboard(text);
+});

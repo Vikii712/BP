@@ -123,7 +123,6 @@
         );
         const existingDocuments = @json($documents ?? []);
         const existingColor = @json($isEdit && $event->color ? $event->color : null);
-        console.log(existingColor)
         const existingContentSK = @json($isEdit && $event->content_sk ? $event->content_sk : '');
         const existingContentEN = @json($isEdit && $event->content_en ? $event->content_en : '');
         const allSponsors = @json($allSponsors);

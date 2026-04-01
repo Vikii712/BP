@@ -10,11 +10,7 @@
 </head>
 
 
-<body>
-
-<div id="locale-div" hidden>
-    {{ app()->getLocale() ?? 'sk' }}
-</div>
+<body data-locale="{{ app()->getLocale() ?? 'sk' }}">
 
 <x-front::header />
 

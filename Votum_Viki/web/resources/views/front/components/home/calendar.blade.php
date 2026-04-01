@@ -44,7 +44,7 @@
 
                 </div>
 
-                <div class="rounded-lg p-2 sm:p-4 border-4" style="border-color:#172554;background-color:#fff;">
+                <div class="rounded-lg p-2 sm:p-4 border-4 border-blue-950 bg-white">
                     <div class="grid grid-cols-7 gap-1 sm:gap-2 mb-4">
                         <div class="text-center font-bold text-lg">{{ __('nav.po') }}</div>
                         <div class="text-center font-bold text-lg">{{ __('nav.ut') }}</div>
@@ -125,7 +125,7 @@
 </template>
 
 <template id="calendarBarTemplate">
-    <div class="calendar-bar" style="flex:1; min-height:4px;"></div>
+    <div class="calendar-bar flex-1 min-h-[4px]"></div>
 </template>
 
 <div id="events-data" hidden>

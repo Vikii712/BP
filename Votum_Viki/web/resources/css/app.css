@@ -275,3 +275,14 @@ body.highlight-links a{
 .show-desktop-nav .desktop-locale {
     display: block;
 }
+
+.first-line-bold::first-line {
+    font-weight: bold;
+}
+
+.font-atkinson { font-family: 'Atkinson Hyperlegible', sans-serif; }
+.font-dyslexic { font-family: 'OpenDyslexic', sans-serif; }
+.font-arial { font-family: 'Arial', sans-serif; }
+.font-comic { font-family: 'Comic Sans MS', sans-serif; }
+
+

@@ -27,7 +27,7 @@
                                     sm:-top-13 sm:-right-0 sm:w-40 sm:h-40
                                     md:w-50  md:h-50
                                     lg:-top-15 lg:right-0">
-                            <img src="{{ asset('images/votumaci.png') }}" alt=""
+                            <img src="{{ asset('storage/images/icons/votumaci.png') }}" alt=""
                                  loading="lazy"
                                  class="w-full h-full object-contain">
                         </div>

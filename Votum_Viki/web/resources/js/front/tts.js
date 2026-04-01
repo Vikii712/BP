@@ -9,7 +9,6 @@ function getVoiceByLocale(locale) {
         return voices.find(v => v.lang.startsWith("en")) || null;
     }
 
-    // default slovenčina
     return voices.find(v => v.lang === "sk-SK") || null;
 }
 
@@ -34,14 +33,15 @@ function updateIcon(id, speaking) {
 }
 
 function speak(text, id) {
-    const locale = window.appLocale || 'sk';
+    const locale = document.body.dataset.locale || 'sk';
     const voice = getVoiceByLocale(locale);
 
     const utter = new SpeechSynthesisUtterance(text);
-
     utter.lang = locale === 'en' ? "en-US" : "sk-SK";
 
-    if (voice) utter.voice = voice;
+    if (voice) {
+        utter.voice = voice;
+    }
 
     utter.rate = 1;
     utter.pitch = 1;
@@ -59,19 +59,13 @@ function speak(text, id) {
     speechSynthesis.speak(utter);
 }
 
-speechSynthesis.onvoiceschanged = () => {
-    console.log("Voices loaded:", speechSynthesis.getVoices());
-};
-
-window.toggleListen = function(text, id) {
+window.toggleListen = function (text, id) {
     if (!text || text.trim().length === 0) return;
 
-    // Extrahujeme plain text – funguje aj pre HTML aj pre čistý text
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = text;
     const plainText = tempDiv.textContent || tempDiv.innerText || '';
 
-    // Ak už hovoríme a klikneme na to isté ID → stop
     if (isSpeaking && currentActiveId === id) {
         speechSynthesis.cancel();
         isSpeaking = false;
@@ -80,7 +74,6 @@ window.toggleListen = function(text, id) {
         return;
     }
 
-    // Ak práve hrá iný → vypni ho a resetuj ikony
     speechSynthesis.cancel();
     resetAllIcons();
 
@@ -89,4 +82,14 @@ window.toggleListen = function(text, id) {
 
     updateIcon(id, true);
     speak(plainText, id);
-}
+};
+
+document.addEventListener('click', function (e) {
+    const button = e.target.closest('[data-tts-button]');
+    if (!button) return;
+
+    const text = JSON.parse(button.dataset.ttsText);
+    const id = button.dataset.ttsId;
+
+    window.toggleListen(text, id);
+});

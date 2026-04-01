@@ -14,12 +14,12 @@ class EventsController extends Controller
         $locale = session('locale', 'sk');
         $today = Carbon::today();
 
-        // EVENTS - načítať všetky eventy s inGallery = true
+        // --- VŠETKY GALLERY EVENTS ---
         $allEvents = Event::with('dates')
             ->where('inGallery', true)
             ->get()
             ->map(function ($event) use ($locale, $today) {
-                $datesRaw = $event->dates; // Zachovať pre hasExact
+                $datesRaw = $event->dates;
 
                 $dates = $datesRaw
                     ->pluck('date')
@@ -28,57 +28,55 @@ class EventsController extends Controller
                     ->values();
 
                 $futureDates = $dates->filter(fn ($d) => $d->gte($today));
-                $pastDates = $dates->filter(fn ($d) => $d->lt($today));
+                $displayDates = $futureDates->isNotEmpty() ? $futureDates : $dates;
 
-                // Určiť či je event upcoming alebo past
-                $isUpcoming = $futureDates->isNotEmpty();
-
-                // Pre upcoming použiť futureDates, pre past použiť pastDates
-                $displayDates = $isUpcoming ? $futureDates : $pastDates;
-
-                // hasExact z RAW dát – nie z Carbon kolekcie
                 $hasExact = $datesRaw->contains('exact', true);
 
                 if (!$hasExact) {
-                    // iba rok (žiadny rozsah)
                     $dateLabel = $displayDates->first()?->format('Y') ?? '';
                 } else {
-                    // presné dátumy (môže byť rozsah)
                     $dateLabel = $displayDates->count() === 1
                         ? $displayDates->first()->format('j. n. Y')
                         : $displayDates->first()->format('j. n. Y') . ' – ' . $displayDates->last()->format('j. n. Y');
                 }
 
-                // Rok pre past eventy (použiť posledný dátum)
+                $isUpcoming = $futureDates->isNotEmpty();
+
+                // pre minulé eventy chceme radiť podľa posledného dátumu
                 $year = $dates->isNotEmpty() ? $dates->last()->year : null;
                 $sortDate = $dates->isNotEmpty() ? $dates->last() : null;
 
-                return (object)[
+                return (object) [
                     'id' => $event->id,
                     'title' => $locale === 'sk' ? $event->title_sk : $event->title_en,
                     'description' => $locale === 'sk' ? $event->content_sk : $event->content_en,
+                    'color' => $event->color,
+                    'dates' => $dates->map(fn ($d) => $d->format('Y-m-d'))->values(),
+                    'dateLabel' => $dateLabel,
                     'main_pic' => $event->main_pic,
                     'pic_alt' => $locale === 'sk' ? $event->pic_alt_sk : $event->pic_alt_en,
-                    'dateLabel' => $dateLabel,
                     'year' => $year,
                     'sortDate' => $sortDate,
                     'isUpcoming' => $isUpcoming,
-                    'inGallery' => (bool) $event->inGallery,
                     'inCalendar' => (bool) $event->inCalendar,
+                    'inGallery' => (bool) $event->inGallery,
                     'inHome' => (bool) $event->inHome,
                 ];
             });
 
-        // Rozdeliť na upcoming a past
-        $upcomingEvents = $allEvents->filter(fn($e) => $e->isUpcoming)->values();
+        // --- UPCOMING EVENTS PRE ZOZNAM NAD KALENDÁROM ---
+        $upcomingEvents = $allEvents
+            ->filter(fn ($e) => $e->isUpcoming)
+            ->values();
 
-        $eventsPerPage = 20; // max udalostí na stránku
+        // --- PAST EVENTS SO STRÁNKOVANÍM ---
+        $eventsPerPage = 20;
 
-        $allPastEvents = $allEvents->filter(fn($e) => !$e->isUpcoming);
+        $allPastEvents = $allEvents->filter(fn ($e) => !$e->isUpcoming);
 
         $totalEvents = $allPastEvents->count();
         $currentPage = max(1, (int) request('page', 1));
-        $totalPages  = (int) ceil($totalEvents / $eventsPerPage);
+        $totalPages = (int) ceil($totalEvents / $eventsPerPage);
         $currentPage = min($currentPage, $totalPages ?: 1);
 
         $pagedEvents = $allPastEvents
@@ -90,53 +88,28 @@ class EventsController extends Controller
             ->groupBy('year')
             ->sortKeysDesc();
 
-        $calendarEvents = Event::with('dates')->where('inCalendar', true)->get()->map(function ($event) use ($locale, $today) {
-            $datesRaw = $event->dates; // Zachovať pre hasExact
+        // --- CALENDAR EVENTS ROVNAKO AKO NA HOME ---
+        $calendarEvents = $allEvents
+            ->filter(fn ($e) => $e->inCalendar)
+            ->values();
 
-            $dates = $datesRaw
-                ->pluck('date')
-                ->map(fn ($d) => Carbon::parse($d)->startOfDay())
-                ->sort()
-                ->values();
-
-            $futureDates = $dates->filter(fn ($d) => $d->gte($today));
-
-            $displayDates = $futureDates->isNotEmpty() ? $futureDates : $dates;
-
-            // hasExact z RAW dát – nie z Carbon kolekcie
-            $hasExact = $datesRaw->contains('exact', true);
-
-            if (!$hasExact) {
-                // iba rok (žiadny rozsah)
-                $dateLabel = $displayDates->first()?->format('Y') ?? '';
-            } else {
-                // presné dátumy (môže byť rozsah)
-                $dateLabel = $displayDates->count() === 1
-                    ? $displayDates->first()->format('j. n. Y')
-                    : ($displayDates->count() > 1
-                        ? $displayDates->first()->format('j. n. Y') . ' – ' . $displayDates->last()->format('j. n. Y')
-                        : '');
-            }
-
-            return (object)[
-                'id' => $event->id,
-                'title' => $locale === 'sk' ? $event->title_sk : $event->title_en,
-                'color' => $event->color,
-
-                'dates' => $dates->map(fn($d) => $d->format('Y-m-d')),
-                'futureDates' => $futureDates,
-                'nextDate' => $futureDates->first(),
-
-                'dateLabel' => $dateLabel,
-            ];
-        });
+        $calendarTitles = $allEvents
+            ->filter(fn ($e) => $e->inCalendar)
+            ->filter(function ($e) use ($today) {
+                return collect($e->dates)
+                    ->map(fn ($d) => Carbon::parse($d))
+                    ->contains(fn ($d) => $d->gte($today));
+            })
+            ->map(fn ($e) => $e->dateLabel . ' ' . $e->title)
+            ->implode('. ');
 
         return view('front::pages.events', [
             'upcomingEvents' => $upcomingEvents,
             'pastEventsByYear' => $pastEventsByYear,
             'calendarEvents' => $calendarEvents,
+            'calendarTitles' => $calendarTitles,
             'currentPage' => $currentPage,
-            'totalPages'  => $totalPages,
+            'totalPages' => $totalPages,
         ]);
     }
 

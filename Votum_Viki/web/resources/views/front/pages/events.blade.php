@@ -8,7 +8,7 @@
         @if($currentPage === 1)
             <x-front::home.calendar
                 :calendarEvents="$calendarEvents"
-                :upcomingEvents="$upcomingEvents"
+                :calendarTitles="$calendarTitles"
             />
         @endif
 

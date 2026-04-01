@@ -20,17 +20,13 @@
 
         <!-- BUTTON -->
         <button
-            onclick="copyToClipboard('{{ json_encode($plainText) }}')"
+            type="button"
+            data-copy-text='@json($plainText)'
             class="copy-btn txt-btn-block shrink-0 mx-auto"
-            title="{{ $name }}">
+            title="{{ $name }}"
+        >
             <i class="fas fa-copy text-3xl"></i>
         </button>
     </div>
 </div>
 
-
-<style>
-    .first-line-bold::first-line {
-        font-weight: bold;
-    }
-</style>

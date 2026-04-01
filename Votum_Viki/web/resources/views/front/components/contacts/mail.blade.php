@@ -13,9 +13,13 @@
         <div class="space-y-3 p-2 sm:p-8">
             @foreach($data as $mail)
                 <x-front::contacts.input name="{{$isSK ? $mail->title_sk : $mail->title_en}}" value="{{$isSK ? $mail->content_sk : $mail->content_en}}" color="{{$color ? 3 : 2}}"/>
-                <button onclick="window.location.href='mailto:{{$isSK ? $mail->content_sk : $mail->content_en}}'" class="w-full bg-votum-blue text-white py-2 px-4 rounded txt-btn">
-                    <i class="fas fa-paper-plane mr-2"></i>{{ __('nav.write') }}
-                </button>
+                <a
+                    href="mailto:{{ $isSK ? $mail->content_sk : $mail->content_en }}"
+                    class="w-full bg-votum-blue text-white py-2 px-4 rounded txt-btn flex items-center justify-center"
+                >
+                    <i class="fas fa-paper-plane mr-2"></i>
+                    {{ __('nav.write') }}
+                </a>
             @endforeach
         </div>
     </div>

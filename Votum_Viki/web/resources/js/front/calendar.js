@@ -4,8 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const calendarEvents = JSON.parse(root.dataset.events || '[]');
 
-    const localeDiv = document.getElementById('locale-div');
-    const locale = localeDiv.textContent.trim() || 'sk';
+    const locale = document.body.dataset.locale || 'sk';
 
     const eventItemTemplate = document.getElementById('eventItemTemplate');
     const noEventsTemplate = document.getElementById('noEventsTemplate');

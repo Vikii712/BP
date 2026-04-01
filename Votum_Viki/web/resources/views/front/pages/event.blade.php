@@ -77,7 +77,7 @@
                    rounded-2xl transition-all duration-300 txt-btn-block">
 
                     <div class="p-2 sm:p-6 mb-6 flex items-end">
-                        <img src="{{ asset('images/fotky.svg') }}" alt="fotky" width="100" class="mx-auto">
+                        <img src="{{ asset('storage/images/fotky.svg') }}" alt="fotky" width="100" class="mx-auto">
                         <i class="fa-regular fa-hand-pointer text-votum2 mt-2 text-5xl -rotate-[25deg]"></i>
                     </div>
 
