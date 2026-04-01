@@ -1,9 +1,4 @@
-@props(['calendarEvents', 'upcomingEvents'])
-@php
-    $titles = $upcomingEvents
-    ->map(fn($e) => $e->dateLabel . ' ' . $e->title)
-    ->implode('. ');
-@endphp
+@props(['calendarEvents', 'calendarTitles'])
 
 <x-front::wave/>
 
@@ -15,8 +10,7 @@
                     {{ __('nav.nextUp') }}
                 </h2>
 
-                <x-front::listen text="{{__('nav.nextUp') . $titles }}" :down="true"/>
-            </div>
+                <x-front::listen text="{{ __('nav.nextUp') . $calendarTitles }}" :down="true"/>            </div>
         </div>
 
 
@@ -103,164 +97,36 @@
 
 <x-front::wave :inverted="true"/>
 
+
+
+<template id="eventItemTemplate">
+    <div class="event-item p-5 rounded-lg flex flex-col gap-4">
+        <div class="flex flex-col w-full gap-1 text-center">
+            <p class="event-date txt font-semibold"></p>
+            <h4 class="event-title font-bold text-votum-blue sentence txt"></h4>
+            <a class="event-link txt-btn mt-3 rounded-xl bg-white text-votum-blue border-3 border-votum2 w-full text-center py-2 hidden">
+                {{ __('nav.more') }} <i class="pl-2 fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</template>
+
+<template id="noEventsTemplate">
+    <p class="text-center sentence txt">{{ __('nav.noEvents') }}</p>
+</template>
+
+<template id="calendarDayTemplate">
+    <div class="calendar-day text-center text-xs sm:text-sm md:text-lg p-0.5 sm:p-1 rounded border-2 border-votum2 bg-white flex flex-col min-h-[40px] sm:min-h-[50px] md:min-h-[60px]">
+        <div class="calendar-day-number font-bold"></div>
+        <div class="calendar-day-bars flex-1 flex flex-col justify-between sm:gap-0.5 mt-1"></div>
+    </div>
+</template>
+
+<template id="calendarBarTemplate">
+    <div class="calendar-bar" style="flex:1; min-height:4px;"></div>
+</template>
+
 <script>
-    const calendarEvents = @json($calendarEvents);
-    const upcomingEvents = @json($upcomingEvents);
-
-    let currentDate = new Date();
-    let eventIndex = 0;
-
-    const locale = '{{ session("locale", "sk") }}';
-    const monthNames = {
-        'sk': ['Január', 'Február', 'Marec', 'Apríl', 'Máj', 'Jún', 'Júl', 'August', 'September', 'Október', 'November', 'December'],
-        'en': ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    }[locale];
-
-    const eventColors = {
-        'c1': '#C0152A', // tmavá červená
-        'c2': '#C45E00', // tmavá oranžová
-        'c3': '#A07800', // tmavá zlatá
-        'c4': '#1A7A2E', // tmavá zelená
-        'c5': '#1040A0', // tmavá modrá
-        'c6': '#5B2D8E', // tmavá fialová
-        'c7': '#A0008A', // tmavá purpurová
-        'c8': '#B5006A', // tmavá ružová
-    };
-
-    function normalizeDate(dateStr) {
-        return dateStr.split('T')[0];
-    }
-
-    function generateCalendar(year, month) {
-        const firstDay = new Date(year, month, 1);
-        const lastDay = new Date(year, month + 1, 0);
-        const adjustedStart = (firstDay.getDay() + 6) % 7;
-
-        const calendarGrid = document.getElementById('calendarGrid');
-        calendarGrid.innerHTML = '';
-
-        for (let i = 0; i < adjustedStart; i++) {
-            calendarGrid.appendChild(document.createElement('div'));
-        }
-
-        for (let day = 1; day <= lastDay.getDate(); day++) {
-            const dateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-            const dayCell = document.createElement('div');
-            dayCell.className = `
-                calendar-day
-                text-center
-                text-xs sm:text-sm md:text-lg
-                p-0.5 sm:p-1
-                rounded
-                border-2 border-votum2
-                bg-white
-                flex flex-col
-                min-h-[40px] sm:min-h-[50px] md:min-h-[60px]
-            `;
-
-            const dayNumber = document.createElement('div');
-            dayNumber.textContent = day;
-            dayNumber.className = 'font-bold';
-            dayCell.appendChild(dayNumber);
-
-            const dayEvents = calendarEvents.filter(e => e.dates?.some(d => normalizeDate(d) === dateString));
-
-            if (dayEvents.length > 0) {
-                const barsContainer = document.createElement('div');
-                barsContainer.className = 'flex-1 flex flex-col justify-between sm:gap-0.5 mt-1 ';
-                dayEvents.forEach(e => {
-                    const bar = document.createElement('div');
-                    bar.style.cssText = `background-color:${eventColors[e.color] || '#999'};flex:1;min-height:4px`;
-                    bar.title = e.title;
-                    barsContainer.appendChild(bar);
-                });
-                dayCell.appendChild(barsContainer);
-            }
-
-            calendarGrid.appendChild(dayCell);
-        }
-
-        document.getElementById('currentMonth').textContent = `${monthNames[month]} ${year}`;
-        document.getElementById('eventsListTitle').textContent = `${monthNames[month]} ${year}`;
-    }
-
-    function getEventsForMonth(year, month) {
-        return calendarEvents.filter(e => {
-            if (!e.dates) return false;
-            return e.dates.some(d => {
-                const date = new Date(normalizeDate(d));
-                return date.getFullYear() === year && date.getMonth() === month;
-            });
-        }).map(e => {
-            const upcoming = upcomingEvents.find(u => u.id === e.id);
-            // Zachováme color z calendarEvent aj po merge s upcoming
-            return upcoming ? {...upcoming, color: e.color} : e;
-        });
-    }
-
-    function updateEventsPagination() {
-        const items = document.querySelectorAll('.event-item');
-        items.forEach((item, i) => {
-            item.style.display = (i >= eventIndex && i < eventIndex + 3) ? 'flex' : 'none';
-        });
-        document.getElementById('prevEvent').style.display = eventIndex > 0 ? 'block' : 'none';
-        document.getElementById('nextEvent').style.display = eventIndex + 3 < items.length ? 'block' : 'none';
-    }
-
-    function renderEventsForMonth(year, month) {
-        const eventsList = document.getElementById('eventsList');
-        eventsList.innerHTML = '';
-        eventIndex = 0;
-
-        const events = getEventsForMonth(year, month);
-
-        if (events.length === 0) {
-            eventsList.innerHTML = `<p class="text-center sentence txt">{{ __('nav.noEvents') }}</p>`;
-            document.getElementById('prevEvent').style.display = 'none';
-            document.getElementById('nextEvent').style.display = 'none';
-            return;
-        }
-
-        events.forEach((event, index) => {
-            const color = eventColors[event.color] || '#cccccc';
-            const div = document.createElement('div');
-            div.className = 'event-item p-5 rounded-lg flex flex-col gap-4';
-            // Bledosivé pozadie + farebný border podľa farby v kalendári
-            div.style.cssText = `display:${index < 3 ? 'flex' : 'none'};background-color:#fff;border:8px solid ${color}`;
-            div.innerHTML = `
-                <div class="flex flex-col w-full gap-1 text-center">
-                    <p class="txt font-semibold">${event.dateLabel ?? event.date ?? ''}</p>
-                    <h4 class="font-bold text-votum-blue sentence txt">${event.title}</h4>
-                    ${event.inGallery ? `
-                        <a href="/event/${event.id}" class="txt-btn mt-3 rounded-xl bg-white text-votum-blue border-3 border-votum2 w-full text-center py-2">
-                            {{ __('nav.more') }} <i class="pl-2 fas fa-arrow-right"></i>
-                        </a>
-                    ` : ''}
-                </div>
-            `;
-            eventsList.appendChild(div);
-        });
-
-        updateEventsPagination();
-    }
-
-    function navigate(monthDelta) {
-        currentDate.setMonth(currentDate.getMonth() + monthDelta);
-        generateCalendar(currentDate.getFullYear(), currentDate.getMonth());
-        renderEventsForMonth(currentDate.getFullYear(), currentDate.getMonth());
-    }
-
-    document.getElementById('prevMonth').addEventListener('click', () => navigate(-1));
-    document.getElementById('nextMonth').addEventListener('click', () => navigate(1));
-    document.getElementById('prevEvent').addEventListener('click', () => {
-        eventIndex -= 3;
-        updateEventsPagination();
-    });
-    document.getElementById('nextEvent').addEventListener('click', () => {
-        eventIndex += 3;
-        updateEventsPagination();
-    });
-
-    generateCalendar(currentDate.getFullYear(), currentDate.getMonth());
-    renderEventsForMonth(currentDate.getFullYear(), currentDate.getMonth());
+    window.calendarEvents = @json($calendarEvents);
+    window.appLocale = @json(session('locale', 'sk'));
 </script>

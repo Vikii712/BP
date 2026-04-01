@@ -40,7 +40,6 @@ class HomeController extends Controller
             }
         }
 
-
         // --- TEAM ---
         $teamData = Section::where('category', 'ourTeam')->first();
         $team = null;
@@ -65,10 +64,9 @@ class HomeController extends Controller
             }
         }
 
-
-        // EVENTS
+        // --- EVENTS ---
         $events = Event::with('dates')->get()->map(function ($event) use ($locale, $today) {
-            $datesRaw = $event->dates; // Zachovať pre hasExact – PRED pluck
+            $datesRaw = $event->dates;
 
             $dates = $datesRaw
                 ->pluck('date')
@@ -77,82 +75,56 @@ class HomeController extends Controller
                 ->values();
 
             $futureDates = $dates->filter(fn ($d) => $d->gte($today));
+            $displayDates = $futureDates->isNotEmpty() ? $futureDates : $dates;
 
-            return (object)[
+            $hasExact = $datesRaw->contains('exact', true);
+
+            if (!$hasExact) {
+                $dateLabel = $displayDates->first()?->format('Y') ?? '';
+            } else {
+                $dateLabel = $displayDates->count() === 1
+                    ? $displayDates->first()->format('j. n. Y')
+                    : $displayDates->first()->format('j. n. Y') . ' – ' . $displayDates->last()->format('j. n. Y');
+            }
+
+            return (object) [
                 'id' => $event->id,
                 'title' => $locale === 'sk' ? $event->title_sk : $event->title_en,
                 'description' => $locale === 'sk' ? $event->content_sk : $event->content_en,
                 'color' => $event->color,
-
-                'dates' => $dates->map(fn($d) => $d->format('Y-m-d')),  // Pre JS kalendár
-                'dates_parsed' => $dates,                                 // Carbon objekty pre dateLabel
-                'futureDates' => $futureDates,
-                'nextDate' => $futureDates->first(),
-                'datesRaw' => $datesRaw,                                  // Pre hasExact
-
+                'dates' => $dates->map(fn ($d) => $d->format('Y-m-d'))->values(),
+                'dateLabel' => $dateLabel,
                 'main_pic' => $event->main_pic,
                 'pic_alt' => $locale === 'sk' ? $event->pic_alt_sk : $event->pic_alt_en,
-
                 'inCalendar' => (bool) $event->inCalendar,
                 'inGallery' => (bool) $event->inGallery,
                 'inHome' => (bool) $event->inHome,
             ];
         });
 
-        // CalendarEvents - len tie s inCalendar
-        $calendarEvents = $events->filter->inCalendar->values();
+        $calendarEvents = $events
+            ->filter(fn ($e) => $e->inCalendar)
+            ->values();
 
-        // UpcomingEvents - len tie s inCalendar a budúcimi dátumami
-        $upcomingEvents = $events
-            ->filter(fn ($e) => $e->inCalendar && $e->nextDate)
-            ->sortBy('nextDate')
-            ->values()
-            ->map(function ($event) {
-                $futureDates = $event->futureDates;
-                $hasExact = $event->datesRaw->contains('exact', true);
-
-                if (!$hasExact) {
-                    $dateLabel = $futureDates->first()?->format('Y') ?? '';
-                } else {
-                    $dateLabel = $futureDates->count() === 1
-                        ? $futureDates->first()->format('j. n. Y')
-                        : ($futureDates->count() > 1
-                            ? $futureDates->first()->format('j. n. Y') . ' – ' . $futureDates->last()->format('j. n. Y')
-                            : '');
-                }
-
-                return (object)[
-                    'id' => $event->id,
-                    'title' => $event->title,
-                    'description' => $event->description,
-                    'dateLabel' => $dateLabel,
-                    'inGallery' => $event->inGallery,
-                ];
-            });
+        $upcomingTitles = $events
+            ->filter(fn ($e) => $e->inCalendar)
+            ->filter(function ($e) use ($today) {
+                return collect($e->dates)
+                    ->map(fn ($d) => Carbon::parse($d))
+                    ->contains(fn ($d) => $d->gte($today));
+            })
+            ->map(fn ($e) => $e->dateLabel . ' ' . $e->title)
+            ->implode('. ');
 
         $homeEvents = $events
             ->filter(fn ($e) => $e->inHome && $e->inGallery)
             ->values()
             ->map(function ($event) {
-                $displayDates = $event->futureDates->isNotEmpty()
-                    ? $event->futureDates
-                    : $event->dates_parsed;
-
-                $hasExact = $event->datesRaw->contains('exact', true);
-
-                if (!$hasExact) {
-                    $dateLabel = $displayDates->first()?->format('Y') ?? '';
-                } else {
-                    $dateLabel = $displayDates->count() === 1
-                        ? $displayDates->first()->format('j. n. Y')
-                        : $displayDates->first()->format('j. n. Y') . ' – ' . $displayDates->last()->format('j. n. Y');
-                }
-
-                return (object)[
+                return (object) [
                     'id' => $event->id,
                     'title' => $event->title,
                     'description' => $event->description,
-                    'dateLabel' => $dateLabel,
+                    'dateLabel' => $event->dateLabel,
                     'main_pic' => $event->main_pic,
                     'pic_alt' => $event->pic_alt,
                 ];
@@ -164,10 +136,9 @@ class HomeController extends Controller
             'team' => $team,
             'teamImage' => $teamImage,
             'calendarEvents' => $calendarEvents,
-            'upcomingEvents' => $upcomingEvents,
+            'calendarTitles' => $upcomingTitles,
             'homeEvents' => $homeEvents,
         ]);
-
     }
 
     // --- ICS GENERATOR ---
